@@ -1,0 +1,4 @@
+rootProject.name = 's_hashtag'
+
+include 's_hashtag-web'
+
