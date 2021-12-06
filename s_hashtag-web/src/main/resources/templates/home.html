@@ -84,19 +84,40 @@
         </div>
     </nav>
 </div>
-<div id="map" style="width:1200px;height:600px;"></div>
+<div id="map" style="width:99%;height:600px;"></div>
+
+</body>
+
+<!-- services 라이브러리 불러오기 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e3911e7fa46ab16ff0c8b85eb101877e&libraries=services"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e3911e7fa46ab16ff0c8b85eb101877e"></script>
+
 <script>
     var container = document.getElementById('map');
     var options = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667),
+<!--        center: new kakao.maps.LatLng(33.450701, 126.570667),-->
+        center: new kakao.maps.LatLng(37.56667120440735, 126.97962007985399),
         level: 3
     };
 
     var map = new kakao.maps.Map(container, options);
-</script>
 
-</body>
+
+    var places = new kakao.maps.services.Places(map);
+    var callback = function(result, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            console.log(result);
+        }
+    };
+
+    // 카테고리 코드 검색
+    places.categorySearch('FD6', callback, {
+        // Map 객체를 지정하지 않았으므로 좌표객체를 생성하여 넘겨준다.
+        // location: new kakao.maps.LatLng(37.564968, 126.939909)
+        useMapBounds: true,
+        page: 5
+    });
+</script>
 
 <script>
     /* EXPANDER MENU */
