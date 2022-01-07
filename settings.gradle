@@ -1,4 +1,6 @@
 rootProject.name = 's_hashtag'
 
 include 's_hashtag-web'
+include 's_hashtag-kakao-api'
+include 's_hashtag-common'
 

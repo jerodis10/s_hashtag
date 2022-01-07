@@ -1,7 +1,8 @@
 package com.s_hashtag.member;
 
 import com.s_hashtag.domain.member.Member;
-import com.s_hashtag.domain.member.MemberRepository;
+//import com.s_hashtag.kakaoapi.domain.dto.KakaoPlaceDto;
+import com.s_hashtag.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -22,9 +23,6 @@ public class MemberController {
     @GetMapping("/add")
     public String addForm(@ModelAttribute("member") Member member) {
         return "members/addMemberForm";
-//        return "members/index2";
-//        return "members/addMemberForm";
-
     }
 
     @PostMapping("/add")

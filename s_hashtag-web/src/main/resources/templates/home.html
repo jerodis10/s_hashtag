@@ -28,7 +28,7 @@
                 <a href="#" class="nav__logo"></a>
             </div>
             <div class="nav__list">
-                <a href="#" class="nav__link active">
+                <a href="/members/kakao" class="nav__link active">
                     <ion-icon name="home-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">Dashboard</span>
                 </a>
@@ -50,7 +50,7 @@
                     </ul>
                 </div>
 
-                <a href="#" class="nav__link">
+                <a href="#" onclick="kakaoMap();" class="nav__link">
                     <ion-icon name="pie-chart-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">Analytics</span>
                 </a>
@@ -84,6 +84,9 @@
         </div>
     </nav>
 </div>
+<p id="result"></p>
+<p id="result2"></p>
+<p id="result3"></p>
 <div id="map" style="width:99%;height:600px;"></div>
 
 </body>
@@ -92,31 +95,125 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e3911e7fa46ab16ff0c8b85eb101877e&libraries=services"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e3911e7fa46ab16ff0c8b85eb101877e"></script>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
     var container = document.getElementById('map');
+<!--    var kakaoMap = new kakao.maps;-->
     var options = {
-<!--        center: new kakao.maps.LatLng(33.450701, 126.570667),-->
+        //center: new kakao.maps.LatLng(33.450701, 126.570667),
         center: new kakao.maps.LatLng(37.56667120440735, 126.97962007985399),
+        //center: kakaoMap.LatLng(37.56667120440735, 126.97962007985399),
         level: 3
     };
 
     var map = new kakao.maps.Map(container, options);
 
+    // 마우스 이동 이벤트
+    kakao.maps.event.addListener(map, 'dragend', function() {
+    //map.event.addListener(map, 'dragend', function() {
 
-    var places = new kakao.maps.services.Places(map);
-    var callback = function(result, status) {
-        if (status === kakao.maps.services.Status.OK) {
-            console.log(result);
-        }
-    };
+        // 지도 중심좌표를 얻어옵니다
+        var latlng = map.getCenter();
 
-    // 카테고리 코드 검색
-    places.categorySearch('FD6', callback, {
-        // Map 객체를 지정하지 않았으므로 좌표객체를 생성하여 넘겨준다.
-        // location: new kakao.maps.LatLng(37.564968, 126.939909)
-        useMapBounds: true,
-        page: 5
+        var message = '마우스 이동 이벤트: 변경된 지도 중심좌표는 ' + latlng.getLat() + ' 이고, ';
+        message += '경도는 ' + latlng.getLng() + ' 입니다';
+
+        var resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = message;
+
+
+        // 현재 지도 영역 구하기
+        var bounds = map.getBounds();
+        message = '현재 지도 영역:  ' + bounds.toString() + ' 입니다';
+        var resultDiv = document.getElementById('result3');
+        resultDiv.innerHTML = message;
+
+        // 카테고리 검색
+<!--        var places = new kakao.maps.services.Places(map);-->
+
+<!--        var callback = function(result, status) {-->
+<!--            if (status === kakao.maps.services.Status.OK) {-->
+<!--                console.log(result);-->
+<!--            }-->
+<!--        };-->
+
+<!--        places.categorySearch('FD6', callback, {-->
+<!--            // Map 객체를 지정하지 않았으므로 좌표객체를 생성하여 넘겨준다.-->
+<!--            // location: new kakao.maps.LatLng(37.564968, 126.939909)-->
+<!--            useMapBounds: true,-->
+<!--            page: 5-->
+<!--        });-->
+
     });
+
+    var cnt = 0;
+
+    // 지도 확대 축소 이벤트
+    kakao.maps.event.addListener(map, 'zoom_changed', function() {
+
+        // 지도의 현재 레벨을 얻어옵니다
+        var level = map.getLevel();
+
+        var message = '지도 확대 축소 이벤트: 현재 지도 레벨은 ' + level + ' 입니다';
+        var resultDiv = document.getElementById('result2');
+        resultDiv.innerHTML = message;
+
+
+        // 지도 현재 영역 구하기
+        var bounds = map.getBounds();
+        message = '지도 현재 영역:  ' + bounds.toString() + ' 입니다';
+        var resultDiv = document.getElementById('result3');
+        resultDiv.innerHTML = message;
+
+<!--        cnt = cnt + 1;-->
+<!--        var url = 'https://dapi.kakao.com/v2/local/search/category.json?category\_group\_code=FD6&radius=20000&page=';-->
+<!--        url = url + cnt;-->
+
+<!--        console.log(url);-->
+
+<!--        $.ajax({-->
+<!--               url:'https://dapi.kakao.com/v2/local/search/category.json?category\_group\_code=FD6&radius=20000',-->
+<!--               type:'GET',-->
+<!--               headers: {'Authorization' : 'KakaoAK af2408226e91805021d1adc7a9d31b36'},-->
+<!--       success:function(data){-->
+<!--           console.log(data);-->
+<!--       },-->
+<!--       error : function(e){-->
+<!--           console.log(e);-->
+<!--       }-->
+<!--    });-->
+
+    });
+
+    function kakaoMap() {
+        $.ajax({
+               url:'/kakaoMap',
+               type:'GET',
+<!--               headers: {'Authorization' : 'KakaoAK af2408226e91805021d1adc7a9d31b36'},-->
+           success:function(data){
+               console.log(data);
+           },
+           error : function(e){
+               console.log(e);
+           }
+        });
+
+
+
+<!--        $.ajax({-->
+<!--               url:'https://dapi.kakao.com/v2/local/search/category.json?category\_group\_code=FD6&radius=20000',-->
+<!--               type:'GET',-->
+<!--               headers: {'Authorization' : 'KakaoAK af2408226e91805021d1adc7a9d31b36'},-->
+<!--           success:function(data){-->
+<!--               console.log(data);-->
+<!--           },-->
+<!--           error : function(e){-->
+<!--               console.log(e);-->
+<!--           }-->
+<!--        });-->
+    }
+
+
 </script>
 
 <script>
