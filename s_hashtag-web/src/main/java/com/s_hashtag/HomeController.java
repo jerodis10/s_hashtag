@@ -1,6 +1,7 @@
 package com.s_hashtag;
 
 import com.s_hashtag.domain.member.Member;
+import com.s_hashtag.kakaoapi.domain.caller.KakaoProperties;
 import com.s_hashtag.kakaoapi.domain.caller.KakaoRestTemplateApiCaller;
 import com.s_hashtag.kakaoapi.domain.dto.KakaoPlaceDto;
 import com.s_hashtag.kakaoapi.domain.rect.Rect;
@@ -11,6 +12,7 @@ import com.s_hashtag.repository.MemberRepository;
 import com.s_hashtag.session.SessionManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -32,6 +34,8 @@ public class HomeController {
     private final SessionManager sessionManager;
 
     private final KakaoRestTemplateApiCaller kakaoRestTemplateApiCaller;
+
+    private final KakaoProperties kakaoProperties;
 
 //    @GetMapping("/")
     public String home() {

@@ -1,9 +1,11 @@
 package com.s_hashtag.kakaoapi.service;
 
+import com.s_hashtag.kakaoapi.domain.caller.KakaoProperties;
 import com.s_hashtag.kakaoapi.domain.caller.KakaoRestTemplateApiCaller;
 import com.s_hashtag.kakaoapi.domain.dto.KakaoPlaceDto;
 import com.s_hashtag.kakaoapi.domain.rect.Rect;
 import com.s_hashtag.kakaoapi.domain.rect.RectDivider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

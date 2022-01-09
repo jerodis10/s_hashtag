@@ -1,4 +1,5 @@
 kakao:
+  key: af2408226e91805021d1adc7a9d31b36
   baseUrl: https://dapi.kakao.com
   categoryUrl: /v2/local/search/category.json
   categoryGroupCode: category_group_code
