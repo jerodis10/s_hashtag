@@ -1,32 +1,29 @@
-package com.s_hashtag.kakaoapi.service;
+//package com.s_hashtag.kakaoapi.service;
 
 import com.s_hashtag.kakaoapi.domain.caller.KakaoProperties;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.env.Environment;
+import org.springframework.test.context.TestPropertySource;
 
 import static org.assertj.core.api.Assertions.*;
 
 //@SpringBootTest
-@ExtendWith(MockitoExtension.class)
-class KakaoApiServiceTest {
-
-    @Autowired
-    private KakaoProperties kakaoProperties;
-
-//    KakaoApiServiceTest(KakaoProperties kakaoProperties) {
-//        this.kakaoProperties = kakaoProperties;
+//@ExtendWith(MockitoExtension.class)
+//@TestPropertySource(locations = "classpath:/application-kakao.yml")
+//class KakaoApiServiceTest {
+//
+//    @Autowired
+//    Environment environment;
+//
+//    @DisplayName("Property ConfigurationProperty Test")
+//    @Test
+//    void configurationPropertyTest() {
+////        String key = kakaoProperties.getKey();
+//        String key = environment.getProperty("key");
+//        assertThat(key).isEqualTo("af2408226e91805021d1adc7a9d31b36");
 //    }
-
-    @DisplayName("Property ConfigurationProperty Test")
-    @Test
-    void configurationPropertyTest() {
-        String key = kakaoProperties.getKey();
-        assertThat(key).isEqualTo("af2408226e91805021d1adc7a9d31b36");
-    }
 
 
 
@@ -60,4 +57,4 @@ class KakaoApiServiceTest {
 //        this.kakaoApiService = new KakaoApiService(kakaoRestTemplateApiCaller);
 //        this.server = MockRestServiceServer.bindTo(restTemplate).ignoreExpectOrder(true).build();
 //    }
-}
+//}

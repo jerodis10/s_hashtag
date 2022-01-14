@@ -8,6 +8,7 @@ import com.s_hashtag.kakaoapi.domain.rect.Rect;
 import com.s_hashtag.kakaoapi.domain.rect.location.Coordinate;
 import com.s_hashtag.kakaoapi.domain.rect.location.Latitude;
 import com.s_hashtag.kakaoapi.domain.rect.location.Longitude;
+//import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import com.s_hashtag.repository.MemberRepository;
 import com.s_hashtag.session.SessionManager;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -34,8 +36,9 @@ public class HomeController {
     private final SessionManager sessionManager;
 
     private final KakaoRestTemplateApiCaller kakaoRestTemplateApiCaller;
+//    private final KakaoApiService kakaoApiService;
 
-    private final KakaoProperties kakaoProperties;
+//    private final KakaoProperties kakaoProperties;
 
 //    @GetMapping("/")
     public String home() {
@@ -123,14 +126,14 @@ public class HomeController {
 
     @GetMapping("/kakaoMap")
     @ResponseBody
-    public KakaoPlaceDto kakaoMap() {
+    public Map kakaoMap() {
         Coordinate minLatitude = new Latitude(new BigDecimal("0"));
         Coordinate maxLatitude = new Latitude(new BigDecimal("2000"));
         Coordinate minLongitude = new Longitude(new BigDecimal("0"));
         Coordinate maxLongitude = new Longitude(new BigDecimal("2000"));
 
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
-        KakaoPlaceDto firstPage = kakaoRestTemplateApiCaller.findPlaceByCategory("FD6", rect, 1);
-        return firstPage;
+        Map map = kakaoRestTemplateApiCaller.findPlaceByCategory("FD6", rect, 1);
+        return map;
     }
 }

@@ -29,7 +29,8 @@ public class JdbcTemplatememberRepository implements MemberRepository{
 //        jdbcInsert.withTableName("member").usingColumns("id", "password", "name");
         jdbcInsert.withTableName("member");
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("id", member.getId());
+//        parameters.put("id", member.getId());
+        parameters.put("id", member.getLoginId());
         parameters.put("password", member.getPassword());
         parameters.put("name", member.getName());
         jdbcInsert.execute(parameters);
@@ -61,7 +62,8 @@ public class JdbcTemplatememberRepository implements MemberRepository{
     private RowMapper<Member> memberRowMapper() {
         return (rs, rowNum) -> {
             Member member = new Member();
-            member.setId(rs.getString("id"));
+//            member.setId(rs.getString("id"));
+            member.setLoginId(rs.getString("loginId"));
             member.setPassword(rs.getString("password"));
             member.setName(rs.getString("name"));
             return member;

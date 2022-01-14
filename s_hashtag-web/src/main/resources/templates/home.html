@@ -49,7 +49,7 @@
                         <a href="#" class="collapse__sublink">Members</a>
                     </ul>
                 </div>
-
+<!--                onclick="kakaoMap();"-->
                 <a href="#" onclick="kakaoMap();" class="nav__link">
                     <ion-icon name="pie-chart-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">Analytics</span>
@@ -192,11 +192,13 @@
 <!--               headers: {'Authorization' : 'KakaoAK af2408226e91805021d1adc7a9d31b36'},-->
            success:function(data){
                console.log(data);
+<!--               alert(data.documents);-->
            },
            error : function(e){
                console.log(e);
            }
         });
+    }
 
 
 
@@ -211,7 +213,7 @@
 <!--               console.log(e);-->
 <!--           }-->
 <!--        });-->
-    }
+<!--    }-->
 
 
 </script>
