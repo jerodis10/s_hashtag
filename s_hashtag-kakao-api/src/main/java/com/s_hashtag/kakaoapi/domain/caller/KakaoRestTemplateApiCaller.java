@@ -28,7 +28,7 @@ private final String URL = "https://dapi.kakao.com/v2/local/search/category";
     }
 
 //    public KakaoPlaceDto findPlaceByCategory(String category, Rect rect, int page) {
-public Map findPlaceByCategory(String category, Rect rect, int page) {
+public KakaoPlaceDto findPlaceByCategory(String category, Rect rect, int page) {
         UriComponents uri = UriComponentsBuilder.newInstance()
 //                .path(kakaoProperties.getCategoryUrl())
 //                .queryParam(kakaoProperties.getCategoryGroupCode(), category)
@@ -39,7 +39,11 @@ public Map findPlaceByCategory(String category, Rect rect, int page) {
                 .queryParam("category_group_code", category)
 //                .queryParam("category\\_group\\_code", category)
 //                .queryParam(RECT, rect.toKakaoUriFormat())
-                .queryParam("radius", 20000)
+//                .queryParam("x", "126.97954083183751")
+//                .queryParam("y", "37.56672525045528")
+//                .queryParam("radius", "100")
+//                .queryParam("rect", "126.97099029585274,37.56414661025042,126.98802400053437,37.56955554225429")
+                .queryParam("rect", rect.toKakaoUriFormat())
 //                .queryParam(PAGE, Integer.toString(page))
                 .build();
         RestTemplate restTemplate = new RestTemplate();
@@ -49,12 +53,18 @@ public Map findPlaceByCategory(String category, Rect rect, int page) {
 //        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
 //                .queryParam("query", "Omens");
 //        return restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, Map.class).getBody();
-                return restTemplate.exchange(uri.toUriString(), HttpMethod.GET, entity, Map.class).getBody();
+//                return restTemplate.exchange(uri.toUriString(), HttpMethod.GET, entity, Map.class).getBody();
+    return restTemplate.exchange(uri.toUriString(), HttpMethod.GET, entity, KakaoPlaceDto.class).getBody();
 //        return restTemplate.getForObject(uri.toUriString(), KakaoPlaceDto.class);
     }
 
-    public boolean isLessOrEqualTotalCount(KakaoPlaceDto kakaoPlaceDto) {
-        int totalCount = kakaoPlaceDto.getTotalCount();
-        return (kakaoProperties.getMaxDocumentCount() * kakaoProperties.getMaxPageableCount()) >= totalCount;
+    public Integer isLessOrEqualTotalCount(KakaoPlaceDto kakaoPlaceDto) {
+//        int totalCount = kakaoPlaceDto.getTotalCount();
+        Integer ret = kakaoPlaceDto.getDocuments().size();
+        if(ret >= 1 && ret <= 14) return 1;
+        else if(ret >= 15) return 2;
+        else  return 0;
+//        return ret <= 14 ? ;
+//        return (kakaoProperties.getMaxDocumentCount() * kakaoProperties.getMaxPageableCount()) >= totalCount;
     }
 }

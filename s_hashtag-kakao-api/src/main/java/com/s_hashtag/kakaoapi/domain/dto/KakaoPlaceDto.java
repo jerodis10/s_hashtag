@@ -18,12 +18,13 @@ import java.util.List;
 public class KakaoPlaceDto {
     private Meta meta;
     private List<Document> documents;
+//    private Integer totalCount;
 
     public int getTotalCount() {
         return this.meta.getTotalCount();
     }
 
-    public int getPageableCount() {
-        return this.meta.getPageableCount();
-    }
+//    public int getPageableCount() {
+//        return this.meta.getPageableCount();
+//    }
 }

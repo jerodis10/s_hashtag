@@ -49,7 +49,6 @@
                         <a href="#" class="collapse__sublink">Members</a>
                     </ul>
                 </div>
-<!--                onclick="kakaoMap();"-->
                 <a href="#" onclick="kakaoMap();" class="nav__link">
                     <ion-icon name="pie-chart-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">Analytics</span>
@@ -110,7 +109,6 @@
 
     // 마우스 이동 이벤트
     kakao.maps.event.addListener(map, 'dragend', function() {
-    //map.event.addListener(map, 'dragend', function() {
 
         // 지도 중심좌표를 얻어옵니다
         var latlng = map.getCenter();
@@ -121,12 +119,29 @@
         var resultDiv = document.getElementById('result');
         resultDiv.innerHTML = message;
 
-
         // 현재 지도 영역 구하기
         var bounds = map.getBounds();
         message = '현재 지도 영역:  ' + bounds.toString() + ' 입니다';
         var resultDiv = document.getElementById('result3');
         resultDiv.innerHTML = message;
+
+        var rect = {ha: bounds.ha, oa: bounds.oa, pa: bounds.pa, qa: bounds.qa};
+
+           // json 확인 로직
+<!--        function IsJsonString(str) {-->
+<!--          try {-->
+<!--            var json = JSON.parse(str);-->
+<!--            return (typeof json === 'object');-->
+<!--          } catch (e) {-->
+<!--            return false;-->
+<!--          }-->
+<!--        }-->
+
+<!--        if(IsJsonString(bounds)) console.log("y");-->
+<!--        else console.log("n");-->
+
+        kakaoMap(rect);
+<!--            kakaoMap();-->
 
         // 카테고리 검색
 <!--        var places = new kakao.maps.services.Places(map);-->
@@ -165,6 +180,10 @@
         var resultDiv = document.getElementById('result3');
         resultDiv.innerHTML = message;
 
+        var rect = {ha: bounds.ha, oa: bounds.oa, pa: bounds.pa, qa: bounds.qa};
+
+        kakaoMap(rect);
+
 <!--        cnt = cnt + 1;-->
 <!--        var url = 'https://dapi.kakao.com/v2/local/search/category.json?category\_group\_code=FD6&radius=20000&page=';-->
 <!--        url = url + cnt;-->
@@ -185,14 +204,17 @@
 
     });
 
-    function kakaoMap() {
+    function kakaoMap(rect) {
         $.ajax({
                url:'/kakaoMap',
-               type:'GET',
-<!--               headers: {'Authorization' : 'KakaoAK af2408226e91805021d1adc7a9d31b36'},-->
+               type:'POST',
+               dataType: 'json',
+	           data: rect,
+<!--            data : {-->
+<!--			nickName : '닉네임',-->
+<!--		},-->
            success:function(data){
                console.log(data);
-<!--               alert(data.documents);-->
            },
            error : function(e){
                console.log(e);

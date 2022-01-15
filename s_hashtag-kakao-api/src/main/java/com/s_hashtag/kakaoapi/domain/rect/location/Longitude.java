@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 public class Longitude extends Coordinate {
     private static final BigDecimal MIN_LONGITUDE = BigDecimal.valueOf(124);
     private static final BigDecimal MAX_LONGITUDE = BigDecimal.valueOf(132);
+//    private static final BigDecimal MIN_LONGITUDE = BigDecimal.valueOf(0);
+//    private static final BigDecimal MAX_LONGITUDE = BigDecimal.valueOf(20000);
 
     public Longitude(double longitude) {
         super(validateRange(BigDecimal.valueOf(longitude)));

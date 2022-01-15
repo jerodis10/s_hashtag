@@ -9,6 +9,7 @@ import com.s_hashtag.kakaoapi.domain.rect.location.Coordinate;
 import com.s_hashtag.kakaoapi.domain.rect.location.Latitude;
 import com.s_hashtag.kakaoapi.domain.rect.location.Longitude;
 //import com.s_hashtag.kakaoapi.service.KakaoApiService;
+import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import com.s_hashtag.repository.MemberRepository;
 import com.s_hashtag.session.SessionManager;
 import lombok.RequiredArgsConstructor;
@@ -16,14 +17,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -36,7 +36,7 @@ public class HomeController {
     private final SessionManager sessionManager;
 
     private final KakaoRestTemplateApiCaller kakaoRestTemplateApiCaller;
-//    private final KakaoApiService kakaoApiService;
+    private final KakaoApiService kakaoApiService;
 
 //    private final KakaoProperties kakaoProperties;
 
@@ -124,16 +124,19 @@ public class HomeController {
 //        return "loginHome";
 //    }
 
-    @GetMapping("/kakaoMap")
+    @PostMapping("/kakaoMap")
     @ResponseBody
-    public Map kakaoMap() {
-        Coordinate minLatitude = new Latitude(new BigDecimal("0"));
-        Coordinate maxLatitude = new Latitude(new BigDecimal("2000"));
-        Coordinate minLongitude = new Longitude(new BigDecimal("0"));
-        Coordinate maxLongitude = new Longitude(new BigDecimal("2000"));
+//    public KakaoPlaceDto kakaoMap(@RequestParam Map<String, Object> param) {
+    public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) {
+        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
+        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
+        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
+        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
 
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
-        Map map = kakaoRestTemplateApiCaller.findPlaceByCategory("FD6", rect, 1);
-        return map;
+//        Rect rect = new Rect(param.get("ha"), param.get("oa"), param.get("ha"), param.get("ha"));
+//        KakaoPlaceDto  kakaoPlaceDto= kakaoRestTemplateApiCaller.findPlaceByCategory("FD6", rect, 1);
+        List<KakaoPlaceDto>  kakaoPlaceDto= kakaoApiService.findPlaces("FD6", rect, new ArrayList<>());
+        return kakaoPlaceDto;
     }
 }

@@ -22,6 +22,8 @@ public abstract class Coordinate {
         return this.getValue() < compare.getValue();
     }
 
+    public BigDecimal makeMedian(Coordinate compare) { return this.value.add(compare.value).divide(BigDecimal.valueOf(2)); }
+
     public double getValue() {
         return value.doubleValue();
     }
