@@ -126,7 +126,7 @@ public class HomeController {
 
     @PostMapping("/kakaoMap")
     @ResponseBody
-//    public KakaoPlaceDto kakaoMap(@RequestParam Map<String, Object> param) {
+//    public KakaoPlaceDto kakaoMap( @RequestParam Map<String, Object> param) {
     public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) {
         Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
         Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
