@@ -3,6 +3,7 @@ package com.s_hashtag;
 import com.s_hashtag.domain.member.Member;
 import com.s_hashtag.kakaoapi.domain.caller.KakaoProperties;
 import com.s_hashtag.kakaoapi.domain.caller.KakaoRestTemplateApiCaller;
+import com.s_hashtag.kakaoapi.domain.dto.Document;
 import com.s_hashtag.kakaoapi.domain.dto.KakaoPlaceDto;
 import com.s_hashtag.kakaoapi.domain.rect.Rect;
 import com.s_hashtag.kakaoapi.domain.rect.location.Coordinate;
@@ -127,8 +128,8 @@ public class HomeController {
 
     @PostMapping("/kakaoMap")
     @ResponseBody
-//    public KakaoPlaceDto kakaoMap( @RequestParam Map<String, Object> param) {
     public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) {
+//    public List<Document> kakaoMap(@RequestParam Map<String, Object> param) {
         Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
         Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
         Coordinate minLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
@@ -137,7 +138,15 @@ public class HomeController {
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
 //        Rect rect = new Rect(param.get("ha"), param.get("oa"), param.get("ha"), param.get("ha"));
 //        KakaoPlaceDto  kakaoPlaceDto= kakaoRestTemplateApiCaller.findPlaceByCategory("FD6", rect, 1);
-        List<KakaoPlaceDto>  kakaoPlaceDto= kakaoApiService.findPlaces("FD6", rect, new ArrayList<>());
+        List<KakaoPlaceDto> kakaoPlaceDto = kakaoApiService.findPlaces("FD6", rect, new ArrayList<>());
+
+        List<Document> list = new ArrayList<>();
+        for(KakaoPlaceDto page : kakaoPlaceDto){
+            for(Document document : page.getDocuments()){
+                list.add(document);
+            }
+        }
+
         return kakaoPlaceDto;
     }
 }
