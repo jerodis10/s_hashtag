@@ -1,6 +1,8 @@
 package com.s_hashtag;
 
 import com.s_hashtag.domain.member.Member;
+import com.s_hashtag.instagram.crawler.InstagramCrawler;
+import com.s_hashtag.instagram.dto.CrawlingDto;
 import com.s_hashtag.kakaoapi.domain.caller.KakaoProperties;
 import com.s_hashtag.kakaoapi.domain.caller.KakaoRestTemplateApiCaller;
 import com.s_hashtag.kakaoapi.domain.dto.Document;
@@ -38,6 +40,7 @@ public class HomeController {
 
     private final KakaoRestTemplateApiCaller kakaoRestTemplateApiCaller;
     private final KakaoApiService kakaoApiService;
+    private final InstagramCrawler instagramCrawler;
 
 //    private final KakaoProperties kakaoProperties;
 
@@ -141,11 +144,15 @@ public class HomeController {
         List<KakaoPlaceDto> kakaoPlaceDto = kakaoApiService.findPlaces("FD6", rect, new ArrayList<>());
 
         List<Document> list = new ArrayList<>();
+        List<CrawlingDto> list2 = new ArrayList<>();
         for(KakaoPlaceDto page : kakaoPlaceDto){
             for(Document document : page.getDocuments()){
                 list.add(document);
+                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
+                list2.add(crawlingDto);
             }
         }
+//        CrawlingDto crawlingDto = instagramCrawler.crawler("12");
 
         return kakaoPlaceDto;
     }

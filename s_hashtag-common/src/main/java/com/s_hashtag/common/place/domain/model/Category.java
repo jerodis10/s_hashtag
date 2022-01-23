@@ -1,4 +1,4 @@
-package com.s_hashtag.place.domain.model;
+package com.s_hashtag.common.place.domain.model;
 
 import lombok.Getter;
 

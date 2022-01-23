@@ -15,8 +15,8 @@ public class KakaoRestTemplateApiCaller {
     private static final String RECT = "rect";
     private static final String PAGE = "page";
 
-//    private final String URL = "https://dapi.kakao.com/v3/search/book";
-private final String URL = "https://dapi.kakao.com/v2/local/search/category";
+    //    private final String URL = "https://dapi.kakao.com/v3/search/book";
+    private final String URL = "https://dapi.kakao.com/v2/local/search/category";
     private final String KEY = "af2408226e91805021d1adc7a9d31b36";
 
     private final RestTemplate restTemplate;

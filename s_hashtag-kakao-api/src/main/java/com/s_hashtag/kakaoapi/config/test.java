@@ -21,12 +21,12 @@ public class test implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        System.out.println("=============");
-        System.out.println(abProperties);
-        System.out.println(abProperties.getMaxDocumentCount());
-        System.out.println(abProperties.getKey());
-        System.out.println(abProperties.getBaseUrl());
-        System.out.println("=============");
+//        System.out.println("=============");
+//        System.out.println(abProperties);
+//        System.out.println(abProperties.getMaxDocumentCount());
+//        System.out.println(abProperties.getKey());
+//        System.out.println(abProperties.getBaseUrl());
+//        System.out.println("=============");
 
     }
 }

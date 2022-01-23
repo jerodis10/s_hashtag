@@ -36,11 +36,11 @@ public class KakaoConfiguration implements ApplicationRunner{
     @Override
     public void run(ApplicationArguments args) throws Exception {
         // 바인딩이 제대로 되었는지 콘솔 출력
-        System.out.println("=================================");
-        System.out.println("kakaoProperties : " + kakaoProperties);
-        System.out.println("getCategoryGroupCode : " + kakaoProperties.getCategoryGroupCode());
-        System.out.println("getKey : " + kakaoProperties.getKey());
-        System.out.println("=================================");
+//        System.out.println("=================================");
+//        System.out.println("kakaoProperties : " + kakaoProperties);
+//        System.out.println("getCategoryGroupCode : " + kakaoProperties.getCategoryGroupCode());
+//        System.out.println("getKey : " + kakaoProperties.getKey());
+//        System.out.println("=================================");
     }
 
 }

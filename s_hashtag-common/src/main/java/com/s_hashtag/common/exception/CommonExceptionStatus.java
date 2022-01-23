@@ -1,4 +1,4 @@
-package com.s_hashtag.exception;
+package com.s_hashtag.common.exception;
 
 import lombok.Getter;
 

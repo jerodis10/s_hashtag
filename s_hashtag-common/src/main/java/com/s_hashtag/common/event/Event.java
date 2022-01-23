@@ -1,4 +1,4 @@
-package com.s_hashtag.event;
+package com.s_hashtag.common.event;
 
 public interface Event {
     void doService();
