@@ -14,9 +14,9 @@ public class PostDtos {
     private final List<PostDto> postDtos;
 
     public PostDtos(List<PostDto> postDtos) {
-        if (postDtos.size() != POPULAR_POST_SIZE) {
-            throw new CrawlerException(CrawlerExceptionStatus.NOT_ENOUGH_POPULAR_POST);
-        }
+//        if (postDtos.size() != POPULAR_POST_SIZE) {
+//            throw new CrawlerException(CrawlerExceptionStatus.NOT_ENOUGH_POPULAR_POST);
+//        }
         this.postDtos = new ArrayList<>(postDtos);
     }
 

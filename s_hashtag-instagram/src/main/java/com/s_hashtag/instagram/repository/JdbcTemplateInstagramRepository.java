@@ -1,10 +1,9 @@
-package com.s_hashtag.repository;
+package com.s_hashtag.instagram.repository;
 
 import com.s_hashtag.domain.member.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
 import javax.sql.DataSource;
@@ -13,12 +12,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class JdbcTemplatememberRepository implements MemberRepository{
+public class JdbcTemplateInstagramRepository implements InstagramRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public JdbcTemplatememberRepository(DataSource dataSource) {
+    public JdbcTemplateInstagramRepository(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 

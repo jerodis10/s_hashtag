@@ -27,6 +27,7 @@ public class InstaCrawlingResult {
     public PostDtos findPostDtos() {
         List<PostDto> postDtos = new ArrayList<>();
         String popularPostsInfo = RegexPattern.HASHTAG_POPULAR_POSTS_INFO.extract(body);
+//        if(popularPostsInfo.equals("0")) return new PostDtos(postDtos);
         JsonElement popularPostsJson = JsonParser.parseString(popularPostsInfo);
         JsonArray sources = popularPostsJson.getAsJsonObject().get(SOURCE_KEY).getAsJsonArray();
         for (JsonElement source : sources) {

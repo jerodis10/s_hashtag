@@ -27,7 +27,7 @@ public class InstagramCrawler {
     }
 
     public CrawlingDto crawler(String crawlingName) {
-//        String parsedHashtagName = PlaceNameParser.parsePlaceName(crawlingName);
+//        String parsedHashtagName = PlaceName  Parser.parsePlaceName(crawlingName);
         String parsedHashtagName = crawlingName.replaceAll(" ", "");
         String body = crawler.crawl(String.format(INSTAGRAM_URL_FORMAT, parsedHashtagName));
         return createCrawlingDto(parsedHashtagName, body);

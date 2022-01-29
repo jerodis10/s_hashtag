@@ -21,8 +21,8 @@ public class Crawler {
     public String crawl(String url) {
         try {
             return Jsoup.connect(url)
-//                    .userAgent(USER_AGENT)
-//                    .timeout(HOLDING_TIME)
+                    .userAgent(USER_AGENT)
+                    .timeout(HOLDING_TIME)
                     .get()
                     .body()
                     .toString();

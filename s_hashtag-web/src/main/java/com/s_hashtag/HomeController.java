@@ -129,7 +129,7 @@ public class HomeController {
 //        return "loginHome";
 //    }
 
-    @PostMapping("/kakaoMap")
+//    @PostMapping("/kakaoMap")
     @ResponseBody
     public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) {
 //    public List<Document> kakaoMap(@RequestParam Map<String, Object> param) {
@@ -145,14 +145,15 @@ public class HomeController {
 
         List<Document> list = new ArrayList<>();
         List<CrawlingDto> list2 = new ArrayList<>();
-        for(KakaoPlaceDto page : kakaoPlaceDto){
-            for(Document document : page.getDocuments()){
-                list.add(document);
-                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
-                list2.add(crawlingDto);
-            }
-        }
-//        CrawlingDto crawlingDto = instagramCrawler.crawler("12");
+//        for(KakaoPlaceDto page : kakaoPlaceDto){
+//            for(Document document : page.getDocuments()){
+//                list.add(document);
+//                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
+//                list2.add(crawlingDto);
+//            }
+//        }
+
+        CrawlingDto crawlingDto = instagramCrawler.crawler("당산오돌종로점");
 
         return kakaoPlaceDto;
     }
