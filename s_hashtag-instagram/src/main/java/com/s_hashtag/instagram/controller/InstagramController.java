@@ -1,4 +1,4 @@
-package com.s_hashtag.instagram.service;
+package com.s_hashtag.instagram.controller;
 
 import com.s_hashtag.instagram.crawler.InstagramCrawler;
 import com.s_hashtag.instagram.dto.CrawlingDto;
@@ -12,6 +12,7 @@ import com.s_hashtag.kakaoapi.domain.rect.location.Longitude;
 import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,12 +22,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
-@Service
-public class InstagramService {
+@Controller
+public class InstagramController {
 
     private final KakaoApiService kakaoApiService;
     private final InstagramCrawler instagramCrawler;
@@ -35,13 +35,15 @@ public class InstagramService {
     @PostMapping("/kakaoMap")
     @ResponseBody
     public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) {
-        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
-        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
-        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
-        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
+//        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
+//        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
+//        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
+//        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
+//
+//        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
+//        List<KakaoPlaceDto> kakaoPlaceDto = kakaoApiService.findPlaces("FD6", rect, new ArrayList<>());
 
-        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
-        List<KakaoPlaceDto> kakaoPlaceDto = kakaoApiService.findPlaces("FD6", rect, new ArrayList<>());
+        kakaoApiService.savePlaces(param);
 
         List<Document> list_documonet = new ArrayList<>();
         List<CrawlingDto> list_crawlingDto = new ArrayList<>();

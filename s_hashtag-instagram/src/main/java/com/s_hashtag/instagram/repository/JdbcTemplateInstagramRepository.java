@@ -1,10 +1,11 @@
 package com.s_hashtag.instagram.repository;
 
-import com.s_hashtag.domain.member.Member;
+import com.s_hashtag.kakaoapi.domain.dto.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Repository
 public class JdbcTemplateInstagramRepository implements InstagramRepository {
 
     private final JdbcTemplate jdbcTemplate;
@@ -22,50 +24,46 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public Member save(Member member) {
+    public Document kakao_document_save(Document document) {
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
-//        jdbcInsert.withTableName("member").usingGeneratedKeyColumns("id");
-//        jdbcInsert.withTableName("member").usingColumns("id", "password", "name");
-        jdbcInsert.withTableName("member");
+        jdbcInsert.withTableName("KAKAO_DOCUMENT");
         Map<String, Object> parameters = new HashMap<>();
-//        parameters.put("id", member.getId());
-        parameters.put("id", member.getLoginId());
-        parameters.put("password", member.getPassword());
-        parameters.put("name", member.getName());
+        parameters.put("ID", document.getId());
+        parameters.put("CATEGORY_GROUP_CODE", document.getCategoryGroupCode());
+        parameters.put("LATITUDE", document.getLatitude());
+        parameters.put("LONGTITUDE", document.getLongitude());
+        parameters.put("PLACE_NAME", document.getPlaceName());
+        parameters.put("ROAD_ADDRESS_NAME", document.getRoadAddressName());
+        parameters.put("PLACE_URL", document.getPlaceUrl());
         jdbcInsert.execute(parameters);
-//        Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
-//        member.setId(key.longValue());
-//        member.setLoginId(key.toString());
-//        member.setPassword(key.toString());
-//        member.setName(key.toString());
-        return member;
+        return document;
     }
 
-    @Override
-    public Optional<Member> findById(String id) {
-        List<Member> result = jdbcTemplate.query("select * from member where id = ?", memberRowMapper(), id);
-        return result.stream().findAny();
-    }
-
-    @Override
-    public Optional<Member> findByName(String name) {
-        List<Member> result = jdbcTemplate.query("select * from member where name = ?", memberRowMapper(), name);
-        return result.stream().findAny();
-    }
-
-    @Override
-    public List<Member> findAll() {
-        return jdbcTemplate.query("select * from member", memberRowMapper());
-    }
-
-    private RowMapper<Member> memberRowMapper() {
-        return (rs, rowNum) -> {
-            Member member = new Member();
-//            member.setId(rs.getString("id"));
-            member.setLoginId(rs.getString("loginId"));
-            member.setPassword(rs.getString("password"));
-            member.setName(rs.getString("name"));
-            return member;
-        };
-    }
+//    @Override
+//    public Optional<Member> findById(String id) {
+//        List<Member> result = jdbcTemplate.query("select * from member where id = ?", memberRowMapper(), id);
+//        return result.stream().findAny();
+//    }
+//
+//    @Override
+//    public Optional<Member> findByName(String name) {
+//        List<Member> result = jdbcTemplate.query("select * from member where name = ?", memberRowMapper(), name);
+//        return result.stream().findAny();
+//    }
+//
+//    @Override
+//    public List<Member> findAll() {
+//        return jdbcTemplate.query("select * from member", memberRowMapper());
+//    }
+//
+//    private RowMapper<Member> memberRowMapper() {
+//        return (rs, rowNum) -> {
+//            Member member = new Member();
+////            member.setId(rs.getString("id"));
+//            member.setLoginId(rs.getString("loginId"));
+//            member.setPassword(rs.getString("password"));
+//            member.setName(rs.getString("name"));
+//            return member;
+//        };
+//    }
 }

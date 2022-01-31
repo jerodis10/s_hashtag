@@ -2,15 +2,20 @@ package com.s_hashtag.kakaoapi.service;
 
 import com.s_hashtag.kakaoapi.domain.caller.KakaoProperties;
 import com.s_hashtag.kakaoapi.domain.caller.KakaoRestTemplateApiCaller;
+import com.s_hashtag.kakaoapi.domain.dto.Document;
 import com.s_hashtag.kakaoapi.domain.dto.KakaoPlaceDto;
 import com.s_hashtag.kakaoapi.domain.rect.Rect;
 import com.s_hashtag.kakaoapi.domain.rect.RectDivider;
+import com.s_hashtag.kakaoapi.domain.rect.location.Coordinate;
+import com.s_hashtag.kakaoapi.domain.rect.location.Latitude;
+import com.s_hashtag.kakaoapi.domain.rect.location.Longitude;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class KakaoApiService {
@@ -26,6 +31,30 @@ public class KakaoApiService {
 
     public KakaoApiService(KakaoRestTemplateApiCaller kakaoRestTemplateApiCaller) {
         this.kakaoRestTemplateApiCaller = kakaoRestTemplateApiCaller;
+    }
+
+    public void savePlaces(Map<String, Object> param) {
+        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
+        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
+        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
+        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
+
+        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
+
+        List<KakaoPlaceDto> kakaoPlaceDto = findPlaces("FD6", rect, new ArrayList<>());
+
+        List<Document> list_documonet = new ArrayList<>();
+        List<CrawlingDto> list_crawlingDto = new ArrayList<>();
+        for(KakaoPlaceDto page : kakaoPlaceDto){
+            for(Document document : page.getDocuments()){
+                list_documonet.add(document);
+                instagramRepository.kakao_document_save(document);
+
+                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
+                list_crawlingDto.add(crawlingDto);
+//                instagramRepository.save(crawlingDto);
+            }
+        }
     }
     
     // 속도 개선 필요 -> 파라미터로 리스트 넘기는 방식 말고 다른 방식 고려
