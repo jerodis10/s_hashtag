@@ -44,7 +44,7 @@ public class KakaoApiService {
         List<KakaoPlaceDto> kakaoPlaceDto = findPlaces("FD6", rect, new ArrayList<>());
 
         List<Document> list_documonet = new ArrayList<>();
-        List<CrawlingDto> list_crawlingDto = new ArrayList<>();
+//        List<CrawlingDto> list_crawlingDto = new ArrayList<>();
         for(KakaoPlaceDto page : kakaoPlaceDto){
             for(Document document : page.getDocuments()){
                 list_documonet.add(document);
