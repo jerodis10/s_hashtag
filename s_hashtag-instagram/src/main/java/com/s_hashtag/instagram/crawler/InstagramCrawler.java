@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 @Service
 //@RequiredArgsConstructor
 public class InstagramCrawler {
-    private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/explore/tags/%s/?hl=ko";
+//    private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/explore/tags/%s/?hl=ko";
+    private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/explore/tags/%s/?__a=1";
 
     private final Crawler crawler;
 

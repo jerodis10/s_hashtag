@@ -1,27 +1,26 @@
 package com.s_hashtag.instagram.repository;
 
 import com.s_hashtag.kakaoapi.domain.dto.Document;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @Repository
 public class JdbcTemplateInstagramRepository implements InstagramRepository {
 
     private final JdbcTemplate jdbcTemplate;
+    private final DataSource dataSource;
 
-    @Autowired
+//    @Autowired
     public JdbcTemplateInstagramRepository(DataSource dataSource) {
+        this.dataSource = dataSource;
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
+
 
     @Override
     public Document kakao_document_save(Document document) {
