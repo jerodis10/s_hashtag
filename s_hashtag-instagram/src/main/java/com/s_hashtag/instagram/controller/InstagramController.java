@@ -2,6 +2,7 @@ package com.s_hashtag.instagram.controller;
 
 import com.s_hashtag.instagram.crawler.InstagramCrawler;
 import com.s_hashtag.instagram.dto.CrawlingDto;
+import com.s_hashtag.instagram.dto.PostDto;
 import com.s_hashtag.instagram.repository.InstagramRepository;
 import com.s_hashtag.kakaoapi.domain.dto.Document;
 import com.s_hashtag.kakaoapi.domain.dto.KakaoPlaceDto;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -35,7 +37,7 @@ public class InstagramController {
 
     @PostMapping("/kakaoMap")
     @ResponseBody
-    public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) {
+    public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) throws IOException {
         Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
         Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
         Coordinate minLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
@@ -53,6 +55,8 @@ public class InstagramController {
 
         List<Document> list_documonet = new ArrayList<>();
         List<CrawlingDto> list_crawlingDto = new ArrayList<>();
+
+        Loop1 :
         for(KakaoPlaceDto page : kakaoPlaceDto){
             for(Document document : page.getDocuments()){
                 list_documonet.add(document);
@@ -60,7 +64,11 @@ public class InstagramController {
 
                 CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
                 list_crawlingDto.add(crawlingDto);
-//                instagramRepository.save(crawlingDto);
+                instagramRepository.instagram_save(crawlingDto, document);
+                for(PostDto postDto : crawlingDto.getPostDtoList()){
+                    instagramRepository.instagram_post_save(postDto);
+                }
+//                break Loop1;
             }
         }
 

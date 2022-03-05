@@ -9,11 +9,9 @@ import java.util.regex.Pattern;
 
 @Getter
 enum RegexPattern {
+    INSTAGRAM_ID(Pattern.compile("(\"hashtag\":\\{\"id\":\")([0-9]+)(\")")),
     HASH_TAG_COUNT(Pattern.compile("(\"edge_hashtag_to_media\":\\{\"count\"):([0-9]+)")),
     HASHTAG_POPULAR_POSTS_INFO(Pattern.compile("(\"edge_hashtag_to_top_posts\":)(.*)(,\"edge_hashtag_to_content_advisory\")"));
-
-//    HASH_TAG_COUNT(Pattern.compile("(\"media_count\":\\{\"count\"):([0-9]+)")),
-//    HASHTAG_POPULAR_POSTS_INFO(Pattern.compile("(\"edge_hashtag_to_media\":\\{\"count\"):([0-9]+)"));
 
     private final Pattern pattern;
 
@@ -26,9 +24,7 @@ enum RegexPattern {
         if (matcher.find()) {
             return matcher.group(2);
         }
-//        else {
-//            return "0";
-//        }
+
         throw new CrawlerException(CrawlerExceptionStatus.NOT_FOUND_MATCH_REGEX);
     }
 }

@@ -9,12 +9,13 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class CrawlingDto {
+    private final String instagramId;
     private final String hashtagName;
     private final Long hashtagCount;
     private final PostDtos postDtos;
 
-    public static CrawlingDto of(String hashtagName, String hashtagCount, PostDtos postDtos) {
-        return new CrawlingDto(hashtagName, Long.valueOf(hashtagCount), postDtos);
+    public static CrawlingDto of(String instagramId, String hashtagName, String hashtagCount, PostDtos postDtos) {
+        return new CrawlingDto(instagramId, hashtagName, Long.valueOf(hashtagCount), postDtos);
     }
 
     public List<PostDto> getPostDtoList() {

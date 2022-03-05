@@ -1,5 +1,7 @@
 package com.s_hashtag.instagram.crawler;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.s_hashtag.instagram.exception.CrawlerException;
 import com.s_hashtag.instagram.exception.CrawlerExceptionStatus;
 import org.jsoup.Connection;
@@ -9,69 +11,45 @@ import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
 public class Crawler {
     private static final String USER_AGENT =
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36";
+//            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36";
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.104 Whale/3.13.131.36 Safari/537.36";
     private static final int HOLDING_TIME = 7000;
     private static final int NOT_FOUND = 404;
     private static final int TOO_MANY_REQUEST = 429;
 
+//    private Date time = new Timestamp(System.currentTimeMillis());
+
+//    Proxy proxy = new Proxy(Proxy.Type.HTTP,
+//            new InetSocketAddress("127.0.0.1", 1080));
+
     public String crawl(String url) {
         try {
-            Connection.Response initial=Jsoup.connect(url)
-                    .method(Connection.Method.GET)
-                    .execute();
-            Document key=initial.parse();
-            String csrf=initial.cookies().get("csrftoken");
-            //get csrf token from cookies
 
-//            Map<String, String> data = new HashMap<>();
-//            data.put("id", "jerodis10");
-//            data.put("password", "b84g9f156@");
-//            data.put("redirect", "/");
+//            System.setProperty("http.proxyHost", "183.168.5.1");
+//            System.setProperty("http.proxyPort", "1010");
+//
+//            System.out.println(System.getProperty("http.proxyHost"));
+//            System.out.println(System.getProperty("http.proxyPort"));
 
-            Connection.Response login=Jsoup.connect("https://www.instagram.com/accounts/login/")
+            Document doc= Jsoup.connect(url)
+//                    .proxy("127.0.0.1", 8081)
+//                    .proxy(proxy)
                     .userAgent(USER_AGENT)
-                    .cookies(initial.cookies())
-                    .data("id","jerodis10", "password", "b84g9f156@")
-                    .data("auto", "false", "csrftoken", csrf)
-//                    .data(data)
-
-                    // add other values
-
-                    .method(Connection.Method.POST)
-                    .timeout(5000)
-                    .execute();
-
-            Document doc=Jsoup.connect(url)
-                    .cookies(login.cookies())
-                    .timeout(3000000).get();
-
-            return "1";
-
-//            return Jsoup.connect(url)
-//                    .cookies(login.cookies())
-//                    .timeout(3000000)
-//                    .get()
-//                    .toString();
-
-//            return Jsoup.connect(url)
-//                    .userAgent(USER_AGENT)
-//                    .timeout(HOLDING_TIME)
-//                    .get()
+                    .get();
 //                    .body()
-//                    .toString();
 
-//            return "ss";
+            return doc.toString();
 
-//            String URL = "https://heodolf.tistory.com/18";
-//            Connection conn = Jsoup.connect(URL);
-//            Document html = conn.get();
-//            return html.toString();
 //        } catch (HttpStatusException e) {
 //            if (e.getStatusCode() == NOT_FOUND) {
 //                throw new CrawlerException(CrawlerExceptionStatus.NOT_FOUND_URL);

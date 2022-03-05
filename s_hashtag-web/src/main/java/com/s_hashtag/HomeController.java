@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -131,7 +132,7 @@ public class HomeController {
 
 //    @PostMapping("/kakaoMap")
     @ResponseBody
-    public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) {
+    public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) throws IOException {
 //    public List<Document> kakaoMap(@RequestParam Map<String, Object> param) {
         Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
         Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
