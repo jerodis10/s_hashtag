@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +58,7 @@ public class InstagramController {
         List<Document> list_documonet = new ArrayList<>();
         List<CrawlingDto> list_crawlingDto = new ArrayList<>();
 
-        Loop1 :
+//        Loop1 :
         for(KakaoPlaceDto page : kakaoPlaceDto){
             for(Document document : page.getDocuments()){
                 list_documonet.add(document);
@@ -75,5 +77,21 @@ public class InstagramController {
 //        CrawlingDto crawlingDto = instagramCrawler.crawler("당산오돌종로점");
 
         return kakaoPlaceDto;
+    }
+
+    @GetMapping("/getHashtag")
+    public List<Map<String, Object>> getHashtag(@RequestParam HashMap<String, Object> param) {
+        List<Map<String, Object>> list = new ArrayList<>();
+        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
+        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
+        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
+        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
+        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
+
+
+        list = instagramRepository.getHashtag("FD6", rect);
+
+
+        return list;
     }
 }

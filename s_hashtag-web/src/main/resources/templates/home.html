@@ -168,6 +168,20 @@
     }
 
     function create_marker_test() {
+
+        $.ajax({
+           url:'/getHashtag',
+           type:'GET',
+           dataType: 'json',
+           data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564},
+           success:function(data){
+               console.log(data);
+           },
+           error : function(e){
+<!--               console.log(e);-->
+           }
+        });
+
         var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다
             imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
             imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
@@ -187,12 +201,6 @@
 
         // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
         var content =
-<!--            '<div class="customoverlay">' +-->
-<!--            '  <a href="https://map.kakao.com/link/map/11394059" target="_blank">' +-->
-<!--            '    <span class="title">구의야구공원' + 1 + '</span>' +-->
-<!--            '  </a>' +-->
-<!--            '</div>';-->
-
             '<div class="bubble">' +
             '   <p>말풍선(위)</p>' +
             '   <ion-icon name="heart" style="color: red;"></ion-icon>' +
@@ -204,11 +212,6 @@
         document.getElementById('sp').innerHTML = cnt;
        });
 
-
-<!--'<div class="balloon top"><link rel="shortcut icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/800px-Apple_logo_black.svg.png"></div>'-->
-
-<!--    '<div class="room-list-empty-room">버튼을 눌러 채팅을 시작해 보세요!</div>'-->
-
         // 커스텀 오버레이가 표시될 위치입니다
         var position = new kakao.maps.LatLng(37.56746130203928, 126.97960873626053);
 
@@ -219,8 +222,9 @@
             content: content,
             yAnchor: 1
         });
-
     }
+
+
 
     function create_marker() {
         $.ajax({
@@ -257,6 +261,8 @@
     }
 
 
+
+
 <!--    function kakaoMap(rect) {-->
 <!--        $.ajax({-->
 <!--           url:'/kakaoMap',-->
@@ -271,6 +277,10 @@
 <!--           }-->
 <!--        });-->
 <!--    }-->
+
+
+
+create_marker_test();
 
 </script>
 

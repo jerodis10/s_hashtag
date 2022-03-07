@@ -3,6 +3,7 @@ package com.s_hashtag.instagram.repository;
 import com.s_hashtag.instagram.dto.CrawlingDto;
 import com.s_hashtag.instagram.dto.PostDto;
 import com.s_hashtag.kakaoapi.domain.dto.Document;
+import com.s_hashtag.kakaoapi.domain.rect.Rect;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -10,7 +11,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.lang.reflect.Member;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -41,7 +44,8 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
                "when not matched then " +
                      "insert (kakao_id, category_group_code, latitude, longitude, place_name, road_address_name, place_url) " +
                      "values (?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql_kakao_save, document.getId(), document.getCategoryGroupCode(),
+        jdbcTemplate.update(sql_kakao_save,
+                document.getId(), document.getCategoryGroupCode(),
                 document.getLatitude(), document.getLongitude(), document.getPlaceName(), document.getRoadAddressName(), document.getPlaceUrl(),
                 document.getId(), document.getCategoryGroupCode(), document.getLatitude(), document.getLongitude(), document.getPlaceName(), document.getRoadAddressName(), document.getPlaceUrl());
     }
@@ -49,7 +53,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     @Override
     public void instagram_save(CrawlingDto crawlingDto, Document document) {
         String sql_instagram_save =
-                "merge into instagram " +
+                        "merge into instagram " +
                         "using dual " +
                         "on (instagram_id = ?) " +
                         "when matched then " +
@@ -62,7 +66,8 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
                         "insert (" +
                             "instagram_id, place_id, hashtag_name, hashtag_count) " +
                         "values (?, ?, ?, ?)";
-        jdbcTemplate.update(sql_instagram_save, crawlingDto.getInstagramId(),
+        jdbcTemplate.update(sql_instagram_save,
+                crawlingDto.getInstagramId(),
                 document.getId(), crawlingDto.getHashtagName(), crawlingDto.getHashtagCount(),
                 crawlingDto.getInstagramId(), document.getId(), crawlingDto.getHashtagName(), crawlingDto.getHashtagCount());
     }
@@ -70,7 +75,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     @Override
     public void instagram_post_save(PostDto postDto) {
         String sql_instagram_post_save =
-                "merge into instagram_post " +
+                        "merge into instagram_post " +
                         "using dual " +
                         "on (" +
                             "instagram_post_id = ? and instagram_id = ?) " +
@@ -85,66 +90,29 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
                             "instagram_post_id, instagram_id, post_url, image_url) " +
                         "values (" +
                             "?, ?, ?, ?)";
-        jdbcTemplate.update(sql_instagram_post_save, postDto.getInstagram_post_id(), postDto.getInstagram_id(),
+        jdbcTemplate.update(sql_instagram_post_save,
+                postDto.getInstagram_post_id(), postDto.getInstagram_id(),
                 postDto.getInstagram_id(), postDto.getPostUrl(), postDto.getImageUrl(),
                 postDto.getInstagram_post_id(), postDto.getInstagram_id(), postDto.getPostUrl(), postDto.getImageUrl());
     }
 
-//    private RowMapper<Document> documentRowMapper() {
-//        return (rs, rowNum) -> {
-//            Document document = new Document();
-//            document.setId(rs.getString("kakao_id"));
-//            document.setCategoryGroupCode(rs.getString("category_group_code"));
-//            document.setLatitude(rs.getString("latitude"));
-//            document.setLongitude(rs.getString("longitude"));
-//            document.setPlaceName(rs.getString("place_name"));
-//            document.setRoadAddressName(rs.getString("road_address_name"));
-//            document.setPlaceUrl(rs.getString("place_url"));
-//            return document;
-//        };
-//    }
+    @Override
+    public List<Map<String, Object>> getHashtag(String category, Rect rect) {
+        List<Map<String, Object>> ret = new ArrayList<>();
 
-    //    @Override
-//    public Document kakao_document_save(Document document) {
-//        SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
-//        jdbcInsert.withTableName("KAKAO_DOCUMENT");
-//        Map<String, Object> parameters = new HashMap<>();
-//        parameters.put("ID", document.getId());
-//        parameters.put("CATEGORY_GROUP_CODE", document.getCategoryGroupCode());
-//        parameters.put("LATITUDE", document.getLatitude());
-//        parameters.put("LONGTITUDE", document.getLongitude());
-//        parameters.put("PLACE_NAME", document.getPlaceName());
-//        parameters.put("ROAD_ADDRESS_NAME", document.getRoadAddressName());
-//        parameters.put("PLACE_URL", document.getPlaceUrl());
-//        jdbcInsert.execute(parameters);
-//        return document;
-//    }
+        String sql_get_hashtag =
+                        "select * " +
+                        "from kakao_document kd" +
+                        "left outer join instagram it" +
+                                     "on it place_id = kd.kakao_id" +
+                        "where category_group_code = ?" +
+                          "and latitude between ? and ?" +
+                          "and longitute between ? and ?";
+        ret = jdbcTemplate.queryForList(sql_get_hashtag,
+                category, rect.getMinLatitude(), rect.getMaxLatitude(), rect.getMinLongitude(), rect.getMaxLongitude());
 
-    //    @Override
-//    public Optional<Member> findById(String id) {
-//        List<Member> result = jdbcTemplate.query("select * from member where id = ?", memberRowMapper(), id);
-//        return result.stream().findAny();
-//    }
-//
-//    @Override
-//    public Optional<Member> findByName(String name) {
-//        List<Member> result = jdbcTemplate.query("select * from member where name = ?", memberRowMapper(), name);
-//        return result.stream().findAny();
-//    }
-//
-//    @Override
-//    public List<Member> findAll() {
-//        return jdbcTemplate.query("select * from member", memberRowMapper());
-//    }
-//
-//    private RowMapper<Member> memberRowMapper() {
-//        return (rs, rowNum) -> {
-//            Member member = new Member();
-////            member.setId(rs.getString("id"));
-//            member.setLoginId(rs.getString("loginId"));
-//            member.setPassword(rs.getString("password"));
-//            member.setName(rs.getString("name"));
-//            return member;
-//        };
-//    }
+        return ret;
+    }
+
+
 }
