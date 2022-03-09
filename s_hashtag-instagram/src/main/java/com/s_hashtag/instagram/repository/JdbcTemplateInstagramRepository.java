@@ -102,17 +102,61 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
 
         String sql_get_hashtag =
                         "select * " +
-                        "from kakao_document kd" +
-                        "left outer join instagram it" +
-                                     "on it place_id = kd.kakao_id" +
-                        "where category_group_code = ?" +
-                          "and latitude between ? and ?" +
-                          "and longitute between ? and ?";
-        ret = jdbcTemplate.queryForList(sql_get_hashtag,
-                category, rect.getMinLatitude(), rect.getMaxLatitude(), rect.getMinLongitude(), rect.getMaxLongitude());
+                        "from kakao_document kd " +
+                        "left outer join instagram it " +
+                                     "on it.place_id = kd.kakao_id " +
+                        "where category_group_code = ? " +
+                          "and latitude between ? and ? " +
+                          "and longitude between ? and ? ";
 
-        return ret;
+        return jdbcTemplate.queryForList(sql_get_hashtag,
+                category, rect.getMinLatitude().getValue(), rect.getMaxLatitude().getValue(), rect.getMinLongitude().getValue(), rect.getMaxLongitude().getValue());
+
+//        ret = jdbcTemplate.queryForList(sql_get_hashtag,
+//                category, rect.getMinLatitude(), rect.getMaxLatitude(), rect.getMinLongitude(), rect.getMaxLongitude());
+
+//        Map<String, Object> parameter = new HashMap<>();
+//        parameter.put("category", category);
+//        parameter.put("min_latitude", rect.getMinLatitude());
+//        parameter.put("max_latitude", rect.getMaxLatitude());
+//        parameter.put("min_longitude", rect.getMinLongitude());
+//        parameter.put("max_longitude", rect.getMaxLongitude());
+//
+//        ret = jdbcTemplate.queryForList(sql_get_hashtag, parameter);
+
+//        ret = jdbcTemplate.query(sql_get_hashtag, RowMapper(rect),
+//                category, rect.getMinLatitude(), rect.getMaxLatitude(), rect.getMinLongitude(), rect.getMaxLongitude());
+
+//        return ret;
     }
 
+    private RowMapper<Map<String, Object>> RowMapper(Rect rect) {
+        return (rs, rowNum) -> {
+            Map<String, Object> parameter = new HashMap<>();
+            parameter.put("min_latitude", rect.getMinLatitude());
+            parameter.put("max_latitude", rect.getMaxLatitude());
+            parameter.put("min_longitude", rect.getMinLongitude());
+            parameter.put("max_longitude", rect.getMaxLongitude());
+            return parameter;
+        };
+    }
+
+    @Override
+    public List<Map<String, Object>> findAllMember() {
+//        return jdbcTemplate.query("select * from member where id in (?,?,?)", memberRowMapper(), '1', '2', '3');
+
+        return jdbcTemplate.queryForList("select * from member where id in (?,?,?)",
+                '1','2','3');
+    }
+
+    private RowMapper<Map<String, Object>> memberRowMapper() {
+        return (rs, rowNum) -> {
+            Map<String, Object> parameter = new HashMap<>();
+            parameter.put("a", '1');
+            parameter.put("b", '2');
+            parameter.put("c", '3');
+            return parameter;
+        };
+    }
 
 }
