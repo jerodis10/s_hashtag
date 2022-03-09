@@ -186,8 +186,19 @@
                $.each(data, function(index, item){
 <!--var la = a + index/1000;-->
 <!--var lo = b + index/1000;-->
-                    var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다
-                        imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+
+                    var img_src = "";
+                    if(item.HASHTAG_COUNT < 10) img_src = '../img/markers/mapMarker1.png';
+                    if(10 <= item.HASHTAG_COUNT && item.HASHTAG_COUNT < 100) img_src = '../img/markers/mapMarker2.png';
+                    if(100 <= item.HASHTAG_COUNT && item.HASHTAG_COUNT < 1000) img_src = '../img/markers/mapMarker3.png';
+                    if(1000 <= item.HASHTAG_COUNT && item.HASHTAG_COUNT < 10000) img_src = '../img/markers/mapMarker4.png';
+                    if(10000 <= item.HASHTAG_COUNT) img_src = '../img/markers/mapMarker5.png';
+
+
+<!--                    var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다-->
+<!--                        var imageSrc = '../img/markers/mapMarker1.png',-->
+                        var imageSrc = img_src,
+                        imageSize = new kakao.maps.Size(34, 39), // 마커이미지의 크기입니다
                         imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
                     // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
@@ -216,26 +227,26 @@
 
                     // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 <!--                    var hashtag_count = item.HASHTAG_COUNT;-->
-<!--var hashtag_count = data[0].HASHTAG_COUNT;-->
+var hashtag_count = item.HASHTAG_COUNT;
 <!--var hashtag_count = '12';-->
 <!--var hashtag_count = i;-->
-<!--                    var content =-->
-<!--                        '<div class="bubble">' +-->
-<!--                        '   <p>말풍선(위)</p>' +-->
-<!--                        '   <ion-icon name="heart" style="color: red;"></ion-icon>' +-->
-<!--                        '   <span id="sp">' + hashtag_count + '</span>' +-->
-<!--                        '</div>'-->
+                    var content =
+                        '<div class="bubble">' +
+                        '   <p>말풍선(위)</p>' +
+                        '   <ion-icon name="heart" style="color: red;"></ion-icon>' +
+                        '   <span id="sp">' + hashtag_count + '</span>' +
+                        '</div>'
 
-<!--                    // 커스텀 오버레이가 표시될 위치입니다-->
-<!--                    var position = new kakao.maps.LatLng(37.56769130203928, 126.97920873626053);-->
+                    // 커스텀 오버레이가 표시될 위치입니다
+                    var position = new kakao.maps.LatLng(item.LATITUDE+0.001, item.LONGITUDE);
 
-<!--                    // 커스텀 오버레이를 생성합니다-->
-<!--                    var customOverlay = new kakao.maps.CustomOverlay({-->
-<!--                        map: map,-->
-<!--                        position: position,-->
-<!--                        content: content,-->
-<!--                        yAnchor: 1-->
-<!--                    });-->
+                    // 커스텀 오버레이를 생성합니다
+                    var customOverlay = new kakao.maps.CustomOverlay({
+                        map: map,
+                        position: position,
+                        content: content,
+                        yAnchor: 1
+                    });
                });
 
 
@@ -391,7 +402,7 @@ for(i=0;i<linkCollapse.length;i++) {
 {
     position: relative;
     width: 150px;
-    height: 80px;
+    height: 60px;
     padding: 0px;
     background: #FFFFFF;
     -webkit-border-radius: 25px;
