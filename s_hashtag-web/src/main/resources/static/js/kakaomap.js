@@ -133,11 +133,12 @@ function create_marker_test() {
                 // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 //<!--                    var hashtag_count = item.HASHTAG_COUNT;-->
 var hashtag_count = item.HASHTAG_COUNT;
+var hashtag_name = item.HASHTAG_NAME;
 //<!--var hashtag_count = '12';-->
 //<!--var hashtag_count = i;-->
                 var content =
                     '<div class="bubble">' +
-                    '   <p>말풍선(위)</p>' +
+                    '   <p>' + hashtag_name + '</p>' +
                     '   <ion-icon name="heart" style="color: red;"></ion-icon>' +
                     '   <span id="sp">' + hashtag_count + '</span>' +
                     '</div>'
