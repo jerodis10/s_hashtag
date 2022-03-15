@@ -67,7 +67,6 @@ function kakaoMap() {
                console.log(data);
        },
        error : function(e){
-//              console.log(e);
        }
     });
 }
@@ -107,8 +106,8 @@ function create_marker_test() {
                     imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
                 // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-                console.log(item.LATITUDE);
-                console.log(item.LONGITUDE);
+//                console.log(item.LATITUDE);
+//                console.log(item.LONGITUDE);
                 var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
                     markerPosition = new kakao.maps.LatLng(item.LATITUDE, item.LONGITUDE); // 마커가 표시될 위치입니다
 //<!--markerPosition = new kakao.maps.LatLng(data[0].LATITUDE, data[0].LONGITUDE); // 마커가 표시될 위치입니다-->
@@ -132,10 +131,10 @@ function create_marker_test() {
 
                 // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 //<!--                    var hashtag_count = item.HASHTAG_COUNT;-->
-var hashtag_count = item.HASHTAG_COUNT;
-var hashtag_name = item.HASHTAG_NAME;
-//<!--var hashtag_count = '12';-->
-//<!--var hashtag_count = i;-->
+                var hashtag_count = item.HASHTAG_COUNT;
+                var hashtag_name = item.HASHTAG_NAME;
+                //<!--var hashtag_count = '12';-->
+                //<!--var hashtag_count = i;-->
                 var content =
                     '<div class="bubble">' +
                     '   <p>' + hashtag_name + '</p>' +
@@ -159,46 +158,8 @@ var hashtag_name = item.HASHTAG_NAME;
 //<!--}-->
        },
        error : function(e){
-//<!--               console.log(e);-->
        }
     });
-
-//<!--        var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다-->
-//<!--            imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다-->
-//<!--            imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.-->
-//
-//<!--        // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다-->
-//<!--        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),-->
-//<!--            markerPosition = new kakao.maps.LatLng(37.56676130203928, 126.97960873626053); // 마커가 표시될 위치입니다-->
-//
-//<!--        // 마커를 생성합니다-->
-//<!--        var marker = new kakao.maps.Marker({-->
-//<!--          position: markerPosition,-->
-//<!--          image: markerImage // 마커이미지 설정-->
-//<!--        });-->
-//
-//<!--        // 마커가 지도 위에 표시되도록 설정합니다-->
-//<!--        marker.setMap(map);-->
-//
-//<!--        // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다-->
-//<!--        var value = '12'-->
-//<!--        var content =-->
-//<!--            '<div class="bubble">' +-->
-//<!--            '   <p>말풍선(위)</p>' +-->
-//<!--            '   <ion-icon name="heart" style="color: red;"></ion-icon>' +-->
-//<!--            '   <span id="sp">' + value + '</span>' +-->
-//<!--            '</div>'-->
-//
-//<!--        // 커스텀 오버레이가 표시될 위치입니다-->
-//<!--        var position = new kakao.maps.LatLng(37.56769130203928, 126.97920873626053);-->
-//
-//<!--        // 커스텀 오버레이를 생성합니다-->
-//<!--        var customOverlay = new kakao.maps.CustomOverlay({-->
-//<!--            map: map,-->
-//<!--            position: position,-->
-//<!--            content: content,-->
-//<!--            yAnchor: 1-->
-//<!--        });-->
     }
 
 

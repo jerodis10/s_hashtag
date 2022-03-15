@@ -78,11 +78,37 @@
 <p id="result"></p>
 <p id="result2"></p>
 <p id="result3"></p>
-<div id="map" style="width:99%;height:600px;"></div>
+<div id="map" style="width: 99%; height: 600px; position: relative; z-index: 1;">
+    <div id="searchBar">
+        <button id="btn_cafe" style="width: 60px; height: 25px; left: 60px; top: 20px; position: relative;">카페</button>
+        <button id="btn_food" style="width: 60px; height: 25px; left: 110px; top: 20px; position: relative;">음식점</button>
+        <div>
+            <input type="text" id="search" name="search" class="form-control" placeholder="지역을 입력하세요" style="left: 30px; top: 40px; position: relative;">
+        </div>
+        <button id="btn_check1" style="width: 40px; height: 25px; left: 30px; top: 60px; position: relative;">
+            <ion-icon name="checkmark-outline"></ion-icon>
+        </button>
+        <button id="btn_check2" style="width: 40px; height: 25px; left: 30px; top: 60px; position: relative;">
+            <ion-icon name="checkmark-outline"></ion-icon>
+        </button>
+        <button id="btn_check3" style="width: 40px; height: 25px; left: 30px; top: 60px; position: relative;">
+            <ion-icon name="checkmark-outline"></ion-icon>
+        </button>
+        <button id="btn_check4" style="width: 40px; height: 25px; left: 30px; top: 60px; position: relative;">
+            <ion-icon name="checkmark-outline"></ion-icon>
+        </button>
+        <button id="btn_check5" style="width: 40px; height: 25px; left: 30px; top: 60px; position: relative;">
+            <ion-icon name="checkmark-outline"></ion-icon>
+        </button>
+        <h5 class="mb-3" style="left: 30px; top: 60px; position: relative;">구간별 해시태그 개수</h5>
+        <hr width = "30px" color = "blue" size = "6" style="margin-top: 80px;">
+    </div>
+</div>
 
 <!-- CSS -->
-<link href="/css/sidebar.css" rel="stylesheet">
+<link href="/css/sideBar.css" rel="stylesheet">
 <link href="/css/bubble.css" rel="stylesheet">
+<link href="/css/searchBar.css" rel="stylesheet">
 
 <!-- JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -92,8 +118,9 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e3911e7fa46ab16ff0c8b85eb101877e"></script>
 
 <script type="text/javascript" src="/js/main.js"></script>
-<script type="text/javascript" src="/js/sidebar.js"></script>
-<script type="text/javascript" src="/js/kakaomap.js"></script>
+<script type="text/javascript" src="/js/kakaoMap.js"></script>
+<script type="text/javascript" src="/js/sideBar.js"></script>
+
 
 </body>
 
