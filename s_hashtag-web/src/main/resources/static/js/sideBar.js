@@ -1,3 +1,36 @@
+document.getElementById("btn_cafe").addEventListener('click', function() {
+    $.ajax({
+       url:'/searchCategory',
+       type:'POST',
+       dataType: 'json',
+            data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564},
+       success: function(data) {
+
+       },
+       error: function(e){
+       }
+    });
+});
+
+document.getElementById("btn_food").addEventListener('click', function() {
+    $.ajax({
+       url:'/searchCategory',
+       type:'POST',
+       dataType: 'json',
+            data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564},
+       success: function(data) {
+
+       },
+       error: function(e){
+       }
+    });
+});
+
+
+
+
+
+
 /* EXPANDER MENU */
 const showMenu = (toggleId, navbarId, bodyId) => {
     const toggle = document.getElementById(toggleId),

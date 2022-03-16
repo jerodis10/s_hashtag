@@ -53,6 +53,7 @@ kakao.maps.event.addListener(map, 'zoom_changed', function() {
 
 });
 
+
 function kakaoMap() {
     var bounds = map.getBounds();
 
@@ -168,7 +169,6 @@ function create_marker() {
     $.ajax({
        url:'/createMarker',
        type:'GET',
-//<!--           dataType: 'json',-->
         data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564},
        success:function(data){
 //           console.log(data);
