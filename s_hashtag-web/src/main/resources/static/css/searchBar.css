@@ -6,3 +6,12 @@
     z-index:2;
     right:5px;
 }
+
+.category_wrap button{
+    background: #dcb8b8;
+    border-radius: 10px;
+}
+.category_wrap button.selected{
+    background-color: #e26262;
+    color:#fff;
+}

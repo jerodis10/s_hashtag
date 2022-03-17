@@ -91,4 +91,17 @@ public class InstagramController {
 
         return instagramRepository.getHashtag("FD6", rect);
     }
+
+    @GetMapping("/searchCategory")
+    @ResponseBody
+    public List<Map<String, Object>> searchCategory(@RequestParam HashMap<String, Object> param) {
+        List<Map<String, Object>> list = new ArrayList<>();
+        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
+        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
+        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
+        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
+        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
+
+        return instagramRepository.getHashtag("FD6", rect);
+    }
 }
