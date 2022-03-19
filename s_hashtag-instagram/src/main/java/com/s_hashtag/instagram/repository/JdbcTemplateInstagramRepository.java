@@ -4,17 +4,16 @@ import com.s_hashtag.instagram.dto.CrawlingDto;
 import com.s_hashtag.instagram.dto.PostDto;
 import com.s_hashtag.kakaoapi.domain.dto.Document;
 import com.s_hashtag.kakaoapi.domain.rect.Rect;
+import org.jsoup.internal.StringUtil;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.thymeleaf.util.StringUtils;
 
 import javax.sql.DataSource;
 import java.lang.reflect.Member;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class JdbcTemplateInstagramRepository implements InstagramRepository {
@@ -97,20 +96,40 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public List<Map<String, Object>> getHashtag(String category, Rect rect) {
+    public List<Map<String, Object>> getHashtag(List<String> category_list, Rect rect) {
         List<Map<String, Object>> ret = new ArrayList<>();
 
-        String sql_get_hashtag =
-                        "select * " +
-                        "from kakao_document kd " +
-                        "left outer join instagram it " +
-                                     "on it.place_id = kd.kakao_id " +
-                        "where category_group_code = ? " +
-                          "and latitude between ? and ? " +
-                          "and longitude between ? and ? ";
+//        String sql_get_hashtag =
+//                        "select * " +
+//                        "from kakao_document kd " +
+//                        "left outer join instagram it " +
+//                                     "on it.place_id = kd.kakao_id " +
+//                        "where latitude between ? and ? " +
+//                          "and longitude between ? and ? "
+//                ;
+        String inSql = String.join(",", Collections.nCopies(category_list.size(), "?"));
+        String sql_get_hashtag = String.format(
+                "select * " +
+                "from kakao_document kd " +
+                "left outer join instagram it " +
+                             "on it.place_id = kd.kakao_id " +
+                "where latitude between ? and ? " +
+                  "and longitude between ? and ? " +
+                  "and category_group_code in (%s)", inSql);
+        ;
 
         return jdbcTemplate.queryForList(sql_get_hashtag,
-                category, rect.getMinLatitude().getValue(), rect.getMaxLatitude().getValue(), rect.getMinLongitude().getValue(), rect.getMaxLongitude().getValue());
+        rect.getMinLatitude().getValue(), rect.getMaxLatitude().getValue(), rect.getMinLongitude().getValue(), rect.getMaxLongitude().getValue(), category_list);
+
+//        String sql_category = "";
+//        if(category_list.size() > 1) sql_category = StringUtils.join(category_list, ",");
+//        else sql_category = category_list.get(0);
+//        sql_category += " )";
+//        sql_get_hashtag += sql_category;
+
+
+//        return jdbcTemplate.queryForList(sql_get_hashtag,
+//                rect.getMinLatitude().getValue(), rect.getMaxLatitude().getValue(), rect.getMinLongitude().getValue(), rect.getMaxLongitude().getValue());
 
 //        ret = jdbcTemplate.queryForList(sql_get_hashtag,
 //                category, rect.getMinLatitude(), rect.getMaxLatitude(), rect.getMinLongitude(), rect.getMaxLongitude());

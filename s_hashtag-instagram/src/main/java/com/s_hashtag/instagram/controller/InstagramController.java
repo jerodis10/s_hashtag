@@ -23,10 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -89,7 +86,8 @@ public class InstagramController {
         Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
 
-        return instagramRepository.getHashtag("FD6", rect);
+        return instagramRepository.getHashtag(Arrays.asList((String) param.get("category_list[]")), rect);
+//        return instagramRepository.getHashtag((List<String>) param.get("category_list"), rect);
     }
 
     @GetMapping("/searchCategory")
@@ -102,6 +100,6 @@ public class InstagramController {
         Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
 
-        return instagramRepository.getHashtag("FD6", rect);
+        return instagramRepository.getHashtag(Arrays.asList((String) param.get("category_list")), rect);
     }
 }

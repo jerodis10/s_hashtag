@@ -1,40 +1,56 @@
-var category_wrap = document.querySelector('.category_wrap');
-function select(El){
-    if(El.className === 'selected') El.classList.remove('selected');
-    else El.classList.add('selected');
-}
-
-category_wrap.addEventListener('click', e => {
-    const selected = e.target;
-    select(e.target);
-})
-
-
-document.getElementById("btn_cafe").addEventListener('click', function() {
-
-var category_list = [];
-
-$.each(document.querySelector('.category_wrap').children, function(index, item){
-    if(item.className === 'selected'){
-        category_list.push(item.value);
-    }
-});
-
-
-//    $.ajax({
-//       url:'/searchCategory',
-//       type:'POST',
-//       dataType: 'json',
-//            data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564},
-//       success: function(data) {
+//var category_wrap = document.querySelector('.category_wrap');
+//function select(El){
+//    if(El.className === 'selected') El.classList.remove('selected');
+//    else El.classList.add('selected');
+//}
 //
-//       },
-//       error: function(e){
-//       }
-//    });
+//category_wrap.addEventListener('click', e => {
+//    const selected = e.target;
+//    select(e.target);
+//})
+
+
+document.getElementById("btn_cafe").addEventListener('click', function(e) {
+
+    if(e.target.className === 'selected') e.target.classList.remove('selected');
+    else e.target.classList.add('selected');
+
+    var category_list = [];
+    $.each(document.querySelector('.category_wrap').children, function(index, item){
+        if(item.className === 'selected'){
+            category_list.push(item.value);
+        }
+    });
+
+
+    $.ajax({
+       url:'/searchCategory',
+       type:'GET',
+       dataType: 'json',
+       data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category_list},
+       success: function(data) {
+            console.log(data);
+       },
+       error: function(e){
+       }
+    });
+
 });
 
-document.getElementById("btn_food").addEventListener('click', function() {
+document.getElementById("btn_food").addEventListener('click', function(e) {
+
+    if(e.target.className === 'selected') e.target.classList.remove('selected');
+    else e.target.classList.add('selected');
+
+    var category_list = [];
+    $.each(document.querySelector('.category_wrap').children, function(index, item){
+        if(item.className === 'selected'){
+            category_list.push(item.value);
+        }
+    });
+
+
+
 //    $.ajax({
 //       url:'/searchCategory',
 //       type:'POST',

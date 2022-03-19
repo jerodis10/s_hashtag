@@ -7,10 +7,7 @@ import com.s_hashtag.kakaoapi.domain.rect.Rect;
 import org.springframework.stereotype.Repository;
 
 import java.lang.reflect.Member;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 //@Repository
 public interface InstagramRepository {
@@ -20,7 +17,7 @@ public interface InstagramRepository {
 
     void instagram_post_save(PostDto postDto);
 
-    List<Map<String, Object>> getHashtag(String category, Rect rect);
+    List<Map<String, Object>> getHashtag(List<String> category, Rect rect);
 
     List<Map<String, Object>> findAllMember();
 
