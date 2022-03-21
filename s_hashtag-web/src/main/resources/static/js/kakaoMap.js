@@ -88,7 +88,7 @@ function create_marker_test() {
        data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category_list},
 //        data: {param: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564}, category_list: category_list},
        success:function(data){
-//           console.log(data);
+           console.log(data);
 
 //<!--var a = 37.56676130203928;-->
 //<!--var b = 126.97960873626053;-->

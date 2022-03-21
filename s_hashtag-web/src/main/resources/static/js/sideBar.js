@@ -24,7 +24,7 @@ document.getElementById("btn_cafe").addEventListener('click', function(e) {
 
 
     $.ajax({
-       url:'/searchCategory',
+       url:'/getHashtag',
        type:'GET',
        dataType: 'json',
        data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category_list},
@@ -47,6 +47,18 @@ document.getElementById("btn_food").addEventListener('click', function(e) {
         if(item.className === 'selected'){
             category_list.push(item.value);
         }
+    });
+
+    $.ajax({
+       url:'/getHashtag',
+       type:'GET',
+       dataType: 'json',
+       data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category_list},
+       success: function(data) {
+            console.log(data);
+       },
+       error: function(e){
+       }
     });
 
 

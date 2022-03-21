@@ -99,6 +99,12 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     public List<Map<String, Object>> getHashtag(List<String> category_list, Rect rect) {
         List<Map<String, Object>> ret = new ArrayList<>();
 
+//        String sql_get_hashtag = "select * " +
+//                                 "from kakao_document kd " +
+//                                 "left outer join instagram it " +
+//                                 "on it.place_id = kd.kakao_id " +
+//                                 "where latitude between"
+
 //        String sql_get_hashtag =
 //                        "select * " +
 //                        "from kakao_document kd " +
@@ -107,19 +113,37 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
 //                        "where latitude between ? and ? " +
 //                          "and longitude between ? and ? "
 //                ;
-        String inSql = String.join(",", Collections.nCopies(category_list.size(), "?"));
-        String sql_get_hashtag = String.format(
+//        String inSql = String.join(",", Collections.nCopies(category_list.size(), "?"));
+
+        List<Object> param_list = new ArrayList<>();
+        param_list.add(rect.getMinLatitude().getValue());
+        param_list.add(rect.getMaxLatitude().getValue());
+        param_list.add(rect.getMinLongitude().getValue());
+        param_list.add(rect.getMaxLongitude().getValue());
+
+        String inSql = "";
+        for(String str : category_list) {
+            inSql += "and category_group_code = ? ";
+            param_list.add(str);
+        }
+
+        String sql_get_hashtag =
                 "select * " +
                 "from kakao_document kd " +
                 "left outer join instagram it " +
-                             "on it.place_id = kd.kakao_id " +
+                "on it.place_id = kd.kakao_id " +
                 "where latitude between ? and ? " +
-                  "and longitude between ? and ? " +
-                  "and category_group_code in (%s)", inSql);
+                "and longitude between ? and ? ";
         ;
 
-        return jdbcTemplate.queryForList(sql_get_hashtag,
-        rect.getMinLatitude().getValue(), rect.getMaxLatitude().getValue(), rect.getMinLongitude().getValue(), rect.getMaxLongitude().getValue(), category_list);
+        sql_get_hashtag += inSql;
+
+        return jdbcTemplate.queryForList(sql_get_hashtag, param_list.toArray());
+
+//        return jdbcTemplate.queryForList(sql_get_hashtag, new Object[]{rect.getMinLatitude().getValue(), rect.getMaxLatitude().getValue(), rect.getMinLongitude().getValue(), rect.getMaxLongitude().getValue(), "FD6"});
+
+//        return jdbcTemplate.queryForList(sql_get_hashtag,
+//        rect.getMinLatitude().getValue(), rect.getMaxLatitude().getValue(), rect.getMinLongitude().getValue(), rect.getMaxLongitude().getValue(), "FD6");
 
 //        String sql_category = "";
 //        if(category_list.size() > 1) sql_category = StringUtils.join(category_list, ",");
