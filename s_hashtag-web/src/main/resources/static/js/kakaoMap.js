@@ -27,7 +27,6 @@ kakao.maps.event.addListener(map, 'dragend', function() {
     var rect = {ha: bounds.ha, oa: bounds.oa, pa: bounds.pa, qa: bounds.qa};
 
 <!--        kakaoMap(rect);-->
-
 });
 
 // 지도 확대 축소 이벤트
@@ -86,20 +85,9 @@ function create_marker_test() {
        type:'GET',
        dataType: 'json',
        data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category_list},
-//        data: {param: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564}, category_list: category_list},
        success:function(data){
-           console.log(data);
-
-//<!--var a = 37.56676130203928;-->
-//<!--var b = 126.97960873626053;-->
-//<!--for(var i = 1; i <= 3; i++){-->
-//<!--var la = a + i/1000;-->
-//<!--var lo = b + i/1000;-->
-
+            console.log(data);
            $.each(data, function(index, item){
-//<!--var la = a + index/1000;-->
-//<!--var lo = b + index/1000;-->
-
                 var img_src = "";
                 if(item.HASHTAG_COUNT < 10) img_src = '../img/markers/mapMarker1.png';
                 if(10 <= item.HASHTAG_COUNT && item.HASHTAG_COUNT < 100) img_src = '../img/markers/mapMarker2.png';
@@ -107,27 +95,12 @@ function create_marker_test() {
                 if(1000 <= item.HASHTAG_COUNT && item.HASHTAG_COUNT < 10000) img_src = '../img/markers/mapMarker4.png';
                 if(10000 <= item.HASHTAG_COUNT) img_src = '../img/markers/mapMarker5.png';
 
+                var imageSrc = img_src,
+                imageSize = new kakao.maps.Size(34, 39), // 마커이미지의 크기입니다
+                imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
-//<!--                    var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다-->
-//<!--                        var imageSrc = '../img/markers/mapMarker1.png',-->
-                    var imageSrc = img_src,
-                    imageSize = new kakao.maps.Size(34, 39), // 마커이미지의 크기입니다
-                    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-
-                // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-//                console.log(item.LATITUDE);
-//                console.log(item.LONGITUDE);
                 var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
                     markerPosition = new kakao.maps.LatLng(item.LATITUDE, item.LONGITUDE); // 마커가 표시될 위치입니다
-//<!--markerPosition = new kakao.maps.LatLng(data[0].LATITUDE, data[0].LONGITUDE); // 마커가 표시될 위치입니다-->
-//<!--markerPosition = new kakao.maps.LatLng(37.56676130203928, 126.97960873626053);-->
-//<!--markerPosition = new kakao.maps.LatLng(la, lo);-->
-
-//<!--markerPosition = new kakao.maps.LatLng(37.563312971786, 126.966750699562);-->
-//
-//<!--if(i == 1) {markerPosition = new kakao.maps.LatLng(37.563312971786, 126.966750699562)};-->
-//<!--if(i == 2) {markerPosition = new kakao.maps.LatLng(37.5630974868876, 126.969546462998)};-->
-//<!--if(i == 3) {markerPosition = new kakao.maps.LatLng(37.563151547252, 126.969548704692)};-->
 
                 // 마커를 생성합니다
                 var marker = new kakao.maps.Marker({
@@ -139,11 +112,8 @@ function create_marker_test() {
                 marker.setMap(map);
 
                 // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-//<!--                    var hashtag_count = item.HASHTAG_COUNT;-->
                 var hashtag_count = item.HASHTAG_COUNT;
                 var hashtag_name = item.HASHTAG_NAME;
-                //<!--var hashtag_count = '12';-->
-                //<!--var hashtag_count = i;-->
                 var content =
                     '<div class="bubble">' +
                     '   <p>' + hashtag_name + '</p>' +
@@ -162,14 +132,11 @@ function create_marker_test() {
                     yAnchor: 1
                 });
            });
-
-
-//<!--}-->
        },
        error : function(e){
        }
     });
-    }
+}
 
 
 
@@ -207,23 +174,5 @@ function create_marker() {
 }
 
 
-
-
-//<!--    function kakaoMap(rect) {-->
-//<!--        $.ajax({-->
-//<!--           url:'/kakaoMap',-->
-//<!--           type:'POST',-->
-//<!--           dataType: 'json',-->
-//<!--           data: rect,-->
-//<!--           success:function(data){-->
-//<!--               console.log(data);-->
-//<!--           },-->
-//<!--           error : function(e){-->
-//<!--               console.log(e);-->
-//<!--           }-->
-//<!--        });-->
-//<!--    }-->
-
-
-
 create_marker_test();
+

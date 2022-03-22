@@ -48,7 +48,8 @@ public class InstagramController {
 //        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("oa").toString()).setScale(5, RoundingMode.HALF_UP));
 
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
-        List<KakaoPlaceDto> kakaoPlaceDto = kakaoApiService.findPlaces("FD6", rect, new ArrayList<>());
+//        List<KakaoPlaceDto> kakaoPlaceDto = kakaoApiService.findPlaces("FD6", rect, new ArrayList<>());
+        List<KakaoPlaceDto> kakaoPlaceDto = kakaoApiService.findPlaces("CE7", rect, new ArrayList<>());
 
 //        kakaoApiService.savePlaces(param);
 
