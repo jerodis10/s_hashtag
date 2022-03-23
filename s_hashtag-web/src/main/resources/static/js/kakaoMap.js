@@ -1,3 +1,6 @@
+var markers = [];
+var overlays = [];
+
 var container = document.getElementById('map');
 var options = {
     center: new kakao.maps.LatLng(37.56667120440735, 126.97962007985399),
@@ -71,7 +74,19 @@ function kakaoMap() {
     });
 }
 
-function create_marker_test() {
+function create_marker_test(map) {
+
+//    var latlng = map.getCenter();
+//    var container = document.getElementById('map');
+//    var options = {
+////        center: new kakao.maps.LatLng(37.56667120440735, 126.97962007985399),
+//        center: new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()),
+//        level: 3
+//    };
+//
+//    var new_map = new kakao.maps.Map(container, options);
+
+
 
     var category_list = [];
     $.each(document.querySelector('.category_wrap').children, function(index, item){
@@ -108,6 +123,8 @@ function create_marker_test() {
                   image: markerImage // 마커이미지 설정
                 });
 
+                markers.push(marker);
+
                 // 마커가 지도 위에 표시되도록 설정합니다
                 marker.setMap(map);
 
@@ -131,6 +148,7 @@ function create_marker_test() {
                     content: content,
                     yAnchor: 1
                 });
+                overlays.push(customOverlay);
            });
        },
        error : function(e){
@@ -174,5 +192,5 @@ function create_marker() {
 }
 
 
-create_marker_test();
+create_marker_test(map);
 
