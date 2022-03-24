@@ -12,21 +12,29 @@
 
 document.getElementById("btn_cafe").addEventListener('click', function(e) {
 
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
+//    for (var i = 0; i < markers.length; i++) {
+//        markers[i].setMap(null);
+//    }
+//
+//    for (var i = 0; i < overlays.length; i++) {
+//        overlays[i].setMap(null);
+//    }
+
+    var flag_selected = true;
+
+
+    if(e.target.className === 'selected') {
+        e.target.classList.remove('selected');
+        create_marker_test(map, null);
+    }
+    else {
+        e.target.classList.add('selected');
+        flag_selected = false;
+        create_marker_test(map, ['CE7']);
     }
 
-    for (var i = 0; i < overlays.length; i++) {
-        overlays[i].setMap(null);
-    }
-
-    if(e.target.className === 'selected') e.target.classList.remove('selected');
-    else e.target.classList.add('selected');
-
-    create_marker_test(map);
-
-    markers = [];
-    overlays= [];
+//    markers = [];
+//    overlays= [];
 
 //    var category_list = [];
 //    $.each(document.querySelector('.category_wrap').children, function(index, item){
@@ -52,21 +60,31 @@ document.getElementById("btn_cafe").addEventListener('click', function(e) {
 
 document.getElementById("btn_food").addEventListener('click', function(e) {
 
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(null);
+//    for (var i = 0; i < markers.length; i++) {
+//        markers[i].setMap(null);
+//    }
+//
+//    for (var i = 0; i < overlays.length; i++) {
+//        overlays[i].setMap(null);
+//    }
+
+    var flag_selected = true;
+
+
+    if(e.target.className === 'selected') {
+        e.target.classList.remove('selected');
+        create_marker_test(map, null);
+    }
+    else {
+        e.target.classList.add('selected');
+        flag_selected = false;
+        create_marker_test(map, ['FD6']);
     }
 
-    for (var i = 0; i < overlays.length; i++) {
-        overlays[i].setMap(null);
-    }
 
-    if(e.target.className === 'selected') e.target.classList.remove('selected');
-    else e.target.classList.add('selected');
 
-    create_marker_test(map);
-
-    markers = [];
-    overlays= [];
+//    markers = [];
+//    overlays= [];
 
 //    var category_list = [];
 //    $.each(document.querySelector('.category_wrap').children, function(index, item){

@@ -74,7 +74,7 @@ function kakaoMap() {
     });
 }
 
-function create_marker_test(map) {
+function create_marker_test(map, Unselected) {
 
 //    var latlng = map.getCenter();
 //    var container = document.getElementById('map');
@@ -86,9 +86,10 @@ function create_marker_test(map) {
 //
 //    var new_map = new kakao.maps.Map(container, options);
 
-
+    var marker_list = [];
 
     var category_list = [];
+    var category_delete_list = [];
     $.each(document.querySelector('.category_wrap').children, function(index, item){
         if(item.className === 'selected'){
             category_list.push(item.value);
@@ -120,13 +121,14 @@ function create_marker_test(map) {
                 // 마커를 생성합니다
                 var marker = new kakao.maps.Marker({
                   position: markerPosition,
-                  image: markerImage // 마커이미지 설정
+                  image: markerImage // 마커이미지 설정s
                 });
-
-                markers.push(marker);
+                if(index == 0) a = marker;
+//                markers.push(marker);
 
                 // 마커가 지도 위에 표시되도록 설정합니다
                 marker.setMap(map);
+                marker_list.push(marker);
 
                 // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                 var hashtag_count = item.HASHTAG_COUNT;
@@ -148,12 +150,31 @@ function create_marker_test(map) {
                     content: content,
                     yAnchor: 1
                 });
-                overlays.push(customOverlay);
+//                overlays.push(customOverlay);
            });
        },
        error : function(e){
        }
     });
+
+    if(Unselected){
+        $.ajax({
+           url:'/getHashtag',
+           type:'GET',
+           dataType: 'json',
+           data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: Unselected},
+           success:function(data){
+                console.log(data);
+                console.log(marker_list);
+
+                $.each(data, function(index, item){
+
+                });
+           },
+           error : function(e){
+           }
+        });
+    }
 }
 
 
