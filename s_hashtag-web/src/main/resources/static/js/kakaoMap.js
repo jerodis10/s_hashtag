@@ -1,4 +1,5 @@
-var markers = [];
+var marker_list = [];
+var marker_object = {};
 var overlays = [];
 
 var container = document.getElementById('map');
@@ -74,7 +75,7 @@ function kakaoMap() {
     });
 }
 
-function create_marker_test(map, Unselected) {
+function create_marker_test(map, category) {
 
 //    var latlng = map.getCenter();
 //    var container = document.getElementById('map');
@@ -86,7 +87,7 @@ function create_marker_test(map, Unselected) {
 //
 //    var new_map = new kakao.maps.Map(container, options);
 
-    var marker_list = [];
+
 
     var category_list = [];
     var category_delete_list = [];
@@ -100,9 +101,11 @@ function create_marker_test(map, Unselected) {
        url:'/getHashtag',
        type:'GET',
        dataType: 'json',
-       data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category_list},
+//       data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category_list},
+        data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category},
        success:function(data){
-            console.log(data);
+//            console.log(data);
+           marker_list = [];
            $.each(data, function(index, item){
                 var img_src = "";
                 if(item.HASHTAG_COUNT < 10) img_src = '../img/markers/mapMarker1.png';
@@ -121,14 +124,16 @@ function create_marker_test(map, Unselected) {
                 // 마커를 생성합니다
                 var marker = new kakao.maps.Marker({
                   position: markerPosition,
-                  image: markerImage // 마커이미지 설정s
+                  image: markerImage // 마커이미지 설정
                 });
-                if(index == 0) a = marker;
+//                if(index == 0) a = marker;
 //                markers.push(marker);
 
                 // 마커가 지도 위에 표시되도록 설정합니다
                 marker.setMap(map);
                 marker_list.push(marker);
+
+//                if(!selected) marker_list.push(marker);
 
                 // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                 var hashtag_count = item.HASHTAG_COUNT;
@@ -152,29 +157,38 @@ function create_marker_test(map, Unselected) {
                 });
 //                overlays.push(customOverlay);
            });
+//           marker_object[category] = null;
+           marker_object[category] = marker_list;
        },
        error : function(e){
        }
-    });
+    })
+//    .done(function(data){
+//        $.each(marker_list, function(index, item){
+//            item.setMap(null);
+//        });
+//    });
 
-    if(Unselected){
-        $.ajax({
-           url:'/getHashtag',
-           type:'GET',
-           dataType: 'json',
-           data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: Unselected},
-           success:function(data){
-                console.log(data);
-                console.log(marker_list);
-
-                $.each(data, function(index, item){
-
-                });
-           },
-           error : function(e){
-           }
-        });
-    }
+//    if(!Unselected){
+//        $.ajax({
+//           url:'/getHashtag',
+//           type:'GET',
+//           dataType: 'json',
+//           data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: Unselected},
+//           success:function(data){
+////                console.log(data);
+////                console.log(marker_list);
+//
+//                $.each(marker_list, function(index, item){
+////                    console.log("marker_list", index, item);
+//                    console.log(item);
+//                    item.setMap(null);
+//                });
+//           },
+//           error : function(e){
+//           }
+//        });
+//    }
 }
 
 
@@ -213,5 +227,5 @@ function create_marker() {
 }
 
 
-create_marker_test(map);
+create_marker_test(map, 'FD6');
 

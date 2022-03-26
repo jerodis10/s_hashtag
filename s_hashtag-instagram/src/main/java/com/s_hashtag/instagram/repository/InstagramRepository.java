@@ -17,7 +17,7 @@ public interface InstagramRepository {
 
     void instagram_post_save(PostDto postDto);
 
-    List<Map<String, Object>> getHashtag(List<String> category, Rect rect);
+    List<Map<String, Object>> getHashtag(String category, Rect rect);
 
     List<Map<String, Object>> findAllMember();
 

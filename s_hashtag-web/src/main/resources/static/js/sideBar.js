@@ -25,12 +25,17 @@ document.getElementById("btn_cafe").addEventListener('click', function(e) {
 
     if(e.target.className === 'selected') {
         e.target.classList.remove('selected');
-        create_marker_test(map, null);
+        console.log(marker_list);
+        console.log(marker_object);
+        $.each(marker_object['CE7'], function(index, item){
+            item.setMap(null);
+        });
+//        create_marker_test(map, null);
     }
     else {
         e.target.classList.add('selected');
         flag_selected = false;
-        create_marker_test(map, ['CE7']);
+        create_marker_test(map, 'CE7');
     }
 
 //    markers = [];
@@ -73,12 +78,15 @@ document.getElementById("btn_food").addEventListener('click', function(e) {
 
     if(e.target.className === 'selected') {
         e.target.classList.remove('selected');
-        create_marker_test(map, null);
+        $.each(marker_object['FD6'], function(index, item){
+            item.setMap(null);
+        });
+//        create_marker_test(map, null);
     }
     else {
         e.target.classList.add('selected');
         flag_selected = false;
-        create_marker_test(map, ['FD6']);
+        create_marker_test(map, 'FD6');
     }
 
 

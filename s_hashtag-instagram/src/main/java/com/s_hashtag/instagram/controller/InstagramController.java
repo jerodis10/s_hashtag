@@ -87,8 +87,8 @@ public class InstagramController {
         Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
 
-        return instagramRepository.getHashtag(Arrays.asList((String) param.get("category_list[]")), rect);
-//        return instagramRepository.getHashtag((List<String>) param.get("category_list"), rect);
+//        return instagramRepository.getHashtag(Arrays.asList((String) param.get("category_list[]")), rect);
+        return instagramRepository.getHashtag((String) param.get("category_list"), rect);
     }
 
     @GetMapping("/searchCategory")
@@ -101,6 +101,6 @@ public class InstagramController {
         Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
 
-        return instagramRepository.getHashtag(Arrays.asList((String) param.get("category_list")), rect);
+        return instagramRepository.getHashtag((String) param.get("category_list"), rect);
     }
 }

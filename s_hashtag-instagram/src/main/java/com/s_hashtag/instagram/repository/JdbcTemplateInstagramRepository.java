@@ -96,7 +96,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public List<Map<String, Object>> getHashtag(List<String> category_list, Rect rect) {
+    public List<Map<String, Object>> getHashtag(String category_list, Rect rect) {
         List<Map<String, Object>> ret = new ArrayList<>();
 
 //        String sql_get_hashtag = "select * " +
@@ -122,10 +122,12 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
         param_list.add(rect.getMaxLongitude().getValue());
 
         String inSql = "";
-        for(String str : category_list) {
-            inSql += "and category_group_code = ? ";
-            param_list.add(str);
-        }
+//        for(String str : category_list) {
+//            inSql += "and category_group_code = ? ";
+//            param_list.add(str);
+//        }
+        inSql += "and category_group_code = ? ";
+        param_list.add(category_list);
 
         String sql_get_hashtag =
                 "select * " +
