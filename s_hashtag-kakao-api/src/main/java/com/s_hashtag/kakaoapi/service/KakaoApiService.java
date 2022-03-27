@@ -79,6 +79,22 @@ public class KakaoApiService {
         return pageList;
     }
 
+    public List<KakaoPlaceDto> findPlacesByKeyword(String category, Rect initialRect, List<KakaoPlaceDto> pageList) {
+
+        KakaoPlaceDto page = kakaoRestTemplateApiCaller.findPlaceByKeyword(category, initialRect, FIRST_PAGE);
+        if (kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page) == 1) {
+//        if (kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page)) {
+            pageList.add(page);
+        } else if(kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page) == 2) {
+            List<Rect> dividedRects = RectDivider.divide(initialRect);
+            for (Rect rect : dividedRects) {
+                List<KakaoPlaceDto> nextPages = findPlaces(category, rect, pageList);
+            }
+        }
+
+        return pageList;
+    }
+
 //    public List<KakaoPlaceDto> findPlaces(String category, Rect initialRect, List<KakaoPlaceDto> pageList) {
 ////        List<KakaoPlaceDto> result = new ArrayList<>();
 //
