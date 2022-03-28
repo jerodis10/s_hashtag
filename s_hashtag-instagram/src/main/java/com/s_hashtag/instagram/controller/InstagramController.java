@@ -91,9 +91,9 @@ public class InstagramController {
         return instagramRepository.getHashtag((String) param.get("category_list"), rect);
     }
 
-    @GetMapping("/getHashtagBykeyword")
+    @GetMapping("/getHashtagByKeyword")
     @ResponseBody
-    public List<Map<String, Object>> getHashtagByKeyword(@RequestParam HashMap<String, Object> param) {
+    public void getHashtagByKeyword(@RequestParam HashMap<String, Object> param) {
         List<Map<String, Object>> list = new ArrayList<>();
         Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
         Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
@@ -101,8 +101,8 @@ public class InstagramController {
         Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
 
-        List<KakaoPlaceDto> kakaoPlaceDto = kakaoApiService.findPlaces("CE7", rect, new ArrayList<>());
+        List<KakaoPlaceDto> kakaoPlaceList = kakaoApiService.findPlacesByKeyword("CE7", rect, param.get("searchText").toString(), new ArrayList<>());
 
-        return instagramRepository.getHashtag((String) param.get("category_list"), rect);
+        System.out.println("1");
     }
 }

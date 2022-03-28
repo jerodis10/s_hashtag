@@ -79,11 +79,10 @@ public class KakaoApiService {
         return pageList;
     }
 
-    public List<KakaoPlaceDto> findPlacesByKeyword(String category, Rect initialRect, List<KakaoPlaceDto> pageList) {
+    public List<KakaoPlaceDto> findPlacesByKeyword(String category, Rect initialRect, String query, List<KakaoPlaceDto> pageList) {
 
-        KakaoPlaceDto page = kakaoRestTemplateApiCaller.findPlaceByKeyword(category, initialRect, FIRST_PAGE);
+        KakaoPlaceDto page = kakaoRestTemplateApiCaller.findPlaceByKeyword(category, initialRect, query);
         if (kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page) == 1) {
-//        if (kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page)) {
             pageList.add(page);
         } else if(kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page) == 2) {
             List<Rect> dividedRects = RectDivider.divide(initialRect);

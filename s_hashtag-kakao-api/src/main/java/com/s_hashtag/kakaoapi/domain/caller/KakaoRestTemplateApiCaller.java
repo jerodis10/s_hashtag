@@ -16,7 +16,8 @@ public class KakaoRestTemplateApiCaller {
     private static final String PAGE = "page";
 
     //    private final String URL = "https://dapi.kakao.com/v3/search/book";
-    private final String URL = "https://dapi.kakao.com/v2/local/search/category";
+    private final String CATEGORY_URL = "https://dapi.kakao.com/v2/local/search/category";
+    private final String KEYWORD_URL = "https://dapi.kakao.com/v2/local/search/keyword";
     private final String KEY = "af2408226e91805021d1adc7a9d31b36";
 
     private final RestTemplate restTemplate;
@@ -29,7 +30,7 @@ public class KakaoRestTemplateApiCaller {
 
     public KakaoPlaceDto findPlaceByCategory(String category, Rect rect, int page) {
         UriComponents uri = UriComponentsBuilder.newInstance()
-                .fromHttpUrl(URL)
+                .fromHttpUrl(CATEGORY_URL)
                 .queryParam("category_group_code", category)
                 .queryParam("rect", rect.toKakaoUriFormat())
                 .build();
@@ -45,9 +46,10 @@ public class KakaoRestTemplateApiCaller {
 //        return restTemplate.getForObject(uri.toUriString(), KakaoPlaceDto.class);
     }
 
-    public KakaoPlaceDto findPlaceByKeyword(String category, Rect rect, int page) {
+    public KakaoPlaceDto findPlaceByKeyword(String category, Rect rect, String query) {
         UriComponents uri = UriComponentsBuilder.newInstance()
-                .fromHttpUrl(URL)
+                .fromHttpUrl(KEYWORD_URL)
+                .queryParam("query", query)
                 .queryParam("category_group_code", category)
                 .queryParam("rect", rect.toKakaoUriFormat())
                 .build();
@@ -55,12 +57,7 @@ public class KakaoRestTemplateApiCaller {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("Authorization", "KakaoAK "+ "af2408226e91805021d1adc7a9d31b36");
         HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
-//        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-//                .queryParam("query", "Omens");
-//        return restTemplate.exchange(builder.toUriString(), HttpMethod.GET, entity, Map.class).getBody();
-//                return restTemplate.exchange(uri.toUriString(), HttpMethod.GET, entity, Map.class).getBody();
         return restTemplate.exchange(uri.toUriString(), HttpMethod.GET, entity, KakaoPlaceDto.class).getBody();
-//        return restTemplate.getForObject(uri.toUriString(), KakaoPlaceDto.class);
     }
 
     public Integer isLessOrEqualTotalCount(KakaoPlaceDto kakaoPlaceDto) {
