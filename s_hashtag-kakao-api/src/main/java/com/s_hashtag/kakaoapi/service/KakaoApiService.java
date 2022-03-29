@@ -87,7 +87,7 @@ public class KakaoApiService {
         } else if(kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page) == 2) {
             List<Rect> dividedRects = RectDivider.divide(initialRect);
             for (Rect rect : dividedRects) {
-                List<KakaoPlaceDto> nextPages = findPlaces(category, rect, pageList);
+                List<KakaoPlaceDto> nextPages = findPlacesByKeyword(category, rect, query, pageList);
             }
         }
 

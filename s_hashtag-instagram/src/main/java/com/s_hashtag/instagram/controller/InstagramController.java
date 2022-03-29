@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -101,7 +103,24 @@ public class InstagramController {
         Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
 
-        List<KakaoPlaceDto> kakaoPlaceList = kakaoApiService.findPlacesByKeyword("CE7", rect, param.get("searchText").toString(), new ArrayList<>());
+        List<KakaoPlaceDto> kakaoPlaceByKeywordList = kakaoApiService.findPlacesByKeyword("CE7", rect, param.get("searchText").toString(), new ArrayList<>());
+        List<Document> KeywordStringList = kakaoPlaceByKeywordList
+                .stream()
+                .map(KakaoPlaceDto::getDocuments);
+//                .collect(Collectors.toList());
+
+        List<productList>
+        List<String> collectorCollection =
+                productList.stream()
+                        .map(Product::getName)
+                        .collect(Collectors.toList());
+
+        List<Map<String, Object>> hashtagList = instagramRepository.getHashtag((String) param.get("category_list"), rect);
+
+//        List<Map<String, Object>> result = kakaoPlaceByKeywordList
+//                .stream()
+//                .filter(id -> hashtagList.stream().anyMatch(Predicate.isEqual(id)))
+//                .collect(Collectors.toList());
 
         System.out.println("1");
     }
