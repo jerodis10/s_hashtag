@@ -1,6 +1,7 @@
 package com.s_hashtag.instagram.repository;
 
 import com.s_hashtag.instagram.dto.CrawlingDto;
+import com.s_hashtag.instagram.dto.Place;
 import com.s_hashtag.instagram.dto.PostDto;
 import com.s_hashtag.kakaoapi.domain.dto.Document;
 import com.s_hashtag.kakaoapi.domain.rect.Rect;
@@ -96,8 +97,8 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public List<Map<String, Object>> getHashtag(String category_list, Rect rect) {
-        List<Map<String, Object>> ret = new ArrayList<>();
+    public List<Place> getHashtag(String category_list, Rect rect) {
+        List<Place> ret = new ArrayList<>();
 
 //        String sql_get_hashtag = "select * " +
 //                                 "from kakao_document kd " +
@@ -186,20 +187,18 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
         };
     }
 
-    @Override
-    public List<Map<String, Object>> findAllMember() {
-//        return jdbcTemplate.query("select * from member where id in (?,?,?)", memberRowMapper(), '1', '2', '3');
+//    @Override
+//    public List<Map<String, Object>> findAllMember() {
+////        return jdbcTemplate.query("select * from member where id in (?,?,?)", memberRowMapper(), '1', '2', '3');
+//
+//        return jdbcTemplate.queryForList("select * from member where id in (?,?,?)",
+//                '1','2','3');
+//    }
 
-        return jdbcTemplate.queryForList("select * from member where id in (?,?,?)",
-                '1','2','3');
-    }
-
-    private RowMapper<Map<String, Object>> memberRowMapper() {
+    private RowMapper<Place> placeRowMapper() {
         return (rs, rowNum) -> {
-            Map<String, Object> parameter = new HashMap<>();
-            parameter.put("a", '1');
-            parameter.put("b", '2');
-            parameter.put("c", '3');
+            Place place = new Place();
+            place.set
             return parameter;
         };
     }

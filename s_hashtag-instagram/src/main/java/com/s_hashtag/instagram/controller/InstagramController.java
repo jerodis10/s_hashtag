@@ -2,6 +2,7 @@ package com.s_hashtag.instagram.controller;
 
 import com.s_hashtag.instagram.crawler.InstagramCrawler;
 import com.s_hashtag.instagram.dto.CrawlingDto;
+import com.s_hashtag.instagram.dto.Place;
 import com.s_hashtag.instagram.dto.PostDto;
 import com.s_hashtag.instagram.repository.InstagramRepository;
 import com.s_hashtag.kakaoapi.domain.dto.Document;
@@ -26,6 +27,7 @@ import java.math.RoundingMode;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -81,7 +83,7 @@ public class InstagramController {
 
     @GetMapping("/getHashtag")
     @ResponseBody
-    public List<Map<String, Object>> getHashtag(@RequestParam HashMap<String, Object> param) {
+    public List<Place> getHashtag(@RequestParam HashMap<String, Object> param) {
         List<Map<String, Object>> list = new ArrayList<>();
         Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
         Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
@@ -104,16 +106,11 @@ public class InstagramController {
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
 
         List<KakaoPlaceDto> kakaoPlaceByKeywordList = kakaoApiService.findPlacesByKeyword("CE7", rect, param.get("searchText").toString(), new ArrayList<>());
-        List<Document> KeywordStringList = kakaoPlaceByKeywordList
+        Stream<List<Document>> KeywordStringList = kakaoPlaceByKeywordList
                 .stream()
                 .map(KakaoPlaceDto::getDocuments);
 //                .collect(Collectors.toList());
 
-        List<productList>
-        List<String> collectorCollection =
-                productList.stream()
-                        .map(Product::getName)
-                        .collect(Collectors.toList());
 
         List<Map<String, Object>> hashtagList = instagramRepository.getHashtag((String) param.get("category_list"), rect);
 

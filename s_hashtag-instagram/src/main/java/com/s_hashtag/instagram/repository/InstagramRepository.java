@@ -1,6 +1,7 @@
 package com.s_hashtag.instagram.repository;
 
 import com.s_hashtag.instagram.dto.CrawlingDto;
+import com.s_hashtag.instagram.dto.Place;
 import com.s_hashtag.instagram.dto.PostDto;
 import com.s_hashtag.kakaoapi.domain.dto.Document;
 import com.s_hashtag.kakaoapi.domain.rect.Rect;
@@ -17,11 +18,9 @@ public interface InstagramRepository {
 
     void instagram_post_save(PostDto postDto);
 
-    List<Map<String, Object>> getHashtag(String category, Rect rect);
+//    List<Map<String, Object>> getHashtag(String category, Rect rect);
 
-    List<Map<String, Object>> findAllMember();
-
-
+    List<Place> getHashtag(String category, Rect rect);
 
 //    Optional<Member> findById(String id);
 //    Optional<Member> findByName(String name);
