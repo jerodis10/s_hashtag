@@ -2,7 +2,7 @@ package com.s_hashtag.instagram.controller;
 
 import com.s_hashtag.instagram.crawler.InstagramCrawler;
 import com.s_hashtag.instagram.dto.CrawlingDto;
-import com.s_hashtag.instagram.dto.Place;
+import com.s_hashtag.instagram.dto.PlaceDto;
 import com.s_hashtag.instagram.dto.PostDto;
 import com.s_hashtag.instagram.repository.InstagramRepository;
 import com.s_hashtag.kakaoapi.domain.dto.Document;
@@ -15,7 +15,6 @@ import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,10 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -83,7 +79,7 @@ public class InstagramController {
 
     @GetMapping("/getHashtag")
     @ResponseBody
-    public List<Place> getHashtag(@RequestParam HashMap<String, Object> param) {
+    public List<PlaceDto> getHashtag(@RequestParam HashMap<String, Object> param) {
         List<Map<String, Object>> list = new ArrayList<>();
         Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
         Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
@@ -112,7 +108,7 @@ public class InstagramController {
 //                .collect(Collectors.toList());
 
 
-        List<Map<String, Object>> hashtagList = instagramRepository.getHashtag((String) param.get("category_list"), rect);
+//        List<Map<String, Object>> hashtagList = instagramRepository.getHashtag((String) param.get("category_list"), rect);
 
 //        List<Map<String, Object>> result = kakaoPlaceByKeywordList
 //                .stream()

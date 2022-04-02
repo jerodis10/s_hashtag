@@ -1,13 +1,11 @@
 package com.s_hashtag.instagram.repository;
 
 import com.s_hashtag.instagram.dto.CrawlingDto;
-import com.s_hashtag.instagram.dto.Place;
+import com.s_hashtag.instagram.dto.PlaceDto;
 import com.s_hashtag.instagram.dto.PostDto;
 import com.s_hashtag.kakaoapi.domain.dto.Document;
 import com.s_hashtag.kakaoapi.domain.rect.Rect;
-import org.springframework.stereotype.Repository;
 
-import java.lang.reflect.Member;
 import java.util.*;
 
 //@Repository
@@ -20,7 +18,7 @@ public interface InstagramRepository {
 
 //    List<Map<String, Object>> getHashtag(String category, Rect rect);
 
-    List<Place> getHashtag(String category, Rect rect);
+    List<PlaceDto> getHashtag(String category, Rect rect);
 
 //    Optional<Member> findById(String id);
 //    Optional<Member> findByName(String name);

@@ -127,11 +127,11 @@ function create_marker_test(map, category) {
            marker_list = [];
            $.each(data, function(index, item){
                 var img_src = "";
-                if(item.HASHTAG_COUNT < 10) img_src = '../img/markers/mapMarker1.png';
-                if(10 <= item.HASHTAG_COUNT && item.HASHTAG_COUNT < 100) img_src = '../img/markers/mapMarker2.png';
-                if(100 <= item.HASHTAG_COUNT && item.HASHTAG_COUNT < 1000) img_src = '../img/markers/mapMarker3.png';
-                if(1000 <= item.HASHTAG_COUNT && item.HASHTAG_COUNT < 10000) img_src = '../img/markers/mapMarker4.png';
-                if(10000 <= item.HASHTAG_COUNT) img_src = '../img/markers/mapMarker5.png';
+                if(item.hashtagCount < 10) img_src = '../img/markers/mapMarker1.png';
+                if(10 <= item.hashtagCount && item.hashtagCount < 100) img_src = '../img/markers/mapMarker2.png';
+                if(100 <= item.hashtagCount && item.hashtagCount < 1000) img_src = '../img/markers/mapMarker3.png';
+                if(1000 <= item.hashtagCount && item.hashtagCount < 10000) img_src = '../img/markers/mapMarker4.png';
+                if(10000 <= item.hashtagCount) img_src = '../img/markers/mapMarker5.png';
 
                 var imageSrc = img_src,
                 imageSize = new kakao.maps.Size(34, 39), // 마커이미지의 크기입니다
@@ -155,8 +155,8 @@ function create_marker_test(map, category) {
 //                if(!selected) marker_list.push(marker);
 
                 // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-                var hashtag_count = item.HASHTAG_COUNT;
-                var hashtag_name = item.HASHTAG_NAME;
+                var hashtag_count = item.hashtagCount;
+                var hashtag_name = item.hashtagName;
                 var content =
                     '<div class="bubble">' +
                     '   <p>' + hashtag_name + '</p>' +
@@ -165,7 +165,7 @@ function create_marker_test(map, category) {
                     '</div>'
 
                 // 커스텀 오버레이가 표시될 위치입니다
-                var position = new kakao.maps.LatLng(item.LATITUDE+0.001, item.LONGITUDE);
+                var position = new kakao.maps.LatLng(item.latitude+0.001, item.longitude);
 
                 // 커스텀 오버레이를 생성합니다
                 var customOverlay = new kakao.maps.CustomOverlay({

@@ -1,19 +1,15 @@
 package com.s_hashtag.instagram.repository;
 
 import com.s_hashtag.instagram.dto.CrawlingDto;
-import com.s_hashtag.instagram.dto.Place;
+import com.s_hashtag.instagram.dto.PlaceDto;
 import com.s_hashtag.instagram.dto.PostDto;
 import com.s_hashtag.kakaoapi.domain.dto.Document;
 import com.s_hashtag.kakaoapi.domain.rect.Rect;
-import org.jsoup.internal.StringUtil;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
-import org.thymeleaf.util.StringUtils;
 
 import javax.sql.DataSource;
-import java.lang.reflect.Member;
 import java.util.*;
 
 @Repository
@@ -97,8 +93,8 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public List<Place> getHashtag(String category_list, Rect rect) {
-        List<Place> ret = new ArrayList<>();
+    public List<PlaceDto> getHashtag(String category_list, Rect rect) {
+        List<PlaceDto> ret = new ArrayList<>();
 
 //        String sql_get_hashtag = "select * " +
 //                                 "from kakao_document kd " +
@@ -141,7 +137,9 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
 
         sql_get_hashtag += inSql;
 
-        return jdbcTemplate.queryForList(sql_get_hashtag, param_list.toArray());
+        return jdbcTemplate.query(sql_get_hashtag, PlaceRowMapper(rect), param_list.toArray());
+
+//        return jdbcTemplate.queryForList(sql_get_hashtag, param_list.toArray());
 
 //        return jdbcTemplate.queryForList(sql_get_hashtag, new Object[]{rect.getMinLatitude().getValue(), rect.getMaxLatitude().getValue(), rect.getMinLongitude().getValue(), rect.getMaxLongitude().getValue(), "FD6"});
 
@@ -176,16 +174,16 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
 //        return ret;
     }
 
-    private RowMapper<Map<String, Object>> RowMapper(Rect rect) {
-        return (rs, rowNum) -> {
-            Map<String, Object> parameter = new HashMap<>();
-            parameter.put("min_latitude", rect.getMinLatitude());
-            parameter.put("max_latitude", rect.getMaxLatitude());
-            parameter.put("min_longitude", rect.getMinLongitude());
-            parameter.put("max_longitude", rect.getMaxLongitude());
-            return parameter;
-        };
-    }
+//    private RowMapper<Map<String, Object>> RowMapper(Rect rect) {
+//        return (rs, rowNum) -> {
+//            Map<String, Object> parameter = new HashMap<>();
+//            parameter.put("min_latitude", rect.getMinLatitude());
+//            parameter.put("max_latitude", rect.getMaxLatitude());
+//            parameter.put("min_longitude", rect.getMinLongitude());
+//            parameter.put("max_longitude", rect.getMaxLongitude());
+//            return parameter;
+//        };
+//    }
 
 //    @Override
 //    public List<Map<String, Object>> findAllMember() {
@@ -195,11 +193,19 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
 //                '1','2','3');
 //    }
 
-    private RowMapper<Place> placeRowMapper() {
+    private RowMapper<PlaceDto> PlaceRowMapper(Rect rect) {
         return (rs, rowNum) -> {
-            Place place = new Place();
-            place.set
-            return parameter;
+            PlaceDto placeDto = new PlaceDto();
+            placeDto.setMinLatitude(rect.getMinLatitude().getValue());
+            placeDto.setMaxLatitude(rect.getMaxLatitude().getValue());
+            placeDto.setMinLongitude(rect.getMinLongitude().getValue());
+            placeDto.setMaxLongitude(rect.getMaxLongitude().getValue());
+            placeDto.setHashtagName(rs.getString("HASHTAG_NAME"));
+            placeDto.setHashtagCount(rs.getLong("HASHTAG_COUNT"));
+            placeDto.setLatitude(rs.getDouble("LATITUDE"));
+            placeDto.setLongitude(rs.getDouble("LONGITUDE"));
+
+            return placeDto;
         };
     }
 
