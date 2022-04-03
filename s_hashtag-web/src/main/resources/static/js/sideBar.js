@@ -4,9 +4,10 @@ document.getElementById("btn_cafe").addEventListener('click', function(e) {
 
     if(e.target.className === 'selected') {
         e.target.classList.remove('selected');
-        console.log(marker_list);
-        console.log(marker_object);
         $.each(marker_object['CE7'], function(index, item){
+            item.setMap(null);
+        });
+        $.each(overlay_object['CE7'], function(index, item){
             item.setMap(null);
         });
     }
@@ -24,6 +25,9 @@ document.getElementById("btn_food").addEventListener('click', function(e) {
     if(e.target.className === 'selected') {
         e.target.classList.remove('selected');
         $.each(marker_object['FD6'], function(index, item){
+            item.setMap(null);
+        });
+        $.each(overlay_object['FD6'], function(index, item){
             item.setMap(null);
         });
     }

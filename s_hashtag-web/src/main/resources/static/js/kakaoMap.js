@@ -1,6 +1,7 @@
 var marker_list = [];
 var marker_object = {};
-var overlays = [];
+var overlay_list = [];
+var overlay_object = {};
 
 var container = document.getElementById('map');
 var options = {
@@ -125,6 +126,7 @@ function create_marker_test(map, category) {
        success:function(data){
 //            console.log(data);
            marker_list = [];
+           overlay_list = [];
            $.each(data, function(index, item){
                 var img_src = "";
                 if(item.hashtagCount < 10) img_src = '../img/markers/mapMarker1.png';
@@ -138,7 +140,7 @@ function create_marker_test(map, category) {
                 imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
                 var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-                    markerPosition = new kakao.maps.LatLng(item.LATITUDE, item.LONGITUDE); // 마커가 표시될 위치입니다
+                    markerPosition = new kakao.maps.LatLng(item.latitude, item.longitude); // 마커가 표시될 위치입니다
 
                 // 마커를 생성합니다
                 var marker = new kakao.maps.Marker({
@@ -174,10 +176,12 @@ function create_marker_test(map, category) {
                     content: content,
                     yAnchor: 1
                 });
-//                overlays.push(customOverlay);
+
+                overlay_list.push(customOverlay);
            });
-//           marker_object[category] = null;
+
            marker_object[category] = marker_list;
+           overlay_object[category] = overlay_list;
        },
        error : function(e){
        }
