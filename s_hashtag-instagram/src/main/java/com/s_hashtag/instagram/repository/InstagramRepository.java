@@ -10,6 +10,7 @@ import java.util.*;
 
 //@Repository
 public interface InstagramRepository {
+
     void kakao_document_save(Document document);
 
     void instagram_save(CrawlingDto crawlingDto, Document document);
@@ -19,6 +20,9 @@ public interface InstagramRepository {
 //    List<Map<String, Object>> getHashtag(String category, Rect rect);
 
     List<PlaceDto> getHashtag(String category, Rect rect);
+
+    List<PlaceDto> getHashtagByKeyword(String category, List<String> keywordList);
+
 
 //    Optional<Member> findById(String id);
 //    Optional<Member> findByName(String name);

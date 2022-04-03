@@ -59,8 +59,10 @@ public class InstagramController {
 
 //        Loop1 :
         for(KakaoPlaceDto page : kakaoPlaceDto){
+//            Document document = page.getDocuments();
             for(Document document : page.getDocuments()){
                 list_documonet.add(document);
+
                 instagramRepository.kakao_document_save(document);
 
                 CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
@@ -104,25 +106,13 @@ public class InstagramController {
 
         List<KakaoPlaceDto> kakaoPlaceByKeywordList = kakaoApiService.findPlacesByKeyword("CE7", rect, param.get("searchText").toString(), new ArrayList<>());
 
-        Stream<List<Document>> KeywordStringList = kakaoPlaceByKeywordList
+        List<String> KeywordStringList = kakaoPlaceByKeywordList
                 .stream()
-                .map(KakaoPlaceDto::getDocuments);
-//                .map(Document::getId);
-//                .collect(Collectors.toList());
+//                .map(o-> o.getDocuments().getId())
+                .map(o-> o.getDocuments())
+                .forEach(o-> o.get(0))
+                .collect(Collectors.toList());
 
-//        for(Document document : KeywordStringList){
-//
-//        }
-
-
-
-//        List<Map<String, Object>> hashtagList = instagramRepository.getHashtag((String) param.get("category_list"), rect);
-
-//        List<Map<String, Object>> result = kakaoPlaceByKeywordList
-//                .stream()
-//                .filter(id -> hashtagList.stream().anyMatch(Predicate.isEqual(id)))
-//                .collect(Collectors.toList());
-
-//        System.out.println("1");
+       return instagramRepository.getHashtagByKeyword((String) param.get("category_list"), KeywordStringList);
     }
 }

@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class KakaoPlaceDto {
     private Meta meta;
+//    private Document documents;
     private List<Document> documents;
 //    private Integer totalCount;
 

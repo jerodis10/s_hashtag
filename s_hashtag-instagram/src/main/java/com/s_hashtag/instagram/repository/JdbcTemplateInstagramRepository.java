@@ -139,59 +139,28 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
 
         return jdbcTemplate.query(sql_get_hashtag, PlaceRowMapper(rect), param_list.toArray());
 
-//        return jdbcTemplate.queryForList(sql_get_hashtag, param_list.toArray());
-
-//        return jdbcTemplate.queryForList(sql_get_hashtag, new Object[]{rect.getMinLatitude().getValue(), rect.getMaxLatitude().getValue(), rect.getMinLongitude().getValue(), rect.getMaxLongitude().getValue(), "FD6"});
-
-//        return jdbcTemplate.queryForList(sql_get_hashtag,
-//        rect.getMinLatitude().getValue(), rect.getMaxLatitude().getValue(), rect.getMinLongitude().getValue(), rect.getMaxLongitude().getValue(), "FD6");
-
-//        String sql_category = "";
-//        if(category_list.size() > 1) sql_category = StringUtils.join(category_list, ",");
-//        else sql_category = category_list.get(0);
-//        sql_category += " )";
-//        sql_get_hashtag += sql_category;
-
-
-//        return jdbcTemplate.queryForList(sql_get_hashtag,
-//                rect.getMinLatitude().getValue(), rect.getMaxLatitude().getValue(), rect.getMinLongitude().getValue(), rect.getMaxLongitude().getValue());
-
-//        ret = jdbcTemplate.queryForList(sql_get_hashtag,
-//                category, rect.getMinLatitude(), rect.getMaxLatitude(), rect.getMinLongitude(), rect.getMaxLongitude());
-
-//        Map<String, Object> parameter = new HashMap<>();
-//        parameter.put("category", category);
-//        parameter.put("min_latitude", rect.getMinLatitude());
-//        parameter.put("max_latitude", rect.getMaxLatitude());
-//        parameter.put("min_longitude", rect.getMinLongitude());
-//        parameter.put("max_longitude", rect.getMaxLongitude());
-//
-//        ret = jdbcTemplate.queryForList(sql_get_hashtag, parameter);
-
-//        ret = jdbcTemplate.query(sql_get_hashtag, RowMapper(rect),
-//                category, rect.getMinLatitude(), rect.getMaxLatitude(), rect.getMinLongitude(), rect.getMaxLongitude());
-
-//        return ret;
     }
 
-//    private RowMapper<Map<String, Object>> RowMapper(Rect rect) {
-//        return (rs, rowNum) -> {
-//            Map<String, Object> parameter = new HashMap<>();
-//            parameter.put("min_latitude", rect.getMinLatitude());
-//            parameter.put("max_latitude", rect.getMaxLatitude());
-//            parameter.put("min_longitude", rect.getMinLongitude());
-//            parameter.put("max_longitude", rect.getMaxLongitude());
-//            return parameter;
-//        };
-//    }
+    @Override
+    public List<PlaceDto> getHashtagByKeyword(String category_list, List<String> keywordList) {
+        String sql_get_hashtag_byKeyword =
+                "select * " +
+                "from instagram it " +
+                "where 1 = 1";
 
-//    @Override
-//    public List<Map<String, Object>> findAllMember() {
-////        return jdbcTemplate.query("select * from member where id in (?,?,?)", memberRowMapper(), '1', '2', '3');
-//
-//        return jdbcTemplate.queryForList("select * from member where id in (?,?,?)",
-//                '1','2','3');
-//    }
+        for(String keyword : keywordList){
+            sql_get_hashtag_byKeyword += "and place_id = ? ";
+        }
+
+        sql_get_hashtag_byKeyword += "and category_group_code = ? ";
+
+        List<Object> param = new ArrayList<>();
+        param.add(category_list);
+        param.add(keywordList);
+
+        return jdbcTemplate.query(sql_get_hashtag_byKeyword, PlaceByKeywordRowMapper(), param);
+    }
+
 
     private RowMapper<PlaceDto> PlaceRowMapper(Rect rect) {
         return (rs, rowNum) -> {
@@ -200,6 +169,18 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
             placeDto.setMaxLatitude(rect.getMaxLatitude().getValue());
             placeDto.setMinLongitude(rect.getMinLongitude().getValue());
             placeDto.setMaxLongitude(rect.getMaxLongitude().getValue());
+            placeDto.setHashtagName(rs.getString("HASHTAG_NAME"));
+            placeDto.setHashtagCount(rs.getLong("HASHTAG_COUNT"));
+            placeDto.setLatitude(rs.getDouble("LATITUDE"));
+            placeDto.setLongitude(rs.getDouble("LONGITUDE"));
+
+            return placeDto;
+        };
+    }
+
+    private RowMapper<PlaceDto> PlaceByKeywordRowMapper() {
+        return (rs, rowNum) -> {
+            PlaceDto placeDto = new PlaceDto();
             placeDto.setHashtagName(rs.getString("HASHTAG_NAME"));
             placeDto.setHashtagCount(rs.getLong("HASHTAG_COUNT"));
             placeDto.setLatitude(rs.getDouble("LATITUDE"));
