@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Slf4j
@@ -93,7 +94,7 @@ public class InstagramController {
 
     @GetMapping("/getHashtagByKeyword")
     @ResponseBody
-    public void getHashtagByKeyword(@RequestParam HashMap<String, Object> param) {
+    public List<PlaceDto> getHashtagByKeyword(@RequestParam HashMap<String, Object> param) {
         List<Map<String, Object>> list = new ArrayList<>();
         Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
         Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
@@ -102,10 +103,17 @@ public class InstagramController {
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
 
         List<KakaoPlaceDto> kakaoPlaceByKeywordList = kakaoApiService.findPlacesByKeyword("CE7", rect, param.get("searchText").toString(), new ArrayList<>());
+
         Stream<List<Document>> KeywordStringList = kakaoPlaceByKeywordList
                 .stream()
                 .map(KakaoPlaceDto::getDocuments);
+//                .map(Document::getId);
 //                .collect(Collectors.toList());
+
+//        for(Document document : KeywordStringList){
+//
+//        }
+
 
 
 //        List<Map<String, Object>> hashtagList = instagramRepository.getHashtag((String) param.get("category_list"), rect);
@@ -115,6 +123,6 @@ public class InstagramController {
 //                .filter(id -> hashtagList.stream().anyMatch(Predicate.isEqual(id)))
 //                .collect(Collectors.toList());
 
-        System.out.println("1");
+//        System.out.println("1");
     }
 }
