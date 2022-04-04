@@ -86,7 +86,6 @@ function getHashtagByKeyword(searchText, category) {
         data: {ha: 126.96890764549995, oa: 126.99019733287525, pa: 37.56419112995975, qa: 37.5696007924915, category_list: 'CE7', searchText: searchText}, // 서울시청 주변
 //        data: {ha: 126.75578831035362, oa: 127.2251487382762, pa: 37.41847533960485, qa: 37.70625487247741, category_list: 'CE7'}, // 서울시 전체
 
-
        success:function(data){
             console.log(data);
        },

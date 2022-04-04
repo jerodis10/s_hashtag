@@ -143,22 +143,37 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
 
     @Override
     public List<PlaceDto> getHashtagByKeyword(String category_list, List<String> keywordList) {
+//        String[] c_list = category_list.split(",");
         String sql_get_hashtag_byKeyword =
                 "select * " +
                 "from instagram it " +
-                "where 1 = 1";
+                "left outer join kakao_document kd " +
+                "on it.place_id = kd.kakao_id " +
+                "where 1 = 1 ";
+
+        sql_get_hashtag_byKeyword += "and category_group_code = ? ";
+
+//        for(String category : c_list) {
+//            sql_get_hashtag_byKeyword += "and category_group_code = ? ";
+//        }
 
         for(String keyword : keywordList){
             sql_get_hashtag_byKeyword += "and place_id = ? ";
         }
 
-        sql_get_hashtag_byKeyword += "and category_group_code = ? ";
 
         List<Object> param = new ArrayList<>();
         param.add(category_list);
-        param.add(keywordList);
 
-        return jdbcTemplate.query(sql_get_hashtag_byKeyword, PlaceByKeywordRowMapper(), param);
+//        for(String category : c_list){
+//            param.add(category);
+//        }
+
+        for(String keyword : keywordList){
+            param.add(keyword);
+        }
+
+        return jdbcTemplate.query(sql_get_hashtag_byKeyword, PlaceByKeywordRowMapper(), param.toArray());
     }
 
 

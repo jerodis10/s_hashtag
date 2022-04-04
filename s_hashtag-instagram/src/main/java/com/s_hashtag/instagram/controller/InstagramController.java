@@ -106,12 +106,20 @@ public class InstagramController {
 
         List<KakaoPlaceDto> kakaoPlaceByKeywordList = kakaoApiService.findPlacesByKeyword("CE7", rect, param.get("searchText").toString(), new ArrayList<>());
 
-        List<String> KeywordStringList = kakaoPlaceByKeywordList
-                .stream()
-//                .map(o-> o.getDocuments().getId())
-                .map(o-> o.getDocuments())
-                .forEach(o-> o.get(0))
-                .collect(Collectors.toList());
+        List<String> KeywordStringList = new ArrayList<>();
+        for(KakaoPlaceDto kakaoPlaceDto : kakaoPlaceByKeywordList) {
+            for(Document document : kakaoPlaceDto.getDocuments()){
+                KeywordStringList.add(document.getId());
+            }
+        }
+
+
+//        Optional<List<Document>> documentList = kakaoPlaceByKeywordList
+//                .stream()
+////                .map(o-> o.getDocuments().getId())
+//                .map(o-> o.getDocuments())
+//
+//                .findAny();
 
        return instagramRepository.getHashtagByKeyword((String) param.get("category_list"), KeywordStringList);
     }
