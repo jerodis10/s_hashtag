@@ -1,40 +1,42 @@
 document.getElementById("btn_cafe").addEventListener('click', function(e) {
 
     var flag_selected = true;
+    var btn_cafe_value = document.getElementById("btn_cafe").value;
 
     if(e.target.className === 'selected') {
         e.target.classList.remove('selected');
-        $.each(marker_object['CE7'], function(index, item){
+        $.each(marker_object[btn_cafe_value], function(index, item){
             item.setMap(null);
         });
-        $.each(overlay_object['CE7'], function(index, item){
+        $.each(overlay_object[btn_cafe_value], function(index, item){
             item.setMap(null);
         });
     }
     else {
         e.target.classList.add('selected');
         flag_selected = false;
-        create_marker_test(map, 'CE7');
+        create_marker_test(map, btn_cafe_value);
     }
 });
 
 document.getElementById("btn_food").addEventListener('click', function(e) {
 
     var flag_selected = true;
+    var btn_food_value = document.getElementById("btn_food").value;
 
     if(e.target.className === 'selected') {
         e.target.classList.remove('selected');
-        $.each(marker_object['FD6'], function(index, item){
+        $.each(marker_object[btn_food_value], function(index, item){
             item.setMap(null);
         });
-        $.each(overlay_object['FD6'], function(index, item){
+        $.each(overlay_object[btn_food_value], function(index, item){
             item.setMap(null);
         });
     }
     else {
         e.target.classList.add('selected');
         flag_selected = false;
-        create_marker_test(map, 'FD6');
+        create_marker_test(map, btn_food_value);
     }
 });
 

@@ -104,23 +104,24 @@ public class InstagramController {
         Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
 
-        List<KakaoPlaceDto> kakaoPlaceByKeywordList = kakaoApiService.findPlacesByKeyword("CE7", rect, param.get("searchText").toString(), new ArrayList<>());
+        List<PlaceDto> placeList = new ArrayList<>();
 
-        List<String> KeywordStringList = new ArrayList<>();
-        for(KakaoPlaceDto kakaoPlaceDto : kakaoPlaceByKeywordList) {
-            for(Document document : kakaoPlaceDto.getDocuments()){
-                KeywordStringList.add(document.getId());
+        String temp = (String) param.get("category_list");
+        String[] categoryList = temp.split(",");
+
+        for(String category : categoryList) {
+            List<KakaoPlaceDto> kakaoPlaceByKeywordList = kakaoApiService.findPlacesByKeyword(category, rect, param.get("searchText").toString(), new ArrayList<>());
+
+            List<String> KeywordStringList = new ArrayList<>();
+            for (KakaoPlaceDto kakaoPlaceDto : kakaoPlaceByKeywordList) {
+                for (Document document : kakaoPlaceDto.getDocuments()) {
+                    KeywordStringList.add(document.getId());
+                }
             }
+
+            placeList.addAll(instagramRepository.getHashtagByKeyword(category, KeywordStringList));
         }
 
-
-//        Optional<List<Document>> documentList = kakaoPlaceByKeywordList
-//                .stream()
-////                .map(o-> o.getDocuments().getId())
-//                .map(o-> o.getDocuments())
-//
-//                .findAny();
-
-       return instagramRepository.getHashtagByKeyword((String) param.get("category_list"), KeywordStringList);
+        return placeList;
     }
 }

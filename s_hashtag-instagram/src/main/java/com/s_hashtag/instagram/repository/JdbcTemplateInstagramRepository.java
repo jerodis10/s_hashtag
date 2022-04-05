@@ -157,9 +157,23 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
 //            sql_get_hashtag_byKeyword += "and category_group_code = ? ";
 //        }
 
-        for(String keyword : keywordList){
-            sql_get_hashtag_byKeyword += "and place_id = ? ";
+//        sql_get_hashtag_byKeyword += "and (";
+//
+//        for(int i=0; i<keywordList.size(); i++){
+//            if(i != 0) sql_get_hashtag_byKeyword += "or ";
+//            sql_get_hashtag_byKeyword += "place_id = ? ";
+//        }
+
+//        for(String keyword : keywordList){
+//            sql_get_hashtag_byKeyword += "or place_id = ? ";
+//        }
+
+        sql_get_hashtag_byKeyword += "and place_id in (";
+        for (int i=0; i<keywordList.size(); i++) {
+            if(i != 0) sql_get_hashtag_byKeyword += ",?";
+            else sql_get_hashtag_byKeyword += "?";
         }
+        sql_get_hashtag_byKeyword += ")";
 
 
         List<Object> param = new ArrayList<>();
