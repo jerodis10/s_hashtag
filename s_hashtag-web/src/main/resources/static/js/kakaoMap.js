@@ -87,11 +87,32 @@ function getHashtagByKeyword(searchText, category) {
        dataType: 'json',
 //       data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: 'CE7'},
 //       data: {ha: bounds.ha, oa: bounds.oa, pa: bounds.pa, qa: bounds.qa, category_list: 'CE7'},
-        data: {ha: 126.96890764549995, oa: 126.99019733287525, pa: 37.56419112995975, qa: 37.5696007924915, category_list: category_param, searchText: searchText}, // 서울시청 주변
+        data: {ha: 126.96190764549995, oa: 126.99019733287525, pa: 37.56300112995975, qa: 37.5696007924915, category_list: category_param, searchText: searchText}, // 서울시청 주변
 //        data: {ha: 126.75578831035362, oa: 127.2251487382762, pa: 37.41847533960485, qa: 37.70625487247741, category_list: 'CE7'}, // 서울시 전체
 
        success:function(data){
             console.log(data);
+
+            if(data){
+                $.each(data, function(d_index, d_item){
+                    $.each(marker_object['CE7'], function(index, item){
+                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== item.getPosition().Ma.toFixed(13))
+                            item.setMap(null);
+                    });
+                    $.each(overlay_object['CE7'], function(index, item){
+                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String(item.getPosition().Ma.toFixed(13)-0.001))
+                            item.setMap(null);
+                    });
+                    $.each(marker_object['FD6'], function(index, item){
+                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== item.getPosition().Ma.toFixed(13))
+                            item.setMap(null);
+                    });
+                    $.each(overlay_object['FD6'], function(index, item){
+                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String(item.getPosition().Ma.toFixed(13)-0.001))
+                            item.setMap(null);
+                    });
+                });
+            }
        },
        error : function(e){
        }
