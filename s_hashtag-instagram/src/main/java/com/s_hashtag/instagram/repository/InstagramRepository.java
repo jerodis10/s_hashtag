@@ -17,12 +17,11 @@ public interface InstagramRepository {
 
     void instagram_post_save(PostDto postDto);
 
-//    List<Map<String, Object>> getHashtag(String category, Rect rect);
-
     List<PlaceDto> getHashtag(String category, Rect rect);
 
     List<PlaceDto> getHashtagByKeyword(String category, List<String> keywordList);
 
+    List<PlaceDto> getHashtagByCount(String[] categoryList, Map<String, Object> hashtag_count_param);
 
 //    Optional<Member> findById(String id);
 //    Optional<Member> findByName(String name);

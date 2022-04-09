@@ -193,83 +193,38 @@ function create_marker_test(map, category) {
 //    }
 }
 
-function getHashtagByKeyword(searchText, category) {
-
-    var category_arr = [];
-    if(document.getElementById("btn_cafe").className === 'selected') category_arr.push(document.getElementById("btn_cafe").value);
-    if(document.getElementById("btn_food").className === 'selected') category_arr.push(document.getElementById("btn_food").value);
-    var category_param = category_arr.join(',')
-
-    $.ajax({
-       url:'/getHashtagByKeyword',
-       type:'GET',
-       dataType: 'json',
-//       data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: 'CE7'},
-//       data: {ha: bounds.ha, oa: bounds.oa, pa: bounds.pa, qa: bounds.qa, category_list: 'CE7'},
-        data: {ha: 126.96190764549995, oa: 126.99019733287525, pa: 37.56300112995975, qa: 37.5696007924915, category_list: category_param, searchText: searchText}, // 서울시청 주변
-//        data: {ha: 126.75578831035362, oa: 127.2251487382762, pa: 37.41847533960485, qa: 37.70625487247741, category_list: 'CE7'}, // 서울시 전체
-
-       success:function(data){
-            console.log(data);
-
-            if(data){
-                $.each(data, function(d_index, d_item){
-                    $.each(marker_object['CE7'], function(index, item){
-                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== item.getPosition().Ma.toFixed(13))
-                            item.setMap(null);
-                    });
-                    $.each(overlay_object['CE7'], function(index, item){
-                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String(item.getPosition().Ma.toFixed(13)-0.001))
-                            item.setMap(null);
-                    });
-                    $.each(marker_object['FD6'], function(index, item){
-                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== item.getPosition().Ma.toFixed(13))
-                            item.setMap(null);
-                    });
-                    $.each(overlay_object['FD6'], function(index, item){
-                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String(item.getPosition().Ma.toFixed(13)-0.001))
-                            item.setMap(null);
-                    });
-                });
-            }
-       },
-       error : function(e){
-       }
-    });
-}
-
-function create_marker() {
-    $.ajax({
-       url:'/createMarker',
-       type:'GET',
-        data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564},
-       success:function(data){
-//           console.log(data);
-
-           $.each(data, function(index, item){
-                var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다
-                imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-                imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-
-                // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-                    markerPosition = new kakao.maps.LatLng(item.latitude, item.longitude); // 마커가 표시될 위치입니다
-
-                // 마커를 생성합니다
-                var marker = new kakao.maps.Marker({
-                  position: markerPosition,
-                  image: markerImage // 마커이미지 설정
-                });
-
-                // 마커가 지도 위에 표시되도록 설정합니다
-                marker.setMap(map);
-           });
-       },
-       error : function(e){
-//<!--               console.log(e);-->
-       }
-    });
-}
+//function create_marker() {
+//    $.ajax({
+//       url:'/createMarker',
+//       type:'GET',
+//        data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564},
+//       success:function(data){
+////           console.log(data);
+//
+//           $.each(data, function(index, item){
+//                var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다
+//                imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
+//                imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+//
+//                // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+//                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+//                    markerPosition = new kakao.maps.LatLng(item.latitude, item.longitude); // 마커가 표시될 위치입니다
+//
+//                // 마커를 생성합니다
+//                var marker = new kakao.maps.Marker({
+//                  position: markerPosition,
+//                  image: markerImage // 마커이미지 설정
+//                });
+//
+//                // 마커가 지도 위에 표시되도록 설정합니다
+//                marker.setMap(map);
+//           });
+//       },
+//       error : function(e){
+////<!--               console.log(e);-->
+//       }
+//    });
+//}
 
 
 create_marker_test(map, 'FD6');

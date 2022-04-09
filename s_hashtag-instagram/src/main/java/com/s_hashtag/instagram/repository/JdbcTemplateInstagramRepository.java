@@ -143,7 +143,6 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
 
     @Override
     public List<PlaceDto> getHashtagByKeyword(String category_list, List<String> keywordList) {
-//        String[] c_list = category_list.split(",");
         String sql_get_hashtag_byKeyword =
                 "select * " +
                 "from instagram it " +
@@ -152,22 +151,6 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
                 "where 1 = 1 ";
 
         sql_get_hashtag_byKeyword += "and category_group_code = ? ";
-
-//        for(String category : c_list) {
-//            sql_get_hashtag_byKeyword += "and category_group_code = ? ";
-//        }
-
-//        sql_get_hashtag_byKeyword += "and (";
-//
-//        for(int i=0; i<keywordList.size(); i++){
-//            if(i != 0) sql_get_hashtag_byKeyword += "or ";
-//            sql_get_hashtag_byKeyword += "place_id = ? ";
-//        }
-
-//        for(String keyword : keywordList){
-//            sql_get_hashtag_byKeyword += "or place_id = ? ";
-//        }
-
         sql_get_hashtag_byKeyword += "and place_id in (";
         for (int i=0; i<keywordList.size(); i++) {
             if(i != 0) sql_get_hashtag_byKeyword += ",?";
@@ -179,10 +162,6 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
         List<Object> param = new ArrayList<>();
         param.add(category_list);
 
-//        for(String category : c_list){
-//            param.add(category);
-//        }
-
         for(String keyword : keywordList){
             param.add(keyword);
         }
@@ -190,6 +169,34 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
         return jdbcTemplate.query(sql_get_hashtag_byKeyword, PlaceByKeywordRowMapper(), param.toArray());
     }
 
+    @Override
+    public List<PlaceDto> getHashtagByCount(String[] categoryList, Map<String, Object> hashtag_count_param) {
+        List<Object> param = new ArrayList<>();
+        String sql_get_hashtag_byCount =
+                "select * " +
+                "from instagram it " +
+                "left outer join kakao_document kd " +
+                "on it.place_id = kd.kakao_id " +
+                "where 1 = 1 ";
+
+        sql_get_hashtag_byCount += "and category_group_code in ( ";
+        for (int i=0; i<categoryList.length; i++) {
+            if(i != 0) sql_get_hashtag_byCount += ",?";
+            else sql_get_hashtag_byCount += "?";
+            param.add(categoryList[i]);
+        }
+        sql_get_hashtag_byCount += ") ";
+
+        if(hashtag_count_param.get("check1").equals("true")) sql_get_hashtag_byCount += "or hashtag_count <= 10 ";
+        if(hashtag_count_param.get("check2").equals("true")) sql_get_hashtag_byCount += "or (hashtag_count > 10 and hashtag_count <= 100) ";
+        if(hashtag_count_param.get("check3").equals("true")) sql_get_hashtag_byCount += "or (hashtag_count > 100 and hashtag_count <= 1000) ";
+        if(hashtag_count_param.get("check4").equals("true")) sql_get_hashtag_byCount += "or (hashtag_count > 1000 and hashtag_count <= 10000) ";
+        if(hashtag_count_param.get("check5").equals("true")) sql_get_hashtag_byCount += "or (hashtag_count > 10000 and hashtag_count <= 100000) ";
+
+//        param.add(categoryList);
+
+        return jdbcTemplate.query(sql_get_hashtag_byCount, PlaceByKeywordRowMapper(), param.toArray());
+    }
 
     private RowMapper<PlaceDto> PlaceRowMapper(Rect rect) {
         return (rs, rowNum) -> {

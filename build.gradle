@@ -51,12 +51,13 @@ subprojects {
 		annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 		runtimeOnly 'com.h2database:h2'
 		implementation 'org.springframework.boot:spring-boot-devtools'
-//		implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+//		implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 	}
 
 	test {
 		useJUnitPlatform()
 	}
+
 }
 
 //dependencies {
