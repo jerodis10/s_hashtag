@@ -187,11 +187,49 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
         }
         sql_get_hashtag_byCount += ") ";
 
-        if(hashtag_count_param.get("check1").equals("true")) sql_get_hashtag_byCount += "or hashtag_count <= 10 ";
-        if(hashtag_count_param.get("check2").equals("true")) sql_get_hashtag_byCount += "or (hashtag_count > 10 and hashtag_count <= 100) ";
-        if(hashtag_count_param.get("check3").equals("true")) sql_get_hashtag_byCount += "or (hashtag_count > 100 and hashtag_count <= 1000) ";
-        if(hashtag_count_param.get("check4").equals("true")) sql_get_hashtag_byCount += "or (hashtag_count > 1000 and hashtag_count <= 10000) ";
-        if(hashtag_count_param.get("check5").equals("true")) sql_get_hashtag_byCount += "or (hashtag_count > 10000 and hashtag_count <= 100000) ";
+        int cnt = 0;
+        if(hashtag_count_param.get("check1").equals("true")) cnt++;
+        if(hashtag_count_param.get("check2").equals("true")) cnt++;
+        if(hashtag_count_param.get("check3").equals("true")) cnt++;
+        if(hashtag_count_param.get("check4").equals("true")) cnt++;
+        if(hashtag_count_param.get("check5").equals("true")) cnt++;
+        if(cnt > 0) sql_get_hashtag_byCount += "and (";
+
+        boolean flag = true;
+
+        if(hashtag_count_param.get("check1").equals("true")) {
+            sql_get_hashtag_byCount += "(hashtag_count <= 10) ";
+            flag = false;
+        }
+        if(!flag && hashtag_count_param.get("check2").equals("true")) {
+            sql_get_hashtag_byCount += "or (hashtag_count > 10 and hashtag_count <= 100) ";
+        }
+        if(flag && hashtag_count_param.get("check2").equals("true")) {
+            sql_get_hashtag_byCount += "(hashtag_count > 10 and hashtag_count <= 100) ";
+            flag = false;
+        }
+        if(!flag && hashtag_count_param.get("check3").equals("true")) {
+            sql_get_hashtag_byCount += "or (hashtag_count > 100 and hashtag_count <= 1000) ";
+        }
+        if(flag && hashtag_count_param.get("check3").equals("true")) {
+            sql_get_hashtag_byCount += "(hashtag_count > 100 and hashtag_count <= 1000) ";
+            flag = false;
+        }
+        if(!flag && hashtag_count_param.get("check4").equals("true")) {
+            sql_get_hashtag_byCount += "or (hashtag_count > 1000 and hashtag_count <= 10000) ";
+        }
+        if(flag && hashtag_count_param.get("check4").equals("true")) {
+            sql_get_hashtag_byCount += "(hashtag_count > 1000 and hashtag_count <= 10000) ";
+            flag = false;
+        }
+        if(!flag && hashtag_count_param.get("check5").equals("true")) {
+            sql_get_hashtag_byCount += "or (hashtag_count > 10000 and hashtag_count <= 100000) ";
+        }
+        if(flag && hashtag_count_param.get("check5").equals("true")) {
+            sql_get_hashtag_byCount += "(hashtag_count > 10000 and hashtag_count <= 100000) ";
+        }
+
+        if(cnt > 0) sql_get_hashtag_byCount += ") ";
 
 //        param.add(categoryList);
 

@@ -79,7 +79,7 @@ function getHashtagByKeyword(searchText, category) {
     var category_param = category_arr.join(',')
 
     $.ajax({
-       url:'/getHashtagByKeyword2',
+       url:'/getHashtagByKeyword',
        type:'GET',
        dataType: 'json',
 //       data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: 'CE7'},
@@ -124,18 +124,6 @@ function getHashtagByCount() {
     if(document.getElementById("btn_food").className === 'selected') category_arr.push(document.getElementById("btn_food").value);
     var category_param = category_arr.join(',');
 
-//    var hashtag_count_object = {};
-//    if(document.getElementById("btn_check1").className === 'bi-check-lg') hashtag_count_object['btn_check1'] = true;
-//    else hashtag_count_object['btn_check1'] = false;
-//    if(document.getElementById("btn_check2").className === 'bi-check-lg') hashtag_count_object['btn_check2'] = true;
-//    else hashtag_count_object['btn_check2'] = false;
-//    if(document.getElementById("btn_check3").className === 'bi-check-lg') hashtag_count_object['btn_check3'] = true;
-//    else hashtag_count_object['btn_check3'] = false;
-//    if(document.getElementById("btn_check4").className === 'bi-check-lg') hashtag_count_object['btn_check4'] = true;
-//    else hashtag_count_object['btn_check4'] = false;
-//    if(document.getElementById("btn_check5").className === 'bi-check-lg') hashtag_count_object['btn_check5'] = true;
-//    else hashtag_count_object['btn_check5'] = false;
-
     var check1, check2, check3, check4, check5;
     if(document.getElementById("btn_check1").className === 'bi-check-lg') check1 = true;
     else check1 = false;
@@ -158,22 +146,82 @@ function getHashtagByCount() {
             console.log(data);
 
             if(data){
+//                $.each(marker_object['CE7'], function(index, item){
+//                    var flag = false;
+//                    $.each(data, function(d_index, d_item){
+//                        if(d_item.longitude.toFixed(13) === item.getPosition().La.toFixed(13)
+//                            && d_item.latitude.toFixed(13) === item.getPosition().Ma.toFixed(13)){
+//                                flag = true;
+//                                return false;
+//                        }
+//                    });
+//                    if(!flag) item.setMap(null);
+//                });
+//
+//                $.each(overlay_object['CE7'], function(index, item){
+//                    var flag = false;
+//                    $.each(data, function(d_index, d_item){
+//                        if(d_item.longitude.toFixed(13) === item.getPosition().La.toFixed(13)
+//                            && d_item.latitude.toFixed(13) === String((item.getPosition().Ma-0.001).toFixed(13))){
+//                                flag = true;
+//                                return false;
+//                        }
+//                    });
+//                    if(!flag) item.setMap(null);
+//                });
+//
+//                $.each(marker_object['FD6'], function(index, item){
+//                    var flag = false;
+//                    $.each(data, function(d_index, d_item){
+//                        if(d_item.longitude.toFixed(13) === item.getPosition().La.toFixed(13)
+//                            && d_item.latitude.toFixed(13) === item.getPosition().Ma.toFixed(13)){
+//                                flag = true;
+//                                return false;
+//                        }
+//                    });
+//                    if(!flag) item.setMap(null);
+//                });
+//
+//                $.each(overlay_object['FD6'], function(index, item){
+//                    var flag = false;
+//                    $.each(data, function(d_index, d_item){
+//                        if(d_item.longitude.toFixed(13) === item.getPosition().La.toFixed(13)
+//                            && d_item.latitude.toFixed(13) === String((item.getPosition().Ma-0.001).toFixed(13))){
+//                                flag = true;
+//                                return false;
+//                        }
+//                    });
+//                    if(!flag) item.setMap(null);
+//                });
+
                 $.each(data, function(d_index, d_item){
                     $.each(marker_object['CE7'], function(index, item){
                         if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== item.getPosition().Ma.toFixed(13))
+                            create_overlay(d_item);
+                        else {
                             item.setMap(null);
+                        }
                     });
                     $.each(overlay_object['CE7'], function(index, item){
-                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String(item.getPosition().Ma.toFixed(13)-0.001))
+                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String((item.getPosition().Ma-0.001).toFixed(13)))
+                            create_overlay(d_item);
+                        else {
                             item.setMap(null);
+                        }
                     });
                     $.each(marker_object['FD6'], function(index, item){
                         if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== item.getPosition().Ma.toFixed(13))
+                            create_overlay(d_item);
+                        else {
                             item.setMap(null);
+                        }
                     });
                     $.each(overlay_object['FD6'], function(index, item){
-                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String(item.getPosition().Ma.toFixed(13)-0.001))
+                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String((item.getPosition().Ma-0.001).toFixed(13)))
+                            create_overlay(d_item);
+                        else {
                             item.setMap(null);
+                        }
                     });
                 });
             }

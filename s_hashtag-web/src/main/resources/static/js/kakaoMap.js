@@ -126,14 +126,10 @@ function create_marker_test(map, category) {
                   position: markerPosition,
                   image: markerImage // 마커이미지 설정
                 });
-//                if(index == 0) a = marker;
-//                markers.push(marker);
 
                 // 마커가 지도 위에 표시되도록 설정합니다
                 marker.setMap(map);
                 marker_list.push(marker);
-
-//                if(!selected) marker_list.push(marker);
 
                 // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                 var hashtag_count = item.hashtagCount;
@@ -164,68 +160,60 @@ function create_marker_test(map, category) {
        },
        error : function(e){
        }
-    })
-//    .done(function(data){
-//        $.each(marker_list, function(index, item){
-//            item.setMap(null);
-//        });
-//    });
-
-//    if(!Unselected){
-//        $.ajax({
-//           url:'/getHashtag',
-//           type:'GET',
-//           dataType: 'json',
-//           data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: Unselected},
-//           success:function(data){
-////                console.log(data);
-////                console.log(marker_list);
-//
-//                $.each(marker_list, function(index, item){
-////                    console.log("marker_list", index, item);
-//                    console.log(item);
-//                    item.setMap(null);
-//                });
-//           },
-//           error : function(e){
-//           }
-//        });
-//    }
+    });
 }
 
-//function create_marker() {
-//    $.ajax({
-//       url:'/createMarker',
-//       type:'GET',
-//        data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564},
-//       success:function(data){
-////           console.log(data);
-//
-//           $.each(data, function(index, item){
-//                var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다
-//                imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
-//                imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-//
-//                // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
-//                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-//                    markerPosition = new kakao.maps.LatLng(item.latitude, item.longitude); // 마커가 표시될 위치입니다
-//
-//                // 마커를 생성합니다
-//                var marker = new kakao.maps.Marker({
-//                  position: markerPosition,
-//                  image: markerImage // 마커이미지 설정
-//                });
-//
-//                // 마커가 지도 위에 표시되도록 설정합니다
-//                marker.setMap(map);
-//           });
-//       },
-//       error : function(e){
-////<!--               console.log(e);-->
-//       }
-//    });
-//}
+function create_overlay(item){
+    var img_src = "";
+    if(item.hashtagCount < 10) img_src = '../img/markers/mapMarker1.png';
+    if(10 <= item.hashtagCount && item.hashtagCount < 100) img_src = '../img/markers/mapMarker2.png';
+    if(100 <= item.hashtagCount && item.hashtagCount < 1000) img_src = '../img/markers/mapMarker3.png';
+    if(1000 <= item.hashtagCount && item.hashtagCount < 10000) img_src = '../img/markers/mapMarker4.png';
+    if(10000 <= item.hashtagCount) img_src = '../img/markers/mapMarker5.png';
 
+    var imageSrc = img_src,
+    imageSize = new kakao.maps.Size(34, 39), // 마커이미지의 크기입니다
+    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+        markerPosition = new kakao.maps.LatLng(item.latitude, item.longitude); // 마커가 표시될 위치입니다
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({
+      position: markerPosition,
+      image: markerImage // 마커이미지 설정
+    });
+
+    // 마커가 지도 위에 표시되도록 설정합니다
+    marker.setMap(map);
+    marker_list.push(marker);
+
+    // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+    var hashtag_count = item.hashtagCount;
+    var hashtag_name = item.hashtagName;
+    var content =
+        '<div class="bubble">' +
+        '   <p>' + hashtag_name + '</p>' +
+        '   <ion-icon name="heart" style="color: red;"></ion-icon>' +
+        '   <span id="sp">' + hashtag_count + '</span>' +
+        '</div>'
+
+    // 커스텀 오버레이가 표시될 위치입니다
+    var position = new kakao.maps.LatLng(item.latitude+0.001, item.longitude);
+
+    // 커스텀 오버레이를 생성합니다
+    var customOverlay = new kakao.maps.CustomOverlay({
+        map: map,
+        position: position,
+        content: content,
+        yAnchor: 1
+    });
+
+    overlay_list.push(customOverlay);
+
+//    marker_object[category] = marker_list;
+//    overlay_object[category] = overlay_list;
+}
 
 create_marker_test(map, 'FD6');
 
