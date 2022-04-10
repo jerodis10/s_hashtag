@@ -194,36 +194,67 @@ function getHashtagByCount() {
 //                    if(!flag) item.setMap(null);
 //                });
 
+
+                var marker_list_CE7 = [];
+                var overlay_list_CE7 = [];
+                var marker_list_FD6 = [];
+                var overlay_list_FD6 = [];
+
                 $.each(data, function(d_index, d_item){
+//                    var marker_FD6, overlay_FD6, marker_CE7, overlay_CE7;
+
                     $.each(marker_object['CE7'], function(index, item){
-                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== item.getPosition().Ma.toFixed(13))
-                            create_overlay(d_item);
-                        else {
+                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== item.getPosition().Ma.toFixed(13)){
+                            create_overlay(d_item, 'CE7');
+                        } else {
                             item.setMap(null);
                         }
                     });
                     $.each(overlay_object['CE7'], function(index, item){
-                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String((item.getPosition().Ma-0.001).toFixed(13)))
-                            create_overlay(d_item);
-                        else {
+                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String((item.getPosition().Ma-0.001).toFixed(13))){
+                            create_overlay(d_item, 'CE7');
+                        } else {
                             item.setMap(null);
                         }
                     });
                     $.each(marker_object['FD6'], function(index, item){
-                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== item.getPosition().Ma.toFixed(13))
-                            create_overlay(d_item);
-                        else {
+                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== item.getPosition().Ma.toFixed(13)){
+                            create_overlay(d_item, 'FD6');
+                        } else {
                             item.setMap(null);
                         }
                     });
                     $.each(overlay_object['FD6'], function(index, item){
-                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String((item.getPosition().Ma-0.001).toFixed(13)))
-                            create_overlay(d_item);
-                        else {
+                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String((item.getPosition().Ma-0.001).toFixed(13))){
+                            create_overlay(d_item, 'FD6');
+                        } else {
                             item.setMap(null);
                         }
                     });
+
+//                    if(marker_CE7 != null && marker_CE7 != undefined) marker_object['CE7'].push(marker_CE7);
+//                    if(overlay_CE7 != null && overlay_CE7 != undefined) overlay_object['CE7'].push(overlay_CE7);
+//                    if(marker_FD6 != null && marker_FD6 != undefined) marker_object['FD6'].push(marker_FD6);
+//                    if(overlay_FD6 != null && overlay_FD6 != undefined) overlay_object['FD6'].push(overlay_FD6);
                 });
+
+                $.each(marker_list_CE7, function(index, item){
+                    marker_object['CE7'].push(item);
+                });
+
+                $.each(marker_list_FD6, function(index, item){
+                    marker_object['FD6'].push(item);
+                });
+
+                $.each(overlay_list_CE7, function(index, item){
+                    overlay_object['CE7'].push(item);
+                });
+
+                $.each(overlay_list_FD6, function(index, item){
+                    overlay_object['FD6'].push(item);
+                });
+
+
             }
        },
        error : function(e){

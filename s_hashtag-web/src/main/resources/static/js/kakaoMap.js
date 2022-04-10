@@ -163,8 +163,9 @@ function create_marker_test(map, category) {
     });
 }
 
-function create_overlay(item){
+function create_overlay(item, category){
     var img_src = "";
+
     if(item.hashtagCount < 10) img_src = '../img/markers/mapMarker1.png';
     if(10 <= item.hashtagCount && item.hashtagCount < 100) img_src = '../img/markers/mapMarker2.png';
     if(100 <= item.hashtagCount && item.hashtagCount < 1000) img_src = '../img/markers/mapMarker3.png';
@@ -186,7 +187,10 @@ function create_overlay(item){
 
     // 마커가 지도 위에 표시되도록 설정합니다
     marker.setMap(map);
-    marker_list.push(marker);
+    if(category === 'CE7') marker_list_CE7.push(marker);
+    if(category === 'FD6') marker_list_FD6.push(marker);
+//    if(category === 'CE7') marker_CE7 = marker;
+//    if(category === 'FD6') marker_FD6 = marker;
 
     // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
     var hashtag_count = item.hashtagCount;
@@ -210,6 +214,11 @@ function create_overlay(item){
     });
 
     overlay_list.push(customOverlay);
+    if(category === 'CE7') overlay_list_CE7.push(customOverlay);
+    if(category === 'FD6') overlay_list_FD6.push(customOverlay);
+
+//    if(category === 'CE7') overlay_CE7 = customOverlay;
+//    if(category === 'FD6') overlay_FD6 = customOverlay;
 
 //    marker_object[category] = marker_list;
 //    overlay_object[category] = overlay_list;
