@@ -170,7 +170,44 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public List<PlaceDto> getHashtagByCount(String[] categoryList, Map<String, Object> hashtag_count_param) {
+    public List<PlaceDto> getHashtagByCount(String[] categoryList, String check) {
+        List<Object> param = new ArrayList<>();
+        String sql_get_hashtag_byCount =
+                "select * " +
+                "from instagram it " +
+                "left outer join kakao_document kd " +
+                "on it.place_id = kd.kakao_id " +
+                "where 1 = 1 ";
+
+        sql_get_hashtag_byCount += "and category_group_code in ( ";
+        for (int i=0; i<categoryList.length; i++) {
+            if(i != 0) sql_get_hashtag_byCount += ",?";
+            else sql_get_hashtag_byCount += "?";
+            param.add(categoryList[i]);
+        }
+        sql_get_hashtag_byCount += ") ";
+
+        if(check.equals("check1")) {
+            sql_get_hashtag_byCount += "and hashtag_count <= 10  ";
+        }
+        if(check.equals("check2")) {
+            sql_get_hashtag_byCount += "and (hashtag_count > 10 and hashtag_count <= 100) ";
+        }
+        if(check.equals("check3")) {
+            sql_get_hashtag_byCount += "and (hashtag_count > 100 and hashtag_count <= 1000) ";
+        }
+        if(check.equals("check4")) {
+            sql_get_hashtag_byCount += "and (hashtag_count > 1000 and hashtag_count <= 10000) ";
+        }
+        if(check.equals("check5")) {
+            sql_get_hashtag_byCount += "and (hashtag_count > 10000 and hashtag_count <= 100000) ";
+        }
+
+        return jdbcTemplate.query(sql_get_hashtag_byCount, PlaceByKeywordRowMapper(), param.toArray());
+    }
+
+    @Override
+    public List<PlaceDto> getHashtagByCount2(String[] categoryList, Map<String, Object> hashtag_count_param) {
         List<Object> param = new ArrayList<>();
         String sql_get_hashtag_byCount =
                 "select * " +
@@ -259,6 +296,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
             placeDto.setHashtagCount(rs.getLong("HASHTAG_COUNT"));
             placeDto.setLatitude(rs.getDouble("LATITUDE"));
             placeDto.setLongitude(rs.getDouble("LONGITUDE"));
+            placeDto.setCategory_group_code(rs.getString("CATEGORY_GROUP_CODE"));
 
             return placeDto;
         };

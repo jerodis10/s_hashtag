@@ -17,5 +17,5 @@ public class PlaceDto {
     private double longitude;
     private String hashtagName;
     private Long hashtagCount;
-    private String category;
+    private String category_group_code;
 }

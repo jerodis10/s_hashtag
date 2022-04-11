@@ -3,6 +3,11 @@ var marker_object = {};
 var overlay_list = [];
 var overlay_object = {};
 
+var marker_list_CE7 = [];
+var overlay_list_CE7 = [];
+var marker_list_FD6 = [];
+var overlay_list_FD6 = [];
+
 var container = document.getElementById('map');
 var options = {
     center: new kakao.maps.LatLng(37.56667120440735, 126.97962007985399),
