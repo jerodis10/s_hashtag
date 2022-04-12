@@ -214,7 +214,15 @@ function getHashtagByCount(check) {
 
                     // 마커가 지도 위에 표시되도록 설정합니다
 //                    if((marker_object['CE7'] != undefined && marker_object['CE7'].find(marker) === -1) && (marker_object['FD6'] != undefined && marker_object['FD6'].find(marker) === -1)){
-                     if((marker_object['CE7'] != undefined && !marker_object['CE7'].includes(marker)) && (marker_object['FD6'] != undefined && !marker_object['FD6'].includes(marker))){
+                     if((marker_object['CE7'] != undefined){
+                        $.each(marker_object['CE7'], function(index, item){
+                            if(item.getPosition().La.toFixed(13) !== marker.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) !== marker.getPosition().Ma.toFixed(13)){
+
+                            }
+                        });
+                     }
+
+//                      && !marker_object['CE7'].includes(marker)) && (marker_object['FD6'] != undefined && !marker_object['FD6'].includes(marker))){
                         marker.setMap(map);
                         if(item.category_group_code === 'CE7') marker_list_CE7.push(marker);
                         if(item.category_group_code === 'FD6') marker_list_FD6.push(marker);
