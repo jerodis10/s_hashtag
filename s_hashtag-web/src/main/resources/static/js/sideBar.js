@@ -47,31 +47,47 @@ document.getElementById("searchBox").addEventListener('keypress', function(e) {
 });
 
 document.getElementById("btn_check1").addEventListener('click', function(e){
-    var btn_food_value = document.getElementById("btn_food").value;
     e.target.classList.toggle('bi-check-lg');
 
     if(e.target.className === 'bi-check-lg') {
-        $.each(marker_object[btn_food_value], function(index, item){
-            item.setMap(null);
-        });
-        $.each(overlay_object[btn_food_value], function(index, item){
-            item.setMap(null);
-        });
+        getHashtagByCount('check1', true);
+    } else {
+        getHashtagByCount('check1', false);
     }
-    else {
-        getHashtagByCount('check1');
-    }
+
+//    if(e.target.className === 'bi-check-lg') {
+//        $.each(marker_object['CE7'], function(index, item){
+//            item.setMap(null);
+//        });
+//        $.each(overlay_object['CE7'], function(index, item){
+//            item.setMap(null);
+//        });
+//        $.each(marker_object['FD6'], function(index, item){
+//            item.setMap(null);
+//        });
+//        $.each(overlay_object['FD6'], function(index, item){
+//            item.setMap(null);
+//        });
+//    }
+//    else {
+//        getHashtagByCount('check1');
+//    }
 });
 
 document.getElementById("btn_check2").addEventListener('click', function(e){
-    var btn_food_value = document.getElementById("btn_food").value;
     e.target.classList.toggle('bi-check-lg');
 
     if(e.target.className === 'bi-check-lg') {
-        $.each(marker_object[btn_food_value], function(index, item){
+        $.each(marker_object['CE7'], function(index, item){
             item.setMap(null);
         });
-        $.each(overlay_object[btn_food_value], function(index, item){
+        $.each(overlay_object['CE7'], function(index, item){
+            item.setMap(null);
+        });
+        $.each(marker_object['FD6'], function(index, item){
+            item.setMap(null);
+        });
+        $.each(overlay_object['FD6'], function(index, item){
             item.setMap(null);
         });
     }
@@ -85,10 +101,16 @@ document.getElementById("btn_check3").addEventListener('click', function(e){
     e.target.classList.toggle('bi-check-lg');
 
     if(e.target.className === 'bi-check-lg') {
-        $.each(marker_object[btn_food_value], function(index, item){
+        $.each(marker_object['CE7'], function(index, item){
             item.setMap(null);
         });
-        $.each(overlay_object[btn_food_value], function(index, item){
+        $.each(overlay_object['CE7'], function(index, item){
+            item.setMap(null);
+        });
+        $.each(marker_object['FD6'], function(index, item){
+            item.setMap(null);
+        });
+        $.each(overlay_object['FD6'], function(index, item){
             item.setMap(null);
         });
     }
@@ -102,10 +124,16 @@ document.getElementById("btn_check4").addEventListener('click', function(e){
     e.target.classList.toggle('bi-check-lg');
 
     if(e.target.className === 'bi-check-lg') {
-        $.each(marker_object[btn_food_value], function(index, item){
+        $.each(marker_object['CE7'], function(index, item){
             item.setMap(null);
         });
-        $.each(overlay_object[btn_food_value], function(index, item){
+        $.each(overlay_object['CE7'], function(index, item){
+            item.setMap(null);
+        });
+        $.each(marker_object['FD6'], function(index, item){
+            item.setMap(null);
+        });
+        $.each(overlay_object['FD6'], function(index, item){
             item.setMap(null);
         });
     }
@@ -119,10 +147,16 @@ document.getElementById("btn_check5").addEventListener('click', function(e){
     e.target.classList.toggle('bi-check-lg');
 
     if(e.target.className === 'bi-check-lg') {
-        $.each(marker_object[btn_food_value], function(index, item){
+        $.each(marker_object['CE7'], function(index, item){
             item.setMap(null);
         });
-        $.each(overlay_object[btn_food_value], function(index, item){
+        $.each(overlay_object['CE7'], function(index, item){
+            item.setMap(null);
+        });
+        $.each(marker_object['FD6'], function(index, item){
+            item.setMap(null);
+        });
+        $.each(overlay_object['FD6'], function(index, item){
             item.setMap(null);
         });
     }
@@ -176,7 +210,7 @@ function getHashtagByKeyword(searchText, category) {
     });
 }
 
-function getHashtagByCount(check) {
+function getHashtagByCount(check_type, check_flag) {
     var category_arr = [];
     if(document.getElementById("btn_cafe").className === 'selected') category_arr.push(document.getElementById("btn_cafe").value);
     if(document.getElementById("btn_food").className === 'selected') category_arr.push(document.getElementById("btn_food").value);
@@ -187,76 +221,113 @@ function getHashtagByCount(check) {
            type:'GET',
            dataType: 'json',
            data: {ha: 126.96190764549995, oa: 126.99019733287525, pa: 37.56300112995975, qa: 37.5696007924915,   // 서울시청 주변
-                  category_list: category_param, check: check},
+                  category_list: category_param, check: check_type},
            success:function(data){
                marker_list = [];
                overlay_list = [];
                $.each(data, function(index, item){
-                    var img_src = "";
-                    if(item.hashtagCount < 10) img_src = '../img/markers/mapMarker1.png';
-                    if(10 <= item.hashtagCount && item.hashtagCount < 100) img_src = '../img/markers/mapMarker2.png';
-                    if(100 <= item.hashtagCount && item.hashtagCount < 1000) img_src = '../img/markers/mapMarker3.png';
-                    if(1000 <= item.hashtagCount && item.hashtagCount < 10000) img_src = '../img/markers/mapMarker4.png';
-                    if(10000 <= item.hashtagCount) img_src = '../img/markers/mapMarker5.png';
+                    if(check_flag) {
+                        var img_src = "";
+                        if(item.hashtagCount < 10) img_src = '../img/markers/mapMarker1.png';
+                        if(10 <= item.hashtagCount && item.hashtagCount < 100) img_src = '../img/markers/mapMarker2.png';
+                        if(100 <= item.hashtagCount && item.hashtagCount < 1000) img_src = '../img/markers/mapMarker3.png';
+                        if(1000 <= item.hashtagCount && item.hashtagCount < 10000) img_src = '../img/markers/mapMarker4.png';
+                        if(10000 <= item.hashtagCount) img_src = '../img/markers/mapMarker5.png';
 
-                    var imageSrc = img_src,
-                    imageSize = new kakao.maps.Size(34, 39), // 마커이미지의 크기입니다
-                    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                        var imageSrc = img_src,
+                        imageSize = new kakao.maps.Size(34, 39), // 마커이미지의 크기입니다
+                        imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
-                    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-                        markerPosition = new kakao.maps.LatLng(item.latitude, item.longitude); // 마커가 표시될 위치입니다
+                        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+                            markerPosition = new kakao.maps.LatLng(item.latitude, item.longitude); // 마커가 표시될 위치입니다
 
-                    // 마커를 생성합니다
-                    var marker = new kakao.maps.Marker({
-                      position: markerPosition,
-                      image: markerImage // 마커이미지 설정
-                    });
-
-                    // 마커가 지도 위에 표시되도록 설정합니다
-//                    if((marker_object['CE7'] != undefined && marker_object['CE7'].find(marker) === -1) && (marker_object['FD6'] != undefined && marker_object['FD6'].find(marker) === -1)){
-                     if((marker_object['CE7'] != undefined){
-                        $.each(marker_object['CE7'], function(index, item){
-                            if(item.getPosition().La.toFixed(13) !== marker.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) !== marker.getPosition().Ma.toFixed(13)){
-
-                            }
+                        // 마커를 생성합니다
+                        var marker = new kakao.maps.Marker({
+                          position: markerPosition,
+                          image: markerImage // 마커이미지 설정
                         });
-                     }
 
-//                      && !marker_object['CE7'].includes(marker)) && (marker_object['FD6'] != undefined && !marker_object['FD6'].includes(marker))){
-                        marker.setMap(map);
-                        if(item.category_group_code === 'CE7') marker_list_CE7.push(marker);
-                        if(item.category_group_code === 'FD6') marker_list_FD6.push(marker);
-                    }
+                        // 마커가 지도 위에 표시되도록 설정합니다
+    //                    if((marker_object['CE7'] != undefined && marker_object['CE7'].find(marker) === -1) && (marker_object['FD6'] != undefined && marker_object['FD6'].find(marker) === -1)){
+                         if(marker_object['CE7'] != undefined){
+                            $.each(marker_object['CE7'], function(index, item){
+                                if(item.getPosition().La.toFixed(13) !== marker.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) !== marker.getPosition().Ma.toFixed(13)){
+                                    marker.setMap(map);
+                                    marker_list_CE7.push(marker);
+                                }
+                            });
+                         }
 
-                    // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-                    var hashtag_count = item.hashtagCount;
-                    var hashtag_name = item.hashtagName;
-                    var content =
-                        '<div class="bubble">' +
-                        '   <p>' + hashtag_name + '</p>' +
-                        '   <ion-icon name="heart" style="color: red;"></ion-icon>' +
-                        '   <span id="sp">' + hashtag_count + '</span>' +
-                        '</div>'
+                         if(marker_object['FD6'] != undefined){
+                             $.each(marker_object['FD6'], function(index, item){
+                                 if(item.getPosition().La.toFixed(13) !== marker.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) !== marker.getPosition().Ma.toFixed(13)){
+                                     marker.setMap(map);
+                                     marker_list_FD6.push(marker);
+                                 }
+                             });
+                         }
 
-                    // 커스텀 오버레이가 표시될 위치입니다
-                    var position = new kakao.maps.LatLng(item.latitude+0.001, item.longitude);
+    //                      && !marker_object['CE7'].includes(marker)) && (marker_object['FD6'] != undefined && !marker_object['FD6'].includes(marker))){
+    //                        marker.setMap(map);
+    //                        if(item.category_group_code === 'CE7') marker_list_CE7.push(marker);
+    //                        if(item.category_group_code === 'FD6') marker_list_FD6.push(marker);
+    //                    }
 
-                    // 커스텀 오버레이를 생성합니다
-                    var customOverlay = new kakao.maps.CustomOverlay({
-                        map: map,
-                        position: position,
-                        content: content,
-                        yAnchor: 1
-                    });
+                        // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                        var hashtag_count = item.hashtagCount;
+                        var hashtag_name = item.hashtagName;
+                        var content =
+                            '<div class="bubble">' +
+                            '   <p>' + hashtag_name + '</p>' +
+                            '   <ion-icon name="heart" style="color: red;"></ion-icon>' +
+                            '   <span id="sp">' + hashtag_count + '</span>' +
+                            '</div>'
 
-//                    if((overlay_object['CE7'] != undefined && overlay_object['CE7'].find(customOverlay) === -1) && (overlay_object['FD6'] != undefined && overlay_object['FD6'].find(customOverlay) === -1)){
-                    if((overlay_object['CE7'] != undefined && !overlay_object['CE7'].includes(customOverlay)) && (overlay_object['FD6'] != undefined && !overlay_object['FD6'].includes(customOverlay))){
-                        if(item.category_group_code === 'CE7') overlay_list_CE7.push(customOverlay);
-                        if(item.category_group_code === 'FD6') overlay_list_FD6.push(customOverlay);
+                        // 커스텀 오버레이가 표시될 위치입니다
+                        var position = new kakao.maps.LatLng(item.latitude+0.001, item.longitude);
+
+                        // 커스텀 오버레이를 생성합니다
+                        var customOverlay = new kakao.maps.CustomOverlay({
+                            map: map,
+                            position: position,
+                            content: content,
+                            yAnchor: 1
+                        });
+
+                        if(overlay_object['CE7'] != undefined){
+                            $.each(overlay_object['CE7'], function(index, item){
+                                if(item.getPosition().La.toFixed(13) !== customOverlay.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) !== (customOverlay.getPosition().Ma-0.001).toFixed(13)){
+                                    overlay_list_CE7.push(customOverlay);
+                                }
+                            });
+                        }
+
+                        if(overlay_object['FD6'] != undefined){
+                             $.each(overlay_object['FD6'], function(index, item){
+                                 if(item.getPosition().La.toFixed(13) !== customOverlay.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) !== (customOverlay.getPosition().Ma-0.001).toFixed(13)){
+                                     overlay_list_FD6.push(customOverlay);
+                                 }
+                             });
+                        }
+                    } else {
+                        if(marker_object['CE7'] != undefined){
+                            $.each(marker_object['CE7'], function(m_index, m_item){
+                                if(item.longitude === m_item.getPosition().La.toFixed(13) && item.latitude === (m_item.getPosition().Ma-0.001).toFixed(13)){
+                                    m_item.setMap(null);
+                                }
+                            });
+                        }
+                        if(marker_object['FD6'] != undefined){
+                            $.each(marker_object['FD6'], function(m_index, m_item){
+                                if(item.longitude === m_item.getPosition().La.toFixed(13) && item.latitude === (m_item.getPosition().Ma-0.001).toFixed(13)){
+                                    m_item.setMap(null);
+                                }
+                            });
+                        }
                     }
                });
 
-               $.each(category_param, function(index, category){
+               $.each(category_arr, function(index, category){
                    if(category === 'CE7'){
                        marker_object[category] = marker_list_CE7;
                        overlay_object[category] = overlay_list_CE7;
