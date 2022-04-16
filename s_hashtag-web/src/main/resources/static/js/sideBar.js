@@ -78,22 +78,28 @@ document.getElementById("btn_check2").addEventListener('click', function(e){
     e.target.classList.toggle('bi-check-lg');
 
     if(e.target.className === 'bi-check-lg') {
-        $.each(marker_object['CE7'], function(index, item){
-            item.setMap(null);
-        });
-        $.each(overlay_object['CE7'], function(index, item){
-            item.setMap(null);
-        });
-        $.each(marker_object['FD6'], function(index, item){
-            item.setMap(null);
-        });
-        $.each(overlay_object['FD6'], function(index, item){
-            item.setMap(null);
-        });
+        getHashtagByCount('check2', true);
+    } else {
+        getHashtagByCount('check2', false);
     }
-    else {
-        getHashtagByCount('check2');
-    }
+
+//    if(e.target.className === 'bi-check-lg') {
+//        $.each(marker_object['CE7'], function(index, item){
+//            item.setMap(null);
+//        });
+//        $.each(overlay_object['CE7'], function(index, item){
+//            item.setMap(null);
+//        });
+//        $.each(marker_object['FD6'], function(index, item){
+//            item.setMap(null);
+//        });
+//        $.each(overlay_object['FD6'], function(index, item){
+//            item.setMap(null);
+//        });
+//    }
+//    else {
+//        getHashtagByCount('check2');
+//    }
 });
 
 document.getElementById("btn_check3").addEventListener('click', function(e){
@@ -101,22 +107,28 @@ document.getElementById("btn_check3").addEventListener('click', function(e){
     e.target.classList.toggle('bi-check-lg');
 
     if(e.target.className === 'bi-check-lg') {
-        $.each(marker_object['CE7'], function(index, item){
-            item.setMap(null);
-        });
-        $.each(overlay_object['CE7'], function(index, item){
-            item.setMap(null);
-        });
-        $.each(marker_object['FD6'], function(index, item){
-            item.setMap(null);
-        });
-        $.each(overlay_object['FD6'], function(index, item){
-            item.setMap(null);
-        });
+        getHashtagByCount('check3', true);
+    } else {
+        getHashtagByCount('check3', false);
     }
-    else {
-        getHashtagByCount('check3');
-    }
+
+//    if(e.target.className === 'bi-check-lg') {
+//        $.each(marker_object['CE7'], function(index, item){
+//            item.setMap(null);
+//        });
+//        $.each(overlay_object['CE7'], function(index, item){
+//            item.setMap(null);
+//        });
+//        $.each(marker_object['FD6'], function(index, item){
+//            item.setMap(null);
+//        });
+//        $.each(overlay_object['FD6'], function(index, item){
+//            item.setMap(null);
+//        });
+//    }
+//    else {
+//        getHashtagByCount('check3');
+//    }
 });
 
 document.getElementById("btn_check4").addEventListener('click', function(e){
@@ -124,22 +136,28 @@ document.getElementById("btn_check4").addEventListener('click', function(e){
     e.target.classList.toggle('bi-check-lg');
 
     if(e.target.className === 'bi-check-lg') {
-        $.each(marker_object['CE7'], function(index, item){
-            item.setMap(null);
-        });
-        $.each(overlay_object['CE7'], function(index, item){
-            item.setMap(null);
-        });
-        $.each(marker_object['FD6'], function(index, item){
-            item.setMap(null);
-        });
-        $.each(overlay_object['FD6'], function(index, item){
-            item.setMap(null);
-        });
+        getHashtagByCount('check4', true);
+    } else {
+        getHashtagByCount('check4', false);
     }
-    else {
-        getHashtagByCount('check4');
-    }
+
+//    if(e.target.className === 'bi-check-lg') {
+//        $.each(marker_object['CE7'], function(index, item){
+//            item.setMap(null);
+//        });
+//        $.each(overlay_object['CE7'], function(index, item){
+//            item.setMap(null);
+//        });
+//        $.each(marker_object['FD6'], function(index, item){
+//            item.setMap(null);
+//        });
+//        $.each(overlay_object['FD6'], function(index, item){
+//            item.setMap(null);
+//        });
+//    }
+//    else {
+//        getHashtagByCount('check4');
+//    }
 });
 
 document.getElementById("btn_check5").addEventListener('click', function(e){
@@ -147,22 +165,28 @@ document.getElementById("btn_check5").addEventListener('click', function(e){
     e.target.classList.toggle('bi-check-lg');
 
     if(e.target.className === 'bi-check-lg') {
-        $.each(marker_object['CE7'], function(index, item){
-            item.setMap(null);
-        });
-        $.each(overlay_object['CE7'], function(index, item){
-            item.setMap(null);
-        });
-        $.each(marker_object['FD6'], function(index, item){
-            item.setMap(null);
-        });
-        $.each(overlay_object['FD6'], function(index, item){
-            item.setMap(null);
-        });
+        getHashtagByCount('check5', true);
+    } else {
+        getHashtagByCount('check5', false);
     }
-    else {
-        getHashtagByCount('check5');
-    }
+
+//    if(e.target.className === 'bi-check-lg') {
+//        $.each(marker_object['CE7'], function(index, item){
+//            item.setMap(null);
+//        });
+//        $.each(overlay_object['CE7'], function(index, item){
+//            item.setMap(null);
+//        });
+//        $.each(marker_object['FD6'], function(index, item){
+//            item.setMap(null);
+//        });
+//        $.each(overlay_object['FD6'], function(index, item){
+//            item.setMap(null);
+//        });
+//    }
+//    else {
+//        getHashtagByCount('check5');
+//    }
 });
 
 function getHashtagByKeyword(searchText, category) {
@@ -251,7 +275,7 @@ function getHashtagByCount(check_type, check_flag) {
     //                    if((marker_object['CE7'] != undefined && marker_object['CE7'].find(marker) === -1) && (marker_object['FD6'] != undefined && marker_object['FD6'].find(marker) === -1)){
                          if(marker_object['CE7'] != undefined){
                             $.each(marker_object['CE7'], function(index, item){
-                                if(item.getPosition().La.toFixed(13) !== marker.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) !== marker.getPosition().Ma.toFixed(13)){
+                                if(item.getPosition().La.toFixed(13) != marker.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) != marker.getPosition().Ma.toFixed(13)){
                                     marker.setMap(map);
                                     marker_object['CE7'].push(marker);
 //                                    marker_list_CE7.push(marker);
@@ -261,7 +285,7 @@ function getHashtagByCount(check_type, check_flag) {
 
                          if(marker_object['FD6'] != undefined){
                              $.each(marker_object['FD6'], function(index, item){
-                                 if(item.getPosition().La.toFixed(13) !== marker.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) !== marker.getPosition().Ma.toFixed(13)){
+                                 if(item.getPosition().La.toFixed(13) != marker.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) != marker.getPosition().Ma.toFixed(13)){
                                      marker.setMap(map);
                                      marker_object['FD6'].push(marker);
 //                                     marker_list_FD6.push(marker);
@@ -296,32 +320,35 @@ function getHashtagByCount(check_type, check_flag) {
                             yAnchor: 1
                         });
 
-//                        if(overlay_object['CE7'] != undefined){
-//                            $.each(overlay_object['CE7'], function(index, item){
-//                                if(item.getPosition().La.toFixed(13) !== customOverlay.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) !== (customOverlay.getPosition().Ma-0.001).toFixed(13)){
-//                                    overlay_list_CE7.push(customOverlay);
-//                                }
-//                            });
-//                        }
-//
-//                        if(overlay_object['FD6'] != undefined){
-//                             $.each(overlay_object['FD6'], function(index, item){
-//                                 if(item.getPosition().La.toFixed(13) !== customOverlay.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) !== (customOverlay.getPosition().Ma-0.001).toFixed(13)){
-//                                     overlay_list_FD6.push(customOverlay);
-//                                 }
-//                             });
-//                        }
+//                        overlay_object['CE7'].push(customOverlay);
+//                        overlay_object['FD6'].push(customOverlay);
+
+                        if(overlay_object['CE7'] != undefined){
+                            $.each(overlay_object['CE7'], function(index, item){
+                                if(item.getPosition().La.toFixed(13) != customOverlay.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) != (customOverlay.getPosition().Ma-0.001).toFixed(13)){
+                                    overlay_object['CE7'].push(customOverlay);
+                                }
+                            });
+                        }
+
+                        if(overlay_object['FD6'] != undefined){
+                             $.each(overlay_object['FD6'], function(index, item){
+                                 if(item.getPosition().La.toFixed(13) != customOverlay.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) != (customOverlay.getPosition().Ma-0.001).toFixed(13)){
+                                     overlay_object['FD6'].push(customOverlay);
+                                 }
+                             });
+                        }
                     } else {
                         if(marker_object['CE7'] != undefined){
                             $.each(marker_object['CE7'], function(m_index, m_item){
-                                if(item.longitude === m_item.getPosition().La.toFixed(13) && item.latitude === (m_item.getPosition().Ma-0.001).toFixed(13)){
+                                if(item.longitude == m_item.getPosition().La.toFixed(13) && item.latitude == m_item.getPosition().Ma.toFixed(13)){
                                     m_item.setMap(null);
                                 }
                             });
                         }
                         if(marker_object['FD6'] != undefined){
                             $.each(marker_object['FD6'], function(m_index, m_item){
-                                if(item.longitude === m_item.getPosition().La.toFixed(13) && item.latitude === (m_item.getPosition().Ma-0.001).toFixed(13)){
+                                if(item.longitude == m_item.getPosition().La.toFixed(13) && item.latitude == m_item.getPosition().Ma.toFixed(13)){
                                     m_item.setMap(null);
                                 }
                             });
@@ -329,14 +356,14 @@ function getHashtagByCount(check_type, check_flag) {
 
                         if(overlay_object['CE7'] != undefined){
                             $.each(overlay_object['CE7'], function(m_index, m_item){
-                                if(item.longitude === m_item.getPosition().La.toFixed(13) && item.latitude === (m_item.getPosition().Ma-0.001).toFixed(13)){
+                                if(item.longitude == m_item.getPosition().La.toFixed(13) && item.latitude == (m_item.getPosition().Ma-0.001).toFixed(13)){
                                     m_item.setMap(null);
                                 }
                             });
                         }
                         if(overlay_object['FD6'] != undefined){
                             $.each(overlay_object['FD6'], function(m_index, m_item){
-                                if(item.longitude === m_item.getPosition().La.toFixed(13) && item.latitude === (m_item.getPosition().Ma-0.001).toFixed(13)){
+                                if(item.longitude == m_item.getPosition().La.toFixed(13) && item.latitude == (m_item.getPosition().Ma-0.001).toFixed(13)){
                                     m_item.setMap(null);
                                 }
                             });
@@ -346,15 +373,15 @@ function getHashtagByCount(check_type, check_flag) {
 
                });
 
-               $.each(category_arr, function(index, category){
-                   if(category === 'CE7'){
-                       marker_object[category] = marker_list_CE7;
-                       overlay_object[category] = overlay_list_CE7;
-                   } else {
-                       marker_object[category] = marker_list_FD6;
-                       overlay_object[category] = overlay_list_FD6;
-                   }
-               });
+//               $.each(category_arr, function(index, category){
+//                   if(category === 'CE7'){
+//                       marker_object[category] = marker_list_CE7;
+//                       overlay_object[category] = overlay_list_CE7;
+//                   } else {
+//                       marker_object[category] = marker_list_FD6;
+//                       overlay_object[category] = overlay_list_FD6;
+//                   }
+//               });
            },
            error : function(e){
            }

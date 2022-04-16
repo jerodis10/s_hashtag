@@ -69,8 +69,9 @@ function kakaoMap() {
        type:'POST',
        dataType: 'json',
 //          data: {ha: 124, oa: 132, pa: 33, qa: 43},
-        data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564},
-//            data : {ha: bounds.ha, oa: bounds.oa, pa: bounds.pa, qa: bounds.qa},
+//        data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564},
+           data: {ha: 126.960, oa: 126.970, pa: 37.560, qa: 37.563},
+//            data : {ha: 126.75578831035362, oa: 127.2251487382762, pa: 37.41847533960485, qa: 37.70625487247741} //서울시 전체
        success:function(data){
                console.log(data);
        },

@@ -188,19 +188,19 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
         sql_get_hashtag_byCount += ") ";
 
         if(check.equals("check1")) {
-            sql_get_hashtag_byCount += "and hashtag_count <= 10  ";
+            sql_get_hashtag_byCount += "and hashtag_count < 10  ";
         }
         if(check.equals("check2")) {
-            sql_get_hashtag_byCount += "and (hashtag_count > 10 and hashtag_count <= 100) ";
+            sql_get_hashtag_byCount += "and (hashtag_count >= 10 and hashtag_count < 100) ";
         }
         if(check.equals("check3")) {
-            sql_get_hashtag_byCount += "and (hashtag_count > 100 and hashtag_count <= 1000) ";
+            sql_get_hashtag_byCount += "and (hashtag_count >= 100 and hashtag_count < 1000) ";
         }
         if(check.equals("check4")) {
-            sql_get_hashtag_byCount += "and (hashtag_count > 1000 and hashtag_count <= 10000) ";
+            sql_get_hashtag_byCount += "and (hashtag_count >= 1000 and hashtag_count < 10000) ";
         }
         if(check.equals("check5")) {
-            sql_get_hashtag_byCount += "and (hashtag_count > 10000 and hashtag_count <= 100000) ";
+            sql_get_hashtag_byCount += "and (hashtag_count >= 10000) ";
         }
 
         return jdbcTemplate.query(sql_get_hashtag_byCount, PlaceByKeywordRowMapper(), param.toArray());
