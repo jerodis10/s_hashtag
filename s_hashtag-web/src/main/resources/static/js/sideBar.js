@@ -253,7 +253,8 @@ function getHashtagByCount(check_type, check_flag) {
                             $.each(marker_object['CE7'], function(index, item){
                                 if(item.getPosition().La.toFixed(13) !== marker.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) !== marker.getPosition().Ma.toFixed(13)){
                                     marker.setMap(map);
-                                    marker_list_CE7.push(marker);
+                                    marker_object['CE7'].push(marker);
+//                                    marker_list_CE7.push(marker);
                                 }
                             });
                          }
@@ -262,7 +263,8 @@ function getHashtagByCount(check_type, check_flag) {
                              $.each(marker_object['FD6'], function(index, item){
                                  if(item.getPosition().La.toFixed(13) !== marker.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) !== marker.getPosition().Ma.toFixed(13)){
                                      marker.setMap(map);
-                                     marker_list_FD6.push(marker);
+                                     marker_object['FD6'].push(marker);
+//                                     marker_list_FD6.push(marker);
                                  }
                              });
                          }
@@ -294,21 +296,21 @@ function getHashtagByCount(check_type, check_flag) {
                             yAnchor: 1
                         });
 
-                        if(overlay_object['CE7'] != undefined){
-                            $.each(overlay_object['CE7'], function(index, item){
-                                if(item.getPosition().La.toFixed(13) !== customOverlay.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) !== (customOverlay.getPosition().Ma-0.001).toFixed(13)){
-                                    overlay_list_CE7.push(customOverlay);
-                                }
-                            });
-                        }
-
-                        if(overlay_object['FD6'] != undefined){
-                             $.each(overlay_object['FD6'], function(index, item){
-                                 if(item.getPosition().La.toFixed(13) !== customOverlay.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) !== (customOverlay.getPosition().Ma-0.001).toFixed(13)){
-                                     overlay_list_FD6.push(customOverlay);
-                                 }
-                             });
-                        }
+//                        if(overlay_object['CE7'] != undefined){
+//                            $.each(overlay_object['CE7'], function(index, item){
+//                                if(item.getPosition().La.toFixed(13) !== customOverlay.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) !== (customOverlay.getPosition().Ma-0.001).toFixed(13)){
+//                                    overlay_list_CE7.push(customOverlay);
+//                                }
+//                            });
+//                        }
+//
+//                        if(overlay_object['FD6'] != undefined){
+//                             $.each(overlay_object['FD6'], function(index, item){
+//                                 if(item.getPosition().La.toFixed(13) !== customOverlay.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) !== (customOverlay.getPosition().Ma-0.001).toFixed(13)){
+//                                     overlay_list_FD6.push(customOverlay);
+//                                 }
+//                             });
+//                        }
                     } else {
                         if(marker_object['CE7'] != undefined){
                             $.each(marker_object['CE7'], function(m_index, m_item){
@@ -324,7 +326,24 @@ function getHashtagByCount(check_type, check_flag) {
                                 }
                             });
                         }
+
+                        if(overlay_object['CE7'] != undefined){
+                            $.each(overlay_object['CE7'], function(m_index, m_item){
+                                if(item.longitude === m_item.getPosition().La.toFixed(13) && item.latitude === (m_item.getPosition().Ma-0.001).toFixed(13)){
+                                    m_item.setMap(null);
+                                }
+                            });
+                        }
+                        if(overlay_object['FD6'] != undefined){
+                            $.each(overlay_object['FD6'], function(m_index, m_item){
+                                if(item.longitude === m_item.getPosition().La.toFixed(13) && item.latitude === (m_item.getPosition().Ma-0.001).toFixed(13)){
+                                    m_item.setMap(null);
+                                }
+                            });
+                        }
                     }
+
+
                });
 
                $.each(category_arr, function(index, category){
