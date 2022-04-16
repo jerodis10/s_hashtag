@@ -48,21 +48,23 @@ public class Crawler {
                     .get();
 //                    .body()
 
+//            if(doc.hasText()) return doc.toString();
+//            else return null;
             return doc.toString();
 
-//        } catch (HttpStatusException e) {
-//            if (e.getStatusCode() == NOT_FOUND) {
-//                throw new CrawlerException(CrawlerExceptionStatus.NOT_FOUND_URL);
-//            } else if (e.getStatusCode() == TOO_MANY_REQUEST) {
-//                throw new CrawlerException(CrawlerExceptionStatus.TOO_MANY_REQUEST);
-//            }
-//            throw new CrawlerException(CrawlerExceptionStatus.URL_NOT_CONNECT);
-//        } catch (IOException e) {
-//            throw new CrawlerException(CrawlerExceptionStatus.URL_NOT_CONNECT);
-//        }
-
+        } catch (HttpStatusException e) {
+            if (e.getStatusCode() == NOT_FOUND) {
+                throw new CrawlerException(CrawlerExceptionStatus.NOT_FOUND_URL);
+            } else if (e.getStatusCode() == TOO_MANY_REQUEST) {
+                throw new CrawlerException(CrawlerExceptionStatus.TOO_MANY_REQUEST);
+            }
+            throw new CrawlerException(CrawlerExceptionStatus.URL_NOT_CONNECT);
         } catch (IOException e) {
-            throw new RuntimeException();
+            throw new CrawlerException(CrawlerExceptionStatus.URL_NOT_CONNECT);
         }
+
+//        } catch (IOException e) {
+//            throw new RuntimeException();
+//        }
     }
 }

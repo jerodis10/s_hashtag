@@ -60,24 +60,41 @@ public class KakaoApiService {
 //            }
 //        }
 //    }
-    
-    // 속도 개선 필요 -> 파라미터로 리스트 넘기는 방식 말고 다른 방식 고려
-    public List<KakaoPlaceDto> findPlaces(String category, Rect initialRect, List<KakaoPlaceDto> pageList) {
-//        List<KakaoPlaceDto> result = new ArrayList<>();
 
+    List<KakaoPlaceDto> result = new ArrayList<>();
+
+    public List<KakaoPlaceDto> findPlaces(String category, Rect initialRect) {
         KakaoPlaceDto page = kakaoRestTemplateApiCaller.findPlaceByCategory(category, initialRect, FIRST_PAGE);
         if (kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page) == 1) {
-//        if (kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page)) {
-            pageList.add(page);
+            result.add(page);
+            return result;
         } else if(kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page) == 2) {
             List<Rect> dividedRects = RectDivider.divide(initialRect);
             for (Rect rect : dividedRects) {
-                List<KakaoPlaceDto> nextPages = findPlaces(category, rect, pageList);
+                List<KakaoPlaceDto> nextPages = findPlaces(category, rect);
             }
         }
 
-        return pageList;
+        return result;
     }
+
+    // 속도 개선 필요 -> 파라미터로 리스트 넘기는 방식 말고 다른 방식 고려
+//    public List<KakaoPlaceDto> findPlaces(String category, Rect initialRect, List<KakaoPlaceDto> pageList) {
+////        List<KakaoPlaceDto> result = new ArrayList<>();
+//
+//        KakaoPlaceDto page = kakaoRestTemplateApiCaller.findPlaceByCategory(category, initialRect, FIRST_PAGE);
+//        if (kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page) == 1) {
+////        if (kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page)) {
+//            pageList.add(page);
+//        } else if(kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page) == 2) {
+//            List<Rect> dividedRects = RectDivider.divide(initialRect);
+//            for (Rect rect : dividedRects) {
+//                List<KakaoPlaceDto> nextPages = findPlaces(category, rect, pageList);
+//            }
+//        }
+//
+//        return pageList;
+//    }
 
     public List<KakaoPlaceDto> findPlacesByKeyword(String category, Rect initialRect, String query, List<KakaoPlaceDto> pageList) {
 

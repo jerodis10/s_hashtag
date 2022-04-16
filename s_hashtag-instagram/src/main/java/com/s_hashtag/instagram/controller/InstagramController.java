@@ -49,35 +49,49 @@ public class InstagramController {
 //        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("oa").toString()).setScale(5, RoundingMode.HALF_UP));
 
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
-//        List<KakaoPlaceDto> kakaoPlaceDto = kakaoApiService.findPlaces("FD6", rect, new ArrayList<>());
-        List<KakaoPlaceDto> kakaoPlaceDto = kakaoApiService.findPlaces("CE7", rect, new ArrayList<>());
+        List<KakaoPlaceDto> kakaoPlaceDto_FD6 = kakaoApiService.findPlaces("FD6", rect);
+//        List<KakaoPlaceDto> kakaoPlaceDto_FD6 = kakaoApiService.findPlaces("FD6", rect, new ArrayList<>());
 
-//        kakaoApiService.savePlaces(param);
+//        List<Document> list_documonet = new ArrayList<>();
+//        List<CrawlingDto> list_crawlingDto = new ArrayList<>();
 
-        List<Document> list_documonet = new ArrayList<>();
-        List<CrawlingDto> list_crawlingDto = new ArrayList<>();
-
-//        Loop1 :
-        for(KakaoPlaceDto page : kakaoPlaceDto){
-//            Document document = page.getDocuments();
+        for(KakaoPlaceDto page : kakaoPlaceDto_FD6){
             for(Document document : page.getDocuments()){
-                list_documonet.add(document);
+//                list_documonet.add(document);
 
                 instagramRepository.kakao_document_save(document);
 
                 CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
-                list_crawlingDto.add(crawlingDto);
+//                list_crawlingDto.add(crawlingDto);
                 instagramRepository.instagram_save(crawlingDto, document);
                 for(PostDto postDto : crawlingDto.getPostDtoList()){
                     instagramRepository.instagram_post_save(postDto);
                 }
-//                break Loop1;
             }
         }
 
-//        CrawlingDto crawlingDto = instagramCrawler.crawler("당산오돌종로점");
+        List<KakaoPlaceDto> kakaoPlaceDto_CE7 = kakaoApiService.findPlaces("CE7", rect);
+//        List<KakaoPlaceDto> kakaoPlaceDto_CE7 = kakaoApiService.findPlaces("CE7", rect, new ArrayList<>());
 
-        return kakaoPlaceDto;
+//        list_documonet = new ArrayList<>();
+//        list_crawlingDto = new ArrayList<>();
+
+        for(KakaoPlaceDto page : kakaoPlaceDto_CE7){
+            for(Document document : page.getDocuments()){
+//                list_documonet.add(document);
+
+                instagramRepository.kakao_document_save(document);
+
+                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
+//                list_crawlingDto.add(crawlingDto);
+                instagramRepository.instagram_save(crawlingDto, document);
+                for(PostDto postDto : crawlingDto.getPostDtoList()){
+                    instagramRepository.instagram_post_save(postDto);
+                }
+            }
+        }
+
+        return kakaoPlaceDto_FD6;
     }
 
     @GetMapping("/getHashtag")

@@ -132,31 +132,32 @@ public class HomeController {
 //    }
 
 //    @PostMapping("/kakaoMap")
-    @ResponseBody
-    public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) throws IOException {
-//    public List<Document> kakaoMap(@RequestParam Map<String, Object> param) {
-        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
-        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
-        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
-        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
-
-        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
-//        Rect rect = new Rect(param.get("ha"), param.get("oa"), param.get("ha"), param.get("ha"));
-//        KakaoPlaceDto  kakaoPlaceDto= kakaoRestTemplateApiCaller.findPlaceByCategory("FD6", rect, 1);
-        List<KakaoPlaceDto> kakaoPlaceDto = kakaoApiService.findPlaces("FD6", rect, new ArrayList<>());
-
-        List<Document> list = new ArrayList<>();
-        List<CrawlingDto> list2 = new ArrayList<>();
-        for(KakaoPlaceDto page : kakaoPlaceDto){
-            for(Document document : page.getDocuments()){
-                list.add(document);
-                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
-                list2.add(crawlingDto);
-            }
-        }
-
-//        CrawlingDto crawlingDto = instagramCrawler.crawler("당산오돌종로점");
-
-        return kakaoPlaceDto;
-    }
+//    @ResponseBody
+//    public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) throws IOException {
+////    public List<Document> kakaoMap(@RequestParam Map<String, Object> param) {
+//        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
+//        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
+//        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
+//        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
+//
+//        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
+////        Rect rect = new Rect(param.get("ha"), param.get("oa"), param.get("ha"), param.get("ha"));
+////        KakaoPlaceDto  kakaoPlaceDto= kakaoRestTemplateApiCaller.findPlaceByCategory("FD6", rect, 1);
+////        List<KakaoPlaceDto> kakaoPlaceDto = kakaoApiService.findPlaces("FD6", rect, new ArrayList<>());
+//        List<KakaoPlaceDto> kakaoPlaceDto = kakaoApiService.findPlaces("FD6", rect);
+//
+//        List<Document> list = new ArrayList<>();
+//        List<CrawlingDto> list2 = new ArrayList<>();
+//        for(KakaoPlaceDto page : kakaoPlaceDto){
+//            for(Document document : page.getDocuments()){
+//                list.add(document);
+//                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
+//                list2.add(crawlingDto);
+//            }
+//        }
+//
+////        CrawlingDto crawlingDto = instagramCrawler.crawler("당산오돌종로점");
+//
+//        return kakaoPlaceDto;
+//    }
 }
