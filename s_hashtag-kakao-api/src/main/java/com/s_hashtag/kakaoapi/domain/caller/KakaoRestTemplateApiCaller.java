@@ -66,7 +66,6 @@ public class KakaoRestTemplateApiCaller {
         if(ret >= 1 && ret <= 14) return 1;
         else if(ret >= 15) return 2;
         else  return 0;
-//        return ret <= 14 ? ;
 //        return (kakaoProperties.getMaxDocumentCount() * kakaoProperties.getMaxPageableCount()) >= totalCount;
     }
 }
