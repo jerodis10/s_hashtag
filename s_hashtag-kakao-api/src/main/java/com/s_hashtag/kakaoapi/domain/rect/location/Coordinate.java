@@ -1,6 +1,7 @@
 package com.s_hashtag.kakaoapi.domain.rect.location;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public abstract class Coordinate {
     protected final BigDecimal value;

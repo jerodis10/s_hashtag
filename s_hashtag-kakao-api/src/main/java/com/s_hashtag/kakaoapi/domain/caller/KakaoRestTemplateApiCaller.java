@@ -63,7 +63,8 @@ public class KakaoRestTemplateApiCaller {
     public Integer isLessOrEqualTotalCount(KakaoPlaceDto kakaoPlaceDto) {
 //        int totalCount = kakaoPlaceDto.getTotalCount();
         Integer ret = kakaoPlaceDto.getDocuments().size();
-        if(ret >= 1 && ret <= 14) return 1;
+        if(ret <= 14) return 1;
+//        if(ret >= 1 && ret <= 14) return 1;
         else if(ret >= 15) return 2;
         else  return 0;
 //        return (kakaoProperties.getMaxDocumentCount() * kakaoProperties.getMaxPageableCount()) >= totalCount;
