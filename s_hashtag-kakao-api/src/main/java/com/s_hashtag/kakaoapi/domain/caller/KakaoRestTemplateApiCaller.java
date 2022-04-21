@@ -60,13 +60,13 @@ public class KakaoRestTemplateApiCaller {
         return restTemplate.exchange(uri.toUriString(), HttpMethod.GET, entity, KakaoPlaceDto.class).getBody();
     }
 
-    public Integer isLessOrEqualTotalCount(KakaoPlaceDto kakaoPlaceDto) {
+    public Boolean isLessOrEqualTotalCount(KakaoPlaceDto kakaoPlaceDto) {
 //        int totalCount = kakaoPlaceDto.getTotalCount();
         Integer ret = kakaoPlaceDto.getDocuments().size();
-        if(ret <= 14) return 1;
+        if(ret <= 14) return true;
 //        if(ret >= 1 && ret <= 14) return 1;
-        else if(ret >= 15) return 2;
-        else  return 0;
+        else if(ret >= 15) return false;
+        else  return false;
 //        return (kakaoProperties.getMaxDocumentCount() * kakaoProperties.getMaxPageableCount()) >= totalCount;
     }
 }
