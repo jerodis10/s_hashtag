@@ -237,3 +237,7 @@ function create_overlay(item, category){
 
 create_marker_test(map, 'FD6');
 
+
+
+
+
