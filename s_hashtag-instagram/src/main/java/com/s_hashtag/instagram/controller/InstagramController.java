@@ -60,8 +60,9 @@ public class InstagramController {
 
                 instagramRepository.kakao_document_save(document);
 
-                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
+//                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
 //                list_crawlingDto.add(crawlingDto);
+                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
                 instagramRepository.instagram_save(crawlingDto, document);
                 for(PostDto postDto : crawlingDto.getPostDtoList()){
                     instagramRepository.instagram_post_save(postDto);
