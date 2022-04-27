@@ -4,6 +4,9 @@ import com.s_hashtag.instagram.crawler.InstagramCrawler;
 import com.s_hashtag.instagram.dto.CrawlingDto;
 import com.s_hashtag.instagram.dto.PlaceDto;
 import com.s_hashtag.instagram.dto.PostDto;
+import com.s_hashtag.instagram.proxy.CrawlerWithProxy;
+import com.s_hashtag.instagram.proxy.ProxiesFactory;
+import com.s_hashtag.instagram.proxy.ProxySetter;
 import com.s_hashtag.instagram.repository.InstagramRepository;
 import com.s_hashtag.kakaoapi.domain.dto.Document;
 import com.s_hashtag.kakaoapi.domain.dto.KakaoPlaceDto;
@@ -62,7 +65,9 @@ public class InstagramController {
 
 //                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
 //                list_crawlingDto.add(crawlingDto);
-                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
+//                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
+                CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
+                CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
                 instagramRepository.instagram_save(crawlingDto, document);
                 for(PostDto postDto : crawlingDto.getPostDtoList()){
                     instagramRepository.instagram_post_save(postDto);

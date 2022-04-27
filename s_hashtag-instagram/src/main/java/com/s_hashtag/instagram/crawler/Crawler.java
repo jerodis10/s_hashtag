@@ -61,6 +61,8 @@ public class Crawler {
             throw new CrawlerException(CrawlerExceptionStatus.URL_NOT_CONNECT);
         } catch (IOException e) {
             throw new CrawlerException(CrawlerExceptionStatus.URL_NOT_CONNECT);
+        } finally {
+
         }
 
 //        } catch (IOException e) {

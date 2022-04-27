@@ -21,10 +21,10 @@ public class CrawlerWithProxy {
         this.instagramCrawler = instagramCrawler;
     }
 
-    public Optional<CrawlingDto> crawlInstagram(String hashtagNameToCrawl) throws IOException {
+    public CrawlingDto crawlInstagram(String hashtagNameToCrawl) throws IOException {
         try {
             proxySetter.setProxy();
-            return Optional.of(instagramCrawler.crawler(hashtagNameToCrawl));
+            return instagramCrawler.crawler(hashtagNameToCrawl);
         } catch (CrawlerException e) {
             log.info("CrawlerException: {}", e.getMessage());
 //            if (NOT_FOUND_EXCEPTION_CODE.equals(e.getErrorCode())) {
