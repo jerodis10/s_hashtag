@@ -17,6 +17,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 public class Crawler {
@@ -54,7 +55,8 @@ public class Crawler {
 
         } catch (HttpStatusException e) {
             if (e.getStatusCode() == NOT_FOUND) {
-                throw new CrawlerException(CrawlerExceptionStatus.NOT_FOUND_URL);
+//                throw new CrawlerException(CrawlerExceptionStatus.NOT_FOUND_URL);
+                return null;
             } else if (e.getStatusCode() == TOO_MANY_REQUEST) {
                 throw new CrawlerException(CrawlerExceptionStatus.TOO_MANY_REQUEST);
             }

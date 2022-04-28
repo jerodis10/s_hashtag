@@ -41,6 +41,11 @@ public class InstagramCrawler {
 //        String parsedHashtagName = PlaceName  Parser.parsePlaceName(crawlingName);
         String parsedHashtagName = crawlingName.replaceAll(" ", "");
         String body = crawler.crawl(String.format(INSTAGRAM_URL_FORMAT, parsedHashtagName));
-        return createCrawlingDto(parsedHashtagName, body);
+        if(body != null){
+            return createCrawlingDto(parsedHashtagName, body);
+        }
+
+        return null;
+//        return createCrawlingDto(parsedHashtagName, body);
     }
 }
