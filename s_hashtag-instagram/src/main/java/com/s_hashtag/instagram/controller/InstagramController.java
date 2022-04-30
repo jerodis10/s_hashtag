@@ -68,9 +68,11 @@ public class InstagramController {
 //                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
                 CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
                 CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
-                instagramRepository.instagram_save(crawlingDto, document);
-                for(PostDto postDto : crawlingDto.getPostDtoList()){
-                    instagramRepository.instagram_post_save(postDto);
+                if(crawlingDto != null) {
+                    instagramRepository.instagram_save(crawlingDto, document);
+                    for (PostDto postDto : crawlingDto.getPostDtoList()) {
+                        instagramRepository.instagram_post_save(postDto);
+                    }
                 }
             }
         }
@@ -83,15 +85,16 @@ public class InstagramController {
 
         for(KakaoPlaceDto page : kakaoPlaceDto_CE7){
             for(Document document : page.getDocuments()){
-//                list_documonet.add(document);
-
                 instagramRepository.kakao_document_save(document);
 
-                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
-//                list_crawlingDto.add(crawlingDto);
-                instagramRepository.instagram_save(crawlingDto, document);
-                for(PostDto postDto : crawlingDto.getPostDtoList()){
-                    instagramRepository.instagram_post_save(postDto);
+//                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
+                CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
+                CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
+                if(crawlingDto != null) {
+                    instagramRepository.instagram_save(crawlingDto, document);
+                    for (PostDto postDto : crawlingDto.getPostDtoList()) {
+                        instagramRepository.instagram_post_save(postDto);
+                    }
                 }
             }
         }
