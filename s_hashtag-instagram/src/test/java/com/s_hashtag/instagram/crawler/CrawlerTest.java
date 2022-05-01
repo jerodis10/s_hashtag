@@ -4,6 +4,8 @@ import com.s_hashtag.instagram.exception.CrawlerException;
 import com.s_hashtag.instagram.exception.CrawlerExceptionStatus;
 import com.s_hashtag.instagram.proxy.Proxies;
 import com.s_hashtag.instagram.proxy.Proxy;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -52,14 +54,16 @@ class CrawlerTest {
         assertThat(extracted).isEqualTo("17842213252071142");
     }
 
-//    public String extract(String body) {
-//        Matcher matcher = Pattern.matcher(body);
-//        if (matcher.find()) {
-//            return matcher.group(2);
-//        }
-////        else {
-////            return "0";
-////        }
-//        throw new CrawlerException(CrawlerExceptionStatus.NOT_FOUND_MATCH_REGEX);
-//    }
+    @DisplayName("인스타그램 크롤링 테스트")
+    @Test
+    void crawlingTest() throws IOException {
+
+//        Document doc= Jsoup.connect("https://www.instagram.com")
+        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?hl=ko")
+//        Document doc= Jsoup.connect("https://stackoverflow.com/questions/32623199/log-into-instagram-with-java")
+                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.57 Safari/537.36")
+                .get();
+
+        assertThat(doc).isNotNull();
+    }
 }

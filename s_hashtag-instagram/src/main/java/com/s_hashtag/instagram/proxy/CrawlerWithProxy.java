@@ -24,6 +24,8 @@ public class CrawlerWithProxy {
     public CrawlingDto crawlInstagram(String hashtagNameToCrawl) throws IOException {
         try {
             proxySetter.setProxy();
+//            System.setProperty("http.proxyHost", "11.111.111.111");
+//            System.setProperty("http.proxyPort", "1111");
             return instagramCrawler.crawler(hashtagNameToCrawl);
         } catch (CrawlerException e) {
             log.info("CrawlerException: {}", e.getMessage());
