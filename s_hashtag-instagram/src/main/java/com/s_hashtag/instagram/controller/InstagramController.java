@@ -54,8 +54,30 @@ public class InstagramController {
         List<KakaoPlaceDto> kakaoPlaceDto_FD6 = kakaoApiService.findPlaces("FD6", rect);
 //        List<KakaoPlaceDto> kakaoPlaceDto_FD6 = kakaoApiService.findPlaces("FD6", rect, new ArrayList<>());
 
-//        List<Document> list_documonet = new ArrayList<>();
-//        List<CrawlingDto> list_crawlingDto = new ArrayList<>();
+        List<Document> list_documonet = new ArrayList<>();
+        List<Document> list_documonet2 = new ArrayList<>();
+        List<PlaceDto> list_placeDto = new ArrayList<>();
+
+        for(KakaoPlaceDto page : kakaoPlaceDto_FD6){
+            for(Document document : page.getDocuments()) {
+                list_documonet.add(document);
+            }
+        }
+
+        list_placeDto = instagramRepository.getHashtag("FD6", rect);
+
+        for(PlaceDto placeDto : list_placeDto) {
+            Document document = new Document();
+            document.setId(placeDto.getKakao_id());
+            document.setCategoryGroupCode(placeDto.getCategory_group_code());
+            document.setLatitude(String.valueOf(placeDto.getLatitude()));
+            document.setLongitude(String.valueOf(placeDto.getLongitude()));
+            document.setPlaceName(placeDto.getPlace_name());
+            document.setRoadAddressName(placeDto.getRoad_address_name());
+            document.setPlaceUrl(placeDto.getPlace_url());
+
+            list_documonet2.add(document);
+        }
 
         for(KakaoPlaceDto page : kakaoPlaceDto_FD6){
             for(Document document : page.getDocuments()){
