@@ -19,7 +19,11 @@ public class PlaceDto {
     private String hashtagName;
     private Long hashtagCount;
     private String category_group_code;
+    private String category_group_name;
     private String place_name;
+    private String address_name;
     private String road_address_name;
     private String place_url;
+    private String phone;
+    private String distance;
 }

@@ -284,6 +284,8 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
             placeDto.setHashtagCount(rs.getLong("HASHTAG_COUNT"));
             placeDto.setLatitude(rs.getDouble("LATITUDE"));
             placeDto.setLongitude(rs.getDouble("LONGITUDE"));
+            placeDto.setKakao_id(rs.getString("KAKAO_ID"));
+            placeDto.setCategory_group_code(rs.getString("CATEGORY_GROUP_CODE"));
 
             return placeDto;
         };

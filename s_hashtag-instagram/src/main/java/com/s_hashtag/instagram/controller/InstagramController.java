@@ -60,6 +60,8 @@ public class InstagramController {
 
         for(KakaoPlaceDto page : kakaoPlaceDto_FD6){
             for(Document document : page.getDocuments()) {
+                document.setPlaceName(null);
+                document.setCategoryName(null);
                 list_documonet.add(document);
             }
         }
@@ -69,18 +71,25 @@ public class InstagramController {
         for(PlaceDto placeDto : list_placeDto) {
             Document document = new Document();
             document.setId(placeDto.getKakao_id());
+            document.setPlaceName(placeDto.getPlace_name());
+            document.setCategoryGroupName(placeDto.getCategory_group_name());
             document.setCategoryGroupCode(placeDto.getCategory_group_code());
+            document.setPhone(placeDto.getPhone());
+            document.setAddressName(placeDto.getAddress_name());
+            document.setRoadAddressName(placeDto.getRoad_address_name());
             document.setLatitude(String.valueOf(placeDto.getLatitude()));
             document.setLongitude(String.valueOf(placeDto.getLongitude()));
-            document.setPlaceName(placeDto.getPlace_name());
-            document.setRoadAddressName(placeDto.getRoad_address_name());
             document.setPlaceUrl(placeDto.getPlace_url());
+            document.setDistance(placeDto.getDistance());
 
             list_documonet2.add(document);
         }
 
-        for(KakaoPlaceDto page : kakaoPlaceDto_FD6){
-            for(Document document : page.getDocuments()){
+        list_documonet.removeAll(list_documonet2);
+
+//        for(KakaoPlaceDto page : kakaoPlaceDto_FD6){
+//            for(Document document : page.getDocuments()){
+        for(Document document : list_documonet){
 //                list_documonet.add(document);
 
                 instagramRepository.kakao_document_save(document);
@@ -96,7 +105,7 @@ public class InstagramController {
                         instagramRepository.instagram_post_save(postDto);
                     }
                 }
-            }
+//            }
         }
 
         List<KakaoPlaceDto> kakaoPlaceDto_CE7 = kakaoApiService.findPlaces("CE7", rect);
