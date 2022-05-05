@@ -65,9 +65,9 @@ kakao.maps.event.addListener(map, 'zoom_changed', function() {
     var customOverlay_list = [];
     $.each(overlay_list, function(index, overlay){
         overlay.setMap(null);
-//        overlay_list.splice(index, 1);
-        var latitude_adjust = 0.00018 * (level > 1 ? Math.pow(2, level-2) : 1);
-        var longitude_adjust = 0.000027 * (level > 1 ? Math.pow(2, level-2) : 1);
+        var dir = (level - be_level) > 0 ? -1 : 0;
+        var latitude_adjust = 0.00018 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
+        var longitude_adjust = 0.000027 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
         var position = new kakao.maps.LatLng(overlay.getPosition().Ma + (level - be_level) * latitude_adjust, overlay.getPosition().La - (level - be_level) * longitude_adjust);
         var content = overlay.getContent();
         var customOverlay = new kakao.maps.CustomOverlay({
@@ -178,21 +178,21 @@ function create_marker_test(map, category) {
                 if(1000 <= item.hashtagCount && item.hashtagCount < 10000) background_color = 'style="background-color: aqua;"';
                 if(10000 <= item.hashtagCount) background_color = 'style="background-color: brown;"';
                 var content =
-//                    '<div class="bubble">' +
-                    '<div class="bubble" ' + background_color + '>' +
+                    '<div class="bubble">' +
+//                    '<div class="bubble" ' + background_color + '>' +
                     '   <p>' + hashtag_name + '</p>' +
                     '   <ion-icon name="heart" style="color: red;"></ion-icon>' +
                     '   <span id="sp">' + hashtag_count + '</span>' +
                     '</div>'
 
-//                    '<ion-icon name="chatbox">' +
-//                    '</ion-icon>'
-
                 // 커스텀 오버레이가 표시될 위치입니다
-                var latitude_adjust = 0.00018 * Math.pow(level-1, 2);
-                var longitude_adjust = 0.000027 * Math.pow(level-1, 2);
+                var dir = (level - be_level) > 0 ? -1 : 0;
+                var latitude_adjust = 0.00018 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
+                var longitude_adjust = 0.000027 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
                 var position = new kakao.maps.LatLng(item.latitude + latitude_adjust, item.longitude - longitude_adjust);
-//                var position = new kakao.maps.LatLng(item.latitude+0.00580, item.longitude-0.00080);
+//                var latitude_adjust = 0.00018 * Math.pow(level-1, 2);
+//                var longitude_adjust = 0.000027 * Math.pow(level-1, 2);
+//                var position = new kakao.maps.LatLng(item.latitude + latitude_adjust, item.longitude - longitude_adjust);
 
                 // 커스텀 오버레이를 생성합니다
                 var customOverlay = new kakao.maps.CustomOverlay({

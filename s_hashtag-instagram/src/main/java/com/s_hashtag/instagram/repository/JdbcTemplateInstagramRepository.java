@@ -137,8 +137,8 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
                     "and longitude between ? and ? " +
                     "order by hashtag_count desc " +
                 ")" +
-                "where rownum <= 50 " +
-                "and hashtag_name='서대문집'";
+                "where rownum <= 50 ";
+//                "and hashtag_name='서대문집'";
         ;
 
         sql_get_hashtag += inSql;
