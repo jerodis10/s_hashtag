@@ -1,26 +1,37 @@
 package com.s_hashtag.instagram.crawler;
 
-import com.s_hashtag.instagram.exception.CrawlerException;
-import com.s_hashtag.instagram.exception.CrawlerExceptionStatus;
 import com.s_hashtag.instagram.proxy.Proxies;
 import com.s_hashtag.instagram.proxy.Proxy;
+import com.s_hashtag.kakaoapi.domain.dto.KakaoPlaceDto;
+import com.s_hashtag.kakaoapi.domain.rect.Rect;
+import com.s_hashtag.kakaoapi.domain.rect.location.Coordinate;
+import com.s_hashtag.kakaoapi.domain.rect.location.Latitude;
+import com.s_hashtag.kakaoapi.domain.rect.location.Longitude;
+import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+//@SpringBootTest
 class CrawlerTest {
+
+//    @Autowired
+//    private KakaoApiService kakaoApiService;
+
     @DisplayName("인자로 넘긴 인덱스에 해당하는 프록시로 잘 설정되는지 테스트")
     @Test
     void setHostAndPort() {
@@ -66,4 +77,19 @@ class CrawlerTest {
 
         assertThat(doc).isNotNull();
     }
+
+//    @DisplayName("kakao api를 통해 수집한 가게 가져오기")
+//    @Test
+//    void PlaceCount() throws IOException {
+//
+//        Coordinate minLatitude = new Latitude(new BigDecimal("37.41847533960485"));
+//        Coordinate maxLatitude = new Latitude(new BigDecimal("37.46625487247741"));
+//        Coordinate minLongitude = new Longitude(new BigDecimal("126.75578831035362"));
+//        Coordinate maxLongitude = new Longitude(new BigDecimal("126.8051487382762"));
+//        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
+//
+//        List<KakaoPlaceDto> kakaoPlaceDto_FD6 = kakaoApiService.findPlaces("FD6", rect);
+//
+//        assertThat(kakaoPlaceDto_FD6).isNotNull();
+//    }
 }

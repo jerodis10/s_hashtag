@@ -73,10 +73,11 @@ function kakaoMap() {
 //           data: {ha: 126.960, oa: 126.970, pa: 37.560, qa: 37.563},
 //            data: {ha: 126.900, oa: 126.990, pa: 37.560, qa: 37.570},
 //            data : {ha: 126.75578831035362, oa: 126.7651487382762, pa: 37.41847533960485, qa: 37.42825487247741},
-             data : {ha: 126.75578831035362, oa: 126.8051487382762, pa: 37.41847533960485, qa: 37.46625487247741}, //서울시 1/8
-//             data : {ha: 126.75578831035362, oa: 126.8551487382762, pa: 37.41847533960485, qa: 37.51625487247741}, //서울시 1/4
-//            data : {ha: 126.75578831035362, oa: 126.9551487382762, pa: 37.41847533960485, qa: 37.55625487247741}, //서울시 1/2
-//            data : {ha: 126.75578831035362, oa: 127.2251487382762, pa: 37.41847533960485, qa: 37.70625487247741}, //서울시 전체
+                data : {ha: 126.75578831035362, oa: 126.7771487382762, pa: 37.41847533960485, qa: 37.44625487247741}, // 1/16
+//             data : {ha: 126.75578831035362, oa: 126.8051487382762, pa: 37.41847533960485, qa: 37.46625487247741}, // 1/8
+//             data : {ha: 126.75578831035362, oa: 126.8551487382762, pa: 37.41847533960485, qa: 37.51625487247741}, // 1/4
+//            data : {ha: 126.75578831035362, oa: 126.9551487382762, pa: 37.41847533960485, qa: 37.55625487247741}, // 1/2
+//            data : {ha: 126.75578831035362, oa: 127.2251487382762, pa: 37.41847533960485, qa: 37.70625487247741}, // 서울시 전체
 //       followRedirect: false,
        success:function(data){
                console.log(data);
@@ -113,7 +114,8 @@ function create_marker_test(map, category) {
        type:'GET',
        dataType: 'json',
 //       data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category_list},
-        data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category},
+//        data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category},
+        data: {ha: 125, oa: 128, pa: 36, qa: 38, category_list: category},
        success:function(data){
 //            console.log(data);
            marker_list = [];
@@ -146,12 +148,21 @@ function create_marker_test(map, category) {
                 // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                 var hashtag_count = item.hashtagCount;
                 var hashtag_name = item.hashtagName;
+                var background_color;
+                if(item.hashtagCount < 10) background_color = 'style="background-color: blue;"';
+                if(10 <= item.hashtagCount && item.hashtagCount < 100) background_color = 'style="background-color: red;"';
+                if(100 <= item.hashtagCount && item.hashtagCount < 1000) background_color = 'style="background-color: darkorchid;"';
+                if(1000 <= item.hashtagCount && item.hashtagCount < 10000) background_color = 'style="background-color: aqua;"';
+                if(10000 <= item.hashtagCount) background_color = 'style="background-color: brown;"';
                 var content =
-                    '<div class="bubble">' +
-                    '   <p>' + hashtag_name + '</p>' +
-                    '   <ion-icon name="heart" style="color: red;"></ion-icon>' +
-                    '   <span id="sp">' + hashtag_count + '</span>' +
-                    '</div>'
+//                    '<div class="bubble">' +
+//                    '<div class="bubble" ' + background_color + '>' +
+//                    '   <p>' + hashtag_name + '</p>' +
+//                    '   <ion-icon name="heart" style="color: red;"></ion-icon>' +
+//                    '   <span id="sp">' + hashtag_count + '</span>' +
+//                    '</div>'
+                    '<ion-icon name="chatbox">' +
+                    '</ion-icon>'
 
                 // 커스텀 오버레이가 표시될 위치입니다
                 var position = new kakao.maps.LatLng(item.latitude+0.001, item.longitude);

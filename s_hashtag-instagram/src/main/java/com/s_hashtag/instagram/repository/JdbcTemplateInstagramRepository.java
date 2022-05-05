@@ -128,11 +128,16 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
 
         String sql_get_hashtag =
                 "select * " +
-                "from kakao_document kd " +
-                "left outer join instagram it " +
-                "on it.place_id = kd.kakao_id " +
-                "where latitude between ? and ? " +
-                "and longitude between ? and ? ";
+                "from ( " +
+                    "select * " +
+                    "from kakao_document kd " +
+                    "left outer join instagram it " +
+                    "on it.place_id = kd.kakao_id " +
+                    "where latitude between ? and ? " +
+                    "and longitude between ? and ? " +
+                    "order by hashtag_count desc " +
+                ")" +
+                "where rownum <= 50";
         ;
 
         sql_get_hashtag += inSql;
