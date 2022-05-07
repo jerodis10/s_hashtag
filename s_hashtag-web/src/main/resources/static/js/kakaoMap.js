@@ -179,7 +179,7 @@ function create_marker_test(map, category) {
                 if(10000 <= item.hashtagCount) background_color = 'style="background-color: brown;"';
                 var content =
                     '<div class="bubble">' +
-//                    '<div class="bubble" ' + background_color + '>' +
+//                    '<div class="bubble" ' + background_color + '>'  +
                     '   <p>' + hashtag_name + '</p>' +
                     '   <ion-icon name="heart" style="color: red;"></ion-icon>' +
                     '   <span id="sp">' + hashtag_count + '</span>' +
