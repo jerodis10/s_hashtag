@@ -62,26 +62,37 @@ kakao.maps.event.addListener(map, 'zoom_changed', function() {
 
     var rect = {ha: bounds.ha, oa: bounds.oa, pa: bounds.pa, qa: bounds.qa};
 
-    var customOverlay_list = [];
-    $.each(overlay_list, function(index, overlay){
-        overlay.setMap(null);
-        var dir = (level - be_level) > 0 ? -1 : 0;
-        var latitude_adjust = 0.00018 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
-        var longitude_adjust = 0.000027 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
-        var position = new kakao.maps.LatLng(overlay.getPosition().Ma + (level - be_level) * latitude_adjust, overlay.getPosition().La - (level - be_level) * longitude_adjust);
-        var content = overlay.getContent();
-        var customOverlay = new kakao.maps.CustomOverlay({
-            map: map,
-            position: position,
-            content: content,
-            yAnchor: 1
-        });
-        customOverlay_list.push(customOverlay);
+    var category_list = [];
+    $.each(document.querySelector('.category_wrap').children, function(index, item){
+        if(item.className === 'selected'){
+            category_list.push(item.value);
+        }
     });
 
-    overlay_list = [];
-    $.each(customOverlay_list, function(index, overlay){
-        overlay_list.push(overlay);
+    $.each(category_list, function(c_index, category){
+        var customOverlay_list = [];
+        $.each(overlay_list, function(index, overlay){
+            overlay.setMap(null);
+            var dir = (level - be_level) > 0 ? -1 : 0;
+            var latitude_adjust = 0.00018 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
+            var longitude_adjust = 0.000027 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
+            var position = new kakao.maps.LatLng(overlay.getPosition().Ma + (level - be_level) * latitude_adjust, overlay.getPosition().La - (level - be_level) * longitude_adjust);
+            var content = overlay.getContent();
+            var customOverlay = new kakao.maps.CustomOverlay({
+                map: map,
+                position: position,
+                content: content,
+                yAnchor: 1
+            });
+            customOverlay_list.push(customOverlay);
+        });
+
+        overlay_list = [];
+        $.each(customOverlay_list, function(index, overlay){
+            overlay_list.push(overlay);
+        });
+
+        overlay_object[category] = overlay_list;
     });
 });
 
