@@ -43,8 +43,8 @@ public class InstagramController {
     public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) throws IOException {
         Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
         Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
-        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
-        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
+        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
+        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
 
 //        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()).setScale(5, RoundingMode.HALF_UP));
 //        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()).setScale(5, RoundingMode.HALF_UP));
