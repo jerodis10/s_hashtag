@@ -2,6 +2,7 @@ package com.s_hashtag.instagram.controller;
 
 import com.s_hashtag.instagram.crawler.InstagramCrawler;
 import com.s_hashtag.instagram.dto.CrawlingDto;
+import com.s_hashtag.instagram.dto.DocumentMapper;
 import com.s_hashtag.instagram.dto.PlaceDto;
 import com.s_hashtag.instagram.dto.PostDto;
 import com.s_hashtag.instagram.proxy.CrawlerWithProxy;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -37,6 +39,7 @@ public class InstagramController {
     private final KakaoApiService kakaoApiService;
     private final InstagramCrawler instagramCrawler;
     private final InstagramRepository instagramRepository;
+    private final DocumentMapper documentMapper;
 
     @PostMapping("/kakaoMap")
     @ResponseBody
@@ -66,33 +69,21 @@ public class InstagramController {
         List<PlaceDto> list_placeDto = instagramRepository.getHashtag("FD6", rect);
 
         for(PlaceDto placeDto : list_placeDto) {
-            Document document = new Document();
-            document.setId(placeDto.getKakao_id());
-            document.setPlaceName(placeDto.getPlace_name());
-            document.setCategoryGroupName(placeDto.getCategory_group_name());
-            document.setCategoryGroupCode(placeDto.getCategory_group_code());
-            document.setPhone(placeDto.getPhone());
-            document.setAddressName(placeDto.getAddress_name());
-            document.setRoadAddressName(placeDto.getRoad_address_name());
-            document.setLatitude(String.valueOf(placeDto.getLatitude()));
-            document.setLongitude(String.valueOf(placeDto.getLongitude()));
-            document.setPlaceUrl(placeDto.getPlace_url());
-            document.setDistance(placeDto.getDistance());
-
-            list_documonet2.add(document);
+            list_documonet2.add(documentMapper.toDocument(placeDto));
         }
 
-//        list_documonet.removeAll(list_documonet2);
-
-        for(int i = 0; i < list_documonet.size(); i++){
-            for (int j = 0; j < list_documonet2.size(); j++) {
-                if(list_documonet.get(i).getId() != null && list_documonet2.get(j).getId() != null) {
-                    if (list_documonet.get(i).getId().equals(list_documonet2.get(j).getId())) {
-                        list_documonet.remove(i);
+        List<Document> remove_list = new ArrayList<>();
+        for(Document document : list_documonet) {
+            for (Document document2 : list_documonet2) {
+                if (document.getId() != null && document2.getId() != null) {
+                    if (document.getId().equals(document2.getId())) {
+                        remove_list.add(document);
                     }
                 }
             }
         }
+
+        list_documonet.removeAll(remove_list);
 
 //        for(KakaoPlaceDto page : kakaoPlaceDto_FD6){
 //            for(Document document : page.getDocuments()){
@@ -126,34 +117,24 @@ public class InstagramController {
             }
         }
 
-        list_placeDto = instagramRepository.getHashtag("FD6", rect);
+        list_placeDto = instagramRepository.getHashtag("CE7", rect);
 
         for(PlaceDto placeDto : list_placeDto) {
-            Document document = new Document();
-            document.setId(placeDto.getKakao_id());
-            document.setPlaceName(placeDto.getPlace_name());
-            document.setCategoryGroupName(placeDto.getCategory_group_name());
-            document.setCategoryGroupCode(placeDto.getCategory_group_code());
-            document.setPhone(placeDto.getPhone());
-            document.setAddressName(placeDto.getAddress_name());
-            document.setRoadAddressName(placeDto.getRoad_address_name());
-            document.setLatitude(String.valueOf(placeDto.getLatitude()));
-            document.setLongitude(String.valueOf(placeDto.getLongitude()));
-            document.setPlaceUrl(placeDto.getPlace_url());
-            document.setDistance(placeDto.getDistance());
-
-            list_documonet2.add(document);
+            list_documonet2.add(documentMapper.toDocument(placeDto));
         }
 
-        for(int i = 0; i < list_documonet.size(); i++){
-            for (int j = 0; j < list_documonet2.size(); j++) {
-                if(list_documonet.get(i).getId() != null && list_documonet2.get(j).getId() != null) {
-                    if (list_documonet.get(i).getId().equals(list_documonet2.get(j).getId())) {
-                        list_documonet.remove(i);
+        remove_list = new ArrayList<>();
+        for(Document document : list_documonet) {
+            for (Document document2 : list_documonet2) {
+                if (document.getId() != null && document2.getId() != null) {
+                    if (document.getId().equals(document2.getId())) {
+                        remove_list.add(document);
                     }
                 }
             }
         }
+
+        list_documonet.removeAll(remove_list);
 
 //        for(KakaoPlaceDto page : kakaoPlaceDto_CE7){
 //            for(Document document : page.getDocuments()){

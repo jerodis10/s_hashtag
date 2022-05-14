@@ -22,7 +22,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+//@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Document {
     private String id;
     private String placeName;
@@ -32,9 +32,9 @@ public class Document {
     private String phone;
     private String addressName;
     private String roadAddressName;
-    @JsonAlias("y")
+//    @JsonAlias("y")
     private String latitude;
-    @JsonAlias("x")
+//    @JsonAlias("x")
     private String longitude;
     private String placeUrl;
     private String distance;
