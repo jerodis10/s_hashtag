@@ -1,10 +1,14 @@
 package com.s_hashtag.domain.member;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 
-@Data
+//@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
+@Builder
 public class Member {
 
 //    @NotEmpty
@@ -16,4 +20,6 @@ public class Member {
     private String name; //사용자 이름
     @NotEmpty
     private String password;
+    @NotEmpty
+    private String role;
 }

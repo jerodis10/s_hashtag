@@ -22,7 +22,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor
-//@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Document {
     private String id;
     private String placeName;

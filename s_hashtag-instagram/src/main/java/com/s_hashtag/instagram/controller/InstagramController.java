@@ -19,6 +19,7 @@ import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,6 +44,7 @@ public class InstagramController {
 
     @PostMapping("/kakaoMap")
     @ResponseBody
+    @Transactional(rollbackFor = Exception.class)
     public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) throws IOException {
         Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
         Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
@@ -87,17 +89,19 @@ public class InstagramController {
 
 //        for(KakaoPlaceDto page : kakaoPlaceDto_FD6){
 //            for(Document document : page.getDocuments()){
+        int count = 0;
         for(Document document : list_documonet){
 //                list_documonet.add(document);
 
                 instagramRepository.kakao_document_save(document);
-
+                System.out.println(count);
 //                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
 //                list_crawlingDto.add(crawlingDto);
 //                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
                 CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
                 CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
                 if(crawlingDto != null) {
+                    count++;
                     instagramRepository.instagram_save(crawlingDto, document);
                     for (PostDto postDto : crawlingDto.getPostDtoList()) {
                         instagramRepository.instagram_post_save(postDto);
@@ -136,22 +140,22 @@ public class InstagramController {
 
         list_documonet.removeAll(remove_list);
 
-//        for(KakaoPlaceDto page : kakaoPlaceDto_CE7){
-//            for(Document document : page.getDocuments()){
-        for(Document document : list_documonet){
-            instagramRepository.kakao_document_save(document);
-
-//          CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
-            CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
-            CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
-            if(crawlingDto != null) {
-                instagramRepository.instagram_save(crawlingDto, document);
-                for (PostDto postDto : crawlingDto.getPostDtoList()) {
-                    instagramRepository.instagram_post_save(postDto);
-                }
-            }
-//          }
-        }
+////        for(KakaoPlaceDto page : kakaoPlaceDto_CE7){
+////            for(Document document : page.getDocuments()){
+//        for(Document document : list_documonet){
+//            instagramRepository.kakao_document_save(document);
+//
+////          CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
+//            CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
+//            CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
+//            if(crawlingDto != null) {
+//                instagramRepository.instagram_save(crawlingDto, document);
+//                for (PostDto postDto : crawlingDto.getPostDtoList()) {
+//                    instagramRepository.instagram_post_save(postDto);
+//                }
+//            }
+////          }
+//        }
 
         return kakaoPlaceDto_FD6;
     }
