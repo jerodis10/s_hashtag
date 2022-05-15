@@ -1,8 +1,10 @@
 package com.s_hashtag.jwt;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -31,19 +33,29 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
         try {
             UsernameAndPasswordAuthenticationRequest authenticationRequest = new ObjectMapper()
+//                    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
                     .readValue(request.getInputStream(),
+//                        .readValue(request.getReader(),
                             UsernameAndPasswordAuthenticationRequest.class);
 
+//            UsernameAndPasswordAuthenticationRequest authenticationRequest =
+//                    new UsernameAndPasswordAuthenticationRequest(request.getParameter("loginId"), request.getParameter("password"));
+
             Authentication authentication = new UsernamePasswordAuthenticationToken(
-                    authenticationRequest.getUsername(),
+//                    authenticationRequest.getUsername(),
+                    authenticationRequest.getLoginId(),
                     authenticationRequest.getPassword()
             );
 
             Authentication authenticate = authenticationManager.authenticate(authentication);
             return authenticate;
 
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
+//        } catch (IOException ex) {
+//            throw new RuntimeException(ex);
+//        }
+        } catch (Exception e) {
+//            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

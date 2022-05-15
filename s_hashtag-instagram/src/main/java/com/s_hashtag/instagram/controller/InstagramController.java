@@ -94,14 +94,14 @@ public class InstagramController {
 //                list_documonet.add(document);
 
                 instagramRepository.kakao_document_save(document);
-                System.out.println(count);
+                System.out.println(count++);
 //                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
 //                list_crawlingDto.add(crawlingDto);
 //                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
                 CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
                 CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
                 if(crawlingDto != null) {
-                    count++;
+//                    count++;
                     instagramRepository.instagram_save(crawlingDto, document);
                     for (PostDto postDto : crawlingDto.getPostDtoList()) {
                         instagramRepository.instagram_post_save(postDto);

@@ -33,6 +33,7 @@ public class JdbcTemplatememberRepository implements MemberRepository{
         parameters.put("id", member.getLoginId());
         parameters.put("password", member.getPassword());
         parameters.put("name", member.getName());
+        parameters.put("role", member.getRole());
         jdbcInsert.execute(parameters);
 //        Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
 //        member.setId(key.longValue());
@@ -66,6 +67,7 @@ public class JdbcTemplatememberRepository implements MemberRepository{
             member.setLoginId(rs.getString("loginId"));
             member.setPassword(rs.getString("password"));
             member.setName(rs.getString("name"));
+            member.setRole(rs.getString("role"));
             return member;
         };
     }

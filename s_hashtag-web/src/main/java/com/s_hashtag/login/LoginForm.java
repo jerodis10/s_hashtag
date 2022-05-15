@@ -1,10 +1,14 @@
 package com.s_hashtag.login;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 
-@Data
+//@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class LoginForm {
 
     @NotEmpty

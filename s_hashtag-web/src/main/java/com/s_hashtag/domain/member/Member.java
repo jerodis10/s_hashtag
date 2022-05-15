@@ -7,7 +7,8 @@ import javax.validation.constraints.NotEmpty;
 //@Data
 @Getter
 @Setter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Member {
 
@@ -20,6 +21,6 @@ public class Member {
     private String name; //사용자 이름
     @NotEmpty
     private String password;
-    @NotEmpty
+//    @NotEmpty
     private String role;
 }
