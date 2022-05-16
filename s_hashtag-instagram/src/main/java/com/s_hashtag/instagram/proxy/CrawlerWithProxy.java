@@ -7,6 +7,9 @@ import com.s_hashtag.instagram.exception.CrawlerExceptionStatus;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Optional;
 
 @Slf4j
@@ -24,9 +27,9 @@ public class CrawlerWithProxy {
     public CrawlingDto crawlInstagram(String hashtagNameToCrawl) throws IOException {
         try {
             proxySetter.setProxy();
-//            System.setProperty("http.proxyHost", "11.111.111.111");
-//            System.setProperty("http.proxyPort", "1111");
-            return instagramCrawler.crawler(hashtagNameToCrawl);
+            Proxy proxy = new Proxy(System.getProperty("http.proxyHost"), System.getProperty("http.proxyPort"));
+            if(isOnline(proxy)) return instagramCrawler.crawler(hashtagNameToCrawl);
+            else return null;
         } catch (CrawlerException e) {
             log.info("CrawlerException: {}", e.getMessage());
 //            if (NOT_FOUND_EXCEPTION_CODE.equals(e.getErrorCode())) {
@@ -34,5 +37,24 @@ public class CrawlerWithProxy {
 //            }
             throw e;
         }
+    }
+
+    private static boolean isOnline(Proxy proxy) {
+//        proxy.setHostAndPort();
+        HttpURLConnection httpURLConnection = null;
+        try {
+            httpURLConnection = (HttpURLConnection) new URL("https://www.instagram.com/").openConnection();
+            httpURLConnection.setConnectTimeout(5000);
+            httpURLConnection.setReadTimeout(5000);
+            httpURLConnection.connect();
+            boolean isOnline = httpURLConnection.usingProxy();
+            httpURLConnection.disconnect();
+            return isOnline;
+        } catch (MalformedURLException e) {
+            log.info("CrawlerException: {}", e.getMessage());
+        } catch (IOException e) {
+            log.info("CrawlerException: {}", e.getMessage());
+        }
+        return true;
     }
 }
