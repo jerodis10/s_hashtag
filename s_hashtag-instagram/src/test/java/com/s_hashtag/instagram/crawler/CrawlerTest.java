@@ -18,6 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -76,6 +79,30 @@ class CrawlerTest {
                 .get();
 
         assertThat(doc).isNotNull();
+    }
+
+    @DisplayName("프록시 이용한 URL 테스트")
+    @Test
+    void urlTest() throws IOException {
+
+        System.setProperty("http.proxyHost", "107.182.135.43");
+        System.setProperty("http.proxyPort", "8089");
+
+//        HttpURLConnection httpURLConnection = (HttpURLConnection) new URL("https://www.instagram.com/explore/tags/%EB%8F%84%EB%A1%9C%EC%8B%9C%EB%A7%88%EC%BC%93/").openConnection();
+//        HttpURLConnection httpURLConnection = (HttpURLConnection) new URL("https://www.instagram.com/").openConnection();
+//        HttpURLConnection httpURLConnection = (HttpURLConnection) new URL("http://www.naver.com/").openConnection();
+//        httpURLConnection.setConnectTimeout(5000);
+//        httpURLConnection.setReadTimeout(5000);
+//        httpURLConnection.connect();
+//        boolean isOnline = httpURLConnection.usingProxy();
+//        httpURLConnection.disconnect();
+
+         URL url = new URL("http://www.naver.com");
+         URLConnection urlConn = url.openConnection();
+//        boolean isOnline = URLConnection.usingProxy();
+
+        assertThat("doc").isNotNull();
+//        assertThat(isOnline).isEqualTo(true);
     }
 
 //    @DisplayName("kakao api를 통해 수집한 가게 가져오기")

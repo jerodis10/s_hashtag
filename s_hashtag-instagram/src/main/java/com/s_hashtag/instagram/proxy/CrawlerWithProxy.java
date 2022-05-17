@@ -27,6 +27,7 @@ public class CrawlerWithProxy {
     public CrawlingDto crawlInstagram(String hashtagNameToCrawl) throws IOException {
         try {
             proxySetter.setProxy();
+//            return instagramCrawler.crawler(hashtagNameToCrawl);
             Proxy proxy = new Proxy(System.getProperty("http.proxyHost"), System.getProperty("http.proxyPort"));
             if(isOnline(proxy)) return instagramCrawler.crawler(hashtagNameToCrawl);
             else return null;
@@ -49,6 +50,7 @@ public class CrawlerWithProxy {
             httpURLConnection.connect();
             boolean isOnline = httpURLConnection.usingProxy();
             httpURLConnection.disconnect();
+            proxy.clearProperty();
             return isOnline;
         } catch (MalformedURLException e) {
             log.info("CrawlerException: {}", e.getMessage());
