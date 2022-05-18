@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-//@AllArgsConstructor
+@AllArgsConstructor
 //@JsonIgnoreProperties(ignoreUnknown = true)
 public class UsernameAndPasswordAuthenticationRequest {
 
