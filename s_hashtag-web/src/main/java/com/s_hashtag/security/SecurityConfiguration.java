@@ -36,17 +36,27 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+//                .httpBasic().disable()
+            // token을 사용하는 방식이기 때문에 csrf를 disable
             .csrf().disable()
+
+            // 세션을 사용하지 않기 때문에 STATELESS로 설정
             .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
+//            // enable h2-console
+//            .and()
+//            .headers()
+//            .frameOptions()
+//            .sameOrigin()
+
             .and()
             .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
             .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig), JwtUsernameAndPasswordAuthenticationFilter.class)
-            .authorizeRequests()
+            .authorizeRequests() // HttpServletRequest를 사용하는 요청들에 대한 접근제한을 설정
             .antMatchers("/", "index","/css/*", "/js/*").permitAll();
 //            .antMatchers("/api/**").hasRole(MEMBER.name())
-//            .anyRequest()
-//            .authenticated();
+//            .anyRequest() .authenticated(); // 나머지는 인증 필요
     }
 
     @Override

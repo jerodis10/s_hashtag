@@ -48,10 +48,11 @@ public class CrawlerWithProxy {
             httpURLConnection.setConnectTimeout(5000);
             httpURLConnection.setReadTimeout(5000);
             httpURLConnection.connect();
-            boolean isOnline = httpURLConnection.usingProxy();
+//            boolean isOnline = httpURLConnection.usingProxy();
             httpURLConnection.disconnect();
             proxy.clearProperty();
-            return isOnline;
+//            return isOnline;
+            return true;
         } catch (MalformedURLException e) {
             log.info("CrawlerException: {}", e.getMessage());
         } catch (IOException e) {
