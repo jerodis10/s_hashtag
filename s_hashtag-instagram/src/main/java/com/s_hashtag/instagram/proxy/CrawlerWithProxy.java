@@ -26,10 +26,10 @@ public class CrawlerWithProxy {
 
     public CrawlingDto crawlInstagram(String hashtagNameToCrawl) throws IOException {
         try {
-            proxySetter.setProxy();
+//            proxySetter.setProxy();
 //            return instagramCrawler.crawler(hashtagNameToCrawl);
-            Proxy proxy = new Proxy(System.getProperty("http.proxyHost"), System.getProperty("http.proxyPort"));
-            if(isOnline(proxy)) return instagramCrawler.crawler(hashtagNameToCrawl);
+//            Proxy proxy = new Proxy(System.getProperty("http.proxyHost"), System.getProperty("http.proxyPort"));
+            if(isOnline()) return instagramCrawler.crawler(hashtagNameToCrawl);
             else return null;
         } catch (CrawlerException e) {
             log.info("CrawlerException: {}", e.getMessage());
@@ -40,17 +40,18 @@ public class CrawlerWithProxy {
         }
     }
 
-    private static boolean isOnline(Proxy proxy) {
+    public boolean isOnline() {
 //        proxy.setHostAndPort();
         HttpURLConnection httpURLConnection = null;
         try {
+            proxySetter.setProxy();
             httpURLConnection = (HttpURLConnection) new URL("https://www.instagram.com/").openConnection();
             httpURLConnection.setConnectTimeout(5000);
             httpURLConnection.setReadTimeout(5000);
             httpURLConnection.connect();
 //            boolean isOnline = httpURLConnection.usingProxy();
             httpURLConnection.disconnect();
-            proxy.clearProperty();
+//            proxy.clearProperty();
 //            return isOnline;
             return true;
         } catch (MalformedURLException e) {

@@ -126,15 +126,33 @@ public class LoginController {
 
     }
 
-//    @PostMapping("/login")
-//    public String login(@RequestBody Map<String, String> user) { //memberRepository.findById(memberId)
+    @PostMapping("/login")
+    public String login(@RequestBody Member member) { //memberRepository.findById(memberId)
 //        Member member = userRepository.findByEmail(user.get("email"))
 //                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
 //        if (!passwordEncoder.matches(user.get("password"), member.getPassword())) {
 //            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
 //        }
-//        return jwtTokenProvider.createToken(member.getUsername(), member.getRoles());
-//    }
+//        return jwtTokenProvider.createToken(member.getLoginId(), member.getRole());
+        return "login";
+    }
+
+    @GetMapping("/loginHome")
+    public String loginHome() { //memberRepository.findById(memberId)
+//        Member member = userRepository.findByEmail(user.get("email"))
+//                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 E-MAIL 입니다."));
+//        if (!passwordEncoder.matches(user.get("password"), member.getPassword())) {
+//            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+//        }
+//        return jwtTokenProvider.createToken(member.getLoginId(), member.getRole());
+        return "loginHome";
+    }
+
+    @GetMapping("courses")
+    @ResponseBody
+    public String getCourses() {
+        return "courses";
+    }
 
 //    @PostMapping("/logout")
     public String logout(HttpServletResponse response) {

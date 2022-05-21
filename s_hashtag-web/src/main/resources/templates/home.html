@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://thymeleaf.org/extras/spring-security">
+<!--<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:sec="http://www.w3.org/1999/xhtml">-->
 <html>
 <head>
     <meta charset="UTF-8">
@@ -15,9 +18,23 @@
 <div class="l-navbar" id="navbar">
     <nav class="nav">
         <div>
+<!--            <p>로그인</p>-->
+
+            <p sec:authorize="isAuthenticated()">로그인 성공</p>
+            <p sec:authorize access="isAuthenticated()">로그인 성공</p>
+            <a sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
+            <div sec:authorize="isAuthenticated()">
+                <span sec:authentication="username"></span>님 환영합니다.
+            </div>
+            <p sec:authorize="hasRole('ROLE_MEMBER')">로그인 성공</p>
+            <div th:if="${#authorization.expr('isAuthenticated()')}">로그인 성공</div>
+
+            <p sec:authorize="!isAuthenticated()">로그인 필요</p>
+
             <div class="nav__brand">
                 <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
-                <a href="#" class="nav__logo"></a>
+<!--                <a href="#" class="nav__logo" sec:authorize="!isAuthenticated()">로그인 필요</a>-->
+<!--                <a href="#" class="nav__logo"></a>-->
             </div>
             <div class="nav__list">
                 <a href="/members/kakao" class="nav__link active">
