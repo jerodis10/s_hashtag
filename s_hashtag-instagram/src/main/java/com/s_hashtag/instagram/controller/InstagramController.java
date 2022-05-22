@@ -45,7 +45,7 @@ public class InstagramController {
     @PostMapping("/kakaoMap")
     @ResponseBody
     @Transactional(rollbackFor = Exception.class)
-    public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) throws IOException {
+    public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) throws IOException, InterruptedException {
         Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
         Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
         Coordinate minLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
@@ -94,12 +94,12 @@ public class InstagramController {
 //                list_documonet.add(document);
 
                 instagramRepository.kakao_document_save(document);
+                System.out.println(count++);
 //                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
 //                list_crawlingDto.add(crawlingDto);
-//                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
-                System.out.println(count++);
-                CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
-                CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
+                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
+//                CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
+//                CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
                 if(crawlingDto != null) {
 //                    System.out.println(count++);
                     instagramRepository.instagram_save(crawlingDto, document);

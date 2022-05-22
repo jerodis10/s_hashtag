@@ -37,9 +37,10 @@ public class InstagramCrawler {
         return CrawlingDto.of(instagramId, hashtagName, hashTagCount, postDtos);
     }
 
-    public CrawlingDto crawler(String crawlingName) throws IOException {
+    public CrawlingDto crawler(String crawlingName) throws IOException, InterruptedException {
 //        String parsedHashtagName = PlaceName  Parser.parsePlaceName(crawlingName);
         String parsedHashtagName = crawlingName.replaceAll(" ", "");
+        Thread.sleep(5000);
         String body = crawler.crawl(String.format(INSTAGRAM_URL_FORMAT, parsedHashtagName));
         if(body != null){
             return createCrawlingDto(parsedHashtagName, body);

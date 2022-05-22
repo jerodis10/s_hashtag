@@ -15,11 +15,22 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.crypto.SecretKey;
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.net.URLEncoder;
 
 import static com.s_hashtag.security.ApplicationMemberRole.MEMBER;
 
@@ -47,10 +58,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
             // enable h2-console
-            .and()
-            .headers()
-            .frameOptions()
-            .sameOrigin()
+//            .and()
+//            .headers()
+//            .frameOptions()
+//            .sameOrigin()
 
             .and()
             .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
@@ -58,15 +69,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .authorizeRequests() // HttpServletRequest를 사용하는 요청들에 대한 접근제한을 설정
             .antMatchers("/", "index","/css/*", "/js/*").permitAll()
 //            .antMatchers("/login").hasRole(MEMBER.name())
-//            .anyRequest() .authenticated() // 나머지는 인증 필요
+            .anyRequest() .authenticated() // 나머지는 인증 필요
 
             .and()
             .formLogin()
                 .loginPage("/login")
                 .permitAll()
-                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/")
+                .failureUrl("")
+//                .successHandler(successHandler())
+//                .failureHandler(failureHandler())
                 .usernameParameter("loginId")
                 .passwordParameter("password")
+//                .successHandler(
+//                        new AuthenticationSuccessHandler() {
+//                            @Override
+//                            public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+//                                Cookie idCookie = new Cookie("JSESSIONID", URLEncoder.encode(response.getHeader(jwtConfig.getAuthorizationHeader()),"utf-8"));
+//                                response.addCookie(idCookie);
+//                                response.sendRedirect("/");
+//                            }
+//                        }
+//                )
 
             .and()
             .logout()
@@ -76,6 +100,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .invalidateHttpSession(true)
 //                .deleteCookies("JSESSIONID", "remember-me")
                 .logoutSuccessUrl("/courses");
+
     }
 
     @Override
@@ -91,4 +116,29 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         return provider;
     }
+
+//    @Bean
+//    public AuthenticationSuccessHandler successHandler() {
+//        return new CustomAuthSuccessHandler();
+//    }
+//
+//    @Bean
+//    public AuthenticationFailureHandler failureHandler() {
+//        return new CustomAuthFailureHandler();
+//    }
+
+//    @Bean
+//    public CustomAuthenticationProcessingFilter customAuthenticationProcessingFilter() {
+//        CustomAuthenticationProcessingFilter filter = new CustomAuthenticationProcessingFilter("/login-process");
+//        filter.setAuthenticationManager(new CustomAuthenticationManager());
+//        filter.setAuthenticationFailureHandler(new CustomAuthenticationFailureHandler("/login"));
+//        filter.setAuthenticationSuccessHandler(new SimpleUrlAuthenticationSuccessHandler("/"));
+//        return filter;
+//    }
+
+//    @Bean
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("c").password("c").roles("ROLE_MEMBER");
+//    }
 }

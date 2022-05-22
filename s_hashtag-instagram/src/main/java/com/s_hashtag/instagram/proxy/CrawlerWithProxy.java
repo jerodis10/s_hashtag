@@ -37,7 +37,10 @@ public class CrawlerWithProxy {
 //                return Optional.empty();
 //            }
             throw e;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        return null;
     }
 
     public boolean isOnline() {
