@@ -5,8 +5,10 @@
 <!--<html lang="es" xmlns="http://www.w3.org/1999/xhtml"-->
 <!--      xmlns:th="http://www.thymeleaf.org"-->
 <!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
+<!--<html xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">-->
+
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,19 +25,19 @@
         <div>
 <!--            <p>로그인</p>-->
 
-            <p sec:authorize="isAuthenticated()">로그인 성공</p>
-            <p sec:authorize access="isAuthenticated()">로그인 성공</p>
-            <a sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
-            <div sec:authorize="isAuthenticated()">
-                <span sec:authentication="username"></span>님 환영합니다.
-            </div>
-            <div sec:authorize="hasRole('ROLE_MEMBER')">로그인 성공</div>
-            <div th:if="${#authorization.expr('isAuthenticated()')}">로그인 성공</div>
-            <div sec:authentication="name">cc</div>
-            <div sec:authorize="hasAuthority('ROLE_MEMBER')">cc</div>
-<!--            <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>-->
+<!--            <p sec:authorize="isAuthenticated()">로그인 성공</p>-->
+<!--            <p sec:authorize access="isAuthenticated()">로그인 성공</p>-->
+<!--            <a sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>-->
+<!--            <div sec:authorize="isAuthenticated()">-->
+<!--                <span sec:authentication="username"></span>님 환영합니다.-->
+<!--            </div>-->
+<!--            <div sec:authorize="hasRole('ROLE_MEMBER')">로그인 성공</div>-->
+<!--            <div th:if="${#authorization.expr('isAuthenticated()')}">로그인 성공</div>-->
+<!--            <div sec:authentication="name">cc</div>-->
+<!--            <div sec:authorize="hasAuthority('ROLE_MEMBER')">cc</div>-->
+<!--&lt;!&ndash;            <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>&ndash;&gt;-->
 
-            <p sec:authorize="!isAuthenticated()">로그인 필요</p>
+<!--            <p sec:authorize="!isAuthenticated()">로그인 필요</p>-->
 
             <div class="nav__brand">
                 <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>

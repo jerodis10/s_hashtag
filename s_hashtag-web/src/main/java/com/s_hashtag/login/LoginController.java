@@ -127,11 +127,9 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody Member member, HttpServletResponse response) { //memberRepository.findById(memberId)
-        Cookie idCookie = new Cookie("memberId", String.valueOf(member.getLoginId()));
-        response.addCookie(idCookie);
+    public String loginV5(@ModelAttribute LoginForm form) {
 
-        return "login";
+        return "home";
     }
 
     @GetMapping("/loginHome")

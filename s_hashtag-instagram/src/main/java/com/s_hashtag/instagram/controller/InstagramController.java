@@ -97,9 +97,10 @@ public class InstagramController {
                 System.out.println(count++);
 //                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
 //                list_crawlingDto.add(crawlingDto);
-                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
-//                CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
-//                CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
+//                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
+//                Thread.sleep(5000);
+                CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
+                CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
                 if(crawlingDto != null) {
 //                    System.out.println(count++);
                     instagramRepository.instagram_save(crawlingDto, document);
@@ -110,35 +111,38 @@ public class InstagramController {
 //            }
         }
 
-        List<KakaoPlaceDto> kakaoPlaceDto_CE7 = kakaoApiService.findPlaces("CE7", rect);
+//        List<KakaoPlaceDto> kakaoPlaceDto_CE7 = kakaoApiService.findPlaces("CE7", rect);
+//
+//        list_documonet = new ArrayList<>();
+//        list_documonet2 = new ArrayList<>();
+//
+//        for(KakaoPlaceDto page : kakaoPlaceDto_FD6){
+//            for(Document document : page.getDocuments()) {
+//                list_documonet.add(document);
+//            }
+//        }
+//
+//        list_placeDto = instagramRepository.getHashtag("CE7", rect);
+//
+//        for(PlaceDto placeDto : list_placeDto) {
+//            list_documonet2.add(documentMapper.toDocument(placeDto));
+//        }
+//
+//        remove_list = new ArrayList<>();
+//        for(Document document : list_documonet) {
+//            for (Document document2 : list_documonet2) {
+//                if (document.getId() != null && document2.getId() != null) {
+//                    if (document.getId().equals(document2.getId())) {
+//                        remove_list.add(document);
+//                    }
+//                }
+//            }
+//        }
+//
+//        list_documonet.removeAll(remove_list);
 
-        list_documonet = new ArrayList<>();
-        list_documonet2 = new ArrayList<>();
 
-        for(KakaoPlaceDto page : kakaoPlaceDto_FD6){
-            for(Document document : page.getDocuments()) {
-                list_documonet.add(document);
-            }
-        }
 
-        list_placeDto = instagramRepository.getHashtag("CE7", rect);
-
-        for(PlaceDto placeDto : list_placeDto) {
-            list_documonet2.add(documentMapper.toDocument(placeDto));
-        }
-
-        remove_list = new ArrayList<>();
-        for(Document document : list_documonet) {
-            for (Document document2 : list_documonet2) {
-                if (document.getId() != null && document2.getId() != null) {
-                    if (document.getId().equals(document2.getId())) {
-                        remove_list.add(document);
-                    }
-                }
-            }
-        }
-
-        list_documonet.removeAll(remove_list);
 
 ////        for(KakaoPlaceDto page : kakaoPlaceDto_CE7){
 ////            for(Document document : page.getDocuments()){
