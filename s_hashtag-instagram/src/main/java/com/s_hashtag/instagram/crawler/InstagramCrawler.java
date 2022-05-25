@@ -40,7 +40,7 @@ public class InstagramCrawler {
     public CrawlingDto crawler(String crawlingName) throws IOException, InterruptedException {
 //        String parsedHashtagName = PlaceName  Parser.parsePlaceName(crawlingName);
         String parsedHashtagName = crawlingName.replaceAll(" ", "");
-        Thread.sleep(5000);
+        Thread.sleep(10000);
         String body = crawler.crawl(String.format(INSTAGRAM_URL_FORMAT, parsedHashtagName));
         if(body != null){
             return createCrawlingDto(parsedHashtagName, body);
