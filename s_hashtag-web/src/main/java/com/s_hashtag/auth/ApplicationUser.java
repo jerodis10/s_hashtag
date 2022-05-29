@@ -1,11 +1,13 @@
 package com.s_hashtag.auth;
 
+import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Set;
 
+//@Builder
 public class ApplicationUser implements UserDetails {
 
     private final Set<? extends GrantedAuthority> grantedAuthorities;

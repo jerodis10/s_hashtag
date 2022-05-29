@@ -1,5 +1,6 @@
 package com.s_hashtag.domain.member;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
@@ -16,6 +17,7 @@ public class Member {
 //    private String id;
 
     @NotEmpty
+//    @JsonAlias("loginId")
     private String loginId; //로그인 ID
     @NotEmpty
     private String name; //사용자 이름

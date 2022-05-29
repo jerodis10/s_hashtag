@@ -4,8 +4,8 @@ public enum ApplicationUserPermission {
 
     MEMBER_READ("member:read"),
     MEMBER_WRITE("member:write"),
-    COURSE_READ("course:read"),
-    COURSE_WRITE("course:write");
+    BATCH_READ("batch:read"),
+    BATCH_WRITE("batch:write");
 
     private final String permission;
 

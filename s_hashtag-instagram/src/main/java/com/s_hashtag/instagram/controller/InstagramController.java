@@ -113,6 +113,7 @@ public class InstagramController {
                 //                list_documonet.add(document);
 
                 status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+
                 instagramRepository.kakao_document_save(document);
                 System.out.println(count++);
                 //                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());

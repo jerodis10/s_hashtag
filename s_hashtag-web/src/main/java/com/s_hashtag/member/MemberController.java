@@ -39,7 +39,7 @@ public class MemberController {
                 .loginId(member.getLoginId())
                 .password(passwordEncoder.encode(member.getPassword()))
                 .name(member.getName())
-                .role("ROLE_MEMBER")
+                .role("ROLE_ADMIN")
                 .build());
 
         return "redirect:/";

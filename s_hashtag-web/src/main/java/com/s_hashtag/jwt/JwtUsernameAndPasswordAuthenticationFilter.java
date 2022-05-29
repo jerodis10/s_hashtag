@@ -100,6 +100,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 username,
                 null,
+//                request.getParameter("password"),
                 simpleGrantedAuthorities
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);

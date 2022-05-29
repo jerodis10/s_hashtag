@@ -146,7 +146,7 @@ public class LoginController {
 
     @GetMapping("/courses")
     @ResponseBody
-    @PreAuthorize("hasRole('ROLE_MEMBER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String getCourses() {
         return "courses";
     }
