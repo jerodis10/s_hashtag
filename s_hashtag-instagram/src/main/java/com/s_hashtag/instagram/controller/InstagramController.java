@@ -19,7 +19,10 @@ import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,10 +30,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -41,127 +42,150 @@ public class InstagramController {
     private final InstagramCrawler instagramCrawler;
     private final InstagramRepository instagramRepository;
     private final DocumentMapper documentMapper;
+    private final PlatformTransactionManager transactionManager;
+
+//    public InstagramController(KakaoApiService kakaoApiService,
+//                               InstagramCrawler instagramCrawler,
+//                               InstagramRepository instagramRepository,
+//                               DocumentMapper documentMapper,
+//                               PlatformTransactionManager transactionManager) {
+//        this.kakaoApiService = kakaoApiService;
+//        this.instagramCrawler = instagramCrawler;
+//        this.instagramRepository = instagramRepository;
+//        this.documentMapper = documentMapper;
+//        this.txTemplate = new TransactionTemplate(transactionManager);
+//    }
 
     @PostMapping("/kakaoMap")
     @ResponseBody
-    @Transactional(rollbackFor = Exception.class)
-    public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) throws IOException, InterruptedException {
-        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
-        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
-        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
-        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
+//    @Transactional(rollbackFor = Exception.class)
+    public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) throws IOException, InterruptedException, SQLException {
+        TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
 
-//        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()).setScale(5, RoundingMode.HALF_UP));
-//        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()).setScale(5, RoundingMode.HALF_UP));
-//        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("ha").toString()).setScale(5, RoundingMode.HALF_UP));
+        try {
+            Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
+            Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
+            Coordinate minLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
+            Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
 
-        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
-        List<KakaoPlaceDto> kakaoPlaceDto_FD6 = kakaoApiService.findPlaces("FD6", rect);
-//        List<KakaoPlaceDto> kakaoPlaceDto_FD6 = kakaoApiService.findPlaces("FD6", rect, new ArrayList<>());
+            //        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()).setScale(5, RoundingMode.HALF_UP));
+            //        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()).setScale(5, RoundingMode.HALF_UP));
+            //        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("ha").toString()).setScale(5, RoundingMode.HALF_UP));
 
-        List<Document> list_documonet = new ArrayList<>();
-        List<Document> list_documonet2 = new ArrayList<>();
+            Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
+            List<KakaoPlaceDto> kakaoPlaceDto_FD6 = kakaoApiService.findPlaces("FD6", rect);
+            //        List<KakaoPlaceDto> kakaoPlaceDto_FD6 = kakaoApiService.findPlaces("FD6", rect, new ArrayList<>());
 
-        for(KakaoPlaceDto page : kakaoPlaceDto_FD6){
-            for(Document document : page.getDocuments()) {
-                list_documonet.add(document);
+            List<Document> list_documonet = new ArrayList<>();
+            List<Document> list_documonet2 = new ArrayList<>();
+
+            for (KakaoPlaceDto page : kakaoPlaceDto_FD6) {
+                for (Document document : page.getDocuments()) {
+                    list_documonet.add(document);
+                }
             }
-        }
 
-        List<PlaceDto> list_placeDto = instagramRepository.getHashtag("FD6", rect);
+            List<PlaceDto> list_placeDto = instagramRepository.getHashtag("FD6", rect);
 
-        for(PlaceDto placeDto : list_placeDto) {
-            list_documonet2.add(documentMapper.toDocument(placeDto));
-        }
+            for (PlaceDto placeDto : list_placeDto) {
+                list_documonet2.add(documentMapper.toDocument(placeDto));
+            }
 
-        List<Document> remove_list = new ArrayList<>();
-        for(Document document : list_documonet) {
-            for (Document document2 : list_documonet2) {
-                if (document.getId() != null && document2.getId() != null) {
-                    if (document.getId().equals(document2.getId())) {
-                        remove_list.add(document);
+            List<Document> remove_list = new ArrayList<>();
+            for (Document document : list_documonet) {
+                for (Document document2 : list_documonet2) {
+                    if (document.getId() != null && document2.getId() != null) {
+                        if (document.getId().equals(document2.getId())) {
+                            remove_list.add(document);
+                        }
                     }
                 }
             }
-        }
 
-        list_documonet.removeAll(remove_list);
+            list_documonet.removeAll(remove_list);
 
-//        for(KakaoPlaceDto page : kakaoPlaceDto_FD6){
-//            for(Document document : page.getDocuments()){
-        int count = 0;
-        for(Document document : list_documonet){
-//                list_documonet.add(document);
+            //        for(KakaoPlaceDto page : kakaoPlaceDto_FD6){
+            //            for(Document document : page.getDocuments()){
 
+
+            int count = 0;
+            for (Document document : list_documonet) {
+                //                list_documonet.add(document);
+
+                status = transactionManager.getTransaction(new DefaultTransactionDefinition());
                 instagramRepository.kakao_document_save(document);
                 System.out.println(count++);
-//                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
-//                list_crawlingDto.add(crawlingDto);
-//                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
-//                Thread.sleep(5000);
+                //                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
+                //                list_crawlingDto.add(crawlingDto);
+                //                CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
                 CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
                 CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
-                if(crawlingDto != null) {
-//                    System.out.println(count++);
+                if (crawlingDto != null) {
                     instagramRepository.instagram_save(crawlingDto, document);
                     for (PostDto postDto : crawlingDto.getPostDtoList()) {
                         instagramRepository.instagram_post_save(postDto);
                     }
+
+                    transactionManager.commit(status); //성공시 커밋
                 }
-//            }
+                //            }
+            }
+
+            List<KakaoPlaceDto> kakaoPlaceDto_CE7 = kakaoApiService.findPlaces("CE7", rect);
+
+            list_documonet = new ArrayList<>();
+            list_documonet2 = new ArrayList<>();
+
+            for (KakaoPlaceDto page : kakaoPlaceDto_FD6) {
+                for (Document document : page.getDocuments()) {
+                    list_documonet.add(document);
+                }
+            }
+
+            list_placeDto = instagramRepository.getHashtag("CE7", rect);
+
+            for (PlaceDto placeDto : list_placeDto) {
+                list_documonet2.add(documentMapper.toDocument(placeDto));
+            }
+
+            remove_list = new ArrayList<>();
+            for (Document document : list_documonet) {
+                for (Document document2 : list_documonet2) {
+                    if (document.getId() != null && document2.getId() != null) {
+                        if (document.getId().equals(document2.getId())) {
+                            remove_list.add(document);
+                        }
+                    }
+                }
+            }
+
+            list_documonet.removeAll(remove_list);
+
+            //        for(KakaoPlaceDto page : kakaoPlaceDto_CE7){
+            //            for(Document document : page.getDocuments()){
+            for (Document document : list_documonet) {
+                status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+                instagramRepository.kakao_document_save(document);
+
+                //          CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
+                CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
+                CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
+                if (crawlingDto != null) {
+                    instagramRepository.instagram_save(crawlingDto, document);
+                    for (PostDto postDto : crawlingDto.getPostDtoList()) {
+                        instagramRepository.instagram_post_save(postDto);
+                    }
+
+                    transactionManager.commit(status); //성공시 커밋
+                }
+                //          }
+            }
+        } catch (Exception e) {
+            transactionManager.rollback(status); //실패시 롤백
+            throw new IllegalStateException(e);
         }
 
-//        List<KakaoPlaceDto> kakaoPlaceDto_CE7 = kakaoApiService.findPlaces("CE7", rect);
-//
-//        list_documonet = new ArrayList<>();
-//        list_documonet2 = new ArrayList<>();
-//
-//        for(KakaoPlaceDto page : kakaoPlaceDto_FD6){
-//            for(Document document : page.getDocuments()) {
-//                list_documonet.add(document);
-//            }
-//        }
-//
-//        list_placeDto = instagramRepository.getHashtag("CE7", rect);
-//
-//        for(PlaceDto placeDto : list_placeDto) {
-//            list_documonet2.add(documentMapper.toDocument(placeDto));
-//        }
-//
-//        remove_list = new ArrayList<>();
-//        for(Document document : list_documonet) {
-//            for (Document document2 : list_documonet2) {
-//                if (document.getId() != null && document2.getId() != null) {
-//                    if (document.getId().equals(document2.getId())) {
-//                        remove_list.add(document);
-//                    }
-//                }
-//            }
-//        }
-//
-//        list_documonet.removeAll(remove_list);
-
-
-
-
-////        for(KakaoPlaceDto page : kakaoPlaceDto_CE7){
-////            for(Document document : page.getDocuments()){
-//        for(Document document : list_documonet){
-//            instagramRepository.kakao_document_save(document);
-//
-////          CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
-//            CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
-//            CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
-//            if(crawlingDto != null) {
-//                instagramRepository.instagram_save(crawlingDto, document);
-//                for (PostDto postDto : crawlingDto.getPostDtoList()) {
-//                    instagramRepository.instagram_post_save(postDto);
-//                }
-//            }
-////          }
-//        }
-
-        return kakaoPlaceDto_FD6;
+        return new ArrayList<KakaoPlaceDto>();
     }
 
     @GetMapping("/getHashtag")

@@ -4,6 +4,7 @@ import com.s_hashtag.instagram.dto.CrawlingDto;
 import com.s_hashtag.instagram.dto.PostDtos;
 import com.s_hashtag.instagram.util.PlaceNameParser;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.nodes.Document;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import java.nio.file.Paths;
 
 @Service
 //@RequiredArgsConstructor
+@Slf4j
 public class InstagramCrawler {
     private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/explore/tags/%s/?hl=ko";
 //    private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/explore/tags/%s/?__a=1";
@@ -40,9 +42,10 @@ public class InstagramCrawler {
     public CrawlingDto crawler(String crawlingName) throws IOException, InterruptedException {
 //        String parsedHashtagName = PlaceName  Parser.parsePlaceName(crawlingName);
         String parsedHashtagName = crawlingName.replaceAll(" ", "");
-        Thread.sleep(10000);
+        Thread.sleep(15000);
         String body = crawler.crawl(String.format(INSTAGRAM_URL_FORMAT, parsedHashtagName));
         if(body != null){
+            log.info("insert HashtagName = {}", parsedHashtagName);
             return createCrawlingDto(parsedHashtagName, body);
         }
 

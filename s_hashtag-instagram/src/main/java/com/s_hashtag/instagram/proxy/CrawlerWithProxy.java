@@ -32,7 +32,7 @@ public class CrawlerWithProxy {
             if(isOnline()) return instagramCrawler.crawler(hashtagNameToCrawl);
             else return null;
         } catch (CrawlerException e) {
-            log.info("CrawlerException: {}", e.getMessage());
+            log.debug("CrawlerException: {}", e.getMessage());
 //            if (NOT_FOUND_EXCEPTION_CODE.equals(e.getErrorCode())) {
 //                return Optional.empty();
 //            }
