@@ -52,15 +52,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .httpBasic().disable()
 
             // token을 사용하는 방식이기 때문에 csrf를 disable
-            .csrf().disable()
+//            .csrf().disable()
 
+            // 스프링 부트에서의 세션은 유효시간이 15분
             // 세션을 사용하지 않기 때문에 STATELESS로 설정
 //            .sessionManagement()
 //                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 //            .and()
 
             // enable h2-console
-
             .headers()
             .frameOptions()
             .sameOrigin()
@@ -71,7 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
 //            .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig), JwtUsernameAndPasswordAuthenticationFilter.class)
             .authorizeRequests() // HttpServletRequest를 사용하는 요청들에 대한 접근제한을 설정
-            .antMatchers("/", "index","/css/*", "/js/*").permitAll()
+            .antMatchers("/", "/getHashtag","/css/*", "/img/**", "/js/*").permitAll()
 //            .antMatchers("/login").hasRole(MEMBER.name())
             .anyRequest() .authenticated() // 나머지는 인증 필요
 
@@ -85,8 +85,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .failureHandler(failureHandler())
                 .failureHandler(customFailureHandler) // 로그인 실패 핸들러
 
-//                .usernameParameter("loginId")
-//                .passwordParameter("password")
+                .usernameParameter("loginId") // Form tag의 name 값, 기본적으로는 username이 사용
+                .passwordParameter("password") // Form tag의 password 값, 기본적으로는 password가 사용
 
 //                .successHandler(
 //                        new AuthenticationSuccessHandler() {
@@ -107,6 +107,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
 //                .deleteCookies("JSESSIONID", "remember-me")
                 .logoutSuccessUrl("/");
 

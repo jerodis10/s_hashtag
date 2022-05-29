@@ -86,7 +86,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
 
         String authorizationHeader = response.getHeader(jwtConfig.getAuthorizationHeader());
-        String token2 = authorizationHeader.replace( jwtConfig.getTokenPrefix(), "");
+//        String token2 = authorizationHeader.replace( jwtConfig.getTokenPrefix(), "");
         Jws<Claims> claimsJws = Jwts.parser()
                 .setSigningKey(secretKey)
                 .parseClaimsJws(token);

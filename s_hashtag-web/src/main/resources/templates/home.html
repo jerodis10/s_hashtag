@@ -25,13 +25,17 @@
         <div>
 <!--            <p>로그인</p>-->
 
-            <p sec:authorize="isAuthenticated()">로그인 성공</p>
+            <div sec:authorize="isAuthenticated()">
+                <span sec:authentication="name"></span>님 환영합니다.
+            </div>
+            <div sec:authorize="hasRole('ROLE_MEMBER')">로그인 성공</div>
+<!--            <div sec:authorize="hasRole('ROLE_ADMIN')">로그인 성공</div>-->
+<!--            <p sec:authorize="isAuthenticated()">로그인 성공</p>-->
 <!--            <p sec:authorize access="isAuthenticated()">로그인 성공</p>-->
 <!--            <a sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>-->
 <!--            <div sec:authorize="isAuthenticated()">-->
 <!--                <span sec:authentication="username"></span>님 환영합니다.-->
 <!--            </div>-->
-<!--            <div sec:authorize="hasRole('ROLE_MEMBER')">로그인 성공</div>-->
 <!--            <div th:if="${#authorization.expr('isAuthenticated()')}">로그인 성공</div>-->
 <!--            <div sec:authentication="name">cc</div>-->
 <!--            <div sec:authorize="hasAuthority('ROLE_MEMBER')">cc</div>-->
@@ -84,7 +88,7 @@
                     </ul>
                 </div>
 
-                <a href="#" class="nav__link">
+                <a href="/courses" class="nav__link">
                     <ion-icon name="settings-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">Settings</span>
                 </a>

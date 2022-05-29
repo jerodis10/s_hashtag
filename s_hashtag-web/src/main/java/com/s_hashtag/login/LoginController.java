@@ -6,6 +6,7 @@ import com.s_hashtag.domain.member.Member;
 import com.s_hashtag.session.SessionManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -143,8 +144,9 @@ public class LoginController {
         return "loginHome";
     }
 
-    @GetMapping("courses")
+    @GetMapping("/courses")
     @ResponseBody
+    @PreAuthorize("hasRole('ROLE_MEMBER')")
     public String getCourses() {
         return "courses";
     }
