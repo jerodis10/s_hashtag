@@ -149,9 +149,9 @@ public class LoginController {
         return "courses";
     }
 
-//    @PostMapping("/logout")
+    @PostMapping("/logout")
     public String logout(HttpServletResponse response) {
-        expireCookie(response, "memberId");
+//        expireCookie(response, "memberId");
         return "redirect:/";
     }
 

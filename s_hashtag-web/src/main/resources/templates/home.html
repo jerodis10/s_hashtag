@@ -5,10 +5,10 @@
 <!--<html lang="es" xmlns="http://www.w3.org/1999/xhtml"-->
 <!--      xmlns:th="http://www.thymeleaf.org"-->
 <!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
-<!--<html xmlns:th="http://www.thymeleaf.org"-->
-<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">-->
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 
-<html xmlns:th="http://www.thymeleaf.org">
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,7 +25,7 @@
         <div>
 <!--            <p>로그인</p>-->
 
-<!--            <p sec:authorize="isAuthenticated()">로그인 성공</p>-->
+            <p sec:authorize="isAuthenticated()">로그인 성공</p>
 <!--            <p sec:authorize access="isAuthenticated()">로그인 성공</p>-->
 <!--            <a sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>-->
 <!--            <div sec:authorize="isAuthenticated()">-->
@@ -93,9 +93,13 @@
                 <ion-icon name="person-add-outline" class="nav__icon"></ion-icon>
                 <span class="nav_name">Sign-up</span>
             </a>
-            <a href="/login" class="nav__link">
+            <a sec:authorize="!isAuthenticated()" href="/login" class="nav__link">
                 <ion-icon name="log-in-outline" class="nav__icon"></ion-icon>
                 <span class="nav_name">Log in</span>
+            </a>
+            <a sec:authorize="isAuthenticated()" href="/logout" class="nav__link">
+                <ion-icon name="log-out-outline" class="nav__icon"></ion-icon>
+                <span class="nav_name">Log out</span>
             </a>
         </div>
     </nav>
