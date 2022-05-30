@@ -23,10 +23,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.transaction.support.TransactionTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -36,6 +33,7 @@ import java.util.*;
 @Slf4j
 @RequiredArgsConstructor
 @Controller
+@RequestMapping("/api")
 public class InstagramController {
 
     private final KakaoApiService kakaoApiService;
@@ -60,7 +58,7 @@ public class InstagramController {
     @ResponseBody
 //    @Transactional(rollbackFor = Exception.class)
     public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) throws IOException, InterruptedException, SQLException {
-        TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+//        TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
 
         try {
             Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
@@ -112,7 +110,7 @@ public class InstagramController {
             for (Document document : list_documonet) {
                 //                list_documonet.add(document);
 
-                status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+//                status = transactionManager.getTransaction(new DefaultTransactionDefinition());
 
                 instagramRepository.kakao_document_save(document);
                 System.out.println(count++);
@@ -127,7 +125,7 @@ public class InstagramController {
                         instagramRepository.instagram_post_save(postDto);
                     }
 
-                    transactionManager.commit(status); //성공시 커밋
+//                    transactionManager.commit(status); //성공시 커밋
                 }
                 //            }
             }
@@ -165,7 +163,8 @@ public class InstagramController {
             //        for(KakaoPlaceDto page : kakaoPlaceDto_CE7){
             //            for(Document document : page.getDocuments()){
             for (Document document : list_documonet) {
-                status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+//                status = transactionManager.getTransaction(new DefaultTransactionDefinition());
+
                 instagramRepository.kakao_document_save(document);
 
                 //          CrawlingDto crawlingDto = instagramCrawler.crawler(document.getPlaceName());
@@ -177,12 +176,12 @@ public class InstagramController {
                         instagramRepository.instagram_post_save(postDto);
                     }
 
-                    transactionManager.commit(status); //성공시 커밋
+//                    transactionManager.commit(status); //성공시 커밋
                 }
                 //          }
             }
         } catch (Exception e) {
-            transactionManager.rollback(status); //실패시 롤백
+//            transactionManager.rollback(status); //실패시 롤백
             throw new IllegalStateException(e);
         }
 

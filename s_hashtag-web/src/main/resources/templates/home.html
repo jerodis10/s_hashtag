@@ -26,10 +26,10 @@
 <!--            <p>로그인</p>-->
 
             <div sec:authorize="isAuthenticated()">
-                <span sec:authentication="name"></span>님 환영합니다.
+                <span sec:authentication="name"></span>님
             </div>
             <div sec:authorize="hasRole('ROLE_MEMBER')">멤버 권한</div>
-            <div sec:authorize="hasRole('ROLE_ADMIN')">관리자 권한</div>
+            <div sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMINTRAINEE')">관리자 권한</div>
 <!--            <div sec:authorize="hasRole('ROLE_ADMIN')">로그인 성공</div>-->
 <!--            <p sec:authorize="isAuthenticated()">로그인 성공</p>-->
 <!--            <p sec:authorize access="isAuthenticated()">로그인 성공</p>-->
@@ -50,7 +50,7 @@
 <!--                <a href="#" class="nav__logo"></a>-->
             </div>
             <div class="nav__list">
-                <a href="/members/kakao" class="nav__link active">
+                <a href="/" class="nav__link active">
                     <ion-icon name="home-outline" class="nav__icon"></ion-icon>
                     <span class="nav_name">Dashboard</span>
                 </a>
@@ -59,16 +59,16 @@
                     <span class="nav_name">Messenger</span>
                 </a>
 
-                <div href="#" class="nav__link collapse">
+                <div sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMINTRAINEE')" href="#" class="nav__link collapse">
                     <ion-icon name="folder-outline" class="nav__icon"></ion-icon>
-                    <span class="nav_name">Projects</span>
+                    <span class="nav_name">Admin</span>
 
                     <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
 
                     <ul class="collapse__menu">
+                        <a href="/api/admin/members/list" class="collapse__sublink">Members</a>
                         <a href="#" class="collapse__sublink">Data</a>
                         <a href="#" class="collapse__sublink">Group</a>
-                        <a href="#" class="collapse__sublink">Members</a>
                     </ul>
                 </div>
                 <a href="#" onclick="kakaoMap();" class="nav__link">
@@ -94,7 +94,7 @@
                     <span class="nav_name">Settings</span>
                 </a>
             </div>
-            <a href="/members/add" class="nav__link">
+            <a href="/api/members/add" class="nav__link">
                 <ion-icon name="person-add-outline" class="nav__icon"></ion-icon>
                 <span class="nav_name">Sign-up</span>
             </a>

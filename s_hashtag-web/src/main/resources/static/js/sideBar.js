@@ -197,7 +197,7 @@ function getHashtagByKeyword(searchText, category) {
     var category_param = category_arr.join(',')
 
     $.ajax({
-       url:'/getHashtagByKeyword',
+       url:'/api/getHashtagByKeyword',
        type:'GET',
        dataType: 'json',
 //       data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: 'CE7'},
@@ -241,7 +241,7 @@ function getHashtagByCount(check_type, check_flag) {
     var category_param = category_arr.join(',');
 
     $.ajax({
-           url:'/getHashtagByCount',
+           url:'/api/getHashtagByCount',
            type:'GET',
            dataType: 'json',
            data: {ha: 126.96190764549995, oa: 126.99019733287525, pa: 37.56300112995975, qa: 37.5696007924915,   // 서울시청 주변
@@ -409,7 +409,7 @@ function getHashtagByCount2() {
     else check5 = false;
 
     $.ajax({
-       url:'/getHashtagByCount',
+       url:'/api/getHashtagByCount',
        type:'GET',
        dataType: 'json',
        data: {ha: 126.96190764549995, oa: 126.99019733287525, pa: 37.56300112995975, qa: 37.5696007924915, category_list: category_param,

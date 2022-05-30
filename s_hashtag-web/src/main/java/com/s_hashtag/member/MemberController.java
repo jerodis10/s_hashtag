@@ -17,14 +17,14 @@ import java.util.Collections;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/members")
+@RequestMapping("/api/members")
 public class MemberController {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/add")
-    public String addForm(@ModelAttribute("member") Member member) {
+    public String addForm(@ModelAttribute Member member) {
         return "members/addMemberForm";
     }
 

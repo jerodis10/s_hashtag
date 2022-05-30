@@ -67,13 +67,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .frameOptions()
             .sameOrigin()
 
-//                .ignoringAntMatchers("/api/**") /* REST API 사용 예외처리 */
-
             .and()
             .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
 //            .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig), JwtUsernameAndPasswordAuthenticationFilter.class)
             .authorizeRequests() // HttpServletRequest를 사용하는 요청들에 대한 접근제한을 설정
-            .antMatchers("/", "/getHashtag", "/members/add", "/css/*", "/img/**", "/js/*").permitAll()
+            .antMatchers("/", "/api/**", "/css/**", "/img/**", "/js/**").permitAll()
 //            .antMatchers("/login").hasRole(MEMBER.name())
             .anyRequest() .authenticated() // 나머지는 인증 필요
 
@@ -112,6 +110,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID")
 //                .deleteCookies("JSESSIONID", "remember-me")
                 .logoutSuccessUrl("/");
+
+//        .and().sessionManagement()
+//					  .maximumSessions(1) /*session 허용 갯수?*/
+//					  .expiredUrl("/login") /* session 만료시 이동 */
+//					  .maxSessionsPreventsLogin(true); /* 중복로그인 허용(true),거부(false)
+
+//        http.csrf().ignoringAntMatchers("/api/**"); /* REST API 사용 예외처리 */
 
     }
 

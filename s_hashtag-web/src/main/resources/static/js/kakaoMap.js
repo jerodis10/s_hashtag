@@ -99,7 +99,7 @@ kakao.maps.event.addListener(map, 'zoom_changed', function() {
 
 function kakaoMap() {
     $.ajax({
-       url:'/kakaoMap',
+       url:'/api/kakaoMap',
        type:'POST',
        dataType: 'json',
 //          data: {ha: 124, oa: 132, pa: 33, qa: 43},
@@ -145,7 +145,8 @@ function create_marker_test(map, category) {
     });
 
     $.ajax({
-       url:'/getHashtag',
+       url:'/api/getHashtag',
+//        url:'/getHashtag',
        type:'GET',
        dataType: 'json',
 //       data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category_list},
