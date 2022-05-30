@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link th:href="@{/css/bootstrap.min.css}"
+            href="../css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container" style="max-width: 600px">
+    <div class="py-5 text-center">
+        <h2>회원 목록</h2>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary float-end"
+                    onclick="location.href='addForm.html'"
+                    th:onclick="|location.href='@{/api/members/add}'|"
+                    type="button">회원 삭제</button>
+            <button class="btn btn-primary float-end"
+                    onclick="location.href='addForm.html'"
+                    th:onclick="|location.href='@{/api/members/add}'|"
+                    type="button">회원 등록</button>
+        </div>
+    </div>
+    <hr class="my-4">
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th></th>
+                <th>아이디</th>
+                <th>이름</th>
+                <th>권한</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="member : ${members}">
+                <td><input type="checkbox" class="form-check-input"></td>
+                <td th:text="${member.loginId}"></td>
+                <td th:text="${member.name}"></td>
+                <td th:text="${member.role}"></td>
+            </tr>
+            </tbody>
+
+<!--            <tbody>-->
+<!--            <tr th:each="member : ${members}">-->
+<!--                <td th:text="${member.loginId}"></td>-->
+<!--                <td th:text="${member.name}"></td>-->
+<!--                <td th:text="${member.role}"></td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+        </table>
+    </div>
+</div> <!-- /container -->
+</body>
+</html>
