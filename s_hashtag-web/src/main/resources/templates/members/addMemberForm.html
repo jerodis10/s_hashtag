@@ -48,10 +48,6 @@
                    th:errorclass="field-error">
             <div class="field-error" th:errors="*{name}" />
         </div>
-        <div th:each="role : ${applicationMemberRole}">
-            <input type="checkbox" class="form-check-input">
-<!--            <label th:text="${role}"></label>-->
-        </div>
 
 
         <hr class="my-4">

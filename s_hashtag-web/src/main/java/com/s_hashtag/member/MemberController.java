@@ -23,9 +23,14 @@ public class MemberController {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
+//    @GetMapping("/add")
+//    public String addForm(Model model) {
+////        model.addAttribute("applicationMemberRole", ApplicationMemberRole.values());
+//        return "members/addMemberForm";
+//    }
+
     @GetMapping("/add")
-    public String addForm(Model model) {
-        model.addAttribute("applicationMemberRole", ApplicationMemberRole.values());
+    public String addForm(@ModelAttribute("member") Member member) {
         return "members/addMemberForm";
     }
 
