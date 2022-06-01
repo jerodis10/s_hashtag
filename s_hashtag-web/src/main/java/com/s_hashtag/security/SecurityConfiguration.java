@@ -71,7 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
 //            .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig), JwtUsernameAndPasswordAuthenticationFilter.class)
             .authorizeRequests() // HttpServletRequest를 사용하는 요청들에 대한 접근제한을 설정
-            .antMatchers("/", "/css/**", "/img/**", "/js/**").permitAll()
+            .antMatchers("/", "/api/**", "/css/**", "/img/**", "/js/**").permitAll()
 //            .antMatchers("/login").hasRole(MEMBER.name())
             .anyRequest() .authenticated() // 나머지는 인증 필요
 

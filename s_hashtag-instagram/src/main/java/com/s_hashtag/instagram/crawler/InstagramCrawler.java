@@ -42,7 +42,8 @@ public class InstagramCrawler {
     public CrawlingDto crawler(String crawlingName) throws IOException, InterruptedException {
 //        String parsedHashtagName = PlaceName  Parser.parsePlaceName(crawlingName);
         String parsedHashtagName = crawlingName.replaceAll(" ", "");
-        Thread.sleep(15000);
+        Thread.sleep(10000);
+        log.info("Proxy Host = {}, Port = {}", System.getProperty("http.proxyHost"), System.getProperty("http.proxyPort"));
         String body = crawler.crawl(String.format(INSTAGRAM_URL_FORMAT, parsedHashtagName));
         if(body != null){
             log.info("insert HashtagName = {}", parsedHashtagName);
