@@ -6,13 +6,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,7 +22,6 @@ public class AdminMemberController {
     private final MemberRepository memberRepository;
 
     @GetMapping("/list")
-//    public String addForm(@ModelAttribute Member member) {
     public String adminMemberList(Model model) {
         List<Member> members = memberRepository.findAll();
         model.addAttribute("members", members);
@@ -37,5 +36,13 @@ public class AdminMemberController {
         }
 
         return "redirect:/";
+    }
+
+    @PostMapping("/delete")
+    public String adminMemberDelete(@RequestParam("checkedList[]") List<String> checkedList) {
+        memberRepository.delete(checkedList);
+
+        return "redirect:/api/admin/members/list";
+//        return "admin/memberList";
     }
 }

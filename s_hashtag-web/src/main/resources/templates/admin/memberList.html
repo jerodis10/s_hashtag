@@ -11,44 +11,55 @@
     <div class="py-5 text-center">
         <h2>회원 목록</h2>
     </div>
-    <div class="row">
-        <div class="col">
-            <button class="btn btn-primary float-end"
-                    onclick="location.href='addForm.html'"
-                    th:onclick="|location.href='@{/api/members/add}'|"
-                    type="button">회원 삭제</button>
-            <button class="btn btn-primary float-end"
-                    onclick="location.href='addForm.html'"
-                    th:onclick="|location.href='@{/api/members/add}'|"
-                    type="button">회원 등록</button>
+<!--    <form action="/api/admin/members/delete" th:object="${member}" method="post">-->
+        <div class="row">
+            <div class="col">
+                <div sec:authorize="hasAuthority('member:write')">
+                    <button id="btnMemberDelete" name="btnMemberDelete" class="btn btn-primary float-end" type="submit">회원 삭제</button>
+                </div>
+                <button class="btn btn-primary float-end"
+                        onclick="location.href='addForm.html'"
+                        th:onclick="|location.href='@{/api/members/add}'|"
+                        type="button">회원 등록</button>
+            </div>
         </div>
-    </div>
-    <hr class="my-4">
-    <div>
-        <table class="table">
-            <thead>
-            <tr>
-                <div sec:authorize="hasAuthority('member:write')">
-                    <th></th>
-                </div>
-                <th>아이디</th>
-                <th>이름</th>
-                <th>권한</th>
-            </tr>
-            </thead>
+        <hr class="my-4">
+        <div>
+            <table class="table">
+                <thead>
+                <tr>
+                    <div sec:authorize="hasAuthority('member:write')">
+                        <th></th>
+                    </div>
+                    <th>아이디</th>
+                    <th>이름</th>
+                    <th>권한</th>
+                </tr>
+                </thead>
 
-            <tbody>
-            <tr th:each="member : ${members}">
-                <div sec:authorize="hasAuthority('member:write')">
-                    <td><input type="checkbox" class="form-check-input"></td>
-                </div>
-                <td th:text="${member.loginId}"></td>
-                <td th:text="${member.name}"></td>
-                <td th:text="${member.role}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+                <tbody>
+                <tr th:each="member : ${members}">
+                    <div sec:authorize="hasAuthority('member:write')">
+                        <td><input th:value="${member.loginId}" type="checkbox" class="form-check-input" name="check"></td>
+                    </div>
+<!--                        <td><input type="text" class="form-text-input" th:value="${member.loginId}" name="a" readonly></td>-->
+<!--                        <td><input type="text" class="form-text-input" th:value="${member.name}" name="b" readonly></td>-->
+<!--                        <td><input type="text" class="form-text-input" th:value="${member.role}" name="c" readonly></td>-->
+
+                    <td th:text="${member.loginId}" th:name="${member.loginId}"></td>
+                    <td th:text="${member.name}" th:name="${member.name}"></td>
+                    <td th:text="${member.role}" th:name="${member.role}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+<!--    </form>-->
 </div> <!-- /container -->
+
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="/js/memberList.js"></script>
+
 </body>
 </html>

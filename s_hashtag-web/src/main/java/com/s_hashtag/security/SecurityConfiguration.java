@@ -71,7 +71,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
 //            .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig), JwtUsernameAndPasswordAuthenticationFilter.class)
             .authorizeRequests() // HttpServletRequest를 사용하는 요청들에 대한 접근제한을 설정
-            .antMatchers("/", "/api/**", "/css/**", "/img/**", "/js/**").permitAll()
+            .antMatchers("/", "/css/**", "/img/**", "/js/**").permitAll()
 //            .antMatchers("/login").hasRole(MEMBER.name())
             .anyRequest() .authenticated() // 나머지는 인증 필요
 
@@ -116,7 +116,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //					  .expiredUrl("/login") /* session 만료시 이동 */
 //					  .maxSessionsPreventsLogin(true); /* 중복로그인 허용(true),거부(false)
 
-//        http.csrf().ignoringAntMatchers("/api/**"); /* REST API 사용 예외처리 */
+        http.csrf().ignoringAntMatchers("/api/**"); /* REST API 사용 예외처리 */
 
     }
 
