@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 <head>
     <meta charset="utf-8">
     <link th:href="@{/css/bootstrap.min.css}"
@@ -49,6 +50,21 @@
             <div class="field-error" th:errors="*{name}" />
         </div>
 
+        <div th:each="role : ${applicationMemberRoles}" class="form-check form-check-inline">
+<!--            <th:block th:switch="${role}">-->
+<!--                <span th:case="ADMIN">ADMIN</span>-->
+<!--                <span th:case="ADMINTRAINEE">ADMINTRAINEE</span>-->
+<!--                <span th:case="MEMBER">MEMBER</span>-->
+<!--                <span th:case="*">기타</span>-->
+<!--            </th:block>-->
+
+<!--            <div th:if="${role == 'ADMIN'}">ADMIN</div>-->
+<!--            <div th:if="${role == 'ADMINTRAINEE'}">ADMINTRAINEE</div>-->
+<!--            <div th:if="${role == 'MEMBER'}">MEMBER</div>-->
+
+            <input type="radio" th:field="*{role}" th:value="${role}" class="form-check-input">
+            <label th:for="${#ids.prev('role')}" th:text="${role}" class="form-check-label"></label>
+        </div>
 
         <hr class="my-4">
 

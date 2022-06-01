@@ -2,10 +2,13 @@ package com.s_hashtag.auth;
 
 import com.s_hashtag.domain.member.Member;
 import com.s_hashtag.repository.MemberRepository;
+import com.s_hashtag.security.ApplicationMemberRole;
+import com.s_hashtag.security.ApplicationUserPermission;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -37,12 +40,18 @@ public class ApplicationUserService implements UserDetailsService {
                 .orElseThrow(() ->
                         new UsernameNotFoundException(String.format("member %s not found", username))));
 
+        Set<SimpleGrantedAuthority> authority = null;
+        for (ApplicationMemberRole role : ApplicationMemberRole.values()) {
+            if(member.get().getRole().equals("ROLE_" + role.name())) authority = role.grantedAuthorities();
+        }
+
         return new ApplicationUser(
                 member.get().getLoginId(),
 //                passwordEncoder.encode(member.get().getPassword()),
                 member.get().getPassword(),
-                (member.get().getRole().equals("ROLE_" + MEMBER.name()) ?
-                        MEMBER.grantedAuthorities() : ADMIN.grantedAuthorities()),
+                authority,
+//                (member.get().getRole().equals("ROLE_" + MEMBER.name()) ?
+//                        MEMBER.grantedAuthorities() : ADMIN.grantedAuthorities()),
                 true,
                 true,
                 true,

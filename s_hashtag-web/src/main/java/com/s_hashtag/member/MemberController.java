@@ -25,12 +25,13 @@ public class MemberController {
 
 //    @GetMapping("/add")
 //    public String addForm(Model model) {
-////        model.addAttribute("applicationMemberRole", ApplicationMemberRole.values());
+//        model.addAttribute("applicationMemberRole", ApplicationMemberRole.values());
 //        return "members/addMemberForm";
 //    }
 
     @GetMapping("/add")
-    public String addForm(@ModelAttribute("member") Member member) {
+    public String addForm(@ModelAttribute Member member, Model model) {
+        model.addAttribute("applicationMemberRoles", ApplicationMemberRole.values());
         return "members/addMemberForm";
     }
 
@@ -45,7 +46,7 @@ public class MemberController {
                 .loginId(member.getLoginId())
                 .password(passwordEncoder.encode(member.getPassword()))
                 .name(member.getName())
-                .role("ROLE_ADMIN")
+                .role("ROLE_" + member.getRole())
                 .build());
 
         return "redirect:/";

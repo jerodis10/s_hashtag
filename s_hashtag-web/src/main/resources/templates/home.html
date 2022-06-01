@@ -29,7 +29,8 @@
                 <span sec:authentication="name"></span>님
             </div>
             <div sec:authorize="hasRole('ROLE_MEMBER')">멤버 권한</div>
-            <div sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_ADMINTRAINEE')">관리자 권한</div>
+            <div sec:authorize="hasRole('ROLE_ADMINTRAINEE')">관리자 권한</div>
+            <div sec:authorize="hasRole('ROLE_ADMIN')">마스터 권한</div>
 <!--            <div sec:authorize="hasRole('ROLE_ADMIN')">로그인 성공</div>-->
 <!--            <p sec:authorize="isAuthenticated()">로그인 성공</p>-->
 <!--            <p sec:authorize access="isAuthenticated()">로그인 성공</p>-->

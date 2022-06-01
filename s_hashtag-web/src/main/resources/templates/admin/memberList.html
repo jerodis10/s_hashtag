@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 <head>
     <meta charset="utf-8">
     <link th:href="@{/css/bootstrap.min.css}"
@@ -27,7 +28,9 @@
         <table class="table">
             <thead>
             <tr>
-                <th></th>
+                <div sec:authorize="hasAuthority('member:write')">
+                    <th></th>
+                </div>
                 <th>아이디</th>
                 <th>이름</th>
                 <th>권한</th>
@@ -36,20 +39,14 @@
 
             <tbody>
             <tr th:each="member : ${members}">
-                <td><input type="checkbox" class="form-check-input"></td>
+                <div sec:authorize="hasAuthority('member:write')">
+                    <td><input type="checkbox" class="form-check-input"></td>
+                </div>
                 <td th:text="${member.loginId}"></td>
                 <td th:text="${member.name}"></td>
                 <td th:text="${member.role}"></td>
             </tr>
             </tbody>
-
-<!--            <tbody>-->
-<!--            <tr th:each="member : ${members}">-->
-<!--                <td th:text="${member.loginId}"></td>-->
-<!--                <td th:text="${member.name}"></td>-->
-<!--                <td th:text="${member.role}"></td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
         </table>
     </div>
 </div> <!-- /container -->
