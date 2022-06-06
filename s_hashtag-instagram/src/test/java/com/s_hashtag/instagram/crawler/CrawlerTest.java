@@ -2,12 +2,6 @@ package com.s_hashtag.instagram.crawler;
 
 import com.s_hashtag.instagram.proxy.Proxies;
 import com.s_hashtag.instagram.proxy.Proxy;
-import com.s_hashtag.kakaoapi.domain.dto.KakaoPlaceDto;
-import com.s_hashtag.kakaoapi.domain.rect.Rect;
-import com.s_hashtag.kakaoapi.domain.rect.location.Coordinate;
-import com.s_hashtag.kakaoapi.domain.rect.location.Latitude;
-import com.s_hashtag.kakaoapi.domain.rect.location.Longitude;
-import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.DisplayName;
@@ -72,10 +66,13 @@ class CrawlerTest {
     @Test
     void crawlingTest() throws IOException {
 
+//        System.setProperty("http.proxyHost", "107.182.135.43");
+//        System.setProperty("http.proxyPort", "8089");
+
 //        Document doc= Jsoup.connect("https://www.instagram.com")
         Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?hl=ko")
 //        Document doc= Jsoup.connect("https://stackoverflow.com/questions/32623199/log-into-instagram-with-java")
-                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.57 Safari/537.36")
+                .userAgent("Dooble/0.07 (de_CH) WebKit")
                 .get();
 
         assertThat(doc).isNotNull();
