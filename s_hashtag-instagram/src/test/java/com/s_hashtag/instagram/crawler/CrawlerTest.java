@@ -117,3 +117,4 @@ class CrawlerTest {
 //        assertThat(kakaoPlaceDto_FD6).isNotNull();
 //    }
 }
+
