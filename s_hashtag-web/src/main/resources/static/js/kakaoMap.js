@@ -147,11 +147,13 @@ function create_marker_test(map, category) {
     $.ajax({
        url:'/api/getHashtag',
 //        url:'/getHashtag',
+//           url:'/api/admin/members/getHashtag',
        type:'GET',
        dataType: 'json',
 //       data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category_list},
 //        data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category},
         data: {ha: 125, oa: 128, pa: 36, qa: 38, category_list: category},
+//        data: {num:1},
        success:function(data){
 //            console.log(data);
            marker_list = [];

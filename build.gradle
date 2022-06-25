@@ -1,22 +1,35 @@
-plugins {
-	id 'org.springframework.boot' version '2.6.0'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'java'
-}
-
-group = 's_hashtag'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
-
-configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
+buildscript {
+	ext {
+		springBootVersion = '2.5.3'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+		classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
 	}
 }
 
-repositories {
-	mavenCentral()
-}
+//plugins {
+//	id 'org.springframework.boot' version '2.6.0'
+//	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+//	id 'java'
+//}
+//
+//group = 's_hashtag'
+//version = '0.0.1-SNAPSHOT'
+//sourceCompatibility = '11'
+//
+//configurations {
+//	compileOnly {
+//		extendsFrom annotationProcessor
+//	}
+//}
+//
+//repositories {
+//	mavenCentral()
+//}
 
 // 하위 모든 프로젝트 공통 세팅
 subprojects {
@@ -30,6 +43,8 @@ subprojects {
 
 	sourceCompatibility = '11'
 	targetCompatibility = '11'
+//	sourceCompatibility = '1.8'
+//	targetCompatibility = '1.8'
 	compileJava.options.encoding = 'UTF-8'
 
 	repositories {
@@ -50,7 +65,7 @@ subprojects {
 		implementation 'org.springframework.boot:spring-boot-autoconfigure-processor'
 		annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 		runtimeOnly 'com.h2database:h2'
-		implementation 'org.springframework.boot:spring-boot-devtools'
+//		implementation 'org.springframework.boot:spring-boot-devtools'
 //		implementation 'org.springframework.boot:spring-boot-starter-log4j2'
 
 		implementation 'org.mapstruct:mapstruct:1.4.1.Final'
@@ -68,15 +83,21 @@ subprojects {
 
 }
 
-//dependencies {
-//	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-//	implementation 'org.springframework.boot:spring-boot-starter-web'
-//	implementation 'org.springframework.boot:spring-boot-starter-validation'
-//	compileOnly 'org.projectlombok:lombok'
-//	annotationProcessor 'org.projectlombok:lombok'
-//	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//}
+// 각 프로젝트에서만 사용하는 의존성 추가
+project(':s_hashtag-kakao-api') {
+	dependencies {
+	}
+}
 
-test {
-	useJUnitPlatform()
+project(':s_hashtag-instagram') {
+
+	dependencies {
+		// 컴파일시 core 모듈을 가져온다.
+		compileOnly project(':s_hashtag-kakao-api')
+
+	}
+
+	// core 에서는 bootjar로 패키징 할 필요가 없으므로 추가
+//	bootJar.enabled = false
+//	jar.enabled = true
 }

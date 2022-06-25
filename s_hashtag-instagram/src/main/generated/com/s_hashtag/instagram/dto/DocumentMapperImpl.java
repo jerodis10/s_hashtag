@@ -2,12 +2,12 @@ package com.s_hashtag.instagram.dto;
 
 import com.s_hashtag.kakaoapi.domain.dto.Document;
 import com.s_hashtag.kakaoapi.domain.dto.Document.DocumentBuilder;
-import javax.annotation.processing.Generated;
+import javax.annotation.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-05-30T14:30:58+0900",
+    date = "2022-06-25T20:33:23+0900",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 11.0.12 (Oracle Corporation)"
 )
 @Component

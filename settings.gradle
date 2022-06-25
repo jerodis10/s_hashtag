@@ -5,4 +5,5 @@ include 's_hashtag-kakao-api'
 include 's_hashtag-common'
 include 's_hashtag-instagram'
 include 's_hashtag-admin'
+include 's_hashtag-batch'
 

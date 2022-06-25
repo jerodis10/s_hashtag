@@ -8,11 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -44,5 +42,12 @@ public class AdminMemberController {
 
         return "redirect:/api/admin/members/list";
 //        return "admin/memberList";
+    }
+
+//    @GetMapping("/getHashtag")
+    @ResponseBody
+    public String getHashtag() {
+
+        return "23";
     }
 }

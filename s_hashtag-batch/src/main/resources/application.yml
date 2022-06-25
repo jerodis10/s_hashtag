@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    include: >
+      db
+  jpa:
+    open-in-view: false
+---
+spring:
+  profiles: local
+  h2:
+    console:
+      enabled: true
+---
+spring:
+  profiles: test
+batch:
+  chunk: 2
+---
+batch:
+  chunk: 50
