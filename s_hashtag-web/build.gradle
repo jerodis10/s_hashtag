@@ -44,8 +44,8 @@ dependencies {
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 }
 
-bootJar.enabled = false
-jar.enabled = true
+//bootJar.enabled = false
+//jar.enabled = true
 
 //test {
 //    useJUnitPlatform()

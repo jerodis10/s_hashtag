@@ -1,35 +1,40 @@
-buildscript {
-	ext {
-		springBootVersion = '2.5.3'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-		classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
+//buildscript {
+//	ext {
+//		springBootVersion = '2.5.3'
+//	}
+//	repositories {
+//		mavenCentral()
+//	}
+//	dependencies {
+//		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+//		classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
+//	}
+//}
+
+plugins {
+	id 'org.springframework.boot' version '2.6.0'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 's_hashtag'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
 	}
 }
 
-//plugins {
-//	id 'org.springframework.boot' version '2.6.0'
-//	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-//	id 'java'
-//}
-//
-//group = 's_hashtag'
-//version = '0.0.1-SNAPSHOT'
-//sourceCompatibility = '11'
-//
-//configurations {
-//	compileOnly {
-//		extendsFrom annotationProcessor
-//	}
-//}
-//
-//repositories {
-//	mavenCentral()
-//}
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+}
 
 // 하위 모든 프로젝트 공통 세팅
 subprojects {
@@ -56,8 +61,6 @@ subprojects {
 		implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 		implementation 'org.springframework.boot:spring-boot-starter-web'
 		implementation 'org.springframework.boot:spring-boot-starter-validation'
-//		compileOnly 'org.projectlombok:lombok'
-//		annotationProcessor 'org.projectlombok:lombok'
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 //		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -84,18 +87,18 @@ subprojects {
 }
 
 // 각 프로젝트에서만 사용하는 의존성 추가
-project(':s_hashtag-kakao-api') {
-	dependencies {
-	}
-}
-
-project(':s_hashtag-instagram') {
-
-	dependencies {
-		// 컴파일시 core 모듈을 가져온다.
-		compileOnly project(':s_hashtag-kakao-api')
-
-	}
-}
+//project(':s_hashtag-kakao-api') {
+//	dependencies {
+//	}
+//}
+//
+//project(':s_hashtag-instagram') {
+//
+//	dependencies {
+//		// 컴파일시 core 모듈을 가져온다.
+//		compileOnly project(':s_hashtag-kakao-api')
+//
+//	}
+//}
 
 
