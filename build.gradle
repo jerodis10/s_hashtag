@@ -31,11 +31,6 @@ repositories {
 	mavenCentral()
 }
 
-dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-}
-
 // 하위 모든 프로젝트 공통 세팅
 subprojects {
 	apply plugin: 'java'
@@ -87,18 +82,30 @@ subprojects {
 }
 
 // 각 프로젝트에서만 사용하는 의존성 추가
-//project(':s_hashtag-kakao-api') {
-//	dependencies {
-//	}
-//}
-//
-//project(':s_hashtag-instagram') {
-//
-//	dependencies {
-//		// 컴파일시 core 모듈을 가져온다.
-//		compileOnly project(':s_hashtag-kakao-api')
-//
-//	}
-//}
+project(':s_hashtag-web') {
+	dependencies {
+		implementation project(':s_hashtag-kakao-api')
+		implementation project(':s_hashtag-instagram')
+//		implementation project(':s_hashtag-common')
+
+		implementation 'org.springframework.boot:spring-boot-starter-security'
+		implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+		implementation 'org.thymeleaf.extras:thymeleaf-extras-java8time'
+		implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
+		implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+		implementation group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
+    	implementation group: 'com.google.guava', name: 'guava', version: '28.1-jre'
+
+		runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
+		runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+
+	}
+}
+
+project(':s_hashtag-instagram') {
+	dependencies {
+		implementation project(':s_hashtag-kakao-api')
+	}
+}
 
 

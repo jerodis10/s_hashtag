@@ -1,9 +1,3 @@
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-    }
-}
-
 rootProject.name = 's_hashtag'
 
 include 's_hashtag-web'

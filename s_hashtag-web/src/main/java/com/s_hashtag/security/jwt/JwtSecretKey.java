@@ -1,4 +1,4 @@
-//package com.s_hashtag.jwt;
+package com.s_hashtag.security.jwt;//package com.s_hashtag.jwt;
 //
 //import io.jsonwebtoken.security.Keys;
 //import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.s_hashtag.member;
+package com.s_hashtag.api;
 
 import com.s_hashtag.domain.member.Member;
 import com.s_hashtag.repository.MemberRepository;
@@ -9,13 +9,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/admin/members")
-public class AdminMemberController {
+public class AdminApiController {
 
     private final MemberRepository memberRepository;
 

@@ -1,4 +1,4 @@
-package com.s_hashtag.member;
+package com.s_hashtag.api;
 
 import com.s_hashtag.domain.member.Member;
 import com.s_hashtag.repository.MemberRepository;
@@ -18,16 +18,10 @@ import javax.validation.Valid;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/members")
-public class MemberController {
+public class MemberApiController {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-
-//    @GetMapping("/add")
-//    public String addForm(Model model) {
-//        model.addAttribute("applicationMemberRole", ApplicationMemberRole.values());
-//        return "members/addMemberForm";
-//    }
 
     @GetMapping("/add")
     public String addForm(@ModelAttribute Member member, Model model) {
@@ -41,7 +35,6 @@ public class MemberController {
             return "members/addMemberForm";
         }
 
-//        memberRepository.save(member);
         memberRepository.save(Member.builder()
                 .loginId(member.getLoginId())
                 .password(passwordEncoder.encode(member.getPassword()))

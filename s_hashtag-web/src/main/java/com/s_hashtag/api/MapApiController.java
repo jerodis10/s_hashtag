@@ -1,4 +1,4 @@
-package com.s_hashtag.instagram.controller;
+package com.s_hashtag.api;
 
 import com.s_hashtag.instagram.dto.PlaceDto;
 import com.s_hashtag.instagram.repository.InstagramRepository;
@@ -25,33 +25,11 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/api")
-public class InstagramController {
+public class MapApiController {
 
     private final KakaoApiService kakaoApiService;
     private final InstagramRepository instagramRepository;
     private final PlatformTransactionManager transactionManager;
-
-//    public InstagramController(KakaoApiService kakaoApiService,
-//                               InstagramCrawler instagramCrawler,
-//                               InstagramRepository instagramRepository,
-//                               DocumentMapper documentMapper,
-//                               PlatformTransactionManager transactionManager) {
-//        this.kakaoApiService = kakaoApiService;
-//        this.instagramCrawler = instagramCrawler;
-//        this.instagramRepository = instagramRepository;
-//        this.documentMapper = documentMapper;
-//        this.txTemplate = new TransactionTemplate(transactionManager);
-//    }
-
-//    @PostMapping("/kakaoMap")
-//    @ResponseBody
-//    public List<KakaoPlaceDto> kakaoMap(@ModelAttribute Rect rect) {
-//
-//
-////        instagramService.saveCrawlingResults(rect);
-//
-//        return new ArrayList<KakaoPlaceDto>();
-//    }
 
     @PostMapping("/kakaoMap")
     @ResponseBody

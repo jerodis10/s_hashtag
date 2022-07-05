@@ -1,4 +1,4 @@
-package com.s_hashtag.jwt;
+package com.s_hashtag.security.jwt;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

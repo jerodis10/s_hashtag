@@ -1,6 +1,5 @@
 package com.s_hashtag;
 
-//import com.s_hashtag.kakaoapi.domain.caller.AbProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
