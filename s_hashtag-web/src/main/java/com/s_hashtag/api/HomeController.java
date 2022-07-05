@@ -14,7 +14,6 @@ import com.s_hashtag.domain.member.Member;
 ////import com.s_hashtag.kakaoapi.service.KakaoApiService;
 //import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import com.s_hashtag.repository.MemberRepository;
-import com.s_hashtag.session.SessionManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
