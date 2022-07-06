@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.crypto.SecretKey;
 
@@ -85,14 +86,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
             .logout()
                 .permitAll()
-//
                 .logoutUrl("/logout")
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "POST"))
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
 //                .deleteCookies("JSESSIONID", "remember-me")
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/login");
 
 //        .and().sessionManagement()
 //					  .maximumSessions(1) /*session 허용 갯수?*/

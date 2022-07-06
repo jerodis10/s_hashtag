@@ -5,15 +5,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @Slf4j
 @Controller
+//@RequestMapping("/api")
 @RequiredArgsConstructor
 public class LoginApiController {
 
@@ -23,12 +24,16 @@ public class LoginApiController {
     }
 
     @PostMapping("/login")
-    public String loginV5(@ModelAttribute LoginForm form) {
+    public String login(@ModelAttribute LoginForm form) {
         return "home";
     }
 
-    @PostMapping("/logout")
-    public String logout(HttpServletResponse response) {
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
         return "redirect:/";
     }
 
