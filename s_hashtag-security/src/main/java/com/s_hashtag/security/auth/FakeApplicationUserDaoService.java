@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 

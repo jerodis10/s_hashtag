@@ -1,6 +1,6 @@
 package com.s_hashtag.api;
 
-import com.s_hashtag.domain.member.Member;
+import com.s_hashtag.model.Member;
 import com.s_hashtag.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

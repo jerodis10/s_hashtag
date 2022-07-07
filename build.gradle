@@ -93,7 +93,7 @@ project(':s_hashtag-web') {
 	dependencies {
 		implementation project(':s_hashtag-kakao-api')
 		implementation project(':s_hashtag-instagram')
-//		implementation project(':s_hashtag-security')
+		implementation project(':s_hashtag-security')
 
 		implementation 'org.springframework.boot:spring-boot-starter-security'
 		implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
@@ -116,7 +116,7 @@ project(':s_hashtag-instagram') {
 
 project(':s_hashtag-security') {
 	dependencies {
-		implementation project(':s_hashtag-web')
+//		implementation project(':s_hashtag-web')
 
 		implementation 'org.springframework.boot:spring-boot-starter-security'
 		implementation 'io.jsonwebtoken:jjwt-api:0.11.2'

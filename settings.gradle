@@ -7,4 +7,5 @@ include 's_hashtag-instagram'
 include 's_hashtag-admin'
 include 's_hashtag-batch'
 include 's_hashtag-security'
+include 's_hashtag-security'
 

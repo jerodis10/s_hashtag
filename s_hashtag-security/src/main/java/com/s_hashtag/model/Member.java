@@ -1,6 +1,5 @@
-package com.s_hashtag.domain.member;
+package com.s_hashtag.model;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;

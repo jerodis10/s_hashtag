@@ -1,6 +1,6 @@
 package com.s_hashtag.security.auth;
 
-import com.s_hashtag.domain.member.Member;
+import com.s_hashtag.model.Member;
 import com.s_hashtag.repository.MemberRepository;
 import com.s_hashtag.security.ApplicationMemberRole;
 import lombok.RequiredArgsConstructor;

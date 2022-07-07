@@ -2,7 +2,6 @@ package com.s_hashtag.security;
 
 
 import com.google.common.collect.Sets;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

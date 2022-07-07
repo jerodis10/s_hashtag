@@ -1,3 +1,14 @@
+function logout_post() {
+    let f = document.createElement('form');
+    f.setAttribute('method', 'post');
+    f.setAttribute('action', '/logout');
+    document.body.appendChild(f);
+    f.submit();
+}
+
+
+
+
 ///* EXPANDER MENU */
 //const showMenu = (toggleId, navbarId, bodyId) => {
 //    const toggle = document.getElementById(toggleId),
