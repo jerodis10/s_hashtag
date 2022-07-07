@@ -11,3 +11,5 @@ public class SHashtagBatchApplication {
         SpringApplication.run(SHashtagBatchApplication.class, args);
     }
 }
+
+
