@@ -101,6 +101,9 @@ project(':s_hashtag-web') {
 		implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
 		implementation 'com.google.code.gson:gson:2.8.6'
     	implementation 'com.google.guava:guava:28.1-jre'
+		implementation 'org.springframework.boot:spring-boot-starter-batch'
+
+//		testImplementation 'org.springframework.batch:spring-batch-test'
 
 		runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
 		runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
@@ -116,8 +119,6 @@ project(':s_hashtag-instagram') {
 
 project(':s_hashtag-security') {
 	dependencies {
-//		implementation project(':s_hashtag-web')
-
 		implementation 'org.springframework.boot:spring-boot-starter-security'
 		implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
 		implementation 'com.google.code.gson:gson:2.8.6'
@@ -125,6 +126,12 @@ project(':s_hashtag-security') {
 
 		runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
 		runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+	}
+}
+
+project(':s_hashtag-batch') {
+	dependencies {
+		implementation project(':s_hashtag-web')
 	}
 }
 
