@@ -94,6 +94,7 @@ project(':s_hashtag-web') {
 		implementation project(':s_hashtag-kakao-api')
 		implementation project(':s_hashtag-instagram')
 		implementation project(':s_hashtag-security')
+		implementation project(':s_hashtag-batch')
 
 		implementation 'org.springframework.boot:spring-boot-starter-security'
 		implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
@@ -101,7 +102,7 @@ project(':s_hashtag-web') {
 		implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
 		implementation 'com.google.code.gson:gson:2.8.6'
     	implementation 'com.google.guava:guava:28.1-jre'
-		implementation 'org.springframework.boot:spring-boot-starter-batch'
+//		implementation 'org.springframework.boot:spring-boot-starter-batch'
 
 //		testImplementation 'org.springframework.batch:spring-batch-test'
 
@@ -131,7 +132,9 @@ project(':s_hashtag-security') {
 
 project(':s_hashtag-batch') {
 	dependencies {
-		implementation project(':s_hashtag-web')
+//		implementation project(':s_hashtag-web')
+
+		implementation 'org.springframework.boot:spring-boot-starter-batch'
 	}
 }
 

@@ -1,12 +1,15 @@
 package com.s_hashtag;
 
-import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-@EnableBatchProcessing  // 배치 기능 활성화
+//@EnableBatchProcessing  // 배치 기능 활성화
+
+//@EnableAutoConfiguration(exclude = {HibernateJpaAutoConfiguration.class})
+// If your application does not require the spring boot batch tables, the following configurations
+// should be added to prevent the tables from being created
+
 //@EnableConfigurationProperties
 public class SHashtagWebApplication {
 
