@@ -132,7 +132,8 @@ project(':s_hashtag-security') {
 
 project(':s_hashtag-batch') {
 	dependencies {
-//		implementation project(':s_hashtag-web')
+		implementation project(':s_hashtag-common')
+		implementation project(':s_hashtag-instagram')
 
 		implementation 'org.springframework.boot:spring-boot-starter-batch'
 	}

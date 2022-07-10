@@ -16,8 +16,8 @@
 #batch:
 #  chunk: 2
 #---
-#batch:
-#  chunk: 50
+batch:
+  chunk: 10
 
 spring:
   batch:
