@@ -63,9 +63,9 @@ public class InstagramCrawlingJobConfiguration {
     @Bean
     public Step kakaoStep() {
         return stepBuilderFactory.get("kakaoStep")
-                .<List<KakaoPlaceDto>, KakaoPlaceDto>chunk(batchConfiguration.getChunk())
+                .<List<KakaoPlaceDto>, List<KakaoPlaceDto>>chunk(batchConfiguration.getChunk())
                 .reader(kakaoBatchReader)
-                .processor(instagramBatchProcessor)
+//                .processor(instagramBatchProcessor)
                 .writer(instagramBatchWriter)
                 .build();
     }
