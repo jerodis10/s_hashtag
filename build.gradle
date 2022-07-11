@@ -134,6 +134,7 @@ project(':s_hashtag-batch') {
 	dependencies {
 		implementation project(':s_hashtag-common')
 		implementation project(':s_hashtag-instagram')
+		implementation project(':s_hashtag-kakao-api')
 
 		implementation 'org.springframework.boot:spring-boot-starter-batch'
 	}
