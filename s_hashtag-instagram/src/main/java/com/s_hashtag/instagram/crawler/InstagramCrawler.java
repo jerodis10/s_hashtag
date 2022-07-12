@@ -36,7 +36,7 @@ public class InstagramCrawler {
         String instagramId = instaCrawlingResult.findInstagramId();
         String hashTagCount = instaCrawlingResult.findHashTagCount();
         PostDtos postDtos = instaCrawlingResult.findPostDtos();
-        return CrawlingDto.of(instagramId, hashtagName, hashTagCount, postDtos);
+        return CrawlingDto.of(instagramId, null, hashtagName, hashTagCount, postDtos);
     }
 
     public CrawlingDto crawler(String crawlingName) throws IOException, InterruptedException {

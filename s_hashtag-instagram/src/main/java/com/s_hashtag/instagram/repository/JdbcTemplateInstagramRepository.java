@@ -25,28 +25,6 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public void kakao_document_save(Document document) {
-        String sql_kakao_save =
-                "merge into kakao_document " +
-                "using dual " +
-                        "on (kakao_id = ? and category_group_code = ?) " +
-                "when matched then " +
-                      "update " +
-                         "set latitude = ?, " +
-                             "longitude = ?, " +
-                             "place_name = ?, "  +
-                             "road_address_name = ?, " +
-                             "place_url = ? " +
-               "when not matched then " +
-                     "insert (kakao_id, category_group_code, latitude, longitude, place_name, road_address_name, place_url) " +
-                     "values (?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql_kakao_save,
-                document.getId(), document.getCategoryGroupCode(),
-                document.getLatitude(), document.getLongitude(), document.getPlaceName(), document.getRoadAddressName(), document.getPlaceUrl(),
-                document.getId(), document.getCategoryGroupCode(), document.getLatitude(), document.getLongitude(), document.getPlaceName(), document.getRoadAddressName(), document.getPlaceUrl());
-    }
-
-    @Override
     public void instagram_save(CrawlingDto crawlingDto, Document document) {
         String sql_instagram_save =
                         "merge into instagram " +

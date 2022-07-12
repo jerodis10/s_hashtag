@@ -11,7 +11,7 @@ import java.util.*;
 //@Repository
 public interface InstagramRepository {
 
-    void kakao_document_save(Document document);
+//    void kakao_document_save(Document document);
 
     void instagram_save(CrawlingDto crawlingDto, Document document);
 

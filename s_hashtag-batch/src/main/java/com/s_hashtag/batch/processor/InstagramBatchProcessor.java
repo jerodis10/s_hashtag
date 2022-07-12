@@ -1,18 +1,29 @@
 package com.s_hashtag.batch.processor;
 
 import com.s_hashtag.common.place.domain.model.Place;
+import com.s_hashtag.instagram.crawler.InstagramCrawler;
 import com.s_hashtag.instagram.dto.CrawlingDto;
+import com.s_hashtag.instagram.proxy.CrawlerWithProxy;
+import com.s_hashtag.instagram.proxy.ProxiesFactory;
+import com.s_hashtag.instagram.proxy.ProxySetter;
+import com.s_hashtag.instagram.repository.InstagramRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+
 @RequiredArgsConstructor
 @Component
 public class InstagramBatchProcessor implements ItemProcessor<Place, CrawlingDto> {
-    private final InstagramCrawlingService instagramCrawlingService;
+
+    private final InstagramCrawler instagramCrawler;
 
     @Override
-    public CrawlingResult process(Place place) {
-        return instagramCrawlingService.createCrawlingResult(place).orElse(null);
+    public CrawlingDto process(Place place) throws IOException {
+        CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
+        CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(place.getPlaceName());
+//        crawlingDto.
+        return crawlingDto;
     }
 }

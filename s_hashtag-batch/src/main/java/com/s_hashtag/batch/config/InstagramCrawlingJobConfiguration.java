@@ -3,6 +3,7 @@ package com.s_hashtag.batch.config;
 import com.s_hashtag.batch.processor.InstagramBatchProcessor;
 import com.s_hashtag.batch.reader.KakaoBatchReader;
 import com.s_hashtag.batch.writer.InstagramBatchWriter;
+import com.s_hashtag.batch.writer.KakaoBatchWriter;
 import com.s_hashtag.common.place.domain.model.Place;
 import com.s_hashtag.instagram.dto.CrawlingDto;
 import com.s_hashtag.kakaoapi.domain.dto.KakaoPlaceDto;
@@ -28,15 +29,18 @@ import java.util.List;
 @EnableBatchProcessing
 @Configuration
 public class InstagramCrawlingJobConfiguration {
+
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
+    private final BatchConfiguration batchConfiguration;
+    private final DataSource dataSource;
 
     private final KakaoBatchReader kakaoBatchReader;
+    private final KakaoBatchWriter kakaoBatchWriter;
 
     private final InstagramBatchProcessor instagramBatchProcessor;
     private final InstagramBatchWriter instagramBatchWriter;
-    private final BatchConfiguration batchConfiguration;
-    private final DataSource dataSource;
+
 
     @Bean
     public Job kakaoJob() {
@@ -44,7 +48,7 @@ public class InstagramCrawlingJobConfiguration {
                 .start(kakaoStep())
                 .build();
     }
-
+//
 //    @Bean
 //    public Job crawlingJob() {
 //        return jobBuilderFactory.get("crawlingJob")
@@ -63,10 +67,9 @@ public class InstagramCrawlingJobConfiguration {
     @Bean
     public Step kakaoStep() {
         return stepBuilderFactory.get("kakaoStep")
-                .<List<KakaoPlaceDto>, List<KakaoPlaceDto>>chunk(batchConfiguration.getChunk())
+                .<KakaoPlaceDto, KakaoPlaceDto>chunk(batchConfiguration.getChunk())
                 .reader(kakaoBatchReader)
-//                .processor(instagramBatchProcessor)
-                .writer(instagramBatchWriter)
+                .writer(kakaoBatchWriter)
                 .build();
     }
 
@@ -95,11 +98,11 @@ public class InstagramCrawlingJobConfiguration {
     @Bean
     public JdbcCursorItemReader<Place> InstagramBatchReader() {
         return new JdbcCursorItemReaderBuilder<Place>()
-            .name("jdbcCursorItemReader")
+            .name("jdbcCursorInstagramItemReader")
             .fetchSize(batchConfiguration.getChunk())
             .dataSource(dataSource)
             .rowMapper(new BeanPropertyRowMapper<>(Place.class))
-            .sql("select category, placeName from ")
+            .sql("select KAKAO_ID as kakaoId, PLACE_NAME as placeName from KAKAO_DOCUMENT")
             .build();
     }
 

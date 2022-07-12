@@ -11,6 +11,7 @@ import com.s_hashtag.instagram.repository.InstagramRepository;
 import com.s_hashtag.kakaoapi.domain.dto.Document;
 import com.s_hashtag.kakaoapi.domain.dto.KakaoPlaceDto;
 import com.s_hashtag.kakaoapi.domain.rect.Rect;
+import com.s_hashtag.kakaoapi.repository.KakaoRepository;
 import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,7 @@ public class InstagramService {
     private final KakaoApiService kakaoApiService;
     private final InstagramCrawler instagramCrawler;
     private final InstagramRepository instagramRepository;
+    private final KakaoRepository kakaoRepository;
     private final DocumentMapper documentMapper;
 
     @Transactional(rollbackFor = Exception.class)
@@ -67,7 +69,7 @@ public class InstagramService {
 
             int count = 0;
             for (Document document : list_documonet) {
-                instagramRepository.kakao_document_save(document);
+                kakaoRepository.kakao_document_save(document);
                 System.out.println(count++);
                 CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
                 CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
@@ -109,7 +111,7 @@ public class InstagramService {
 
             list_documonet.removeAll(remove_list);
             for (Document document : list_documonet) {
-                instagramRepository.kakao_document_save(document);
+                kakaoRepository.kakao_document_save(document);
                 CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
                 CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
                 if (crawlingDto != null) {

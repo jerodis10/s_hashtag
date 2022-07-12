@@ -13,7 +13,8 @@ import java.util.List;
  */
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+//@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 @AllArgsConstructor
 public class KakaoPlaceDto {
     private Meta meta;
