@@ -28,7 +28,7 @@ public class InstagramCrawler {
         this.crawler = crawler;
     }
 
-    public CrawlingDto createCrawlingDto(String hashtagName, String body) throws IOException {
+    public CrawlingDto createCrawlingDto(String hashtagName, String body, String kakaoId) throws IOException {
 //        System.out.println(body);
 //        ClassPathResource resource = new ClassPathResource("test.txt");
 //        body = new String(Files.readAllBytes(Paths.get(resource.getURI())));
@@ -36,10 +36,10 @@ public class InstagramCrawler {
         String instagramId = instaCrawlingResult.findInstagramId();
         String hashTagCount = instaCrawlingResult.findHashTagCount();
         PostDtos postDtos = instaCrawlingResult.findPostDtos();
-        return CrawlingDto.of(instagramId, null, hashtagName, hashTagCount, postDtos);
+        return CrawlingDto.of(instagramId, kakaoId, hashtagName, hashTagCount, postDtos);
     }
 
-    public CrawlingDto crawler(String crawlingName) throws IOException, InterruptedException {
+    public CrawlingDto crawler(String crawlingName, String kakaoId) throws IOException, InterruptedException {
 //        String parsedHashtagName = PlaceName  Parser.parsePlaceName(crawlingName);
         String parsedHashtagName = crawlingName.replaceAll(" ", "");
         Thread.sleep(10000);
@@ -47,7 +47,7 @@ public class InstagramCrawler {
         String body = crawler.crawl(String.format(INSTAGRAM_URL_FORMAT, parsedHashtagName));
         if(body != null){
             log.info("insert HashtagName = {}", parsedHashtagName);
-            return createCrawlingDto(parsedHashtagName, body);
+            return createCrawlingDto(parsedHashtagName, body, kakaoId);
         }
 
         return null;

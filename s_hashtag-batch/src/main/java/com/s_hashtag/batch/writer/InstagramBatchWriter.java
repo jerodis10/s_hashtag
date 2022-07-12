@@ -22,7 +22,10 @@ public class InstagramBatchWriter implements ItemWriter<CrawlingDto> {
 
     private void saveCrawlingResult(List<CrawlingDto> items) {
         for(CrawlingDto crawlingDto : items) {
-            instagramRepository.instagram_save(crawlingDto, new Document());
+            Document document = Document.builder()
+                    .id(crawlingDto.getPlaceId())
+                    .build();
+            instagramRepository.instagram_save(crawlingDto, document);
         }
     }
 

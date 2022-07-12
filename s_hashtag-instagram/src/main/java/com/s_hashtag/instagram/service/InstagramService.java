@@ -72,7 +72,7 @@ public class InstagramService {
                 kakaoRepository.kakao_document_save(document);
                 System.out.println(count++);
                 CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
-                CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
+                CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName(), document.getId());
                 if (crawlingDto != null) {
                     instagramRepository.instagram_save(crawlingDto, document);
                     for (PostDto postDto : crawlingDto.getPostDtoList()) {
@@ -113,7 +113,7 @@ public class InstagramService {
             for (Document document : list_documonet) {
                 kakaoRepository.kakao_document_save(document);
                 CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
-                CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName());
+                CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName(), document.getId());
                 if (crawlingDto != null) {
                     instagramRepository.instagram_save(crawlingDto, document);
                     for (PostDto postDto : crawlingDto.getPostDtoList()) {

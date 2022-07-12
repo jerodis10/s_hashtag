@@ -24,12 +24,12 @@ public class CrawlerWithProxy {
         this.instagramCrawler = instagramCrawler;
     }
 
-    public CrawlingDto crawlInstagram(String hashtagNameToCrawl) throws IOException {
+    public CrawlingDto crawlInstagram(String hashtagNameToCrawl, String kakaoId) throws IOException {
         try {
 //            proxySetter.setProxy();
 //            return instagramCrawler.crawler(hashtagNameToCrawl);
 //            Proxy proxy = new Proxy(System.getProperty("http.proxyHost"), System.getProperty("http.proxyPort"));
-            if(isOnline()) return instagramCrawler.crawler(hashtagNameToCrawl);
+            if(isOnline()) return instagramCrawler.crawler(hashtagNameToCrawl, kakaoId);
             else return null;
         } catch (CrawlerException e) {
             log.debug("CrawlerException: {}", e.getMessage());

@@ -6,7 +6,6 @@ import com.s_hashtag.instagram.dto.CrawlingDto;
 import com.s_hashtag.instagram.proxy.CrawlerWithProxy;
 import com.s_hashtag.instagram.proxy.ProxiesFactory;
 import com.s_hashtag.instagram.proxy.ProxySetter;
-import com.s_hashtag.instagram.repository.InstagramRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
@@ -22,8 +21,6 @@ public class InstagramBatchProcessor implements ItemProcessor<Place, CrawlingDto
     @Override
     public CrawlingDto process(Place place) throws IOException {
         CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
-        CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(place.getPlaceName());
-//        crawlingDto.
-        return crawlingDto;
+        return crawlerWithProxy.crawlInstagram(place.getPlaceName(), place.getKakaoId());
     }
 }
