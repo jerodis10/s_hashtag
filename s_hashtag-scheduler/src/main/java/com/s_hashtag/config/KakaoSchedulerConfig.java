@@ -2,24 +2,27 @@ package com.s_hashtag.config;
 
 import com.s_hashtag.CronPeriod;
 import com.s_hashtag.KakaoScheduler;
-import com.s_hashtag.KakaoSchedulerTask;
-import org.springframework.context.annotation.Bean;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.SchedulingConfigurer;
+import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
-@EnableScheduling
+import java.time.LocalDateTime;
+
+@Slf4j
 @Configuration
-public class KakaoSchedulerConfig {
+public class KakaoSchedulerConfig implements SchedulingConfigurer {
     private static final String EXPRESSION = "0 0 2 1 * ?";
 
-    private final KakaoSchedulerTask kakaoSchedulerTask;
-
-    public KakaoSchedulerConfig(KakaoSchedulerTask kakaoSchedulerTask) {
-        this.kakaoSchedulerTask = kakaoSchedulerTask;
+    @Override
+    public void configureTasks(ScheduledTaskRegistrar scheduledTaskRegistrar) {
+        KakaoScheduler kakaoScheduler = new KakaoScheduler(getRunnable(), new CronPeriod(EXPRESSION));
+        scheduledTaskRegistrar.setTaskScheduler(kakaoScheduler.getScheduler());
     }
 
-    @Bean
-    public KakaoScheduler kakaoPlaceScheduler() {
-        return new KakaoScheduler(kakaoSchedulerTask::sourceEvent, new CronPeriod(EXPRESSION));
+    private Runnable getRunnable() {
+        return () -> {
+            log.info("KakaoScheduler started at : " + LocalDateTime.now());
+        };
     }
 }

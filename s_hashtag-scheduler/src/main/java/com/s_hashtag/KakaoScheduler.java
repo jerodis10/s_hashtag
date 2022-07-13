@@ -2,6 +2,7 @@ package com.s_hashtag;
 
 import com.s_hashtag.exception.KakaoSchedulerException;
 import com.s_hashtag.exception.KakaoSchedulerExceptionStatus;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.concurrent.ScheduledFuture;
 
 @Slf4j
+@Getter
 public class KakaoScheduler {
     private final ThreadPoolTaskScheduler scheduler;
     private final CronPeriod cronPeriod;
@@ -19,10 +21,11 @@ public class KakaoScheduler {
 
     public KakaoScheduler(Runnable runnable, CronPeriod cronPeriod) {
         this.scheduler = new ThreadPoolTaskScheduler();
-        this.runnable = runnable;
-        this.cronPeriod = cronPeriod;
+        this.scheduler.setThreadNamePrefix("my-scheduled-task-pool-");
         this.scheduler.setWaitForTasksToCompleteOnShutdown(true);
         this.scheduler.initialize();
+        this.runnable = runnable;
+        this.cronPeriod = cronPeriod;
     }
 
     public void start() {
