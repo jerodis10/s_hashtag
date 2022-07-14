@@ -7,7 +7,6 @@ import com.s_hashtag.batch.writer.KakaoBatchWriter;
 import com.s_hashtag.common.place.domain.model.Place;
 import com.s_hashtag.instagram.dto.CrawlingDto;
 import com.s_hashtag.kakaoapi.domain.dto.KakaoPlaceDto;
-import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
@@ -22,13 +21,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 import javax.sql.DataSource;
-import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
 @EnableBatchProcessing
 @Configuration
-public class InstagramCrawlingJobConfiguration {
+public class JobConfiguration {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;

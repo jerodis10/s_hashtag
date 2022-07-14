@@ -142,6 +142,7 @@ project(':s_hashtag-batch') {
 project(':s_hashtag-scheduler') {
 	dependencies {
 		implementation project(':s_hashtag-common')
+		implementation project(':s_hashtag-batch')
 	}
 }
 
