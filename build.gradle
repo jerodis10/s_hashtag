@@ -143,6 +143,8 @@ project(':s_hashtag-scheduler') {
 	dependencies {
 		implementation project(':s_hashtag-common')
 		implementation project(':s_hashtag-batch')
+
+		implementation 'org.springframework.boot:spring-boot-starter-batch'
 	}
 }
 

@@ -41,26 +41,26 @@ public class JobConfiguration {
 
 
     @Bean
-    public Job kakaoJob() {
-        return jobBuilderFactory.get("kakaoJob")
+    public Job kakaoPlaceJob() {
+        return jobBuilderFactory.get("kakaoPlaceJob")
                 .start(kakaoStep())
                 .build();
     }
-//
-//    @Bean
-//    public Job crawlingJob() {
-//        return jobBuilderFactory.get("crawlingJob")
-//                .start(crawlingStep())
-//                .build();
-//    }
-//
-//    @Bean
-//    public Job kakaoCrawlingJob() {
-//        return jobBuilderFactory.get("kakaoCrawlingJob")
-//                .start(kakaoStep())
-//                .next(crawlingStep())
-//                .build();
-//    }
+
+    @Bean
+    public Job InstagramCrawlingJob() {
+        return jobBuilderFactory.get("InstagramCrawlingJob")
+                .start(crawlingStep())
+                .build();
+    }
+
+    @Bean
+    public Job kakaoInstagramCrawlingJob() {
+        return jobBuilderFactory.get("kakaoInstagramCrawlingJob")
+                .start(kakaoStep())
+                .next(crawlingStep())
+                .build();
+    }
 
     @Bean
     public Step kakaoStep() {
