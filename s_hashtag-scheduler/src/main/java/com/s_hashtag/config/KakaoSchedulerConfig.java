@@ -15,10 +15,7 @@ import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.SchedulingConfigurer;
-import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +23,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @EnableScheduling
 @Configuration
-public class SchedulerConfig {
+public class KakaoSchedulerConfig {
 
     private final JobConfiguration jobConfiguration;
     private final JobLauncher jobLauncher;
