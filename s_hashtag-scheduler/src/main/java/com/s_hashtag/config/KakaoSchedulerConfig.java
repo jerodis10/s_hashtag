@@ -1,8 +1,6 @@
 package com.s_hashtag.config;
 
 import com.s_hashtag.CronPeriod;
-import com.s_hashtag.InstagramScheduler;
-import com.s_hashtag.KakaoInstagramScheduler;
 import com.s_hashtag.KakaoScheduler;
 import com.s_hashtag.batch.config.JobConfiguration;
 import lombok.RequiredArgsConstructor;
@@ -32,20 +30,25 @@ public class KakaoSchedulerConfig {
 
 //    private static final String EXPRESSION = "0 0 2 1 * ?";
 
-    @Bean
-    public KakaoScheduler kakaoPlaceScheduler(String expression) {
-        return new KakaoScheduler(getKakaoPlaceJob(), new CronPeriod(expression));
-    }
+//    @Bean
+//    public KakaoScheduler kakaoPlaceScheduler(String expression) {
+//        return new KakaoScheduler(getKakaoPlaceJob(), new CronPeriod(expression));
+//    }
 
     @Bean
-    public InstagramScheduler InstagramCrawlingScheduler(String expression) {
-        return new InstagramScheduler(getInstagramCrawlingJob(), new CronPeriod(expression));
+    public KakaoScheduler kakaoPlaceScheduler() {
+        return new KakaoScheduler(()-> System.out.println("aaa"), new CronPeriod("0/3 * * * * *"));
     }
 
-    @Bean
-    public KakaoInstagramScheduler kakaoInstagramCrawlingScheduler(String expression) {
-        return new KakaoInstagramScheduler(getkakaoInstagramCrawlingJob(), new CronPeriod(expression));
-    }
+//    @Bean
+//    public InstagramScheduler InstagramCrawlingScheduler(String expression) {
+//        return new InstagramScheduler(getInstagramCrawlingJob(), new CronPeriod(expression));
+//    }
+//
+//    @Bean
+//    public KakaoInstagramScheduler kakaoInstagramCrawlingScheduler(String expression) {
+//        return new KakaoInstagramScheduler(getkakaoInstagramCrawlingJob(), new CronPeriod(expression));
+//    }
 
     private Runnable getKakaoPlaceJob() {
         return () -> {

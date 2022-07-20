@@ -79,6 +79,6 @@ public class KakaoScheduler {
 
     @Override
     public String toString() {
-        return this.getClass().getName();
+        return this.getClass().getSimpleName();
     }
 }

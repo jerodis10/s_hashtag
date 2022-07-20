@@ -26,14 +26,14 @@ public class AdminApiController {
         return "admin/memberList";
     }
 
-    @PostMapping("/members/list")
-    public String adminMemberList2(@Valid @ModelAttribute Member member, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "admin/memberList";
-        }
-
-        return "redirect:/";
-    }
+//    @PostMapping("/members/list")
+//    public String adminMemberList2(@Valid @ModelAttribute Member member, BindingResult bindingResult) {
+//        if (bindingResult.hasErrors()) {
+//            return "admin/memberList";
+//        }
+//
+//        return "redirect:/";
+//    }
 
     @PostMapping("/members/delete")
     public String adminMemberDelete(@RequestParam("checkedList[]") List<String> checkedList) {
@@ -43,10 +43,9 @@ public class AdminApiController {
 //        return "admin/memberList";
     }
 
-//    @GetMapping("/getHashtag")
-    @ResponseBody
-    public String getHashtag() {
+    @GetMapping("/schedule")
+    public String getSchedule() {
 
-        return "23";
+        return "admin/scheduleEdit";
     }
 }

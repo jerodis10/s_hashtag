@@ -13,10 +13,17 @@ public class KakaoSchedulerApiController {
 
     private final KakaoScheduleService kakaoScheduleService;
 
+//    @GetMapping("/start")
+//    @ResponseStatus(HttpStatus.OK)
+//    public CustomResponse<Void> startScheduler(@RequestParam String scheduleName) {
+//        kakaoScheduleService.startSchedule(scheduleName);
+//        return CustomResponse.empty();
+//    }
+
     @GetMapping("/start")
     @ResponseStatus(HttpStatus.OK)
-    public CustomResponse<Void> startScheduler(@RequestParam String scheduleName) {
-        kakaoScheduleService.startSchedule(scheduleName);
+    public CustomResponse<Void> startScheduler() {
+        kakaoScheduleService.startSchedule("KakaoScheduler");
         return CustomResponse.empty();
     }
 
