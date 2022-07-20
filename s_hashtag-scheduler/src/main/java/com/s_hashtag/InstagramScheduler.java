@@ -13,13 +13,13 @@ import java.util.concurrent.ScheduledFuture;
 
 @Slf4j
 @Getter
-public class KakaoScheduler {
+public class InstagramScheduler {
     private final ThreadPoolTaskScheduler scheduler;
     private final CronPeriod cronPeriod;
     private final Runnable runnable;
     private ScheduledFuture<?> scheduledFuture;
 
-    public KakaoScheduler(Runnable runnable, CronPeriod cronPeriod) {
+    public InstagramScheduler(Runnable runnable, CronPeriod cronPeriod) {
         this.scheduler = new ThreadPoolTaskScheduler();
         this.scheduler.setThreadNamePrefix("my-scheduled-task-pool-");
         this.scheduler.setWaitForTasksToCompleteOnShutdown(true);
@@ -81,4 +81,5 @@ public class KakaoScheduler {
     public String toString() {
         return this.getClass().getName();
     }
+
 }

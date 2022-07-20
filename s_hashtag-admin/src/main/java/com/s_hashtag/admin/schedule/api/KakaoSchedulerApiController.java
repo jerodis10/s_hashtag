@@ -13,31 +13,31 @@ public class KakaoSchedulerApiController {
 
     private final KakaoScheduleService kakaoScheduleService;
 
-    @PostMapping("/start")
+    @GetMapping("/start")
     @ResponseStatus(HttpStatus.OK)
-    public CustomResponse<Void> startScheduler() {
-        kakaoScheduleService.startSchedule();
+    public CustomResponse<Void> startScheduler(@RequestParam String scheduleName) {
+        kakaoScheduleService.startSchedule(scheduleName);
         return CustomResponse.empty();
     }
 
     @PostMapping("/stop")
     @ResponseStatus(HttpStatus.OK)
-    public CustomResponse<Void> stopScheduler() {
-        kakaoScheduleService.stopSchedule();
+    public CustomResponse<Void> stopScheduler(@RequestParam String scheduleName) {
+        kakaoScheduleService.stopSchedule(scheduleName);
+        return CustomResponse.empty();
+    }
+
+    @PutMapping("/period")
+    @ResponseStatus(HttpStatus.OK)
+    public CustomResponse<Void> changeSchedulePeriod(@RequestParam String scheduleName, @RequestParam String expression) {
+        kakaoScheduleService.changeSchedulePeriod(scheduleName, expression);
         return CustomResponse.empty();
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public CustomResponse<Boolean> getActiveStatus() {
-        return CustomResponse.of(kakaoScheduleService.getKakaoScheduleActiveStatus());
-    }
-
-    @PutMapping("/period")
-    @ResponseStatus(HttpStatus.OK)
-    public CustomResponse<Void> changeSchedulePeriod(@RequestBody String scheduleName, @RequestBody String expression) {
-        kakaoScheduleService.changeSchedulePeriod(scheduleName, expression);
-        return CustomResponse.empty();
+    public CustomResponse<Boolean> getActiveStatus(@RequestParam String scheduleName) {
+        return CustomResponse.of(kakaoScheduleService.getKakaoScheduleActiveStatus(scheduleName));
     }
 
 }

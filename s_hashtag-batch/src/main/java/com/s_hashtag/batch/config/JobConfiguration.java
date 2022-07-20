@@ -82,16 +82,16 @@ public class JobConfiguration {
     }
 
 
-//    @Bean
-//    public JdbcCursorItemReader<KakaoPlaceDto> KakaoBatchReader() {
-//        return new JdbcCursorItemReaderBuilder<KakaoPlaceDto>()
-//                .name("kakaoJdbcCursorItemReader")
-//                .fetchSize(batchConfiguration.getChunk())
-//                .dataSource(dataSource)
-//                .rowMapper(new BeanPropertyRowMapper<>(KakaoPlaceDto.class))
-//                .sql("select category, placeName from ")
-//                .build();
-//    }
+    @Bean
+    public JdbcCursorItemReader<KakaoPlaceDto> KakaoBatchReader() {
+        return new JdbcCursorItemReaderBuilder<KakaoPlaceDto>()
+                .name("kakaoJdbcCursorItemReader")
+                .fetchSize(batchConfiguration.getChunk())
+                .dataSource(dataSource)
+                .rowMapper(new BeanPropertyRowMapper<>(KakaoPlaceDto.class))
+                .sql("select category, placeName from ")
+                .build();
+    }
 
     @Bean
     public JdbcCursorItemReader<Place> InstagramBatchReader() {
@@ -103,26 +103,5 @@ public class JobConfiguration {
             .sql("select KAKAO_ID as kakaoId, PLACE_NAME as placeName from KAKAO_DOCUMENT")
             .build();
     }
-
-
-
-
-//    @Bean
-//    public Job simpleJob() {
-//        return jobBuilderFactory.get("simpleJob")
-//                .start(simpleStep1())
-//                .build();
-//    }
-
-//    @Bean
-//    public Step simpleStep1() {
-//        return stepBuilderFactory.get("simpleStep1")
-//                .tasklet((contribution, chunkContext) -> {
-//                    log.info(">>>>> This is Step1");
-//                    return RepeatStatus.FINISHED;
-//                })
-//                .build();
-//    }
-
 
 }

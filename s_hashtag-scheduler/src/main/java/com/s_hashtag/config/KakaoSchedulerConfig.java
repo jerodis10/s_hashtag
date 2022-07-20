@@ -1,6 +1,8 @@
 package com.s_hashtag.config;
 
 import com.s_hashtag.CronPeriod;
+import com.s_hashtag.InstagramScheduler;
+import com.s_hashtag.KakaoInstagramScheduler;
 import com.s_hashtag.KakaoScheduler;
 import com.s_hashtag.batch.config.JobConfiguration;
 import lombok.RequiredArgsConstructor;
@@ -36,13 +38,13 @@ public class KakaoSchedulerConfig {
     }
 
     @Bean
-    public KakaoScheduler InstagramCrawlingScheduler(String expression) {
-        return new KakaoScheduler(getInstagramCrawlingJob(), new CronPeriod(expression));
+    public InstagramScheduler InstagramCrawlingScheduler(String expression) {
+        return new InstagramScheduler(getInstagramCrawlingJob(), new CronPeriod(expression));
     }
 
     @Bean
-    public KakaoScheduler kakaoInstagramCrawlingScheduler(String expression) {
-        return new KakaoScheduler(getkakaoInstagramCrawlingJob(), new CronPeriod(expression));
+    public KakaoInstagramScheduler kakaoInstagramCrawlingScheduler(String expression) {
+        return new KakaoInstagramScheduler(getkakaoInstagramCrawlingJob(), new CronPeriod(expression));
     }
 
     private Runnable getKakaoPlaceJob() {

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 
 @Repository
-public class JdbcTemplateScheduleRepository implements KakaoScheduleRepository {
+public class JdbcTemplateScheduleRepository implements ScheduleRepository {
 
     private final JdbcTemplate jdbcTemplate;
     private final DataSource dataSource;

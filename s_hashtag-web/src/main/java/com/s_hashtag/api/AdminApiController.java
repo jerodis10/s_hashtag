@@ -13,12 +13,12 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/admin/members")
+@RequestMapping("/api/admin")
 public class AdminApiController {
 
     private final MemberRepository memberRepository;
 
-    @GetMapping("/list")
+    @GetMapping("/members/list")
     public String adminMemberList(Model model) {
         List<Member> members = memberRepository.findAll();
         model.addAttribute("members", members);
@@ -26,7 +26,7 @@ public class AdminApiController {
         return "admin/memberList";
     }
 
-    @PostMapping("/list")
+    @PostMapping("/members/list")
     public String adminMemberList2(@Valid @ModelAttribute Member member, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "admin/memberList";
@@ -35,7 +35,7 @@ public class AdminApiController {
         return "redirect:/";
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/members/delete")
     public String adminMemberDelete(@RequestParam("checkedList[]") List<String> checkedList) {
         memberRepository.delete(checkedList);
 
