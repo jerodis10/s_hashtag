@@ -1,0 +1,55 @@
+.container {
+    /*max-width: 1000px;*/
+    width: 80%;
+}
+
+.conditionForm {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /*justify-content: space-around;*/
+    align-content: space-around;
+    border:2px dotted #FF00FF;
+    border-radius: 5px;
+    height: 100px;
+}
+
+.conditionForm div {
+    display: flex;
+    justify-content: space-around;
+    width: 350px;
+    padding-left: 50px;
+}
+
+.conditionForm label {
+    text-align: right;
+    width: 100px;
+    padding-right: 10px;
+    position: relative;
+    top: 5px;
+}
+
+/*
+.formItem1 {
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
+}
+
+.formItem2 {
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
+}
+
+.formItem3 {
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
+}
+
+.formItem4 {
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
+}*/
