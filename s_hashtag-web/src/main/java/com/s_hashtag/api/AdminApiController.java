@@ -43,9 +43,13 @@ public class AdminApiController {
 //        return "admin/memberList";
     }
 
-    @GetMapping("/schedule")
-    public String getSchedule() {
+    @GetMapping("/schedule/history")
+    public String ScheduleHistory() {
+        return "admin/scheduleHistory";
+    }
 
+    @GetMapping("/schedule/edit")
+    public String ScheduleEdit() {
         return "admin/scheduleEdit";
     }
 }

@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link href="../css/bootstrap.min.css"
+          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container" id="searchCondition">
+    <div class="py-5 text-center">
+        <h2>스케줄 실행이력</h2>
+    </div>
+    <form action="item.html" th:action method="post">
+        <div class="card card-body bg-light">
+            <div class="conditionForm">
+                <div class="formItem">
+                    <label for="id">스케줄명</label>
+                    <input type="text" id="id" name="id" class="form-control" value="1">
+                </div>
+                <div class="formItem">
+                    <label for="itemName">Job명</label>
+                    <input type="text" id="itemName" name="itemName" class="form-control" value="상품A">
+                </div>
+                <div class="formItem">
+                    <label for="itemName">수행 일자</label>
+                    <input type="text" id="aa" name="quantity" class="form-control" value="10">
+                </div>
+                <div class="formItem">
+                    <label for="itemName">스케줄 수행결과</label>
+                    <select class="form-select" aria-label="Default select example" id="selectBox1">
+                        <option selected></option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <div class="formItem">
+                    <label for="itemName">Job 수행결과</label>
+                    <select class="form-select" aria-label="Default select example" id="selectBox2">
+                        <option selected></option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div> <!-- /container -->
+
+<div class="container">
+    <table class="table table-bordered" cellpadding="0" cellspacing="0">
+    <tr>
+        <th class="col-sx-6">Avanced Time targetting</th>
+        <th class="col-xs-1">Midnight<br/>12am</th>
+        <th class="col-xs-1">4am</th>
+        <th class="col-xs-1">8am</th>
+        <th class="col-xs-1">Noon<br/>12pm</th>
+        <th class="col-xs-1">4pm</th>
+        <th class="col-xs-1">8pm</th>
+    </tr>
+    <tr>
+        <td class="col-sx-6">
+            <span>Monday</span>
+            <ul>
+                <li>
+                    <button>All days</button>
+                </li>
+                <li>
+                    <button>Morning</button>
+                </li>
+                <li>
+                    <button>9-5</button>
+                </li>
+                <li>
+                    <button>Evening</button>
+                </li>
+                <li>
+                    <button>Custom</button>
+                </li>
+                <li>
+                    <button>Clear</button>
+                </li>
+                <li>
+                    <button>Restore</button>
+                </li>
+            </ul>
+        </td>
+        <td class="col-xs-1">
+            <input type="text"/>
+        </td>
+        <td class="col-xs-1">
+            <input type="text"/>
+        </td>
+        <td class="col-xs-1">
+            <input type="text"/>
+        </td>
+        <td class="col-xs-1">
+            <input type="text"/>
+        </td>
+        <td class="col-xs-1">
+            <input type="text"/>
+        </td>
+        <td class="col-xs-1">
+            <input type="text"/>
+        </td>
+    </tr>
+</div>
+
+<!-- CSS -->
+<link href="/css/scheduleHistory.css" rel="stylesheet">
+
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+<!--<script type="text/javascript" src="/js/scheduleHistory.js"></script>-->
+
+</body>
+</html>

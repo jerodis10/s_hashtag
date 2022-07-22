@@ -1,5 +1,9 @@
-.container {
-    /*max-width: 1000px;*/
+/*.container {
+    max-width: 1000px;
+    width: 90%;
+}*/
+
+#searchCondition {
     width: 90%;
 }
 
@@ -14,7 +18,7 @@
     height: 100px;
 }
 
-.conditionForm div {
+.formItem {
     display: flex;
     justify-content: space-around;
     width: 350px;
@@ -23,11 +27,19 @@
 
 .conditionForm label {
     text-align: right;
-    width: 150px;
+    width: 160px;
     padding-right: 10px;
     position: relative;
     top: 5px;
     font-size: 12px;
+}
+
+#dropdownMenuButton {
+    width: 200.7px;
+}
+
+#selectBox {
+    width: 285px;
 }
 
 /*
