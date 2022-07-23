@@ -1,7 +1,7 @@
-package com.s_hashtag.config;
+package com.s_hashtag.scheduler.config;
 
-import com.s_hashtag.CronPeriod;
-import com.s_hashtag.KakaoScheduler;
+import com.s_hashtag.scheduler.CronPeriod;
+import com.s_hashtag.scheduler.KakaoScheduler;
 import com.s_hashtag.batch.config.JobConfiguration;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

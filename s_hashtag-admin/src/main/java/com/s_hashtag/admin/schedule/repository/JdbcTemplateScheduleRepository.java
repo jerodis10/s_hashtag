@@ -1,9 +1,13 @@
 package com.s_hashtag.admin.schedule.repository;
 
+import com.s_hashtag.admin.schedule.model.Schedule;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class JdbcTemplateScheduleRepository implements ScheduleRepository {
@@ -31,6 +35,32 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
         jdbcTemplate.update(sql_kakao_save,
                 scheduleName, crone, scheduleName, crone
         );
+    }
+
+    @Override
+    public Optional<Schedule> findById(String id) {
+        List<Schedule> result = jdbcTemplate.query("select * from schedule where schedule_id = ?", scheduleRowMapper(), id);
+        return result.stream().findAny();
+    }
+
+    @Override
+    public List<Schedule> findAll() {
+        return jdbcTemplate.query("select * from schedule", scheduleRowMapper());
+    }
+
+    private RowMapper<Schedule> scheduleRowMapper() {
+        return (rs, rowNum) -> {
+            Schedule schedule = Schedule.builder()
+                    .schedule_id(rs.getString("schedule_id"))
+                    .schedule_name(rs.getString("schedule_name"))
+                    .cron_period(rs.getString("cron_period"))
+                    .runtime(rs.getString("runtime"))
+                    .schedule_result(rs.getString("schedule_result"))
+                    .job_name(rs.getString("job_name"))
+                    .job_result(rs.getString("job_result"))
+                    .build();
+            return schedule;
+        };
     }
 
 }

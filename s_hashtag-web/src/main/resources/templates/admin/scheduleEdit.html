@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security5">
 <head>
     <meta charset="utf-8">
     <link href="../css/bootstrap.min.css"
@@ -9,78 +10,77 @@
 <div class="py-5 text-center">
     <h2>스케줄 수행관리</h2>
 </div>
-<div class="container">
-    <div class="containerItem">
-        <button type="button" class="btn btn-outline-secondary">시작</button>
-        <button type="button" class="btn btn-outline-secondary">정지</button>
-        <button type="button" class="btn btn-outline-secondary">스케줄 시간변경</button>
-        <input type="text" id="cron" name="cron" class="form-control">
-    </div>
+<div sec:authorize="hasAuthority('batch:write')">
+    <form>
+        <div class="form-group">
+            <div class="container">
+                <div class="containerItem">
+                    <button id="btn_scheduleStart" name="btn_scheduleStart" type="button" class="btn btn-outline-secondary">시작</button>
+                    <button id="btn_scheduleStop" name="btn_scheduleStop" type="button" class="btn btn-outline-secondary">정지</button>
+                    <button id="btn_scheduleTimeChange" name="btn_scheduleTimeChange" type="button" class="btn btn-outline-secondary">스케줄 시간변경</button>
+                    <input type="text"/>
+    <!--                <input type="text" id="cron" name="cron" class="form-control">-->
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 <div class="container">
     <table class="table table-bordered" cellpadding="0" cellspacing="0">
         <tr>
-            <th class="col-sx-6">스케줄명</th>
+            <div sec:authorize="hasAuthority('batch:write')">
+                <th class="col-xs-1"></th>
+            </div>
+            <th class="col-xs-1">스케줄명</th>
             <th class="col-xs-1">수행주기</th>
             <th class="col-xs-1">수행 시작일시</th>
             <th class="col-xs-1">스케줄 수행결과</th>
             <th class="col-xs-1">Job명</th>
             <th class="col-xs-1">Job 수행결과</th>
         </tr>
-        <tr>
-            <td class="col-sx-6">
-                <span>Monday</span>
-                <ul>
-                    <li>
-                        <button>All days</button>
-                    </li>
-                    <li>
-                        <button>Morning</button>
-                    </li>
-                    <li>
-                        <button>9-5</button>
-                    </li>
-                    <li>
-                        <button>Evening</button>
-                    </li>
-                    <li>
-                        <button>Custom</button>
-                    </li>
-                    <li>
-                        <button>Clear</button>
-                    </li>
-                    <li>
-                        <button>Restore</button>
-                    </li>
-                </ul>
-            </td>
-            <td class="col-xs-1">
-                <input type="text"/>
-            </td>
-            <td class="col-xs-1">
-                <input type="text"/>
-            </td>
-            <td class="col-xs-1">
-                <input type="text"/>
-            </td>
-            <td class="col-xs-1">
-                <input type="text"/>
-            </td>
-            <td class="col-xs-1">
-                <input type="text"/>
-            </td>
+        <tr th:each="schedule : ${scheduleList}">
+            <div sec:authorize="hasAuthority('batch:write')">
+                <td><input th:value="${schedule.schedule_id}" type="checkbox" class="form-check-input" name="check"></td>
+            </div>
+            <td class="col-xs-1" th:text="${schedule.schedule_name}" th:name="${schedule.schedule_name}"></td>
+            <td class="col-xs-1" th:text="${schedule.cron_period}" th:name="${schedule.cron_period}"></td>
+            <td class="col-xs-1" th:text="${schedule.runtime}" th:name="${schedule.runtime}"></td>
+            <td class="col-xs-1" th:text="${schedule.schedule_result}" th:name="${schedule.schedule_result}"></td>
+            <td class="col-xs-1" th:text="${schedule.job_name}" th:name="${schedule.job_name}"></td>
+            <td class="col-xs-1" th:text="${schedule.job_result}" th:name="${schedule.job_result}"></td>
         </tr>
+<!--        <tr>-->
+<!--            <td class="col-xs-3">-->
+
+<!--            </td>-->
+<!--            <td class="col-xs-1">-->
+
+<!--            </td>-->
+<!--            <td class="col-xs-1">-->
+
+<!--            </td>-->
+<!--            <td class="col-xs-1">-->
+
+<!--            </td>-->
+<!--            <td class="col-xs-1">-->
+
+<!--            </td>-->
+<!--            <td class="col-xs-1">-->
+
+<!--            </td>-->
+<!--        </tr>-->
     </table>
 </div>
 
 <!-- CSS -->
-<link href="/css/scheduleHistory.css" rel="stylesheet">
+<link href="/css/scheduleEdit.css" rel="stylesheet">
 
 <!-- JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!--<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
-<!--<script type="text/javascript" src="/js/scheduleHistory.js"></script>-->
+<script type="text/javascript" src="/js/scheduleEdit.js"></script>
 
 </body>
 </html>

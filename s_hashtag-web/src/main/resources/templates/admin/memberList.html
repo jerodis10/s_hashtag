@@ -16,11 +16,12 @@
             <div class="col">
                 <div sec:authorize="hasAuthority('member:write')">
                     <button id="btnMemberDelete" name="btnMemberDelete" class="btn btn-primary float-end" type="submit">회원 삭제</button>
+
+                    <button class="btn btn-primary float-end"
+                            onclick="location.href='addForm.html'"
+                            th:onclick="|location.href='@{/api/members/add}'|"
+                            type="button">회원 등록</button>
                 </div>
-                <button class="btn btn-primary float-end"
-                        onclick="location.href='addForm.html'"
-                        th:onclick="|location.href='@{/api/members/add}'|"
-                        type="button">회원 등록</button>
             </div>
         </div>
         <hr class="my-4">
@@ -42,10 +43,6 @@
                     <div sec:authorize="hasAuthority('member:write')">
                         <td><input th:value="${member.loginId}" type="checkbox" class="form-check-input" name="check"></td>
                     </div>
-<!--                        <td><input type="text" class="form-text-input" th:value="${member.loginId}" name="a" readonly></td>-->
-<!--                        <td><input type="text" class="form-text-input" th:value="${member.name}" name="b" readonly></td>-->
-<!--                        <td><input type="text" class="form-text-input" th:value="${member.role}" name="c" readonly></td>-->
-
                     <td th:text="${member.loginId}" th:name="${member.loginId}"></td>
                     <td th:text="${member.name}" th:name="${member.name}"></td>
                     <td th:text="${member.role}" th:name="${member.role}"></td>

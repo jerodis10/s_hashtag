@@ -1,6 +1,6 @@
 package com.s_hashtag.admin.schedule.service;
 
-import com.s_hashtag.KakaoScheduler;
+import com.s_hashtag.scheduler.KakaoScheduler;
 import com.s_hashtag.admin.schedule.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,8 +34,8 @@ public class KakaoScheduleService {
         return true;
     }
 
-    public void startSchedule(String scheduleName) {
-        if(scheduleName.equals(kakaoScheduler.toString())) {
+    public void startSchedule(String scheduleId) {
+        if(scheduleId.equals(kakaoScheduler.toString())) {
             kakaoScheduler.start();
         }
 //        else if(scheduleName.equals(instagramScheduler.toString())) {

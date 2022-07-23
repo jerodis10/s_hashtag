@@ -1,7 +1,7 @@
-package com.s_hashtag;
+package com.s_hashtag.scheduler;
 
-import com.s_hashtag.exception.KakaoSchedulerException;
-import com.s_hashtag.exception.KakaoSchedulerExceptionStatus;
+import com.s_hashtag.scheduler.exception.KakaoSchedulerException;
+import com.s_hashtag.scheduler.exception.KakaoSchedulerExceptionStatus;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.Trigger;
