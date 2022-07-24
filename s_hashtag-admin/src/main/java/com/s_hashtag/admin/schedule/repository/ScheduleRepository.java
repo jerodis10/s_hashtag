@@ -7,9 +7,17 @@ import java.util.Optional;
 
 public interface ScheduleRepository {
 
-    void scheduleCroneSave(String scheduleName, String crone);
-
     Optional<Schedule> findById(String id);
 
     List<Schedule> findAll();
+
+    void scheduleCroneSave(String scheduleId, String expression);
+
+    void scheduleSave(String scheduleId,
+                      String expression,
+                      String min_latitude,
+                      String max_latitude,
+                      String min_longitude,
+                      String max_longitude);
 }
+

@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/admin/schedule")
-public class KakaoSchedulerApiController {
+public class SchedulerApiController {
 
     private final KakaoScheduleService kakaoScheduleService;
     private final ScheduleRepository scheduleRepository;
@@ -52,6 +52,48 @@ public class KakaoSchedulerApiController {
         }
         return CustomResponse.empty();
     }
+
+    @PostMapping("/change")
+//    @ResponseStatus(HttpStatus.OK)
+    public String changeSchedule(@RequestParam("checkedList[]") List<String> checkedList,
+                                 @RequestParam String expression,
+                                 @RequestParam String min_latitude,
+                                 @RequestParam String max_latitude,
+                                 @RequestParam String min_longitude,
+                                 @RequestParam String max_longitude
+    ) {
+        for(String scheduleId : checkedList) {
+            kakaoScheduleService.changeSchedule(scheduleId, expression, min_latitude, max_latitude, min_longitude, max_longitude);
+        }
+
+//        return "redirect:/";
+        return "redirect:/api/admin/schedule/list";
+    }
+
+//    @PostMapping("/period")
+////    @ResponseStatus(HttpStatus.OK)
+//    public String changeSchedulePeriod(@RequestParam("checkedList[]") List<String> checkedList,
+//                                                     @RequestParam String expression) {
+//        for(String scheduleId : checkedList) {
+//            kakaoScheduleService.changeSchedulePeriod(scheduleId, expression);
+//        }
+//
+////        return "redirect:/";
+//        return "redirect:/api/admin/schedule/list";
+//    }
+
+//    @ResponseBody
+//    @PostMapping("/period")
+//    @ResponseStatus(HttpStatus.OK)
+//    public CustomResponse<Void> changeSchedulePeriod(@RequestParam("checkedList[]") List<String> checkedList,
+//                                                     @RequestParam String expression) {
+//        for(String scheduleId : checkedList) {
+//            kakaoScheduleService.changeSchedulePeriod(scheduleId, expression);
+//        }
+//        return CustomResponse.empty();
+//    }
+
+
 
 //    @GetMapping("/start")
 //    @ResponseStatus(HttpStatus.OK)

@@ -15,11 +15,13 @@
         <div class="form-group">
             <div class="container">
                 <div class="containerItem">
-                    <button id="btn_scheduleStart" name="btn_scheduleStart" type="button" class="btn btn-outline-secondary">시작</button>
-                    <button id="btn_scheduleStop" name="btn_scheduleStop" type="button" class="btn btn-outline-secondary">정지</button>
-                    <button id="btn_scheduleTimeChange" name="btn_scheduleTimeChange" type="button" class="btn btn-outline-secondary">스케줄 시간변경</button>
-                    <input type="text"/>
-    <!--                <input type="text" id="cron" name="cron" class="form-control">-->
+                    <button id="btn_scheduleStart" name="btn_scheduleStart" type="button"
+                            class="btn btn-outline-secondary">시작</button>
+                    <button id="btn_scheduleStop" name="btn_scheduleStop" type="button"
+                            class="btn btn-outline-secondary">정지</button>
+                    <button id="btn_scheduleChange" name="btn_scheduleChange" type="button"
+                            class="btn btn-outline-secondary">스케줄 수정</button>
+<!--                    <input id="cron_period" name="cron_period" type="text"/>-->
                 </div>
             </div>
         </div>
@@ -32,43 +34,46 @@
                 <th class="col-xs-1"></th>
             </div>
             <th class="col-xs-1">스케줄명</th>
-            <th class="col-xs-1">수행주기</th>
             <th class="col-xs-1">수행 시작일시</th>
             <th class="col-xs-1">스케줄 수행결과</th>
             <th class="col-xs-1">Job명</th>
             <th class="col-xs-1">Job 수행결과</th>
+            <th class="col-xs-1">수행주기</th>
+            <th class="col-xs-1">위도(min)</th>
+            <th class="col-xs-1">위도(max)</th>
+            <th class="col-xs-1">경도(min)</th>
+            <th class="col-xs-1">경도(max)</th>
         </tr>
         <tr th:each="schedule : ${scheduleList}">
             <div sec:authorize="hasAuthority('batch:write')">
                 <td><input th:value="${schedule.schedule_id}" type="checkbox" class="form-check-input" name="check"></td>
             </div>
             <td class="col-xs-1" th:text="${schedule.schedule_name}" th:name="${schedule.schedule_name}"></td>
-            <td class="col-xs-1" th:text="${schedule.cron_period}" th:name="${schedule.cron_period}"></td>
             <td class="col-xs-1" th:text="${schedule.runtime}" th:name="${schedule.runtime}"></td>
             <td class="col-xs-1" th:text="${schedule.schedule_result}" th:name="${schedule.schedule_result}"></td>
             <td class="col-xs-1" th:text="${schedule.job_name}" th:name="${schedule.job_name}"></td>
             <td class="col-xs-1" th:text="${schedule.job_result}" th:name="${schedule.job_result}"></td>
+            <td class="col-xs-1">
+                <input type="text" style="width:100%;" id="cron_period"
+                       th:value="${schedule.cron_period}" th:name="${schedule.cron_period}">
+            </td>
+            <td class="col-xs-1">
+                <input type="text" style="width:100%;" id="min_latitude"
+                       th:value="${schedule.min_latitude}" th:name="${schedule.min_latitude}">
+            </td>
+            <td class="col-xs-1">
+                <input type="text" style="width:100%;" id="max_latitude"
+                       th:value="${schedule.max_latitude}" th:name="${schedule.max_latitude}">
+            </td>
+            <td class="col-xs-1">
+                <input type="text" style="width:100%;" id="min_longitude"
+                       th:value="${schedule.min_longitude}" th:name="${schedule.min_longitude}">
+            </td>
+            <td class="col-xs-1">
+                <input type="text" style="width:100%;" id="max_longitude"
+                       th:value="${schedule.max_longitude}" th:name="${schedule.max_longitude}">
+            </td>
         </tr>
-<!--        <tr>-->
-<!--            <td class="col-xs-3">-->
-
-<!--            </td>-->
-<!--            <td class="col-xs-1">-->
-
-<!--            </td>-->
-<!--            <td class="col-xs-1">-->
-
-<!--            </td>-->
-<!--            <td class="col-xs-1">-->
-
-<!--            </td>-->
-<!--            <td class="col-xs-1">-->
-
-<!--            </td>-->
-<!--            <td class="col-xs-1">-->
-
-<!--            </td>-->
-<!--        </tr>-->
     </table>
 </div>
 

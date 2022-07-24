@@ -17,8 +17,19 @@ public class KakaoScheduleService {
 //    private final KakaoSchedulerConfig kakaoSchedulerConfig;
 
     @Transactional
-    public void changeSchedulePeriod(String scheduleName, String expression) {
-        scheduleRepository.scheduleCroneSave(scheduleName, expression);
+    public void changeSchedulePeriod(String scheduleId, String expression) {
+        scheduleRepository.scheduleCroneSave(scheduleId, expression);
+    }
+
+    @Transactional
+    public void changeSchedule(String scheduleId,
+                               String expression,
+                               String min_latitude,
+                               String max_latitude,
+                               String min_longitude,
+                               String max_longitude
+    ) {
+        scheduleRepository.scheduleSave(scheduleId, expression, min_latitude, max_latitude, min_longitude, max_longitude);
     }
 
     public boolean getKakaoScheduleActiveStatus(String scheduleName) {

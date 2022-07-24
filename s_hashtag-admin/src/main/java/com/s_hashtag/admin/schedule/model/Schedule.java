@@ -19,4 +19,8 @@ public class Schedule {
     private String schedule_result;
     private String job_name;
     private String job_result;
+    private String min_latitude;
+    private String max_latitude;
+    private String min_longitude;
+    private String max_longitude;
 }
