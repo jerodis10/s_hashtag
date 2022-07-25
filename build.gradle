@@ -101,6 +101,7 @@ project(':s_hashtag-web') {
 		implementation project(':s_hashtag-batch')
 		implementation project(':s_hashtag-admin')
 		implementation project(':s_hashtag-common')
+		implementation project(':s_hashtag-scheduler')
 
 		implementation 'org.springframework.boot:spring-boot-starter-security'
 		implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
@@ -157,7 +158,6 @@ project(':s_hashtag-scheduler') {
 project(':s_hashtag-admin') {
 	dependencies {
 		implementation project(':s_hashtag-common')
-		implementation project(':s_hashtag-scheduler')
 	}
 }
 

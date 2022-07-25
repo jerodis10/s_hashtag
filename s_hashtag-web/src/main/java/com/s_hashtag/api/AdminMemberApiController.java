@@ -1,7 +1,5 @@
 package com.s_hashtag.api;
 
-import com.s_hashtag.admin.schedule.model.Schedule;
-import com.s_hashtag.admin.schedule.repository.ScheduleRepository;
 import com.s_hashtag.model.Member;
 import com.s_hashtag.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;

@@ -1,9 +1,9 @@
 package com.s_hashtag.api;
 
-import com.s_hashtag.admin.schedule.model.Schedule;
-import com.s_hashtag.admin.schedule.repository.ScheduleRepository;
-import com.s_hashtag.admin.schedule.service.KakaoScheduleService;
 import com.s_hashtag.common.response.CustomResponse;
+import com.s_hashtag.scheduler.model.Schedule;
+import com.s_hashtag.scheduler.repository.ScheduleRepository;
+import com.s_hashtag.scheduler.service.KakaoScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;

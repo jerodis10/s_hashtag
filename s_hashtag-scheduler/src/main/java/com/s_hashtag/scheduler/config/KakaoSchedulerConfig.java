@@ -1,8 +1,9 @@
 package com.s_hashtag.scheduler.config;
 
+import com.s_hashtag.batch.config.JobConfiguration;
 import com.s_hashtag.scheduler.CronPeriod;
 import com.s_hashtag.scheduler.KakaoScheduler;
-import com.s_hashtag.batch.config.JobConfiguration;
+import com.s_hashtag.scheduler.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.JobParameter;
@@ -27,18 +28,20 @@ public class KakaoSchedulerConfig {
 
     private final JobConfiguration jobConfiguration;
     private final JobLauncher jobLauncher;
+    private final ScheduleRepository scheduleRepository;
 
 //    private static final String EXPRESSION = "0 0 2 1 * ?";
 
+//    @Bean
+//    public KakaoScheduler kakaoPlaceScheduler() {
+//        return new KakaoScheduler(()-> System.out.println("aaa"), new CronPeriod("0/3 * * * * *"));
+//    }
+
     @Bean
     public KakaoScheduler kakaoPlaceScheduler() {
-        return new KakaoScheduler(()-> System.out.println("aaa"), new CronPeriod("0/3 * * * * *"));
+        String expression = scheduleRepository.findById("KakaoScheduler").getCron_period();
+        return new KakaoScheduler(getKakaoPlaceJob(), new CronPeriod(expression));
     }
-
-//    @Bean
-//    public KakaoScheduler kakaoPlaceScheduler(String expression) {
-//        return new KakaoScheduler(getKakaoPlaceJob(), new CronPeriod(expression));
-//    }
 
 
 //    @Bean
