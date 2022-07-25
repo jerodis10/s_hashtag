@@ -1,38 +1,24 @@
 package com.s_hashtag.kakaoapi.service;
 
-import com.s_hashtag.kakaoapi.domain.caller.KakaoProperties;
 import com.s_hashtag.kakaoapi.domain.dto.KakaoPlaceDto;
 import com.s_hashtag.kakaoapi.domain.rect.Rect;
 import com.s_hashtag.kakaoapi.domain.rect.location.Coordinate;
 import com.s_hashtag.kakaoapi.domain.rect.location.Latitude;
 import com.s_hashtag.kakaoapi.domain.rect.location.Longitude;
-import org.junit.jupiter.api.BeforeEach;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.env.Environment;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.util.AssertionErrors.assertEquals;
 
 @SpringBootTest
-@SpringBootConfiguration
-//@RunWith(SpringRunner.class)
-//@ExtendWith(MockitoExtension.class)
-//@TestPropertySource(locations = "classpath:/application-kakao.yml")
+@Slf4j
 class KakaoApiServiceTest {
-
-//    @Autowired
-//    Environment environment;
 
     @Autowired
     KakaoApiService kakaoApiService;
@@ -49,17 +35,25 @@ class KakaoApiServiceTest {
     @Test
     void findKakaoPlace(){
         //given
-        Coordinate minLatitude = new Latitude(new BigDecimal("1"));
-        Coordinate maxLatitude = new Latitude(new BigDecimal("1"));
-        Coordinate minLongitude = new Longitude(new BigDecimal("1"));
-        Coordinate maxLongitude = new Longitude(new BigDecimal("1"));
+        // data : {ha: 126.75578831035362, oa: 126.7771487382762, pa: 37.41847533960485, qa: 37.44625487247741}, // 10개
+        Coordinate minLatitude = new Latitude(new BigDecimal("37.41847533960485"));
+        Coordinate maxLatitude = new Latitude(new BigDecimal("37.44625487247741"));
+        Coordinate minLongitude = new Longitude(new BigDecimal("126.75578831035362"));
+        Coordinate maxLongitude = new Longitude(new BigDecimal("126.7771487382762"));
+
+        //data : {ha: 126.75578831035362, oa: 126.7951487382762, pa: 37.41847533960485, qa: 37.45625487247741}, // 205개
+//        Coordinate minLatitude = new Latitude(new BigDecimal("37.41847533960485"));
+//        Coordinate maxLatitude = new Latitude(new BigDecimal("37.45625487247741"));
+//        Coordinate minLongitude = new Longitude(new BigDecimal("126.75578831035362"));
+//        Coordinate maxLongitude = new Longitude(new BigDecimal("126.7951487382762"));
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
 
         //when
         List<KakaoPlaceDto> kakaoPlaceList =  kakaoApiService.findPlaces("FD6", rect);
 
         //then
-        assertEquals("주문 취소시 상태는 CANCEL 이다.", "a", "s");
+        log.info("kakaoPlaceList: {}", kakaoPlaceList.size());
+//        assertThat(kakaoPlaceList.size()).isEqualTo(1);
     }
 
 

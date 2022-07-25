@@ -70,10 +70,14 @@ subprojects {
 		annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
 		annotationProcessor "org.projectlombok:lombok:1.18.16"
 
-		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+//		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//		testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+//
+//		testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 
-		testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+		testImplementation('org.springframework.boot:spring-boot-starter-test') {
+			exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+		}
 
 //		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 //		implementation 'org.springframework.boot:spring-boot-devtools'

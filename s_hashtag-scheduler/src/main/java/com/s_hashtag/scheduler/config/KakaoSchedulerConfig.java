@@ -30,15 +30,16 @@ public class KakaoSchedulerConfig {
 
 //    private static final String EXPRESSION = "0 0 2 1 * ?";
 
+    @Bean
+    public KakaoScheduler kakaoPlaceScheduler() {
+        return new KakaoScheduler(()-> System.out.println("aaa"), new CronPeriod("0/3 * * * * *"));
+    }
+
 //    @Bean
 //    public KakaoScheduler kakaoPlaceScheduler(String expression) {
 //        return new KakaoScheduler(getKakaoPlaceJob(), new CronPeriod(expression));
 //    }
 
-    @Bean
-    public KakaoScheduler kakaoPlaceScheduler() {
-        return new KakaoScheduler(()-> System.out.println("aaa"), new CronPeriod("0/3 * * * * *"));
-    }
 
 //    @Bean
 //    public InstagramScheduler InstagramCrawlingScheduler(String expression) {
