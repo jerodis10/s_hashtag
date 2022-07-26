@@ -1,9 +1,10 @@
 package com.s_hashtag.scheduler.config;
 
+import com.s_hashtag.InstagramScheduler;
 import com.s_hashtag.batch.config.JobConfiguration;
+import com.s_hashtag.common.schedule.repository.ScheduleRepository;
 import com.s_hashtag.scheduler.CronPeriod;
 import com.s_hashtag.scheduler.KakaoScheduler;
-import com.s_hashtag.scheduler.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.JobParameter;
@@ -43,9 +44,14 @@ public class KakaoSchedulerConfig {
         return new KakaoScheduler(getKakaoPlaceJob(), new CronPeriod(expression));
     }
 
+    @Bean
+    public InstagramScheduler InstagramCrawlingScheduler() {
+        return new InstagramScheduler(()-> log.info("aaa"), new CronPeriod("0/3 * * * * *"));
+    }
 
 //    @Bean
-//    public InstagramScheduler InstagramCrawlingScheduler(String expression) {
+//    public InstagramScheduler InstagramCrawlingScheduler() {
+//        String expression = scheduleRepository.findById("InstagramScheduler").getCron_period();
 //        return new InstagramScheduler(getInstagramCrawlingJob(), new CronPeriod(expression));
 //    }
 //
@@ -62,6 +68,7 @@ public class KakaoSchedulerConfig {
             JobParameters jobParameters = new JobParameters(confMap);
 
             try {
+                log.info("aaa");
                 jobLauncher.run(jobConfiguration.kakaoPlaceJob(), jobParameters);
             } catch (JobInstanceAlreadyCompleteException e) {
                 log.error(e.getMessage());
@@ -83,6 +90,7 @@ public class KakaoSchedulerConfig {
             JobParameters jobParameters = new JobParameters(confMap);
 
             try {
+                log.info("aaa");
                 jobLauncher.run(jobConfiguration.InstagramCrawlingJob(), jobParameters);
             } catch (JobInstanceAlreadyCompleteException e) {
                 log.error(e.getMessage());

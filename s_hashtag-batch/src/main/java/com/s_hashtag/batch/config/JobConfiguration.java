@@ -14,6 +14,7 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.database.JdbcCursorItemReader;
 import org.springframework.batch.item.database.builder.JdbcCursorItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
@@ -63,6 +64,7 @@ public class JobConfiguration {
     }
 
     @Bean
+//    @StepScope
     public Step kakaoStep() {
         return stepBuilderFactory.get("kakaoStep")
                 .<KakaoPlaceDto, KakaoPlaceDto>chunk(batchConfiguration.getChunk())
@@ -72,6 +74,7 @@ public class JobConfiguration {
     }
 
     @Bean
+//    @StepScope
     public Step crawlingStep() {
         return stepBuilderFactory.get("crawlingStep")
                 .<Place, CrawlingDto>chunk(batchConfiguration.getChunk())
@@ -83,13 +86,14 @@ public class JobConfiguration {
 
 
     @Bean
+//    @StepScope
     public JdbcCursorItemReader<KakaoPlaceDto> KakaoBatchReader() {
         return new JdbcCursorItemReaderBuilder<KakaoPlaceDto>()
                 .name("kakaoJdbcCursorItemReader")
                 .fetchSize(batchConfiguration.getChunk())
                 .dataSource(dataSource)
                 .rowMapper(new BeanPropertyRowMapper<>(KakaoPlaceDto.class))
-                .sql("select category, placeName from ")
+                .sql("select category, placeName from KAKAO_DOCUMENT")
                 .build();
     }
 

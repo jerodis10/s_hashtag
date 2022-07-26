@@ -1,7 +1,8 @@
 package com.s_hashtag.scheduler.service;
 
+import com.s_hashtag.InstagramScheduler;
+import com.s_hashtag.common.schedule.repository.ScheduleRepository;
 import com.s_hashtag.scheduler.KakaoScheduler;
-import com.s_hashtag.scheduler.repository.ScheduleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class KakaoScheduleService {
 
     private final KakaoScheduler kakaoScheduler;
-//    private final InstagramScheduler instagramScheduler;
+    private final InstagramScheduler instagramScheduler;
 //    private final KakaoInstagramScheduler kakaoInstagramScheduler;
     private final ScheduleRepository scheduleRepository;
 //    private final KakaoSchedulerConfig kakaoSchedulerConfig;
@@ -35,6 +36,8 @@ public class KakaoScheduleService {
     public boolean getKakaoScheduleActiveStatus(String scheduleName) {
         if(scheduleName.equals(kakaoScheduler.toString())) {
             return kakaoScheduler.isActive();
+        } else if(scheduleName.equals(instagramScheduler.toString())) {
+            return instagramScheduler.isActive();
         }
 //        else if(scheduleName.equals(instagramScheduler.toString())) {
 //            return instagramScheduler.isActive();
@@ -48,6 +51,8 @@ public class KakaoScheduleService {
     public void startSchedule(String scheduleId) {
         if(scheduleId.equals(kakaoScheduler.toString())) {
             kakaoScheduler.start();
+        } else if(scheduleId.equals(instagramScheduler.toString())) {
+            instagramScheduler.start();
         }
 //        else if(scheduleName.equals(instagramScheduler.toString())) {
 //            instagramScheduler.start();
@@ -61,6 +66,8 @@ public class KakaoScheduleService {
     public void stopSchedule(String scheduleName) {
         if(scheduleName.equals(kakaoScheduler.toString())) {
             kakaoScheduler.stop();
+        } else if(scheduleName.equals(instagramScheduler.toString())) {
+            instagramScheduler.stop();
         }
 //        else if(scheduleName.equals(instagramScheduler.toString())) {
 //            instagramScheduler.stop();
