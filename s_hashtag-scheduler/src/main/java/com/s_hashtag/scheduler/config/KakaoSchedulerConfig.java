@@ -44,16 +44,16 @@ public class KakaoSchedulerConfig {
         return new KakaoScheduler(getKakaoPlaceJob(), new CronPeriod(expression));
     }
 
-    @Bean
-    public InstagramScheduler InstagramCrawlingScheduler() {
-        return new InstagramScheduler(()-> log.info("aaa"), new CronPeriod("0/3 * * * * *"));
-    }
-
 //    @Bean
 //    public InstagramScheduler InstagramCrawlingScheduler() {
-//        String expression = scheduleRepository.findById("InstagramScheduler").getCron_period();
-//        return new InstagramScheduler(getInstagramCrawlingJob(), new CronPeriod(expression));
+//        return new InstagramScheduler(()-> log.info("aaa"), new CronPeriod("0/3 * * * * *"));
 //    }
+
+    @Bean
+    public InstagramScheduler InstagramCrawlingScheduler() {
+        String expression = scheduleRepository.findById("InstagramScheduler").getCron_period();
+        return new InstagramScheduler(getInstagramCrawlingJob(), new CronPeriod(expression));
+    }
 //
 //    @Bean
 //    public KakaoInstagramScheduler kakaoInstagramCrawlingScheduler(String expression) {

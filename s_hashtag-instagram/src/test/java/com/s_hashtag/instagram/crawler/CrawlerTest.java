@@ -2,6 +2,7 @@ package com.s_hashtag.instagram.crawler;
 
 import com.s_hashtag.instagram.proxy.Proxies;
 import com.s_hashtag.instagram.proxy.Proxy;
+import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.DisplayName;
@@ -28,6 +29,9 @@ class CrawlerTest {
 
 //    @Autowired
 //    private KakaoApiService kakaoApiService;
+
+//    @Autowired
+//    private InstagramCrawler instagramCrawler;
 
     @DisplayName("인자로 넘긴 인덱스에 해당하는 프록시로 잘 설정되는지 테스트")
     @Test
@@ -72,11 +76,29 @@ class CrawlerTest {
 //        Document doc= Jsoup.connect("https://www.instagram.com")
         Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?hl=ko")
 //        Document doc= Jsoup.connect("https://stackoverflow.com/questions/32623199/log-into-instagram-with-java")
-                .userAgent("Dooble/0.07 (de_CH) WebKit")
+//                .userAgent("Dooble/0.07 (de_CH) WebKit")
+                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19582")
                 .get();
 
         assertThat(doc).isNotNull();
     }
+
+//    @DisplayName("인스타그램 크롤링 해시태그 개수 테스트")
+//    @Test
+//    void crawlingHashTagCountTest() throws IOException {
+//
+////        System.setProperty("http.proxyHost", "107.182.135.43");
+////        System.setProperty("http.proxyPort", "8089");
+//
+////        Document doc= Jsoup.connect("https://www.instagram.com")
+//        String body = Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?hl=ko")
+////        Document doc= Jsoup.connect("https://stackoverflow.com/questions/32623199/log-into-instagram-with-java")
+//                .userAgent("Dooble/0.07 (de_CH) WebKit")
+//                .get().toString();
+//
+//        String hashTagName =  instagramCrawler.createCrawlingDto("도로시마켓", body, null).getHashtagName();
+//        assertThat(hashTagName).isGreaterThan("0");
+//    }
 
     @DisplayName("프록시 이용한 URL 테스트")
     @Test

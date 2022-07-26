@@ -141,6 +141,7 @@ public class Crawler {
 
             Document doc= Jsoup.connect(url)
                     .userAgent(USER_AGENT)
+                    .header("Referer", "https://www.tistory.com")
                     .get();
             return doc.toString();
 

@@ -2,6 +2,7 @@ package com.s_hashtag.api;
 
 import com.s_hashtag.instagram.dto.PlaceDto;
 import com.s_hashtag.instagram.repository.InstagramRepository;
+import com.s_hashtag.instagram.service.InstagramService;
 import com.s_hashtag.kakaoapi.domain.dto.Document;
 import com.s_hashtag.kakaoapi.domain.dto.KakaoPlaceDto;
 import com.s_hashtag.kakaoapi.domain.rect.Rect;
@@ -29,7 +30,8 @@ public class MapApiController {
 
     private final KakaoApiService kakaoApiService;
     private final InstagramRepository instagramRepository;
-    private final PlatformTransactionManager transactionManager;
+    private final InstagramService instagramService;
+//    private final PlatformTransactionManager transactionManager;
 
     @PostMapping("/kakaoMap")
     @ResponseBody
@@ -41,7 +43,7 @@ public class MapApiController {
 
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
 
-//        instagramService.saveCrawlingResults(rect);
+        instagramService.saveCrawlingResults(rect);
 
         return new ArrayList<KakaoPlaceDto>();
     }
