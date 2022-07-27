@@ -76,8 +76,8 @@ class CrawlerTest {
 //        Document doc= Jsoup.connect("https://www.instagram.com")
         Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?hl=ko")
 //        Document doc= Jsoup.connect("https://stackoverflow.com/questions/32623199/log-into-instagram-with-java")
-//                .userAgent("Dooble/0.07 (de_CH) WebKit")
-                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19582")
+                .userAgent("Dooble/0.07 (de_CH) WebKit")
+//                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19582")
                 .get();
 
         assertThat(doc).isNotNull();
