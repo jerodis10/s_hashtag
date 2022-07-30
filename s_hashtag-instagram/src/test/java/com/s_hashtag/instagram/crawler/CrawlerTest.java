@@ -75,12 +75,27 @@ class CrawlerTest {
 
 //        Document doc= Jsoup.connect("https://www.instagram.com")
         Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?hl=ko")
+//        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/버거킹인천서창SK점/?hl=ko")
 //        Document doc= Jsoup.connect("https://stackoverflow.com/questions/32623199/log-into-instagram-with-java")
                 .userAgent("Dooble/0.07 (de_CH) WebKit")
 //                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19582")
                 .get();
 
         assertThat(doc).isNotNull();
+    }
+
+    @DisplayName("인스타그램 크롤링 봇탐지 테스트")
+    @Test
+    void crawlingBotTest() throws IOException {
+        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?hl=ko")
+//        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/버거킹인천서창SK점/?hl=ko")
+                .userAgent("Dooble/0.07 (de_CH) WebKit")
+//                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19582")
+                .get();
+        String robot = RegexPattern.ROBOT.extract(doc.toString());
+//        String robot
+        assertThat(robot).isEqualTo("robots");
+//        assertThat(doc).isNotNull();
     }
 
 //    @DisplayName("인스타그램 크롤링 해시태그 개수 테스트")

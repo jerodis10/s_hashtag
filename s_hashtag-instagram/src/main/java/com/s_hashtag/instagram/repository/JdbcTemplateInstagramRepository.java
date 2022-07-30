@@ -5,6 +5,7 @@ import com.s_hashtag.instagram.dto.PlaceDto;
 import com.s_hashtag.instagram.dto.PostDto;
 import com.s_hashtag.kakaoapi.domain.dto.Document;
 import com.s_hashtag.kakaoapi.domain.rect.Rect;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -13,6 +14,7 @@ import javax.sql.DataSource;
 import java.util.*;
 
 @Repository
+@Slf4j
 public class JdbcTemplateInstagramRepository implements InstagramRepository {
 
     private final JdbcTemplate jdbcTemplate;
@@ -26,6 +28,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
 
     @Override
     public void instagram_save(CrawlingDto crawlingDto, Document document) {
+        log.info("insert crawling HashtagName = {}", crawlingDto.getHashtagName());
         String sql_instagram_save =
                         "merge into instagram " +
                         "using dual " +

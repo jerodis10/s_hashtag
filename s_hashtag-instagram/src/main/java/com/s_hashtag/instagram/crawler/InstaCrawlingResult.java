@@ -29,6 +29,10 @@ public class InstaCrawlingResult {
         return RegexPattern.HASH_TAG_COUNT.extract(body);
     }
 
+    public String checkRobot() {
+        return RegexPattern.ROBOT.extract(body);
+    }
+
     public PostDtos findPostDtos() {
         List<PostDto> postDtos = new ArrayList<>();
         String popularPostsInfo = RegexPattern.HASHTAG_POPULAR_POSTS_INFO.extract(body);

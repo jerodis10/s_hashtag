@@ -33,7 +33,9 @@ public class InstagramCrawler {
 //        ClassPathResource resource = new ClassPathResource("test.txt");
 //        body = new String(Files.readAllBytes(Paths.get(resource.getURI())));
         InstaCrawlingResult instaCrawlingResult = new InstaCrawlingResult(body);
+        String robot = instaCrawlingResult.checkRobot();
         String instagramId = instaCrawlingResult.findInstagramId();
+//        if(instagramId == null) return null;
         String hashTagCount = instaCrawlingResult.findHashTagCount();
         PostDtos postDtos = instaCrawlingResult.findPostDtos();
         return CrawlingDto.of(instagramId, kakaoId, hashtagName, hashTagCount, postDtos);
@@ -46,7 +48,7 @@ public class InstagramCrawler {
         log.info("Proxy Host = {}, Port = {}", System.getProperty("http.proxyHost"), System.getProperty("http.proxyPort"));
         String body = crawler.crawl(String.format(INSTAGRAM_URL_FORMAT, parsedHashtagName));
         if(body != null){
-            log.info("insert HashtagName = {}", parsedHashtagName);
+            log.info("before crawling HashtagName = {}", parsedHashtagName);
             return createCrawlingDto(parsedHashtagName, body, kakaoId);
         }
 
