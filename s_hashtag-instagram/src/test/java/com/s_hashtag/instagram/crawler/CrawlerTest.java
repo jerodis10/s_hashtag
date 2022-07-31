@@ -3,6 +3,7 @@ package com.s_hashtag.instagram.crawler;
 import com.s_hashtag.instagram.proxy.Proxies;
 import com.s_hashtag.instagram.proxy.Proxy;
 import com.s_hashtag.kakaoapi.service.KakaoApiService;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.DisplayName;
@@ -25,6 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 //@SpringBootTest
+@Slf4j
 class CrawlerTest {
 
 //    @Autowired
@@ -32,6 +34,9 @@ class CrawlerTest {
 
 //    @Autowired
 //    private InstagramCrawler instagramCrawler;
+
+    @Autowired
+    private InstaCrawlingResult instaCrawlingResult;
 
     @DisplayName("인자로 넘긴 인덱스에 해당하는 프록시로 잘 설정되는지 테스트")
     @Test
@@ -80,7 +85,7 @@ class CrawlerTest {
                 .userAgent("Dooble/0.07 (de_CH) WebKit")
 //                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19582")
                 .get();
-
+        String hashtagCount = RegexPattern.HASH_TAG_COUNT.extract(doc.toString());
         assertThat(doc).isNotNull();
     }
 
