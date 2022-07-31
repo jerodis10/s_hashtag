@@ -29,6 +29,10 @@ public class InstaCrawlingResult {
         return RegexPattern.HASH_TAG_COUNT.extract(body);
     }
 
+    public String findPostCount() {
+        return RegexPattern.POST_COUNT.extract(body);
+    }
+
     public String checkRobot() {
         return RegexPattern.ROBOT.extract(body);
     }

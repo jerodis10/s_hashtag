@@ -21,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -71,6 +72,20 @@ class CrawlerTest {
         assertThat(extracted).isEqualTo("17842213252071142");
     }
 
+    @DisplayName("인스타그램 아이디 정규식 테스트2")
+    @Test
+    void patternTest2() throws IOException {
+
+//        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?hl=ko")
+        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/삼겹살/?hl=ko")
+                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19582")
+                .get();
+
+        String counnt = RegexPattern.POST_COUNT.extract(doc.toString());
+
+        assertThat(counnt).isEqualTo("578");
+    }
+
     @DisplayName("인스타그램 크롤링 테스트")
     @Test
     void crawlingTest() throws IOException {
@@ -80,12 +95,16 @@ class CrawlerTest {
 
 //        Document doc= Jsoup.connect("https://www.instagram.com")
         Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?hl=ko")
+//        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/삼겹살/?hl=ko")
+//        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?__a=1&__d=dis")
+//        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?__a")
 //        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/버거킹인천서창SK점/?hl=ko")
 //        Document doc= Jsoup.connect("https://stackoverflow.com/questions/32623199/log-into-instagram-with-java")
-                .userAgent("Dooble/0.07 (de_CH) WebKit")
-//                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19582")
+//                .userAgent("Dooble/0.07 (de_CH) WebKit")
+                .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19582")
                 .get();
-        String hashtagCount = RegexPattern.HASH_TAG_COUNT.extract(doc.toString());
+//        String hashtagCount = RegexPattern.HASH_TAG_COUNT.extract(doc.toString());
+        String likeCount = RegexPattern.LIKE_COUNT.extract(doc.toString());
         assertThat(doc).isNotNull();
     }
 

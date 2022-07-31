@@ -36,7 +36,8 @@ public class InstagramCrawler {
         String robot = instaCrawlingResult.checkRobot();
         String instagramId = instaCrawlingResult.findInstagramId();
 //        if(instagramId == null) return null;
-        String hashTagCount = instaCrawlingResult.findHashTagCount();
+//        String hashTagCount = instaCrawlingResult.findHashTagCount();
+        String hashTagCount = instaCrawlingResult.findPostCount();
         PostDtos postDtos = instaCrawlingResult.findPostDtos();
         return CrawlingDto.of(instagramId, kakaoId, hashtagName, hashTagCount, postDtos);
     }
