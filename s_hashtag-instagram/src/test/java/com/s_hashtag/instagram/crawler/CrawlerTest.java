@@ -95,6 +95,7 @@ class CrawlerTest {
 
 //        Document doc= Jsoup.connect("https://www.instagram.com")
         Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?hl=ko")
+//        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/양평해장국/?hl=ko")
 //        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/삼겹살/?hl=ko")
 //        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?__a=1&__d=dis")
 //        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?__a")
@@ -103,8 +104,8 @@ class CrawlerTest {
 //                .userAgent("Dooble/0.07 (de_CH) WebKit")
                 .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19582")
                 .get();
-//        String hashtagCount = RegexPattern.HASH_TAG_COUNT.extract(doc.toString());
-        String likeCount = RegexPattern.LIKE_COUNT.extract(doc.toString());
+        String hashtagCount = RegexPattern.HASH_TAG_COUNT.extract(doc.toString());
+//        String likeCount = RegexPattern.LIKE_COUNT.extract(doc.toString());
         assertThat(doc).isNotNull();
     }
 

@@ -33,7 +33,7 @@ public class InstagramCrawler {
 //        ClassPathResource resource = new ClassPathResource("test.txt");
 //        body = new String(Files.readAllBytes(Paths.get(resource.getURI())));
         InstaCrawlingResult instaCrawlingResult = new InstaCrawlingResult(body);
-        String robot = instaCrawlingResult.checkRobot();
+//        String robot = instaCrawlingResult.checkRobot();
         String instagramId = instaCrawlingResult.findInstagramId();
 //        if(instagramId == null) return null;
 //        String hashTagCount = instaCrawlingResult.findHashTagCount();
