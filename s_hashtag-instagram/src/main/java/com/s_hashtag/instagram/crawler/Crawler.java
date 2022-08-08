@@ -142,7 +142,8 @@ public class Crawler {
 
             Document doc= Jsoup.connect(url)
                     .userAgent(USER_AGENT)
-                    .header("Referer", "https://www.tistory.com")
+//                    .header("Referer", "https://www.tistory.com")
+                    .header("Referer", "https://www.instagram.com")
                     .get();
             return doc.toString();
 
