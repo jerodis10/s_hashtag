@@ -1,8 +1,8 @@
 package com.s_hashtag.kakaoapi.config;
 
-import com.s_hashtag.kakaoapi.domain.caller.KakaoProperties;
-import com.s_hashtag.kakaoapi.domain.caller.KakaoRestTemplateApiCaller;
-import com.s_hashtag.kakaoapi.domain.caller.KakaoRestTemplateBuilder;
+import com.s_hashtag.kakaoapi.caller.KakaoProperties;
+import com.s_hashtag.kakaoapi.caller.KakaoRestTemplateApiCaller;
+import com.s_hashtag.kakaoapi.caller.KakaoRestTemplateBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

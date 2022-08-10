@@ -1,8 +1,8 @@
 package com.s_hashtag.scheduler.service;
 
-import com.s_hashtag.InstagramScheduler;
+import com.s_hashtag.scheduler.model.vo.InstagramScheduler;
 import com.s_hashtag.common.schedule.repository.ScheduleRepository;
-import com.s_hashtag.scheduler.KakaoScheduler;
+import com.s_hashtag.scheduler.model.vo.KakaoScheduler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

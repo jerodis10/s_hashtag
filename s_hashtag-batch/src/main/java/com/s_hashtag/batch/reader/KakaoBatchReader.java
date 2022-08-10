@@ -2,11 +2,11 @@ package com.s_hashtag.batch.reader;
 
 import com.s_hashtag.common.schedule.model.Schedule;
 import com.s_hashtag.common.schedule.repository.ScheduleRepository;
-import com.s_hashtag.kakaoapi.domain.dto.KakaoPlaceDto;
-import com.s_hashtag.kakaoapi.domain.rect.Rect;
-import com.s_hashtag.kakaoapi.domain.rect.location.Coordinate;
-import com.s_hashtag.kakaoapi.domain.rect.location.Latitude;
-import com.s_hashtag.kakaoapi.domain.rect.location.Longitude;
+import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
+import com.s_hashtag.kakaoapi.rect.Rect;
+import com.s_hashtag.kakaoapi.rect.location.Coordinate;
+import com.s_hashtag.kakaoapi.rect.location.Latitude;
+import com.s_hashtag.kakaoapi.rect.location.Longitude;
 import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemReader;

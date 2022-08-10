@@ -1,6 +1,6 @@
 package com.s_hashtag.api;
 
-import com.s_hashtag.model.LoginForm;
+import com.s_hashtag.dto.presentation.LoginForm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -1,6 +1,6 @@
 package com.s_hashtag.instagram.dto;
 
-import com.s_hashtag.kakaoapi.domain.dto.Document;
+import com.s_hashtag.kakaoapi.dto.external.Document;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

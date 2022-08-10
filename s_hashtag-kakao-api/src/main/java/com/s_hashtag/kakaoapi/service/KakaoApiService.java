@@ -1,20 +1,15 @@
 package com.s_hashtag.kakaoapi.service;
 
-import com.s_hashtag.kakaoapi.domain.caller.KakaoRestTemplateApiCaller;
-import com.s_hashtag.kakaoapi.domain.dto.Document;
-import com.s_hashtag.kakaoapi.domain.dto.KakaoPlaceDto;
-import com.s_hashtag.kakaoapi.domain.rect.Rect;
-import com.s_hashtag.kakaoapi.domain.rect.RectDivider;
-import com.s_hashtag.kakaoapi.domain.rect.location.Coordinate;
-import com.s_hashtag.kakaoapi.domain.rect.location.Latitude;
-import com.s_hashtag.kakaoapi.domain.rect.location.Longitude;
+import com.s_hashtag.kakaoapi.caller.KakaoRestTemplateApiCaller;
+import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
+import com.s_hashtag.kakaoapi.rect.Rect;
+import com.s_hashtag.kakaoapi.rect.RectDivider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Service

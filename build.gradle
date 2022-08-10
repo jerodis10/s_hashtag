@@ -158,6 +158,7 @@ project(':s_hashtag-scheduler') {
 project(':s_hashtag-admin') {
 	dependencies {
 		implementation project(':s_hashtag-common')
+		implementation project(':s_hashtag-security')
 	}
 }
 

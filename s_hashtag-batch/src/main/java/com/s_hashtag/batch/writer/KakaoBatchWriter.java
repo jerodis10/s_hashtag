@@ -1,8 +1,7 @@
 package com.s_hashtag.batch.writer;
 
-import com.s_hashtag.instagram.repository.InstagramRepository;
-import com.s_hashtag.kakaoapi.domain.dto.Document;
-import com.s_hashtag.kakaoapi.domain.dto.KakaoPlaceDto;
+import com.s_hashtag.kakaoapi.dto.external.Document;
+import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
 import com.s_hashtag.kakaoapi.repository.KakaoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

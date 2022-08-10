@@ -1,17 +1,10 @@
 package com.s_hashtag.kakaoapi.config;
 
-import com.s_hashtag.kakaoapi.domain.caller.AbProperties;
-import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import com.s_hashtag.kakaoapi.caller.AbProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.Properties;
 
 @Component
 public class test implements ApplicationRunner {

@@ -1,6 +1,6 @@
 package com.s_hashtag.repository;
 
-import com.s_hashtag.model.Member;
+import com.s_hashtag.dto.presentation.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;

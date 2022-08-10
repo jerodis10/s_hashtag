@@ -1,6 +1,5 @@
 package com.s_hashtag.instagram.dto;
 
-import com.s_hashtag.kakaoapi.domain.rect.location.Coordinate;
 import lombok.*;
 
 @Getter

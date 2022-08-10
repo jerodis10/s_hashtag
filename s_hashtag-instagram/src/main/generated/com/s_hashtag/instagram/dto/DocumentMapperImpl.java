@@ -1,7 +1,7 @@
 package com.s_hashtag.instagram.dto;
 
-import com.s_hashtag.kakaoapi.domain.dto.Document;
-import com.s_hashtag.kakaoapi.domain.dto.Document.DocumentBuilder;
+import com.s_hashtag.kakaoapi.dto.external.Document;
+import com.s_hashtag.kakaoapi.dto.external.Document.DocumentBuilder;
 import javax.annotation.Generated;
 import org.springframework.stereotype.Component;
 

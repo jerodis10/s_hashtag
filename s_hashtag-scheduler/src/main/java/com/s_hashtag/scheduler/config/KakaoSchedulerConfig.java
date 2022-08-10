@@ -1,10 +1,10 @@
 package com.s_hashtag.scheduler.config;
 
-import com.s_hashtag.InstagramScheduler;
+import com.s_hashtag.scheduler.model.vo.InstagramScheduler;
 import com.s_hashtag.batch.config.JobConfiguration;
 import com.s_hashtag.common.schedule.repository.ScheduleRepository;
-import com.s_hashtag.scheduler.CronPeriod;
-import com.s_hashtag.scheduler.KakaoScheduler;
+import com.s_hashtag.scheduler.model.vo.CronPeriod;
+import com.s_hashtag.scheduler.model.vo.KakaoScheduler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.JobParameter;

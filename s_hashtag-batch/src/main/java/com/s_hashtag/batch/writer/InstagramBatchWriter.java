@@ -2,7 +2,7 @@ package com.s_hashtag.batch.writer;
 
 import com.s_hashtag.instagram.dto.CrawlingDto;
 import com.s_hashtag.instagram.repository.InstagramRepository;
-import com.s_hashtag.kakaoapi.domain.dto.Document;
+import com.s_hashtag.kakaoapi.dto.external.Document;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Component;
