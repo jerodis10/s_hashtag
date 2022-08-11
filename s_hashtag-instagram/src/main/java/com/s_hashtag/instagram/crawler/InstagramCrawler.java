@@ -18,9 +18,9 @@ import java.nio.file.Paths;
 //@RequiredArgsConstructor
 @Slf4j
 public class InstagramCrawler {
-    private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/explore/tags/%s/?hl=ko";
+//    private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/explore/tags/%s/?hl=ko";
 //    private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/explore/tags/%s/?__a=1";
-//private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/explore/tags/%s/?__a=1&__d=dis";
+private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/explore/tags/%s/?__a=1&__d=dis";
 
     private final Crawler crawler;
 
@@ -36,8 +36,9 @@ public class InstagramCrawler {
 //        String robot = instaCrawlingResult.checkRobot();
         String instagramId = instaCrawlingResult.findInstagramId();
 //        if(instagramId == null) return null;
-//        String hashTagCount = instaCrawlingResult.findHashTagCount();
-        String hashTagCount = instaCrawlingResult.findPostCount();
+        String hashTagCount = instaCrawlingResult.findHashTagCount();
+//        if(hashTagCount == null) hashTagCount = instaCrawlingResult.findPostCount();
+//        if(hashTagCount == null) return null;
         PostDtos postDtos = instaCrawlingResult.findPostDtos();
         return CrawlingDto.of(instagramId, kakaoId, hashtagName, hashTagCount, postDtos);
     }

@@ -144,6 +144,7 @@ public class Crawler {
                     .userAgent(USER_AGENT)
 //                    .header("Referer", "https://www.tistory.com")
                     .header("Referer", "https://www.instagram.com")
+                    .ignoreContentType(true)
                     .get();
             return doc.toString();
 
