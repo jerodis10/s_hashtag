@@ -5,6 +5,7 @@ import com.s_hashtag.instagram.repository.InstagramRepository;
 import com.s_hashtag.instagram.service.InstagramService;
 import com.s_hashtag.kakaoapi.dto.external.Document;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
+import com.s_hashtag.kakaoapi.dto.presentation.KakaoMapDto;
 import com.s_hashtag.kakaoapi.rect.Rect;
 import com.s_hashtag.kakaoapi.rect.location.Coordinate;
 import com.s_hashtag.kakaoapi.rect.location.Latitude;
@@ -15,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,26 +49,33 @@ public class MapApiController {
         return new ArrayList<KakaoPlaceDto>();
     }
 
-    @GetMapping("/getHashtag")
-    @ResponseBody
-    public List<PlaceDto> getHashtag(@RequestParam HashMap<String, Object> param) {
-        List<Map<String, Object>> list = new ArrayList<>();
-        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
-        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
-        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
-        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
-        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
-
-//        return instagramRepository.getHashtag(Arrays.asList((String) param.get("category_list[]")), rect);
-        return instagramRepository.getHashtag((String) param.get("category_list"), rect);
-    }
-
-//    @GetMapping("/admin/members/getHashtag")
+//    @GetMapping("/getHashtag")
 //    @ResponseBody
-//    public String getHashtag() {
+//    public List<PlaceDto> getHashtag(@RequestParam HashMap<String, Object> param) {
+//        List<Map<String, Object>> list = new ArrayList<>();
+//        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
+//        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
+//        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
+//        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
+//        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
 //
-//        return "23";
+////        return instagramRepository.getHashtag(Arrays.asList((String) param.get("category_list[]")), rect);
+//        return instagramRepository.getHashtag((String) param.get("category_list"), rect);
 //    }
+
+    @GetMapping("/getHashtag")
+//    @PostMapping("/getHashtag")
+    @ResponseBody
+    public List<PlaceDto> getHashtag(@ModelAttribute KakaoMapDto kakaoMapDto) {
+//    public List<PlaceDto> getHashtag(@RequestParam String pa,
+//                                     @RequestParam String qa,
+//                                     @RequestParam String oa,
+//                                     @RequestParam String ha,
+//                                     @RequestParam String category_list) {
+//    public List<PlaceDto> getHashtag(@RequestParam @Valid KakaoMapDto kakaoMapDto) {
+//        return instagramRepository.getHashtag(kakaoMapDto.getCategory(), kakaoMapDto.CreateRect());
+        return new ArrayList<>();
+    }
 
     @GetMapping("/getHashtagByKeyword")
     @ResponseBody

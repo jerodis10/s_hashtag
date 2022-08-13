@@ -12,16 +12,16 @@ import java.util.Objects;
 public class Rect {
     private static final String COMMA = ",";
 
-    @JsonProperty("pa")
+//    @JsonProperty("pa")
     private Coordinate minLatitude;
 
-    @JsonProperty("qa")
+//    @JsonProperty("qa")
     private Coordinate maxLatitude;
 
-    @JsonProperty("oa")
+//    @JsonProperty("oa")
     private Coordinate minLongitude;
 
-    @JsonProperty("ha")
+//    @JsonProperty("ha")
     private Coordinate maxLongitude;
 
     public Rect(Coordinate minLatitude, Coordinate maxLatitude, Coordinate maxLongitude, Coordinate minLongitude) {

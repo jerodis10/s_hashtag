@@ -122,6 +122,12 @@ project(':s_hashtag-instagram') {
 	}
 }
 
+project(':s_hashtag-kakao-api') {
+	dependencies {
+		implementation project(':s_hashtag-common')
+	}
+}
+
 project(':s_hashtag-security') {
 	dependencies {
 		implementation 'org.springframework.boot:spring-boot-starter-security'

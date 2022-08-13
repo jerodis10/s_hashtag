@@ -1,7 +1,7 @@
 package com.s_hashtag.kakaoapi.rect.location;
 
-//import com.songpapeople.hashtagmap.kakaoapi.exception.KakaoApiException;
-//import com.songpapeople.hashtagmap.kakaoapi.exception.KakaoApiExceptionStatus;
+import com.s_hashtag.kakaoapi.exception.KakaoApiException;
+import com.s_hashtag.kakaoapi.exception.KakaoApiExceptionStatus;
 
 import java.math.BigDecimal;
 
@@ -25,8 +25,8 @@ public class Longitude extends Coordinate {
             return longitude;
         }
         String detailMessage = String.format("잘못된 경도 범위(%s)입니다.", longitude);
-//        throw new KakaoApiException(KakaoApiExceptionStatus.INVALID_LONGITUDE, detailMessage);
-        return new BigDecimal("0");
+        throw new KakaoApiException(KakaoApiExceptionStatus.INVALID_LONGITUDE, detailMessage);
+//        return new BigDecimal("0");
     }
 
     @Override

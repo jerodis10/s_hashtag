@@ -102,6 +102,7 @@ function kakaoMap() {
        url:'/api/kakaoMap',
        type:'POST',
        dataType: 'json',
+       data: rect,
 //          data: {ha: 124, oa: 132, pa: 33, qa: 43},
 //        data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564},
 //           data: {ha: 126.960, oa: 126.970, pa: 37.560, qa: 37.563},
@@ -145,16 +146,22 @@ function create_marker_test(map, category) {
         }
     });
 
+    var rect_json = {ha: 126.66578831035362, oa: 126.6851487382762, pa: 37.52847533960485, qa: 37.55625487247741,
+                    category_list: category};
+    var param = JSON.stringify(rect_json);
+
     $.ajax({
        url:'/api/getHashtag',
 //        url:'/getHashtag',
 //           url:'/api/admin/members/getHashtag',
        type:'GET',
+//        type:'POST',
        dataType: 'json',
 //       data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category_list},
 //        data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category},
-        data: {ha: 125, oa: 128, pa: 36, qa: 38, category_list: category},
-//        data: {num:1},
+//        data: {ha: 125, oa: 128, pa: 36, qa: 38, category_list: category},
+//        data: param,
+        data: {"ha": "125", "oa": "128", "pa": "36", "qa": "38", "category_list": category},
        success:function(data){
 //            console.log(data);
            marker_list = [];
