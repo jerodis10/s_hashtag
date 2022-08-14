@@ -156,8 +156,8 @@ public class Crawler {
 
         } catch (HttpStatusException e) {
             if (e.getStatusCode() == NOT_FOUND) {
-//                throw new CrawlerException(CrawlerExceptionStatus.NOT_FOUND_URL);
-                return null;
+                throw new CrawlerException(CrawlerExceptionStatus.NOT_FOUND_URL);
+//                return null;
             } else if (e.getStatusCode() == TOO_MANY_REQUEST) {
                 throw new CrawlerException(CrawlerExceptionStatus.TOO_MANY_REQUEST);
             }
