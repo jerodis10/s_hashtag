@@ -48,7 +48,11 @@ public class InstagramCrawler {
         String parsedHashtagName = crawlingName.replaceAll(" ", "");
 //        Thread.sleep(10000);
         log.info("Proxy Host = {}, Port = {}", System.getProperty("http.proxyHost"), System.getProperty("http.proxyPort"));
-        String body = crawler.crawl(String.format(INSTAGRAM_URL_FORMAT, parsedHashtagName));
+
+        UserAgentFactory userAgentFactory = new UserAgentFactory();
+        String user_agent = userAgentFactory.getUserAgent(userAgentFactory.create());
+
+        String body = crawler.crawl(String.format(INSTAGRAM_URL_FORMAT, parsedHashtagName), user_agent);
         if(body != null){
             log.info("before crawling HashtagName = {}", parsedHashtagName);
             return createCrawlingDto(parsedHashtagName, body, kakaoId);

@@ -13,6 +13,8 @@ import java.util.regex.Pattern;
 
 @NoArgsConstructor
 public class UserAgentFactory {
+    private static final String USER_AGENT =
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36";
     private static final String USER_AGENT_LIST_URL = "https://www.useragentstring.com/pages/All/";
     private static final String USER_AGENT_REGEX = "(Mozilla\\/.*)(?=<\\/a>)";
 //    private static final String USER_AGENT_REGEX = "(^Mozilla\\/.*)";
@@ -22,7 +24,7 @@ public class UserAgentFactory {
 
     public List<String> create() {
         Crawler crawler = new Crawler();
-        String body = crawler.crawl(USER_AGENT_LIST_URL);
+        String body = crawler.crawl(USER_AGENT_LIST_URL, USER_AGENT);
         Pattern pattern = Pattern.compile(USER_AGENT_REGEX);
         Matcher matcher = pattern.matcher(body);
 //        List<String> userAgentList = new ArrayList<>();

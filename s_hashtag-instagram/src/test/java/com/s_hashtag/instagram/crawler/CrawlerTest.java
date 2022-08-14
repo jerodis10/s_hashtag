@@ -132,7 +132,10 @@ class CrawlerTest {
     void userAgentTest() {
         UserAgentFactory userAgentFactory = new UserAgentFactory();
         List<String> list = userAgentFactory.create();
+        String userAgent = userAgentFactory.getUserAgent(list);
+
         assertThat(list.size()).isGreaterThan(0);
+        assertThat(userAgent).isNotNull();
     }
 
 //    @DisplayName("인스타그램 크롤링 해시태그 개수 테스트")

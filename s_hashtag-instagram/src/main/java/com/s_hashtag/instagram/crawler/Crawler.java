@@ -38,7 +38,7 @@ public class Crawler {
 //    Proxy proxy = new Proxy(Proxy.Type.HTTP,
 //            new InetSocketAddress("127.0.0.1", 1080));
 
-    public String crawl(String url) {
+    public String crawl(String url, String user_agent) {
         try {
 //            if(url.equals("https://free-proxy-list.net/")) {
 //                Document doc= Jsoup.connect(url)
@@ -140,8 +140,8 @@ public class Crawler {
 //
 //            return hashTagePageDocument.toString();
 
-            UserAgentFactory userAgentFactory = new UserAgentFactory();
-            String user_agent = userAgentFactory.getUserAgent(userAgentFactory.create());
+//            UserAgentFactory userAgentFactory = new UserAgentFactory();
+//            String user_agent = userAgentFactory.getUserAgent(userAgentFactory.create());
 
             Document doc= Jsoup.connect(url)
 //                    .userAgent(USER_AGENT)
