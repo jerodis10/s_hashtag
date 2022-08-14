@@ -1,41 +1,35 @@
 package com.s_hashtag.kakaoapi.dto.presentation;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.s_hashtag.kakaoapi.rect.Rect;
 import com.s_hashtag.kakaoapi.rect.location.Coordinate;
 import com.s_hashtag.kakaoapi.rect.location.Latitude;
 import com.s_hashtag.kakaoapi.rect.location.Longitude;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
-@Getter
+//@Builder
 //@Setter
-//@NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
+@Getter
+@NoArgsConstructor
 public class KakaoMapDto {
 
-//    @NotBlank
-//    @JsonAlias("pa")
-    @JsonProperty("pa")
+    @NotBlank
+    @JsonAlias("pa")
     private String minLatitude;
 
-    private String pa;
-
-//    @NotBlank
+    @NotBlank
     @JsonAlias("qa")
     private String maxLatitude;
 
-//    @NotBlank
+    @NotBlank
     @JsonAlias("oa")
     private String minLongitude;
 
-//    @NotBlank
+    @NotBlank
     @JsonAlias("ha")
     private String maxLongitude;
 

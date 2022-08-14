@@ -64,10 +64,10 @@ public class MapApiController {
 //        return instagramRepository.getHashtag((String) param.get("category_list"), rect);
 //    }
 
-    @GetMapping("/getHashtag")
-//    @PostMapping("/getHashtag")
+//    @GetMapping("/getHashtag")
+    @PostMapping(value = "/getHashtag")
     @ResponseBody
-    public List<PlaceDto> getHashtag(@ModelAttribute KakaoMapDto kakaoMapDto, BindingResult errors) {
+    public List<PlaceDto> getHashtag(@RequestBody KakaoMapDto kakaoMapDto, BindingResult errors) {
 //    public List<PlaceDto> getHashtag(@RequestParam String pa,
 //                                     @RequestParam String qa,
 //                                     @RequestParam String oa,
