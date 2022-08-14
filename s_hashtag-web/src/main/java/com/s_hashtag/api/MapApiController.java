@@ -14,6 +14,7 @@ import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -66,7 +67,7 @@ public class MapApiController {
     @GetMapping("/getHashtag")
 //    @PostMapping("/getHashtag")
     @ResponseBody
-    public List<PlaceDto> getHashtag(@ModelAttribute KakaoMapDto kakaoMapDto) {
+    public List<PlaceDto> getHashtag(@ModelAttribute KakaoMapDto kakaoMapDto, BindingResult errors) {
 //    public List<PlaceDto> getHashtag(@RequestParam String pa,
 //                                     @RequestParam String qa,
 //                                     @RequestParam String oa,
@@ -74,6 +75,10 @@ public class MapApiController {
 //                                     @RequestParam String category_list) {
 //    public List<PlaceDto> getHashtag(@RequestParam @Valid KakaoMapDto kakaoMapDto) {
 //        return instagramRepository.getHashtag(kakaoMapDto.getCategory(), kakaoMapDto.CreateRect());
+        if (errors.hasErrors()){
+            log.error("KakaoMapDto 바인딩 에러 : ", errors.getAllErrors());
+        }
+
         return new ArrayList<>();
     }
 

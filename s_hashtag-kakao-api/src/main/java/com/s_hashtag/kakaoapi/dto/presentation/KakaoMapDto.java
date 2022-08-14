@@ -14,9 +14,9 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
-@Setter
 @Getter
-@NoArgsConstructor
+//@Setter
+//@NoArgsConstructor
 @AllArgsConstructor
 public class KakaoMapDto {
 
@@ -25,7 +25,7 @@ public class KakaoMapDto {
     @JsonProperty("pa")
     private String minLatitude;
 
-//    private String pa;
+    private String pa;
 
 //    @NotBlank
     @JsonAlias("qa")

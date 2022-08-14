@@ -22,11 +22,13 @@ import java.util.Optional;
 @Component
 public class Crawler {
     private static final String USER_AGENT =
-//            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36";
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36";
 //                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.104 Whale/3.13.131.36 Safari/537.36";
 //                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.57 Safari/537.36";
 //            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36 Edge/18.19582";
-                "Dooble/0.07 (de_CH) WebKit";
+//                "Dooble/0.07 (de_CH) WebKit";
+//            "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:65.0) Gecko/20100101 Firefox/65.0')";
+//            "Googlebot";
     private static final int HOLDING_TIME = 7000;
     private static final int NOT_FOUND = 404;
     private static final int TOO_MANY_REQUEST = 429;
@@ -142,9 +144,13 @@ public class Crawler {
 
             Document doc= Jsoup.connect(url)
                     .userAgent(USER_AGENT)
+                    .referrer("https://www.instagram.com")
 //                    .header("Referer", "https://www.tistory.com")
-                    .header("Referer", "https://www.instagram.com")
+//                    .header("Referer", "https://www.instagram.com")
+                    .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
                     .ignoreContentType(true)
+                    .cookie("auth", "token")
+                    .timeout(10000)
                     .get();
             return doc.toString();
 

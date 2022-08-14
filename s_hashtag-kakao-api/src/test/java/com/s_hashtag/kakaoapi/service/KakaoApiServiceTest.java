@@ -57,7 +57,12 @@ class KakaoApiServiceTest {
     }
 
 
-
+    @DisplayName("substring Test")
+    @Test
+    void substringTest(){
+        if("asd".length() < 200) System.out.println("asd");
+        else System.out.println("sdf".substring(0,15));
+    }
 
 
 

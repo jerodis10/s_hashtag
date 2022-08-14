@@ -41,8 +41,8 @@ enum RegexPattern {
             else return matcher.group(2);
         }
 
-//        throw new CrawlerException(CrawlerExceptionStatus.NOT_FOUND_MATCH_REGEX);
-        return null;
+        throw new CrawlerException(CrawlerExceptionStatus.NOT_FOUND_MATCH_REGEX);
+//        return null;
     }
 
 //    public String roBotExtract(String body) {

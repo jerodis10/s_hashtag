@@ -102,7 +102,7 @@ function kakaoMap() {
        url:'/api/kakaoMap',
        type:'POST',
        dataType: 'json',
-       data: rect,
+//       data: rect,
 //          data: {ha: 124, oa: 132, pa: 33, qa: 43},
 //        data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564},
 //           data: {ha: 126.960, oa: 126.970, pa: 37.560, qa: 37.563},
