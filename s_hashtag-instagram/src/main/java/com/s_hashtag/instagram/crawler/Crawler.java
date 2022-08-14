@@ -140,12 +140,13 @@ public class Crawler {
 //
 //            return hashTagePageDocument.toString();
 
-
+            UserAgentFactory userAgentFactory = new UserAgentFactory();
+            String user_agent = userAgentFactory.getUserAgent(userAgentFactory.create());
 
             Document doc= Jsoup.connect(url)
-                    .userAgent(USER_AGENT)
+//                    .userAgent(USER_AGENT)
+                    .userAgent(user_agent)
                     .referrer("https://www.instagram.com")
-//                    .header("Referer", "https://www.tistory.com")
 //                    .header("Referer", "https://www.instagram.com")
                     .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
                     .ignoreContentType(true)

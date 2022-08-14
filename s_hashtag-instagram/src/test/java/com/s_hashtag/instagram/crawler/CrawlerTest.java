@@ -127,6 +127,14 @@ class CrawlerTest {
 //        assertThat(doc).isNotNull();
     }
 
+    @DisplayName("user-agent test")
+    @Test
+    void userAgentTest() {
+        UserAgentFactory userAgentFactory = new UserAgentFactory();
+        List<String> list = userAgentFactory.create();
+        assertThat(list.size()).isGreaterThan(0);
+    }
+
 //    @DisplayName("인스타그램 크롤링 해시태그 개수 테스트")
 //    @Test
 //    void crawlingHashTagCountTest() throws IOException {
