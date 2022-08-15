@@ -106,7 +106,6 @@ public class MapApiController {
     @ResponseBody
     public List<PlaceDto> getHashtagByKeyword(@RequestBody @Valid KakaoMapDto kakaoMapDto, BindingResult errors) {
         List<PlaceDto> placeList = new ArrayList<>();
-        List<PlaceDto> placeList_temp = new ArrayList<>();
         String temp = kakaoMapDto.getCategory();
         String[] categoryList = temp.split(",");
 
@@ -119,9 +118,7 @@ public class MapApiController {
                     KeywordStringList.add(document.getId());
                 }
             }
-            placeList_temp = instagramRepository.getHashtagByKeyword(category, KeywordStringList);
-            placeList.addAll(placeList_temp);
-//            placeList.addAll(instagramRepository.getHashtagByKeyword(category, KeywordStringList));
+            placeList.addAll(instagramRepository.getHashtagByKeyword(category, KeywordStringList));
         }
 
         return placeList;

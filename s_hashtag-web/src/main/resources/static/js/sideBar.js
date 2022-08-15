@@ -214,24 +214,48 @@ function getHashtagByKeyword(searchText, category) {
             console.log(data);
 
             if(data){
+                var overlay_CE7_temp = [];
+                var overlay_FD6_temp = [];
+//                if(be_level == undefined || be_level == null) be_level = 0;
+                var dir = (level - be_level) > 0 ? -1 : 0;
+                var latitude_adjust = 0.00018 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
+                var longitude_adjust = 0.000027 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
                 $.each(data, function(d_index, d_item){
                     $.each(marker_object['CE7'], function(index, item){
                         if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== item.getPosition().Ma.toFixed(13))
                             item.setMap(null);
                     });
                     $.each(overlay_object['CE7'], function(index, item){
-                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String(item.getPosition().Ma.toFixed(13)-0.001))
+                        if(String(d_item.longitude.toFixed(13) - (level - be_level) * longitude_adjust) !== item.getPosition().La.toFixed(13) ||
+                            String(d_item.latitude.toFixed(13) + (level - be_level) * latitude_adjust) !== item.getPosition().Ma.toFixed(13))
                             item.setMap(null);
+                        else overlay_CE7_temp.push(item);
                     });
                     $.each(marker_object['FD6'], function(index, item){
                         if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== item.getPosition().Ma.toFixed(13))
                             item.setMap(null);
+                        else console.log(index);
                     });
+
                     $.each(overlay_object['FD6'], function(index, item){
-                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String(item.getPosition().Ma.toFixed(13)-0.001))
+//                        console.log('name: ', item.getContent());
+//                        console.log('index : ', index ,' db data : ' , d_item.longitude.toFixed(13), ' 지도 data : ', item.getPosition().La.toFixed(13), ' 차이 : ', d_item.longitude.toFixed(13)-item.getPosition().La.toFixed(13));
+//                        console.log('조정 후 차이: ', Number(d_item.longitude.toFixed(13)) - (Number(item.getPosition().La.toFixed(13)) + longitude_adjust));
+                        if(d_item.longitude.toFixed(13) !== String((Number(item.getPosition().La.toFixed(13)) + longitude_adjust).toFixed(13)) ||
+                            d_item.latitude.toFixed(13) !== String((Number(item.getPosition().Ma.toFixed(13)) - latitude_adjust).toFixed(13)))
                             item.setMap(null);
+                        else overlay_FD6_temp.push(item);
                     });
+
+//                    $.each(overlay_object['FD6'], function(index, item){
+//                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) ||
+//                            String(d_item.latitude.toFixed(13) + (level - be_level) * latitude_adjust) !== item.getPosition().Ma.toFixed(13))
+//                            item.setMap(null);
+//                        else overlay_FD6_temp.push(item);
+//                    });
+
                 });
+                overlay_list = overlay_CE7_temp.concat(overlay_FD6_temp);
             }
        },
        error : function(e){

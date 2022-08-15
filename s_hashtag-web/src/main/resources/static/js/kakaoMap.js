@@ -231,6 +231,8 @@ function create_marker_test(map, category) {
                 });
 
                 overlay_list.push(customOverlay);
+//                console.log('item.hashtagName : ', item.hashtagName ,' item.longitude : ', item.longitude ,' customOverlay La : ', customOverlay.getPosition().La.toFixed(13), ' 차이 : ', item.longitude - customOverlay.getPosition().La.toFixed(13));
+//                console.log('customOverlay Ma : ', customOverlay.getPosition().Ma.toFixed(13));
            });
 
            marker_object[category] = marker_list;
