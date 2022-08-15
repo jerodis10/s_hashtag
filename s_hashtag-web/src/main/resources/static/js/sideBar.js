@@ -216,7 +216,6 @@ function getHashtagByKeyword(searchText, category) {
             if(data){
                 var overlay_CE7_temp = [];
                 var overlay_FD6_temp = [];
-//                if(be_level == undefined || be_level == null) be_level = 0;
                 var dir = (level - be_level) > 0 ? -1 : 0;
                 var latitude_adjust = 0.00018 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
                 var longitude_adjust = 0.000027 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
@@ -226,15 +225,15 @@ function getHashtagByKeyword(searchText, category) {
                             item.setMap(null);
                     });
                     $.each(overlay_object['CE7'], function(index, item){
-                        if(String(d_item.longitude.toFixed(13) - (level - be_level) * longitude_adjust) !== item.getPosition().La.toFixed(13) ||
-                            String(d_item.latitude.toFixed(13) + (level - be_level) * latitude_adjust) !== item.getPosition().Ma.toFixed(13))
+                        if(d_item.longitude.toFixed(13) !== String((Number(item.getPosition().La.toFixed(13)) + longitude_adjust).toFixed(13)) ||
+                            d_item.latitude.toFixed(13) !== String((Number(item.getPosition().Ma.toFixed(13)) - latitude_adjust).toFixed(13)))
                             item.setMap(null);
                         else overlay_CE7_temp.push(item);
                     });
                     $.each(marker_object['FD6'], function(index, item){
                         if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== item.getPosition().Ma.toFixed(13))
                             item.setMap(null);
-                        else console.log(index);
+//                        else console.log(index);
                     });
 
                     $.each(overlay_object['FD6'], function(index, item){
@@ -246,14 +245,6 @@ function getHashtagByKeyword(searchText, category) {
                             item.setMap(null);
                         else overlay_FD6_temp.push(item);
                     });
-
-//                    $.each(overlay_object['FD6'], function(index, item){
-//                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) ||
-//                            String(d_item.latitude.toFixed(13) + (level - be_level) * latitude_adjust) !== item.getPosition().Ma.toFixed(13))
-//                            item.setMap(null);
-//                        else overlay_FD6_temp.push(item);
-//                    });
-
                 });
                 overlay_list = overlay_CE7_temp.concat(overlay_FD6_temp);
             }
@@ -269,15 +260,24 @@ function getHashtagByCount(check_type, check_flag) {
     if(document.getElementById("btn_food").className === 'selected') category_arr.push(document.getElementById("btn_food").value);
     var category_param = category_arr.join(',');
 
+    var rect_json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741,
+                    "category_list": category_param, "check": check_type};
+    var param = JSON.stringify(rect_json);
+
     $.ajax({
            url:'/api/getHashtagByCount',
-           type:'GET',
+           type:'POST',
            dataType: 'json',
-           data: {ha: 126.96190764549995, oa: 126.99019733287525, pa: 37.56300112995975, qa: 37.5696007924915,   // 서울시청 주변
-                  category_list: category_param, check: check_type},
+           contentType : "application/json; charset=utf-8",
+           data: param,
+//           data: {ha: 126.96190764549995, oa: 126.99019733287525, pa: 37.56300112995975, qa: 37.5696007924915,   // 서울시청 주변
+//                  category_list: category_param, check: check_type},
            success:function(data){
                marker_list = [];
                overlay_list = [];
+               var dir = (level - be_level) > 0 ? -1 : 0;
+               var latitude_adjust = 0.00018 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
+               var longitude_adjust = 0.000027 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
                $.each(data, function(index, item){
                     if(check_flag) {
                         var img_src = "";
@@ -339,7 +339,7 @@ function getHashtagByCount(check_type, check_flag) {
                             '</div>'
 
                         // 커스텀 오버레이가 표시될 위치입니다
-                        var position = new kakao.maps.LatLng(item.latitude+0.001, item.longitude);
+                        var position = new kakao.maps.LatLng(item.latitude + latitude_adjust, item.longitude - longitude_adjust);
 
                         // 커스텀 오버레이를 생성합니다
                         var customOverlay = new kakao.maps.CustomOverlay({
@@ -354,7 +354,8 @@ function getHashtagByCount(check_type, check_flag) {
 
                         if(overlay_object['CE7'] != undefined){
                             $.each(overlay_object['CE7'], function(index, item){
-                                if(item.getPosition().La.toFixed(13) != customOverlay.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) != (customOverlay.getPosition().Ma-0.001).toFixed(13)){
+                                if(item.getPosition().La.toFixed(13) != customOverlay.getPosition().La.toFixed(13)
+                                    && item.getPosition().Ma.toFixed(13) != (customOverlay.getPosition().Ma).toFixed(13)){
                                     overlay_object['CE7'].push(customOverlay);
                                 }
                             });
@@ -362,7 +363,8 @@ function getHashtagByCount(check_type, check_flag) {
 
                         if(overlay_object['FD6'] != undefined){
                              $.each(overlay_object['FD6'], function(index, item){
-                                 if(item.getPosition().La.toFixed(13) != customOverlay.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) != (customOverlay.getPosition().Ma-0.001).toFixed(13)){
+                                 if(item.getPosition().La.toFixed(13) != customOverlay.getPosition().La.toFixed(13)
+                                    && item.getPosition().Ma.toFixed(13) != (customOverlay.getPosition().Ma).toFixed(13)){
                                      overlay_object['FD6'].push(customOverlay);
                                  }
                              });
@@ -385,14 +387,19 @@ function getHashtagByCount(check_type, check_flag) {
 
                         if(overlay_object['CE7'] != undefined){
                             $.each(overlay_object['CE7'], function(m_index, m_item){
-                                if(item.longitude == m_item.getPosition().La.toFixed(13) && item.latitude == (m_item.getPosition().Ma-0.001).toFixed(13)){
+                                if(item.longitude == m_item.getPosition().La.toFixed(13) && item.latitude == (m_item.getPosition().Ma).toFixed(13)){
                                     m_item.setMap(null);
                                 }
                             });
                         }
                         if(overlay_object['FD6'] != undefined){
                             $.each(overlay_object['FD6'], function(m_index, m_item){
-                                if(item.longitude == m_item.getPosition().La.toFixed(13) && item.latitude == (m_item.getPosition().Ma-0.001).toFixed(13)){
+//                                console.log('name: ', m_item.getContent());
+//                                console.log('index : ', index ,' db data : ' , item.longitude.toFixed(13), ' 지도 data : ', m_item.getPosition().La.toFixed(13), ' 차이 : ', item.longitude.toFixed(13)-m_item.getPosition().La.toFixed(13));
+//                                console.log('조정 후 차이: ', Number(item.longitude.toFixed(13)) - (Number(m_item.getPosition().La.toFixed(13)) + longitude_adjust));
+
+                                if(item.longitude == (m_item.getPosition().La + longitude_adjust).toFixed(13)
+                                    && item.latitude == (m_item.getPosition().Ma - latitude_adjust).toFixed(13)){
                                     m_item.setMap(null);
                                 }
                             });
@@ -418,150 +425,156 @@ function getHashtagByCount(check_type, check_flag) {
 }
 
 
-function getHashtagByCount2() {
-
-    var category_arr = [];
-    if(document.getElementById("btn_cafe").className === 'selected') category_arr.push(document.getElementById("btn_cafe").value);
-    if(document.getElementById("btn_food").className === 'selected') category_arr.push(document.getElementById("btn_food").value);
-    var category_param = category_arr.join(',');
-
-    var check1, check2, check3, check4, check5;
-    if(document.getElementById("btn_check1").className === 'bi-check-lg') check1 = true;
-    else check1 = false;
-    if(document.getElementById("btn_check2").className === 'bi-check-lg') check2 = true;
-    else check2 = false;
-    if(document.getElementById("btn_check3").className === 'bi-check-lg') check3 = true;
-    else check3 = false;
-    if(document.getElementById("btn_check4").className === 'bi-check-lg') check4 = true;
-    else check4 = false;
-    if(document.getElementById("btn_check5").className === 'bi-check-lg') check5 = true;
-    else check5 = false;
-
-    $.ajax({
-       url:'/api/getHashtagByCount',
-       type:'GET',
-       dataType: 'json',
-       data: {ha: 126.96190764549995, oa: 126.99019733287525, pa: 37.56300112995975, qa: 37.5696007924915, category_list: category_param,
-              check1: check1, check2: check2, check3: check3, check4: check4, check5: check5,}, // 서울시청 주변
-       success:function(data){
-            console.log(data);
-
-            if(data){
-//                $.each(marker_object['CE7'], function(index, item){
-//                    var flag = false;
-//                    $.each(data, function(d_index, d_item){
-//                        if(d_item.longitude.toFixed(13) === item.getPosition().La.toFixed(13)
-//                            && d_item.latitude.toFixed(13) === item.getPosition().Ma.toFixed(13)){
-//                                flag = true;
-//                                return false;
+//function getHashtagByCount2() {
+//
+//    var category_arr = [];
+//    if(document.getElementById("btn_cafe").className === 'selected') category_arr.push(document.getElementById("btn_cafe").value);
+//    if(document.getElementById("btn_food").className === 'selected') category_arr.push(document.getElementById("btn_food").value);
+//    var category_param = category_arr.join(',');
+//
+//    var check1, check2, check3, check4, check5;
+//    if(document.getElementById("btn_check1").className === 'bi-check-lg') check1 = true;
+//    else check1 = false;
+//    if(document.getElementById("btn_check2").className === 'bi-check-lg') check2 = true;
+//    else check2 = false;
+//    if(document.getElementById("btn_check3").className === 'bi-check-lg') check3 = true;
+//    else check3 = false;
+//    if(document.getElementById("btn_check4").className === 'bi-check-lg') check4 = true;
+//    else check4 = false;
+//    if(document.getElementById("btn_check5").className === 'bi-check-lg') check5 = true;
+//    else check5 = false;
+//
+//    var rect_json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741,
+//                        "category_list": category_param, "check1": check1, "check2": check2, "check3": check3, "check4": check4, "check5": check5};
+//    var param = JSON.stringify(rect_json);
+//
+//    $.ajax({
+//       url:'/api/getHashtagByCount',
+//       type:'POST',
+//       dataType: 'json',
+//       contentType : "application/json; charset=utf-8",
+//       data: param,
+////       data: {ha: 126.96190764549995, oa: 126.99019733287525, pa: 37.56300112995975, qa: 37.5696007924915, category_list: category_param,
+////              check1: check1, check2: check2, check3: check3, check4: check4, check5: check5,}, // 서울시청 주변
+//       success:function(data){
+//            console.log(data);
+//
+//            if(data){
+////                $.each(marker_object['CE7'], function(index, item){
+////                    var flag = false;
+////                    $.each(data, function(d_index, d_item){
+////                        if(d_item.longitude.toFixed(13) === item.getPosition().La.toFixed(13)
+////                            && d_item.latitude.toFixed(13) === item.getPosition().Ma.toFixed(13)){
+////                                flag = true;
+////                                return false;
+////                        }
+////                    });
+////                    if(!flag) item.setMap(null);
+////                });
+////
+////                $.each(overlay_object['CE7'], function(index, item){
+////                    var flag = false;
+////                    $.each(data, function(d_index, d_item){
+////                        if(d_item.longitude.toFixed(13) === item.getPosition().La.toFixed(13)
+////                            && d_item.latitude.toFixed(13) === String((item.getPosition().Ma-0.001).toFixed(13))){
+////                                flag = true;
+////                                return false;
+////                        }
+////                    });
+////                    if(!flag) item.setMap(null);
+////                });
+////
+////                $.each(marker_object['FD6'], function(index, item){
+////                    var flag = false;
+////                    $.each(data, function(d_index, d_item){
+////                        if(d_item.longitude.toFixed(13) === item.getPosition().La.toFixed(13)
+////                            && d_item.latitude.toFixed(13) === item.getPosition().Ma.toFixed(13)){
+////                                flag = true;
+////                                return false;
+////                        }
+////                    });
+////                    if(!flag) item.setMap(null);
+////                });
+////
+////                $.each(overlay_object['FD6'], function(index, item){
+////                    var flag = false;
+////                    $.each(data, function(d_index, d_item){
+////                        if(d_item.longitude.toFixed(13) === item.getPosition().La.toFixed(13)
+////                            && d_item.latitude.toFixed(13) === String((item.getPosition().Ma-0.001).toFixed(13))){
+////                                flag = true;
+////                                return false;
+////                        }
+////                    });
+////                    if(!flag) item.setMap(null);
+////                });
+//
+//
+//                var marker_list_CE7 = [];
+//                var overlay_list_CE7 = [];
+//                var marker_list_FD6 = [];
+//                var overlay_list_FD6 = [];
+//
+//                $.each(data, function(d_index, d_item){
+////                    var marker_FD6, overlay_FD6, marker_CE7, overlay_CE7;
+//
+//                    $.each(marker_object['CE7'], function(index, item){
+//                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== item.getPosition().Ma.toFixed(13)){
+//                            create_overlay(d_item, 'CE7');
+//                        } else {
+//                            item.setMap(null);
 //                        }
 //                    });
-//                    if(!flag) item.setMap(null);
+//                    $.each(overlay_object['CE7'], function(index, item){
+//                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String((item.getPosition().Ma-0.001).toFixed(13))){
+//                            create_overlay(d_item, 'CE7');
+//                        } else {
+//                            item.setMap(null);
+//                        }
+//                    });
+//                    $.each(marker_object['FD6'], function(index, item){
+//                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== item.getPosition().Ma.toFixed(13)){
+//                            create_overlay(d_item, 'FD6');
+//                        } else {
+//                            item.setMap(null);
+//                        }
+//                    });
+//                    $.each(overlay_object['FD6'], function(index, item){
+//                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String((item.getPosition().Ma-0.001).toFixed(13))){
+//                            create_overlay(d_item, 'FD6');
+//                        } else {
+//                            item.setMap(null);
+//                        }
+//                    });
+//
+////                    if(marker_CE7 != null && marker_CE7 != undefined) marker_object['CE7'].push(marker_CE7);
+////                    if(overlay_CE7 != null && overlay_CE7 != undefined) overlay_object['CE7'].push(overlay_CE7);
+////                    if(marker_FD6 != null && marker_FD6 != undefined) marker_object['FD6'].push(marker_FD6);
+////                    if(overlay_FD6 != null && overlay_FD6 != undefined) overlay_object['FD6'].push(overlay_FD6);
 //                });
 //
-//                $.each(overlay_object['CE7'], function(index, item){
-//                    var flag = false;
-//                    $.each(data, function(d_index, d_item){
-//                        if(d_item.longitude.toFixed(13) === item.getPosition().La.toFixed(13)
-//                            && d_item.latitude.toFixed(13) === String((item.getPosition().Ma-0.001).toFixed(13))){
-//                                flag = true;
-//                                return false;
-//                        }
-//                    });
-//                    if(!flag) item.setMap(null);
+//                $.each(marker_list_CE7, function(index, item){
+//                    marker_object['CE7'].push(item);
 //                });
 //
-//                $.each(marker_object['FD6'], function(index, item){
-//                    var flag = false;
-//                    $.each(data, function(d_index, d_item){
-//                        if(d_item.longitude.toFixed(13) === item.getPosition().La.toFixed(13)
-//                            && d_item.latitude.toFixed(13) === item.getPosition().Ma.toFixed(13)){
-//                                flag = true;
-//                                return false;
-//                        }
-//                    });
-//                    if(!flag) item.setMap(null);
+//                $.each(marker_list_FD6, function(index, item){
+//                    marker_object['FD6'].push(item);
 //                });
 //
-//                $.each(overlay_object['FD6'], function(index, item){
-//                    var flag = false;
-//                    $.each(data, function(d_index, d_item){
-//                        if(d_item.longitude.toFixed(13) === item.getPosition().La.toFixed(13)
-//                            && d_item.latitude.toFixed(13) === String((item.getPosition().Ma-0.001).toFixed(13))){
-//                                flag = true;
-//                                return false;
-//                        }
-//                    });
-//                    if(!flag) item.setMap(null);
+//                $.each(overlay_list_CE7, function(index, item){
+//                    overlay_object['CE7'].push(item);
 //                });
-
-
-                var marker_list_CE7 = [];
-                var overlay_list_CE7 = [];
-                var marker_list_FD6 = [];
-                var overlay_list_FD6 = [];
-
-                $.each(data, function(d_index, d_item){
-//                    var marker_FD6, overlay_FD6, marker_CE7, overlay_CE7;
-
-                    $.each(marker_object['CE7'], function(index, item){
-                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== item.getPosition().Ma.toFixed(13)){
-                            create_overlay(d_item, 'CE7');
-                        } else {
-                            item.setMap(null);
-                        }
-                    });
-                    $.each(overlay_object['CE7'], function(index, item){
-                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String((item.getPosition().Ma-0.001).toFixed(13))){
-                            create_overlay(d_item, 'CE7');
-                        } else {
-                            item.setMap(null);
-                        }
-                    });
-                    $.each(marker_object['FD6'], function(index, item){
-                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== item.getPosition().Ma.toFixed(13)){
-                            create_overlay(d_item, 'FD6');
-                        } else {
-                            item.setMap(null);
-                        }
-                    });
-                    $.each(overlay_object['FD6'], function(index, item){
-                        if(d_item.longitude.toFixed(13) !== item.getPosition().La.toFixed(13) || d_item.latitude.toFixed(13) !== String((item.getPosition().Ma-0.001).toFixed(13))){
-                            create_overlay(d_item, 'FD6');
-                        } else {
-                            item.setMap(null);
-                        }
-                    });
-
-//                    if(marker_CE7 != null && marker_CE7 != undefined) marker_object['CE7'].push(marker_CE7);
-//                    if(overlay_CE7 != null && overlay_CE7 != undefined) overlay_object['CE7'].push(overlay_CE7);
-//                    if(marker_FD6 != null && marker_FD6 != undefined) marker_object['FD6'].push(marker_FD6);
-//                    if(overlay_FD6 != null && overlay_FD6 != undefined) overlay_object['FD6'].push(overlay_FD6);
-                });
-
-                $.each(marker_list_CE7, function(index, item){
-                    marker_object['CE7'].push(item);
-                });
-
-                $.each(marker_list_FD6, function(index, item){
-                    marker_object['FD6'].push(item);
-                });
-
-                $.each(overlay_list_CE7, function(index, item){
-                    overlay_object['CE7'].push(item);
-                });
-
-                $.each(overlay_list_FD6, function(index, item){
-                    overlay_object['FD6'].push(item);
-                });
-
-
-            }
-       },
-       error : function(e){
-       }
-    });
-}
+//
+//                $.each(overlay_list_FD6, function(index, item){
+//                    overlay_object['FD6'].push(item);
+//                });
+//
+//
+//            }
+//       },
+//       error : function(e){
+//       }
+//    });
+//}
 
 
 /* EXPANDER MENU */

@@ -21,9 +21,9 @@ public interface InstagramRepository {
 
     List<PlaceDto> getHashtagByKeyword(String category, List<String> keywordList);
 
-    List<PlaceDto> getHashtagByCount(String[] categoryList, String check);
+    List<PlaceDto> getHashtagByCount(Rect rect, String[] categoryList, String check);
 
-    List<PlaceDto> getHashtagByCount2(String[] categoryList, Map<String, Object> hashtag_count_param);
+//    List<PlaceDto> getHashtagByCount2(String[] categoryList, Map<String, Object> hashtag_count_param);
 
 
 //    Optional<Member> findById(String id);

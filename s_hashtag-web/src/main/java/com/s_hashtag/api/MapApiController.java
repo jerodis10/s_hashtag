@@ -124,44 +124,36 @@ public class MapApiController {
         return placeList;
     }
 
-    @GetMapping("/getHashtagByCount")
+    @PostMapping("/getHashtagByCount")
     @ResponseBody
-    public List<PlaceDto> getHashtagByCount(@RequestParam HashMap<String, Object> param) {
-        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
-        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
-        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
-        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
-        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
-
-        String temp = (String) param.get("category_list");
+    public List<PlaceDto> getHashtagByCount(@RequestBody @Valid KakaoMapDto kakaoMapDto, BindingResult errors) {
+        String temp = kakaoMapDto.getCategory();
         String[] categoryList = temp.split(",");
 
-        List<PlaceDto> placeList = instagramRepository.getHashtagByCount(categoryList, param.get("check").toString());
-
-        return placeList;
+        return instagramRepository.getHashtagByCount(kakaoMapDto.CreateRect(), categoryList, kakaoMapDto.getCheck());
     }
 
-    @GetMapping("/getHashtagByCount2")
-    @ResponseBody
-    public List<PlaceDto> getHashtagByCount2(@RequestParam HashMap<String, Object> param) {
-        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
-        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
-        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
-        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
-        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
-
-        String temp = (String) param.get("category_list");
-        String[] categoryList = temp.split(",");
-
-        Map<String, Object> hashtag_count_param = new HashMap<>();
-        hashtag_count_param.put("check1", param.get("check1"));
-        hashtag_count_param.put("check2", param.get("check2"));
-        hashtag_count_param.put("check3", param.get("check3"));
-        hashtag_count_param.put("check4", param.get("check4"));
-        hashtag_count_param.put("check5", param.get("check5"));
-
-        List<PlaceDto> placeList = instagramRepository.getHashtagByCount2(categoryList, hashtag_count_param);
-
-        return placeList;
-    }
+//    @GetMapping("/getHashtagByCount2")
+//    @ResponseBody
+//    public List<PlaceDto> getHashtagByCount2(@RequestParam HashMap<String, Object> param) {
+//        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
+//        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
+//        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
+//        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
+//        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
+//
+//        String temp = (String) param.get("category_list");
+//        String[] categoryList = temp.split(",");
+//
+//        Map<String, Object> hashtag_count_param = new HashMap<>();
+//        hashtag_count_param.put("check1", param.get("check1"));
+//        hashtag_count_param.put("check2", param.get("check2"));
+//        hashtag_count_param.put("check3", param.get("check3"));
+//        hashtag_count_param.put("check4", param.get("check4"));
+//        hashtag_count_param.put("check5", param.get("check5"));
+//
+//        List<PlaceDto> placeList = instagramRepository.getHashtagByCount2(categoryList, hashtag_count_param);
+//
+//        return placeList;
+//    }
 }

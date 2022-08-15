@@ -112,10 +112,11 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
                 "from ( " +
                     "select * " +
                     "from kakao_document kd " +
-                    "left outer join instagram it " +
+                    "inner join instagram it " +
                     "on it.place_id = kd.kakao_id " +
-                    "where latitude between ? and ? " +
-                    "and longitude between ? and ? " +
+                    "where kd.latitude between ? and ? " +
+                    "and kd.longitude between ? and ? " +
+                    "and it.hashtag_count > 0 " +
                     "order by hashtag_count desc " +
                 ")" +
                 "where rownum <= 50 ";
@@ -157,14 +158,21 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public List<PlaceDto> getHashtagByCount(String[] categoryList, String check) {
+    public List<PlaceDto> getHashtagByCount(Rect rect, String[] categoryList, String check) {
         List<Object> param = new ArrayList<>();
         String sql_get_hashtag_byCount =
                 "select * " +
                 "from instagram it " +
                 "left outer join kakao_document kd " +
                 "on it.place_id = kd.kakao_id " +
-                "where 1 = 1 ";
+                "where 1 = 1 "+
+                "and latitude between ? and ? " +
+                "and longitude between ? and ? ";
+
+        param.add(rect.getMinLatitude().getValue());
+        param.add(rect.getMaxLatitude().getValue());
+        param.add(rect.getMinLongitude().getValue());
+        param.add(rect.getMaxLongitude().getValue());
 
         sql_get_hashtag_byCount += "and category_group_code in ( ";
         for (int i=0; i<categoryList.length; i++) {
@@ -190,75 +198,75 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
             sql_get_hashtag_byCount += "and (hashtag_count >= 10000) ";
         }
 
-        return jdbcTemplate.query(sql_get_hashtag_byCount, PlaceByKeywordRowMapper(), param.toArray());
+        return jdbcTemplate.query(sql_get_hashtag_byCount, PlaceRowMapper(rect), param.toArray());
     }
 
-    @Override
-    public List<PlaceDto> getHashtagByCount2(String[] categoryList, Map<String, Object> hashtag_count_param) {
-        List<Object> param = new ArrayList<>();
-        String sql_get_hashtag_byCount =
-                "select * " +
-                "from instagram it " +
-                "left outer join kakao_document kd " +
-                "on it.place_id = kd.kakao_id " +
-                "where 1 = 1 ";
-
-        sql_get_hashtag_byCount += "and category_group_code in ( ";
-        for (int i=0; i<categoryList.length; i++) {
-            if(i != 0) sql_get_hashtag_byCount += ",?";
-            else sql_get_hashtag_byCount += "?";
-            param.add(categoryList[i]);
-        }
-        sql_get_hashtag_byCount += ") ";
-
-        int cnt = 0;
-        if(hashtag_count_param.get("check1").equals("true")) cnt++;
-        if(hashtag_count_param.get("check2").equals("true")) cnt++;
-        if(hashtag_count_param.get("check3").equals("true")) cnt++;
-        if(hashtag_count_param.get("check4").equals("true")) cnt++;
-        if(hashtag_count_param.get("check5").equals("true")) cnt++;
-        if(cnt > 0) sql_get_hashtag_byCount += "and (";
-
-        boolean flag = true;
-
-        if(hashtag_count_param.get("check1").equals("true")) {
-            sql_get_hashtag_byCount += "(hashtag_count <= 10) ";
-            flag = false;
-        }
-        if(!flag && hashtag_count_param.get("check2").equals("true")) {
-            sql_get_hashtag_byCount += "or (hashtag_count > 10 and hashtag_count <= 100) ";
-        }
-        if(flag && hashtag_count_param.get("check2").equals("true")) {
-            sql_get_hashtag_byCount += "(hashtag_count > 10 and hashtag_count <= 100) ";
-            flag = false;
-        }
-        if(!flag && hashtag_count_param.get("check3").equals("true")) {
-            sql_get_hashtag_byCount += "or (hashtag_count > 100 and hashtag_count <= 1000) ";
-        }
-        if(flag && hashtag_count_param.get("check3").equals("true")) {
-            sql_get_hashtag_byCount += "(hashtag_count > 100 and hashtag_count <= 1000) ";
-            flag = false;
-        }
-        if(!flag && hashtag_count_param.get("check4").equals("true")) {
-            sql_get_hashtag_byCount += "or (hashtag_count > 1000 and hashtag_count <= 10000) ";
-        }
-        if(flag && hashtag_count_param.get("check4").equals("true")) {
-            sql_get_hashtag_byCount += "(hashtag_count > 1000 and hashtag_count <= 10000) ";
-            flag = false;
-        }
-        if(!flag && hashtag_count_param.get("check5").equals("true")) {
-            sql_get_hashtag_byCount += "or (hashtag_count > 10000 and hashtag_count <= 100000) ";
-        }
-        if(flag && hashtag_count_param.get("check5").equals("true")) {
-            sql_get_hashtag_byCount += "(hashtag_count > 10000 and hashtag_count <= 100000) ";
-        }
-
-        if(cnt > 0) sql_get_hashtag_byCount += ") ";
-
-//        param.add(categoryList);
-
-        return jdbcTemplate.query(sql_get_hashtag_byCount, PlaceByKeywordRowMapper(), param.toArray());
-    }
+//    @Override
+//    public List<PlaceDto> getHashtagByCount2(String[] categoryList, Map<String, Object> hashtag_count_param) {
+//        List<Object> param = new ArrayList<>();
+//        String sql_get_hashtag_byCount =
+//                "select * " +
+//                "from instagram it " +
+//                "left outer join kakao_document kd " +
+//                "on it.place_id = kd.kakao_id " +
+//                "where 1 = 1 ";
+//
+//        sql_get_hashtag_byCount += "and category_group_code in ( ";
+//        for (int i=0; i<categoryList.length; i++) {
+//            if(i != 0) sql_get_hashtag_byCount += ",?";
+//            else sql_get_hashtag_byCount += "?";
+//            param.add(categoryList[i]);
+//        }
+//        sql_get_hashtag_byCount += ") ";
+//
+//        int cnt = 0;
+//        if(hashtag_count_param.get("check1").equals("true")) cnt++;
+//        if(hashtag_count_param.get("check2").equals("true")) cnt++;
+//        if(hashtag_count_param.get("check3").equals("true")) cnt++;
+//        if(hashtag_count_param.get("check4").equals("true")) cnt++;
+//        if(hashtag_count_param.get("check5").equals("true")) cnt++;
+//        if(cnt > 0) sql_get_hashtag_byCount += "and (";
+//
+//        boolean flag = true;
+//
+//        if(hashtag_count_param.get("check1").equals("true")) {
+//            sql_get_hashtag_byCount += "(hashtag_count <= 10) ";
+//            flag = false;
+//        }
+//        if(!flag && hashtag_count_param.get("check2").equals("true")) {
+//            sql_get_hashtag_byCount += "or (hashtag_count > 10 and hashtag_count <= 100) ";
+//        }
+//        if(flag && hashtag_count_param.get("check2").equals("true")) {
+//            sql_get_hashtag_byCount += "(hashtag_count > 10 and hashtag_count <= 100) ";
+//            flag = false;
+//        }
+//        if(!flag && hashtag_count_param.get("check3").equals("true")) {
+//            sql_get_hashtag_byCount += "or (hashtag_count > 100 and hashtag_count <= 1000) ";
+//        }
+//        if(flag && hashtag_count_param.get("check3").equals("true")) {
+//            sql_get_hashtag_byCount += "(hashtag_count > 100 and hashtag_count <= 1000) ";
+//            flag = false;
+//        }
+//        if(!flag && hashtag_count_param.get("check4").equals("true")) {
+//            sql_get_hashtag_byCount += "or (hashtag_count > 1000 and hashtag_count <= 10000) ";
+//        }
+//        if(flag && hashtag_count_param.get("check4").equals("true")) {
+//            sql_get_hashtag_byCount += "(hashtag_count > 1000 and hashtag_count <= 10000) ";
+//            flag = false;
+//        }
+//        if(!flag && hashtag_count_param.get("check5").equals("true")) {
+//            sql_get_hashtag_byCount += "or (hashtag_count > 10000 and hashtag_count <= 100000) ";
+//        }
+//        if(flag && hashtag_count_param.get("check5").equals("true")) {
+//            sql_get_hashtag_byCount += "(hashtag_count > 10000 and hashtag_count <= 100000) ";
+//        }
+//
+//        if(cnt > 0) sql_get_hashtag_byCount += ") ";
+//
+////        param.add(categoryList);
+//
+//        return jdbcTemplate.query(sql_get_hashtag_byCount, PlaceByKeywordRowMapper(), param.toArray());
+//    }
 
     private RowMapper<PlaceDto> PlaceRowMapper(Rect rect) {
         return (rs, rowNum) -> {
