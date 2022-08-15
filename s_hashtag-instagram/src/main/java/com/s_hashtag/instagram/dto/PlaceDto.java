@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 public class PlaceDto {
     private String kakao_id;
+    private String place_id;
     private double MinLatitude;
     private double MaxLatitude;
     private double MinLongitude;

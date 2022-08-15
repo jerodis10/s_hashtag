@@ -286,6 +286,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
             placeDto.setLatitude(rs.getDouble("LATITUDE"));
             placeDto.setLongitude(rs.getDouble("LONGITUDE"));
             placeDto.setCategory_group_code(rs.getString("CATEGORY_GROUP_CODE"));
+            placeDto.setPlace_id(rs.getString("PLACE_ID"));
 
             return placeDto;
         };

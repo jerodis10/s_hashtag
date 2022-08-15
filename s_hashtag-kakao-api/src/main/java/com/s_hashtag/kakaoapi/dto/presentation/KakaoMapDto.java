@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 //@Setter
 //@AllArgsConstructor
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class KakaoMapDto {
 
     @NotBlank

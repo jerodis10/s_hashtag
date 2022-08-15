@@ -60,13 +60,15 @@ public class KakaoApiService {
 
     public List<KakaoPlaceDto> findPlaces(String category, Rect initialRect) {
         KakaoPlaceDto page = kakaoRestTemplateApiCaller.findPlaceByCategory(category, initialRect, FIRST_PAGE);
-        if (kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page)) {
-            result.add(page);
-            return result;
-        } else if(!kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page)) {
-            List<Rect> dividedRects = RectDivider.divide(initialRect);
-            for (Rect rect : dividedRects) {
-                List<KakaoPlaceDto> nextPages = findPlaces(category, rect);
+        if(page.getDocuments().size() > 0) {
+            if (kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page)) {
+                result.add(page);
+                return result;
+            } else if (!kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page)) {
+                List<Rect> dividedRects = RectDivider.divide(initialRect);
+                for (Rect rect : dividedRects) {
+                    List<KakaoPlaceDto> nextPages = findPlaces(category, rect);
+                }
             }
         }
 
@@ -92,14 +94,15 @@ public class KakaoApiService {
 //    }
 
     public List<KakaoPlaceDto> findPlacesByKeyword(String category, Rect initialRect, String query, List<KakaoPlaceDto> pageList) {
-
         KakaoPlaceDto page = kakaoRestTemplateApiCaller.findPlaceByKeyword(category, initialRect, query);
-        if (kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page)) {
-            pageList.add(page);
-        } else if(!kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page)) {
-            List<Rect> dividedRects = RectDivider.divide(initialRect);
-            for (Rect rect : dividedRects) {
-                List<KakaoPlaceDto> nextPages = findPlacesByKeyword(category, rect, query, pageList);
+        if(page.getDocuments().size() > 0) {
+            if (kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page)) {
+                pageList.add(page);
+            } else if (!kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page)) {
+                List<Rect> dividedRects = RectDivider.divide(initialRect);
+                for (Rect rect : dividedRects) {
+                    List<KakaoPlaceDto> nextPages = findPlacesByKeyword(category, rect, query, pageList);
+                }
             }
         }
 

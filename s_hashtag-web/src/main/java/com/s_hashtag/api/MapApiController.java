@@ -35,78 +35,93 @@ public class MapApiController {
     private final InstagramService instagramService;
 //    private final PlatformTransactionManager transactionManager;
 
+//    @PostMapping("/kakaoMap")
+//    @ResponseBody
+//    public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) {
+//        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
+//        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
+//        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
+//        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
+//
+//        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
+//
+//        instagramService.saveCrawlingResults(rect);
+//
+//        return new ArrayList<KakaoPlaceDto>();
+//    }
+
     @PostMapping("/kakaoMap")
     @ResponseBody
-    public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) {
-        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
-        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
-        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
-        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
+    public void kakaoMap(@RequestBody @Valid KakaoMapDto kakaoMapDto, BindingResult errors) {
+        if (errors.hasErrors()){
+            log.error("KakaoMapDto 바인딩 에러 : ", errors.getAllErrors());
+        }
 
-        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
+        instagramService.saveCrawlingResults(kakaoMapDto.CreateRect());
 
-        instagramService.saveCrawlingResults(rect);
-
-        return new ArrayList<KakaoPlaceDto>();
+        return;
     }
 
-//    @GetMapping("/getHashtag")
+    @PostMapping("/getHashtag")
+    @ResponseBody
+    public List<PlaceDto> getHashtag(@RequestBody @Valid KakaoMapDto kakaoMapDto, BindingResult errors) {
+        if (errors.hasErrors()){
+            log.error("KakaoMapDto 바인딩 에러 : ", errors.getAllErrors());
+        }
+
+        return instagramRepository.getHashtag(kakaoMapDto.getCategory(), kakaoMapDto.CreateRect());
+    }
+
+//    @GetMapping("/getHashtagByKeyword")
 //    @ResponseBody
-//    public List<PlaceDto> getHashtag(@RequestParam HashMap<String, Object> param) {
-//        List<Map<String, Object>> list = new ArrayList<>();
+//    public List<PlaceDto> getHashtagByKeyword(@RequestParam HashMap<String, Object> param) {
 //        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
 //        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
 //        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
 //        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
 //        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
 //
-////        return instagramRepository.getHashtag(Arrays.asList((String) param.get("category_list[]")), rect);
-//        return instagramRepository.getHashtag((String) param.get("category_list"), rect);
+//        List<PlaceDto> placeList = new ArrayList<>();
+//
+//        String temp = (String) param.get("category_list");
+//        String[] categoryList = temp.split(",");
+//
+//        for(String category : categoryList) {
+//            List<KakaoPlaceDto> kakaoPlaceByKeywordList = kakaoApiService.findPlacesByKeyword(category, rect, param.get("searchText").toString(), new ArrayList<>());
+//
+//            List<String> KeywordStringList = new ArrayList<>();
+//            for (KakaoPlaceDto kakaoPlaceDto : kakaoPlaceByKeywordList) {
+//                for (Document document : kakaoPlaceDto.getDocuments()) {
+//                    KeywordStringList.add(document.getId());
+//                }
+//            }
+//
+//            placeList.addAll(instagramRepository.getHashtagByKeyword(category, KeywordStringList));
+//        }
+//
+//        return placeList;
 //    }
 
-//    @GetMapping("/getHashtag")
-    @PostMapping(value = "/getHashtag")
+    @PostMapping("/getHashtagByKeyword")
     @ResponseBody
-    public List<PlaceDto> getHashtag(@RequestBody KakaoMapDto kakaoMapDto, BindingResult errors) {
-//    public List<PlaceDto> getHashtag(@RequestParam String pa,
-//                                     @RequestParam String qa,
-//                                     @RequestParam String oa,
-//                                     @RequestParam String ha,
-//                                     @RequestParam String category_list) {
-//    public List<PlaceDto> getHashtag(@RequestParam @Valid KakaoMapDto kakaoMapDto) {
-//        return instagramRepository.getHashtag(kakaoMapDto.getCategory(), kakaoMapDto.CreateRect());
-        if (errors.hasErrors()){
-            log.error("KakaoMapDto 바인딩 에러 : ", errors.getAllErrors());
-        }
-
-        return new ArrayList<>();
-    }
-
-    @GetMapping("/getHashtagByKeyword")
-    @ResponseBody
-    public List<PlaceDto> getHashtagByKeyword(@RequestParam HashMap<String, Object> param) {
-        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
-        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
-        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
-        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
-        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
-
+    public List<PlaceDto> getHashtagByKeyword(@RequestBody @Valid KakaoMapDto kakaoMapDto, BindingResult errors) {
         List<PlaceDto> placeList = new ArrayList<>();
-
-        String temp = (String) param.get("category_list");
+        List<PlaceDto> placeList_temp = new ArrayList<>();
+        String temp = kakaoMapDto.getCategory();
         String[] categoryList = temp.split(",");
 
         for(String category : categoryList) {
-            List<KakaoPlaceDto> kakaoPlaceByKeywordList = kakaoApiService.findPlacesByKeyword(category, rect, param.get("searchText").toString(), new ArrayList<>());
-
             List<String> KeywordStringList = new ArrayList<>();
+
+            List<KakaoPlaceDto> kakaoPlaceByKeywordList = kakaoApiService.findPlacesByKeyword(category, kakaoMapDto.CreateRect(), kakaoMapDto.getSearchText(), new ArrayList<>());
             for (KakaoPlaceDto kakaoPlaceDto : kakaoPlaceByKeywordList) {
                 for (Document document : kakaoPlaceDto.getDocuments()) {
                     KeywordStringList.add(document.getId());
                 }
             }
-
-            placeList.addAll(instagramRepository.getHashtagByKeyword(category, KeywordStringList));
+            placeList_temp = instagramRepository.getHashtagByKeyword(category, KeywordStringList);
+            placeList.addAll(placeList_temp);
+//            placeList.addAll(instagramRepository.getHashtagByKeyword(category, KeywordStringList));
         }
 
         return placeList;

@@ -1,5 +1,6 @@
 package com.s_hashtag.kakaoapi.dto.external;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
@@ -31,9 +32,9 @@ public class Document {
     private String phone;
     private String addressName;
     private String roadAddressName;
-//    @JsonAlias("y")
+    @JsonAlias("y")
     private String latitude;
-//    @JsonAlias("x")
+    @JsonAlias("x")
     private String longitude;
     private String placeUrl;
     private String distance;
