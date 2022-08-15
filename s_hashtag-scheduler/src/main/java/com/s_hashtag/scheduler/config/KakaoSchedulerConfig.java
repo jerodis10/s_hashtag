@@ -40,7 +40,7 @@ public class KakaoSchedulerConfig {
 
     @Bean
     public KakaoScheduler kakaoPlaceScheduler() {
-        String expression = scheduleRepository.findById("KakaoScheduler").getCron_period();
+        String expression = scheduleRepository.findById("KakaoScheduler").getCronPeriod();
         return new KakaoScheduler(getKakaoPlaceJob(), new CronPeriod(expression));
     }
 
@@ -51,7 +51,7 @@ public class KakaoSchedulerConfig {
 
     @Bean
     public InstagramScheduler InstagramCrawlingScheduler() {
-        String expression = scheduleRepository.findById("InstagramScheduler").getCron_period();
+        String expression = scheduleRepository.findById("InstagramScheduler").getCronPeriod();
         return new InstagramScheduler(getInstagramCrawlingJob(), new CronPeriod(expression));
     }
 //

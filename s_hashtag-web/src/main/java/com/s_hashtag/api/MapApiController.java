@@ -6,6 +6,7 @@ import com.s_hashtag.instagram.service.InstagramService;
 import com.s_hashtag.kakaoapi.dto.external.Document;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
 import com.s_hashtag.kakaoapi.dto.presentation.KakaoMapDto;
+import com.s_hashtag.kakaoapi.factory.RectFactory;
 import com.s_hashtag.kakaoapi.rect.Rect;
 import com.s_hashtag.kakaoapi.rect.location.Coordinate;
 import com.s_hashtag.kakaoapi.rect.location.Latitude;

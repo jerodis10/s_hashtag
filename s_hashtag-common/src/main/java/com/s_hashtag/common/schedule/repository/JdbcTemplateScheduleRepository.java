@@ -1,6 +1,6 @@
 package com.s_hashtag.common.schedule.repository;
 
-import com.s_hashtag.common.schedule.model.Schedule;
+import com.s_hashtag.common.schedule.model.vo.Schedule;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -70,17 +70,17 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
     private RowMapper<Schedule> scheduleRowMapper() {
         return (rs, rowNum) -> {
             Schedule schedule = Schedule.builder()
-                    .schedule_id(rs.getString("schedule_id"))
-                    .schedule_name(rs.getString("schedule_name"))
-                    .cron_period(rs.getString("cron_period"))
+                    .scheduleId(rs.getString("schedule_id"))
+                    .scheduleName(rs.getString("schedule_name"))
+                    .cronPeriod(rs.getString("cron_period"))
                     .runtime(rs.getString("runtime"))
-                    .schedule_result(rs.getString("schedule_result"))
-                    .job_name(rs.getString("job_name"))
-                    .job_result(rs.getString("job_result"))
-                    .min_latitude(rs.getString("min_latitude"))
-                    .max_latitude(rs.getString("max_latitude"))
-                    .min_longitude(rs.getString("min_longitude"))
-                    .max_longitude(rs.getString("max_longitude"))
+                    .scheduleResult(rs.getString("schedule_result"))
+                    .jobName(rs.getString("job_name"))
+                    .jobResult(rs.getString("job_result"))
+                    .minLatitude(rs.getString("min_latitude"))
+                    .maxLatitude(rs.getString("max_latitude"))
+                    .minLongitude(rs.getString("min_longitude"))
+                    .maxLongitude(rs.getString("max_longitude"))
                     .build();
             return schedule;
         };

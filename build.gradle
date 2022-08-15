@@ -116,6 +116,49 @@ project(':s_hashtag-web') {
 	}
 }
 
+project(':s_hashtag-common') {
+	apply plugin: "io.spring.dependency-management"
+	dependencies {
+		compileOnly("com.querydsl:querydsl-core") // querydsl
+		compileOnly("com.querydsl:querydsl-jpa") // querydsl
+		annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa" // querydsl JPAAnnotationProcessor 사용 지정
+		annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+		annotationProcessor("jakarta.annotation:jakarta.annotation-api")
+
+	}
+
+	def generated='src/main/generated'
+	sourceSets {
+		main.java.srcDirs += [ generated ]
+	}
+
+	tasks.withType(JavaCompile) {
+		options.annotationProcessorGeneratedSourcesDirectory = file(generated)
+	}
+
+	clean.doLast {
+		file(generated).deleteDir()
+	}
+
+
+//	dependencies {
+////		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+//		implementation 'com.querydsl:querydsl-jpa'
+//		implementation 'com.querydsl:querydsl-apt'
+//	}
+//
+//	buildscript {
+//		dependencies {
+//			classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.10")
+//		}
+//	}
+//
+//	apply plugin: "com.ewerk.gradle.plugins.querydsl"
+//
+//	def querydslDir = "$buildDir/generated/querydsl"
+
+}
+
 project(':s_hashtag-instagram') {
 	dependencies {
 		implementation project(':s_hashtag-kakao-api')
@@ -158,6 +201,7 @@ project(':s_hashtag-scheduler') {
 		implementation project(':s_hashtag-batch')
 
 		implementation 'org.springframework.boot:spring-boot-starter-batch'
+//		implementation 'org.hibernate:hibernate-entitymanager'
 	}
 }
 

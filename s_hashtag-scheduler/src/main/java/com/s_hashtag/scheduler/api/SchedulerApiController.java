@@ -1,7 +1,7 @@
 package com.s_hashtag.scheduler.api;
 
 import com.s_hashtag.common.response.CustomResponse;
-import com.s_hashtag.common.schedule.model.Schedule;
+import com.s_hashtag.common.schedule.model.vo.Schedule;
 import com.s_hashtag.common.schedule.repository.ScheduleRepository;
 import com.s_hashtag.scheduler.service.KakaoScheduleService;
 import lombok.RequiredArgsConstructor;

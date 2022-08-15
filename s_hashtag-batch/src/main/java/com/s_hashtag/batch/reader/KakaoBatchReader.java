@@ -1,8 +1,9 @@
 package com.s_hashtag.batch.reader;
 
-import com.s_hashtag.common.schedule.model.Schedule;
+import com.s_hashtag.common.schedule.model.vo.Schedule;
 import com.s_hashtag.common.schedule.repository.ScheduleRepository;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
+import com.s_hashtag.kakaoapi.factory.RectFactory;
 import com.s_hashtag.kakaoapi.rect.Rect;
 import com.s_hashtag.kakaoapi.rect.location.Coordinate;
 import com.s_hashtag.kakaoapi.rect.location.Latitude;
@@ -32,10 +33,15 @@ public class KakaoBatchReader implements ItemReader<KakaoPlaceDto> {
 
         Schedule schedule = scheduleRepository.findById("KakaoScheduler");
 
-        Coordinate minLatitude = new Latitude(new BigDecimal(schedule.getMin_latitude()));
-        Coordinate maxLatitude = new Latitude(new BigDecimal(schedule.getMax_latitude()));
-        Coordinate minLongitude = new Longitude(new BigDecimal(schedule.getMin_longitude()));
-        Coordinate maxLongitude = new Longitude(new BigDecimal(schedule.getMax_longitude()));
+//        Rect rect = rectFactory.CreateRect(schedule.getMinLatitude(),
+//                                           schedule.getMaxLatitude(),
+//                                           schedule.getMinLongitude(),
+//                                           schedule.getMaxLongitude());
+
+        Coordinate minLatitude = new Latitude(new BigDecimal(schedule.getMinLatitude()));
+        Coordinate maxLatitude = new Latitude(new BigDecimal(schedule.getMaxLatitude()));
+        Coordinate minLongitude = new Longitude(new BigDecimal(schedule.getMinLongitude()));
+        Coordinate maxLongitude = new Longitude(new BigDecimal(schedule.getMaxLongitude()));
 
         Rect rect = new Rect(minLatitude, maxLatitude, maxLongitude, minLongitude);
 
