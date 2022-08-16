@@ -1,7 +1,6 @@
 package com.s_hashtag.common.schedule.model.entity;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @Getter

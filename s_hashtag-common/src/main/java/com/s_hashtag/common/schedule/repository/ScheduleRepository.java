@@ -1,8 +1,6 @@
 package com.s_hashtag.common.schedule.repository;
 
-import com.s_hashtag.common.schedule.model.entity.ScheduleEntity;
 import com.s_hashtag.common.schedule.model.vo.Schedule;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
