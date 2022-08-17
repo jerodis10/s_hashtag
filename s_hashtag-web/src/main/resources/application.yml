@@ -1,0 +1,43 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/test
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      properties:
+        hibernate:
+          show_sql: true   # System out
+          format_sql: true
+logging:
+  level:
+    org.springframework.jdbc.core: trace
+#    org.hibernate.SQL: debug    # Logger
+#    org.hibernate.type: trace   # Show Query Parameter
+
+
+application:
+  jwt:
+    secretKey: secure_secure_secure_secure_secure_secure_secure_secure_secure_secure_secure_secure_secure_key
+    tokenPrefix: Bearer
+    tokenExpirationAfterDays: 14
+
+
+
+
+#spring.datasource.url=jdbc:h2:tcp://localhost/~/test
+#spring.datasource.driver-class-name=org.h2.Driver
+##spring.datasource.driver-class-name=net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#spring.datasource.username=sa
+#
+#logging.level.org.springframework.jdbc.core = TRACE
+#
+#
+#application.jwt.secretKey=secure_secure_secure_secure_secure_secure_secure_secure_secure_secure_secure_secure_secure_key
+#application.jwt.tokenPrefix=Bearer
+#application.jwt.tokenExpirationAfterDays=14
+#
+##spring.jpa.hibernate.ddl-auto = validate
+#spring.jpa.hibernate.ddl-auto = update
