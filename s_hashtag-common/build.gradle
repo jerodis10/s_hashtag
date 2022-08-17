@@ -1,9 +1,3 @@
-buildscript {
-    ext {
-        queryDslVersion = "5.0.0"
-    }
-}
-
 plugins {
     id 'org.springframework.boot'
     id 'io.spring.dependency-management'
@@ -14,6 +8,11 @@ plugins {
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
+
+//sourceCompatibility = 11
+//targetCompatibility = 11
+
+compileJava.options.encoding = 'UTF-8'
 
 group 's_hashtag'
 version '0.0.1-SNAPSHOT'
@@ -76,4 +75,3 @@ configurations {
     querydsl.extendsFrom compileClasspath
 }
 //querydsl 추가 끝
-

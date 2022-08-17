@@ -1,10 +1,12 @@
 package com.s_hashtag.common.schedule.repository;
 
 import com.s_hashtag.common.schedule.model.vo.Schedule;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+//@Primary
 @Repository
 public class JpaScheduleRepository implements ScheduleRepository{
     @Override

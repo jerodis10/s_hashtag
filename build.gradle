@@ -19,7 +19,7 @@ plugins {
 
 group = 's_hashtag'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '1.8'
 
 configurations {
 	compileOnly {
@@ -41,10 +41,10 @@ subprojects {
 	group 's_hashtag'
 	version '0.0.1-SNAPSHOT'
 
-	sourceCompatibility = '11'
-	targetCompatibility = '11'
-//	sourceCompatibility = '1.8'
-//	targetCompatibility = '1.8'
+//	sourceCompatibility = '11'
+//	targetCompatibility = '11'
+	sourceCompatibility = '1.8'
+	targetCompatibility = '1.8'
 	compileJava.options.encoding = 'UTF-8'
 
 	repositories {
@@ -116,7 +116,7 @@ project(':s_hashtag-web') {
 	}
 }
 
-project(':s_hashtag-common') {
+//project(':s_hashtag-common') {
 //	apply plugin: "io.spring.dependency-management"
 //	dependencies {
 //		compileOnly("com.querydsl:querydsl-core") // querydsl
@@ -194,7 +194,7 @@ project(':s_hashtag-common') {
 //
 //	def querydslDir = "$buildDir/generated/querydsl"
 
-}
+//}
 
 project(':s_hashtag-instagram') {
 	dependencies {
