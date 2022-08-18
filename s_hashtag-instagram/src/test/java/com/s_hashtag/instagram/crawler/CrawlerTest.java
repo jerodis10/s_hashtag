@@ -95,9 +95,10 @@ class CrawlerTest {
 
 //        Document doc= Jsoup.connect("https://www.instagram.com")
 //        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?hl=ko")
+        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?__a=1&__d=dis")
 //        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/버거킹인천서창SK점/?hl=ko")
 //        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/안면도바지락칼국수와보리밥/?hl=ko")
-        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/돈까스세상/?__a=1&__d=dis")
+//        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/돈까스세상/?__a=1&__d=dis")
 //        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/삼겹살/?hl=ko")
 //        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?__a=1&__d=dis")
 //        Document doc= Jsoup.connect("https://www.instagram.com/explore/tags/도로시마켓/?__a")
