@@ -2,13 +2,13 @@ package com.s_hashtag.instagram.dto;
 
 import com.s_hashtag.kakaoapi.dto.external.Document;
 import com.s_hashtag.kakaoapi.dto.external.Document.DocumentBuilder;
-import javax.annotation.Generated;
+import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-08-18T07:10:22+0900",
-    comments = "version: 1.4.1.Final, compiler: javac, environment: Java 1.8.0_342 (Amazon.com Inc.)"
+    date = "2022-08-18T21:33:06+0900",
+    comments = "version: 1.4.1.Final, compiler: javac, environment: Java 11.0.12 (Oracle Corporation)"
 )
 @Component
 public class DocumentMapperImpl implements DocumentMapper {
