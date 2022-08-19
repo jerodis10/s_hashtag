@@ -98,12 +98,22 @@ public class JobConfiguration {
 
     @Bean
     public JdbcCursorItemReader<Place> InstagramBatchReader() {
+//        JdbcCursorItemReaderBuilder jdbcCursorItemReaderBuilder = new JdbcCursorItemReaderBuilder<Place>();
+//        jdbcCursorItemReaderBuilder
+//                .name("jdbcCursorInstagramItemReader")
+//                .fetchSize(batchConfiguration.getChunk())
+//                .dataSource(dataSource)
+//                .rowMapper(new BeanPropertyRowMapper<>(Place.class))
+//                .sql("select KAKAO_ID, PLACE_NAME from KAKAO_DOCUMENT")
+//                .build();
+//        return jdbcCursorItemReaderBuilder;
+
         return new JdbcCursorItemReaderBuilder<Place>()
             .name("jdbcCursorInstagramItemReader")
             .fetchSize(batchConfiguration.getChunk())
             .dataSource(dataSource)
             .rowMapper(new BeanPropertyRowMapper<>(Place.class))
-            .sql("select KAKAO_ID as kakaoId, PLACE_NAME as placeName from KAKAO_DOCUMENT")
+            .sql("select KAKAO_ID, PLACE_NAME from KAKAO_DOCUMENT")
             .build();
     }
 

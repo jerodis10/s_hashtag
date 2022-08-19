@@ -31,34 +31,17 @@ public class KakaoSchedulerConfig {
     private final JobLauncher jobLauncher;
     private final ScheduleRepository scheduleRepository;
 
-//    private static final String EXPRESSION = "0 0 2 1 * ?";
-
-//    @Bean
-//    public KakaoScheduler kakaoPlaceScheduler() {
-//        return new KakaoScheduler(()-> System.out.println("aaa"), new CronPeriod("0/3 * * * * *"));
-//    }
-
     @Bean
     public KakaoScheduler kakaoPlaceScheduler() {
         String expression = scheduleRepository.findById("KakaoScheduler").getCronPeriod();
         return new KakaoScheduler(getKakaoPlaceJob(), new CronPeriod(expression));
     }
 
-//    @Bean
-//    public InstagramScheduler InstagramCrawlingScheduler() {
-//        return new InstagramScheduler(()-> log.info("aaa"), new CronPeriod("0/3 * * * * *"));
-//    }
-
     @Bean
     public InstagramScheduler InstagramCrawlingScheduler() {
         String expression = scheduleRepository.findById("InstagramScheduler").getCronPeriod();
         return new InstagramScheduler(getInstagramCrawlingJob(), new CronPeriod(expression));
     }
-//
-//    @Bean
-//    public KakaoInstagramScheduler kakaoInstagramCrawlingScheduler(String expression) {
-//        return new KakaoInstagramScheduler(getkakaoInstagramCrawlingJob(), new CronPeriod(expression));
-//    }
 
     private Runnable getKakaoPlaceJob() {
         return () -> {
@@ -68,7 +51,7 @@ public class KakaoSchedulerConfig {
             JobParameters jobParameters = new JobParameters(confMap);
 
             try {
-                log.info("aaa");
+                log.info("getKakaoPlaceJob");
                 jobLauncher.run(jobConfiguration.kakaoPlaceJob(), jobParameters);
             } catch (JobInstanceAlreadyCompleteException e) {
                 log.error(e.getMessage());
@@ -90,7 +73,7 @@ public class KakaoSchedulerConfig {
             JobParameters jobParameters = new JobParameters(confMap);
 
             try {
-                log.info("aaa");
+                log.info("getInstagramCrawlingJob");
                 jobLauncher.run(jobConfiguration.InstagramCrawlingJob(), jobParameters);
             } catch (JobInstanceAlreadyCompleteException e) {
                 log.error(e.getMessage());
@@ -112,6 +95,7 @@ public class KakaoSchedulerConfig {
             JobParameters jobParameters = new JobParameters(confMap);
 
             try {
+                log.info("getkakaoInstagramCrawlingJob");
                 jobLauncher.run(jobConfiguration.kakaoInstagramCrawlingJob(), jobParameters);
             } catch (JobInstanceAlreadyCompleteException e) {
                 log.error(e.getMessage());

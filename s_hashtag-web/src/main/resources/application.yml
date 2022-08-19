@@ -9,12 +9,16 @@ spring:
       ddl-auto: validate
       properties:
         hibernate:
-          show_sql: true   # System out
+#          show_sql: true   # System out
           format_sql: true
+  batch:
+    job:
+      enabled: false
+
 logging:
   level:
     org.springframework.jdbc.core: trace
-#    org.hibernate.SQL: debug    # Logger
+    org.hibernate.SQL: debug    # Logger
 #    org.hibernate.type: trace   # Show Query Parameter
 
 
