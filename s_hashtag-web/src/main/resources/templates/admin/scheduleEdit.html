@@ -46,33 +46,62 @@
         </tr>
         <tr th:each="schedule : ${scheduleList}">
             <div sec:authorize="hasAuthority('batch:write')">
-                <td><input th:value="${schedule.schedule_id}" type="checkbox" class="form-check-input" name="check"></td>
+                <td><input th:value="${schedule.scheduleId}" type="checkbox" class="form-check-input" name="check"></td>
             </div>
-            <td class="col-xs-1" th:text="${schedule.schedule_name}" th:name="${schedule.schedule_name}"></td>
+            <td class="col-xs-1" th:text="${schedule.scheduleName}" th:name="${schedule.scheduleName}"></td>
             <td class="col-xs-1" th:text="${schedule.runtime}" th:name="${schedule.runtime}"></td>
-            <td class="col-xs-1" th:text="${schedule.schedule_result}" th:name="${schedule.schedule_result}"></td>
-            <td class="col-xs-1" th:text="${schedule.job_name}" th:name="${schedule.job_name}"></td>
-            <td class="col-xs-1" th:text="${schedule.job_result}" th:name="${schedule.job_result}"></td>
+            <td class="col-xs-1" th:text="${schedule.scheduleResult}" th:name="${schedule.scheduleResult}"></td>
+            <td class="col-xs-1" th:text="${schedule.jobName}" th:name="${schedule.jobName}"></td>
+            <td class="col-xs-1" th:text="${schedule.jobResult}" th:name="${schedule.jobResult}"></td>
             <td class="col-xs-1">
                 <input type="text" style="width:100%;" id="cron_period"
-                       th:value="${schedule.cron_period}" th:name="${schedule.cron_period}">
+                       th:value="${schedule.cronPeriod}" th:name="${schedule.cronPeriod}">
             </td>
             <td class="col-xs-1">
                 <input type="text" style="width:100%;" id="min_latitude"
-                       th:value="${schedule.min_latitude}" th:name="${schedule.min_latitude}">
+                       th:value="${schedule.minLatitude}" th:name="${schedule.minLatitude}">
             </td>
             <td class="col-xs-1">
                 <input type="text" style="width:100%;" id="max_latitude"
-                       th:value="${schedule.max_latitude}" th:name="${schedule.max_latitude}">
+                       th:value="${schedule.maxLatitude}" th:name="${schedule.maxLatitude}">
             </td>
             <td class="col-xs-1">
                 <input type="text" style="width:100%;" id="min_longitude"
-                       th:value="${schedule.min_longitude}" th:name="${schedule.min_longitude}">
+                       th:value="${schedule.minLongitude}" th:name="${schedule.minLongitude}">
             </td>
             <td class="col-xs-1">
                 <input type="text" style="width:100%;" id="max_longitude"
-                       th:value="${schedule.max_longitude}" th:name="${schedule.max_longitude}">
+                       th:value="${schedule.maxLongitude}" th:name="${schedule.maxLongitude}">
             </td>
+
+<!--            <div sec:authorize="hasAuthority('batch:write')">-->
+<!--                <td><input th:value="${schedule.schedule_id}" type="checkbox" class="form-check-input" name="check"></td>-->
+<!--            </div>-->
+<!--            <td class="col-xs-1" th:text="${schedule.schedule_name}" th:name="${schedule.schedule_name}"></td>-->
+<!--            <td class="col-xs-1" th:text="${schedule.runtime}" th:name="${schedule.runtime}"></td>-->
+<!--            <td class="col-xs-1" th:text="${schedule.schedule_result}" th:name="${schedule.schedule_result}"></td>-->
+<!--            <td class="col-xs-1" th:text="${schedule.job_name}" th:name="${schedule.job_name}"></td>-->
+<!--            <td class="col-xs-1" th:text="${schedule.job_result}" th:name="${schedule.job_result}"></td>-->
+<!--            <td class="col-xs-1">-->
+<!--                <input type="text" style="width:100%;" id="cron_period"-->
+<!--                       th:value="${schedule.cron_period}" th:name="${schedule.cron_period}">-->
+<!--            </td>-->
+<!--            <td class="col-xs-1">-->
+<!--                <input type="text" style="width:100%;" id="min_latitude"-->
+<!--                       th:value="${schedule.min_latitude}" th:name="${schedule.min_latitude}">-->
+<!--            </td>-->
+<!--            <td class="col-xs-1">-->
+<!--                <input type="text" style="width:100%;" id="max_latitude"-->
+<!--                       th:value="${schedule.max_latitude}" th:name="${schedule.max_latitude}">-->
+<!--            </td>-->
+<!--            <td class="col-xs-1">-->
+<!--                <input type="text" style="width:100%;" id="min_longitude"-->
+<!--                       th:value="${schedule.min_longitude}" th:name="${schedule.min_longitude}">-->
+<!--            </td>-->
+<!--            <td class="col-xs-1">-->
+<!--                <input type="text" style="width:100%;" id="max_longitude"-->
+<!--                       th:value="${schedule.max_longitude}" th:name="${schedule.max_longitude}">-->
+<!--            </td>-->
         </tr>
     </table>
 </div>

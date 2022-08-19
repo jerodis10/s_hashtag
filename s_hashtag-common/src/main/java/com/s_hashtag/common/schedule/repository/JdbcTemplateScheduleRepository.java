@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.util.List;
 
-@Primary
+//@Primary
 @Repository
 public class JdbcTemplateScheduleRepository implements ScheduleRepository {
 
