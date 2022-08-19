@@ -82,3 +82,5 @@ public class JpaScheduleRepository implements ScheduleRepository{
         schedule.setMaxLongitude(max_longitude);
     }
 }
+
+
