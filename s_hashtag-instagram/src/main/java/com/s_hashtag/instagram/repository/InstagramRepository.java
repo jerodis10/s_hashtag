@@ -1,27 +1,24 @@
 package com.s_hashtag.instagram.repository;
 
-import com.s_hashtag.instagram.dto.CrawlingDto;
-import com.s_hashtag.instagram.dto.PlaceDto;
-import com.s_hashtag.instagram.dto.PostDto;
+import com.s_hashtag.instagram.dto.external.CrawlingDto;
+import com.s_hashtag.instagram.dto.external.PlaceDto;
+import com.s_hashtag.instagram.dto.external.PostDto;
 import com.s_hashtag.kakaoapi.dto.external.Document;
 import com.s_hashtag.kakaoapi.rect.Rect;
 
 import java.util.*;
 
-//@Repository
 public interface InstagramRepository {
 
-//    void kakao_document_save(Document document);
+    List<PlaceDto> findAll(String category, Rect rect);
 
-    void instagram_save(CrawlingDto crawlingDto, Document document);
+    List<PlaceDto> findByKeyword(String category, List<String> keywordList);
 
-    void instagram_post_save(PostDto postDto);
+    List<PlaceDto> findByHashtagCount(Rect rect, String[] categoryList, String check);
 
-    List<PlaceDto> getHashtag(String category, Rect rect);
+    void instagramSave(CrawlingDto crawlingDto, Document document);
 
-    List<PlaceDto> getHashtagByKeyword(String category, List<String> keywordList);
-
-    List<PlaceDto> getHashtagByCount(Rect rect, String[] categoryList, String check);
+    void instagramPostSave(PostDto postDto);
 
 //    List<PlaceDto> getHashtagByCount2(String[] categoryList, Map<String, Object> hashtag_count_param);
 

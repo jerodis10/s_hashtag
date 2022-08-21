@@ -1,9 +1,8 @@
 package com.s_hashtag.instagram.service;
 import com.s_hashtag.instagram.crawler.InstagramCrawler;
-import com.s_hashtag.instagram.dto.CrawlingDto;
-import com.s_hashtag.instagram.dto.DocumentMapper;
-import com.s_hashtag.instagram.dto.PlaceDto;
-import com.s_hashtag.instagram.dto.PostDto;
+import com.s_hashtag.instagram.dto.external.CrawlingDto;
+import com.s_hashtag.instagram.dto.external.PlaceDto;
+import com.s_hashtag.instagram.dto.external.PostDto;
 import com.s_hashtag.instagram.proxy.CrawlerWithProxy;
 import com.s_hashtag.instagram.proxy.ProxiesFactory;
 import com.s_hashtag.instagram.proxy.ProxySetter;
@@ -15,6 +14,7 @@ import com.s_hashtag.kakaoapi.repository.KakaoRepository;
 import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +31,7 @@ public class InstagramService {
     private final InstagramCrawler instagramCrawler;
     private final InstagramRepository instagramRepository;
     private final KakaoRepository kakaoRepository;
-    private final DocumentMapper documentMapper;
+//    private final DocumentMapper documentMapper;
 
     @Transactional(rollbackFor = Exception.class)
     public void saveCrawlingResults(Rect rect) {
@@ -48,10 +48,13 @@ public class InstagramService {
                 }
             }
 
-            List<PlaceDto> list_placeDto = instagramRepository.getHashtag("FD6", rect);
+            List<PlaceDto> list_placeDto = instagramRepository.findAll("FD6", rect);
 
             for (PlaceDto placeDto : list_placeDto) {
-                list_documonet2.add(documentMapper.toDocument(placeDto));
+                Document document = new Document();
+                BeanUtils.copyProperties(document, placeDto);
+                list_documonet2.add(document);
+//                list_documonet2.add(documentMapper.toDocument(placeDto));
             }
 
             List<Document> remove_list = new ArrayList<>();
@@ -74,9 +77,9 @@ public class InstagramService {
                 CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
                 CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName(), document.getId());
                 if (crawlingDto != null) {
-                    instagramRepository.instagram_save(crawlingDto, document);
+                    instagramRepository.instagramSave(crawlingDto, document);
                     for (PostDto postDto : crawlingDto.getPostDtoList()) {
-                        instagramRepository.instagram_post_save(postDto);
+                        instagramRepository.instagramPostSave(postDto);
                     }
                 }
             }
@@ -92,10 +95,13 @@ public class InstagramService {
                 }
             }
 
-            list_placeDto = instagramRepository.getHashtag("CE7", rect);
+            list_placeDto = instagramRepository.findAll("CE7", rect);
 
             for (PlaceDto placeDto : list_placeDto) {
-                list_documonet2.add(documentMapper.toDocument(placeDto));
+                Document document = new Document();
+                BeanUtils.copyProperties(document, placeDto);
+                list_documonet2.add(document);
+//                list_documonet2.add(documentMapper.toDocument(placeDto));
             }
 
             remove_list = new ArrayList<>();
@@ -115,9 +121,9 @@ public class InstagramService {
                 CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
                 CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName(), document.getId());
                 if (crawlingDto != null) {
-                    instagramRepository.instagram_save(crawlingDto, document);
+                    instagramRepository.instagramSave(crawlingDto, document);
                     for (PostDto postDto : crawlingDto.getPostDtoList()) {
-                        instagramRepository.instagram_post_save(postDto);
+                        instagramRepository.instagramPostSave(postDto);
                     }
                 }
             }

@@ -1,7 +1,5 @@
-package com.s_hashtag.instagram.dto;
+package com.s_hashtag.instagram.dto.external;
 
-import com.s_hashtag.instagram.exception.CrawlerException;
-import com.s_hashtag.instagram.exception.CrawlerExceptionStatus;
 import lombok.Getter;
 
 import java.util.ArrayList;

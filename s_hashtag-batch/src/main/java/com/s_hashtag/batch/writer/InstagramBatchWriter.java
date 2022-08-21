@@ -1,6 +1,6 @@
 package com.s_hashtag.batch.writer;
 
-import com.s_hashtag.instagram.dto.CrawlingDto;
+import com.s_hashtag.instagram.dto.external.CrawlingDto;
 import com.s_hashtag.instagram.repository.InstagramRepository;
 import com.s_hashtag.kakaoapi.dto.external.Document;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class InstagramBatchWriter implements ItemWriter<CrawlingDto> {
             Document document = Document.builder()
                     .id(crawlingDto.getPlaceId())
                     .build();
-            instagramRepository.instagram_save(crawlingDto, document);
+            instagramRepository.instagramSave(crawlingDto, document);
         }
     }
 

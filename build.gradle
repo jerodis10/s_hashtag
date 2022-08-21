@@ -1,16 +1,3 @@
-//buildscript {
-//	ext {
-//		springBootVersion = '2.5.3'
-//	}
-//	repositories {
-//		mavenCentral()
-//	}
-//	dependencies {
-//		classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-//		classpath "io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE"
-//	}
-//}
-
 plugins {
 	id 'org.springframework.boot' version '2.6.0'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -117,86 +104,6 @@ project(':s_hashtag-web') {
 	}
 }
 
-//project(':s_hashtag-common') {
-//	apply plugin: "io.spring.dependency-management"
-//	dependencies {
-//		compileOnly("com.querydsl:querydsl-core") // querydsl
-//		compileOnly("com.querydsl:querydsl-jpa") // querydsl
-//		annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa" // querydsl JPAAnnotationProcessor 사용 지정
-//		annotationProcessor("jakarta.persistence:jakarta.persistence-api")
-//		annotationProcessor("jakarta.annotation:jakarta.annotation-api")
-//
-//	}
-
-//	plugins {
-//		id 'org.springframework.boot' version '2.6.0'
-//		id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-//		//querydsl 추가
-//		id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
-//		id 'java'
-//	}
-//
-//	repositories {
-//		mavenCentral()
-//	}
-//
-//	configurations {
-//		compileOnly {
-//			extendsFrom annotationProcessor
-//		}
-//	}
-//
-//	def querydslDir = "$buildDir/generated/querydsl"
-//
-//	querydsl {
-//		jpa = true
-//		querydslSourcesDir = querydslDir
-//	}
-//	sourceSets {
-//		main.java.srcDir querydslDir
-//	}
-//	compileQuerydsl{
-//		options.annotationProcessorPath = configurations.querydsl
-//	}
-//	configurations {
-//		compileOnly {
-//			extendsFrom annotationProcessor
-//		}
-//		querydsl.extendsFrom compileClasspath
-//	}
-
-//	def generated='src/main/generated'
-//	sourceSets {
-//		main.java.srcDirs += [ generated ]
-//	}
-//
-//	tasks.withType(JavaCompile) {
-//		options.annotationProcessorGeneratedSourcesDirectory = file(generated)
-//	}
-//
-//	clean.doLast {
-//		file(generated).deleteDir()
-//	}
-
-
-//	dependencies {
-////		implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-//		implementation 'com.querydsl:querydsl-jpa'
-//		implementation 'com.querydsl:querydsl-apt'
-//	}
-//
-//	buildscript {
-//		dependencies {
-//			classpath("gradle.plugin.com.ewerk.gradle.plugins:querydsl-plugin:1.0.10")
-//		}
-//	}
-//
-//	apply plugin: "com.ewerk.gradle.plugins.querydsl"
-//
-//	def querydslDir = "$buildDir/generated/querydsl"
-
-//}
-
 project(':s_hashtag-instagram') {
 	dependencies {
 		implementation 'org.jsoup:jsoup:1.14.3'
@@ -242,7 +149,6 @@ project(':s_hashtag-scheduler') {
 		implementation project(':s_hashtag-batch')
 
 		implementation 'org.springframework.boot:spring-boot-starter-batch'
-//		implementation 'org.hibernate:hibernate-entitymanager'
 	}
 }
 

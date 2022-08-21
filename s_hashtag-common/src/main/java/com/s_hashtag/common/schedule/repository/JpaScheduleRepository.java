@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static com.s_hashtag.common.schedule.model.entity.QScheduleEntity.*;
 import static com.s_hashtag.common.schedule.model.entity.QScheduleEntity.scheduleEntity;
 
 @Primary

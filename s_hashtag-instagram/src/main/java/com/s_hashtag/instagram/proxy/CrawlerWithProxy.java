@@ -1,7 +1,7 @@
 package com.s_hashtag.instagram.proxy;
 
 import com.s_hashtag.instagram.crawler.InstagramCrawler;
-import com.s_hashtag.instagram.dto.CrawlingDto;
+import com.s_hashtag.instagram.dto.external.CrawlingDto;
 import com.s_hashtag.instagram.exception.CrawlerException;
 import com.s_hashtag.instagram.exception.CrawlerExceptionStatus;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Optional;
 
 @Slf4j
 public class CrawlerWithProxy {

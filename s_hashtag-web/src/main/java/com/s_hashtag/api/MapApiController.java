@@ -1,16 +1,11 @@
 package com.s_hashtag.api;
 
-import com.s_hashtag.instagram.dto.PlaceDto;
+import com.s_hashtag.instagram.dto.external.PlaceDto;
 import com.s_hashtag.instagram.repository.InstagramRepository;
 import com.s_hashtag.instagram.service.InstagramService;
 import com.s_hashtag.kakaoapi.dto.external.Document;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
 import com.s_hashtag.kakaoapi.dto.presentation.KakaoMapDto;
-import com.s_hashtag.kakaoapi.factory.RectFactory;
-import com.s_hashtag.kakaoapi.rect.Rect;
-import com.s_hashtag.kakaoapi.rect.location.Coordinate;
-import com.s_hashtag.kakaoapi.rect.location.Latitude;
-import com.s_hashtag.kakaoapi.rect.location.Longitude;
 import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,11 +14,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -70,7 +62,7 @@ public class MapApiController {
             log.error("KakaoMapDto 바인딩 에러 : ", errors.getAllErrors());
         }
 
-        return instagramRepository.getHashtag(kakaoMapDto.getCategory(), kakaoMapDto.CreateRect());
+        return instagramRepository.findAll(kakaoMapDto.getCategory(), kakaoMapDto.CreateRect());
     }
 
 //    @GetMapping("/getHashtagByKeyword")
@@ -119,7 +111,7 @@ public class MapApiController {
                     KeywordStringList.add(document.getId());
                 }
             }
-            placeList.addAll(instagramRepository.getHashtagByKeyword(category, KeywordStringList));
+            placeList.addAll(instagramRepository.findByKeyword(category, KeywordStringList));
         }
 
         return placeList;
@@ -131,7 +123,7 @@ public class MapApiController {
         String temp = kakaoMapDto.getCategory();
         String[] categoryList = temp.split(",");
 
-        return instagramRepository.getHashtagByCount(kakaoMapDto.CreateRect(), categoryList, kakaoMapDto.getCheck());
+        return instagramRepository.findByHashtagCount(kakaoMapDto.CreateRect(), categoryList, kakaoMapDto.getCheck());
     }
 
 //    @GetMapping("/getHashtagByCount2")

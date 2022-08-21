@@ -1,8 +1,8 @@
 package com.s_hashtag.instagram.repository;
 
-import com.s_hashtag.instagram.dto.CrawlingDto;
-import com.s_hashtag.instagram.dto.PlaceDto;
-import com.s_hashtag.instagram.dto.PostDto;
+import com.s_hashtag.instagram.dto.external.CrawlingDto;
+import com.s_hashtag.instagram.dto.external.PlaceDto;
+import com.s_hashtag.instagram.dto.external.PostDto;
 import com.s_hashtag.kakaoapi.dto.external.Document;
 import com.s_hashtag.kakaoapi.rect.Rect;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public void instagram_save(CrawlingDto crawlingDto, Document document) {
+    public void instagramSave(CrawlingDto crawlingDto, Document document) {
         log.info("insert crawling HashtagName = {}", crawlingDto.getHashtagName());
         String sql_instagram_save =
                         "merge into instagram " +
@@ -50,7 +50,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public void instagram_post_save(PostDto postDto) {
+    public void instagramPostSave(PostDto postDto) {
         String sql_instagram_post_save =
                         "merge into instagram_post " +
                         "using dual " +
@@ -74,7 +74,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public List<PlaceDto> getHashtag(String category_list, Rect rect) {
+    public List<PlaceDto> findAll(String category_list, Rect rect) {
         List<PlaceDto> ret = new ArrayList<>();
 
 //        String sql_get_hashtag = "select * " +
@@ -130,7 +130,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public List<PlaceDto> getHashtagByKeyword(String category_list, List<String> keywordList) {
+    public List<PlaceDto> findByKeyword(String category_list, List<String> keywordList) {
         String sql_get_hashtag_byKeyword =
                 "select * " +
                 "from instagram it " +
@@ -158,7 +158,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public List<PlaceDto> getHashtagByCount(Rect rect, String[] categoryList, String check) {
+    public List<PlaceDto> findByHashtagCount(Rect rect, String[] categoryList, String check) {
         List<Object> param = new ArrayList<>();
         String sql_get_hashtag_byCount =
                 "select * " +
@@ -279,8 +279,8 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
             placeDto.setHashtagCount(rs.getLong("HASHTAG_COUNT"));
             placeDto.setLatitude(rs.getDouble("LATITUDE"));
             placeDto.setLongitude(rs.getDouble("LONGITUDE"));
-            placeDto.setKakao_id(rs.getString("KAKAO_ID"));
-            placeDto.setCategory_group_code(rs.getString("CATEGORY_GROUP_CODE"));
+            placeDto.setKakaoId(rs.getString("KAKAO_ID"));
+            placeDto.setCategoryGroupCode(rs.getString("CATEGORY_GROUP_CODE"));
 
             return placeDto;
         };
@@ -293,8 +293,8 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
             placeDto.setHashtagCount(rs.getLong("HASHTAG_COUNT"));
             placeDto.setLatitude(rs.getDouble("LATITUDE"));
             placeDto.setLongitude(rs.getDouble("LONGITUDE"));
-            placeDto.setCategory_group_code(rs.getString("CATEGORY_GROUP_CODE"));
-            placeDto.setPlace_id(rs.getString("PLACE_ID"));
+            placeDto.setCategoryGroupCode(rs.getString("CATEGORY_GROUP_CODE"));
+            placeDto.setPlaceId(rs.getString("PLACE_ID"));
 
             return placeDto;
         };

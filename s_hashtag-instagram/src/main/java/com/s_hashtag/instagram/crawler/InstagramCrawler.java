@@ -1,18 +1,11 @@
 package com.s_hashtag.instagram.crawler;
 
-import com.s_hashtag.instagram.dto.CrawlingDto;
-import com.s_hashtag.instagram.dto.PostDtos;
-import com.s_hashtag.instagram.util.PlaceNameParser;
-import lombok.RequiredArgsConstructor;
+import com.s_hashtag.instagram.dto.external.CrawlingDto;
+import com.s_hashtag.instagram.dto.external.PostDtos;
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.nodes.Document;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 @Service
 //@RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package com.s_hashtag.instagram.dto;
+package com.s_hashtag.instagram.dto.external;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
