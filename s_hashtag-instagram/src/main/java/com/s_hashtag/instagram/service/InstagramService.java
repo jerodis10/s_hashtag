@@ -1,5 +1,6 @@
 package com.s_hashtag.instagram.service;
 
+import com.s_hashtag.common.kakao.repository.KakaoRepository;
 import com.s_hashtag.instagram.crawler.InstagramCrawler;
 import com.s_hashtag.common.instagram.dto.external.CrawlingDto;
 import com.s_hashtag.common.instagram.dto.external.PlaceDto;
@@ -11,7 +12,6 @@ import com.s_hashtag.common.instagram.repository.InstagramRepository;
 import com.s_hashtag.common.kakao.dto.external.Document;
 import com.s_hashtag.common.kakao.dto.external.Rect;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
-import com.s_hashtag.kakaoapi.repository.KakaoRepository;
 import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

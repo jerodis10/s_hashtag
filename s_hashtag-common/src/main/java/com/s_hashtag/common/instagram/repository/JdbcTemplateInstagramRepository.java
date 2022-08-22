@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
-@Primary
+//@Primary
 @Repository
 @Slf4j
 public class JdbcTemplateInstagramRepository implements InstagramRepository {
@@ -113,7 +113,8 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
         String sql_get_hashtag =
                 "select * " +
                 "from ( " +
-                    "select * " +
+                    "select  " +
+                    "kd.kakao_id, kd.category_group_code, kd.latitude, kd.longitude, kd.place_name, it.instagram_id, it.hashtag_name, it.hashtag_count " +
                     "from kakao_document kd " +
                     "inner join instagram it " +
                     "on it.place_id = kd.kakao_id " +

@@ -1,8 +1,8 @@
 package com.s_hashtag.batch.writer;
 
 import com.s_hashtag.common.kakao.dto.external.Document;
+import com.s_hashtag.common.kakao.repository.KakaoRepository;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
-import com.s_hashtag.kakaoapi.repository.KakaoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemWriter;

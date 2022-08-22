@@ -28,5 +28,5 @@ public class InstagramEntity {
     private String hashtagName;
 
     @Column(name = "HASHTAG_COUNT")
-    private String hashtagCount;
+    private Long hashtagCount;
 }

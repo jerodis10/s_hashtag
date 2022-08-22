@@ -8,6 +8,7 @@ import com.s_hashtag.common.instagram.dto.external.PostDto;
 import com.s_hashtag.common.instagram.dto.external.PlaceDto;
 import com.s_hashtag.common.kakao.dto.external.Document;
 import com.s_hashtag.common.kakao.dto.external.Rect;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import static com.s_hashtag.common.instagram.model.entity.QInstagramEntity.instagramEntity;
 
+@Primary
 @Repository
 public class JpaInstagramRepository implements InstagramRepository {
 
