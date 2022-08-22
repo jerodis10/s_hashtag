@@ -1,9 +1,9 @@
 package com.s_hashtag.api;
 
-import com.s_hashtag.instagram.dto.external.PlaceDto;
-import com.s_hashtag.instagram.repository.InstagramRepository;
+import com.s_hashtag.common.instagram.dto.external.PlaceDto;
+import com.s_hashtag.common.instagram.repository.InstagramRepository;
+import com.s_hashtag.common.kakao.dto.external.Document;
 import com.s_hashtag.instagram.service.InstagramService;
-import com.s_hashtag.kakaoapi.dto.external.Document;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
 import com.s_hashtag.kakaoapi.dto.presentation.KakaoMapDto;
 import com.s_hashtag.kakaoapi.service.KakaoApiService;
@@ -11,7 +11,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.util.ArrayList;

@@ -1,10 +1,10 @@
 package com.s_hashtag.kakaoapi.service;
 
+import com.s_hashtag.common.kakao.dto.external.Coordinate;
+import com.s_hashtag.common.kakao.dto.external.Latitude;
+import com.s_hashtag.common.kakao.dto.external.Longitude;
+import com.s_hashtag.common.kakao.dto.external.Rect;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
-import com.s_hashtag.kakaoapi.rect.Rect;
-import com.s_hashtag.kakaoapi.rect.location.Coordinate;
-import com.s_hashtag.kakaoapi.rect.location.Latitude;
-import com.s_hashtag.kakaoapi.rect.location.Longitude;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,8 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Slf4j

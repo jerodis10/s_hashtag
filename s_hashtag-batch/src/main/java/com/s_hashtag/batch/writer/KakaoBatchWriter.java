@@ -1,6 +1,6 @@
 package com.s_hashtag.batch.writer;
 
-import com.s_hashtag.kakaoapi.dto.external.Document;
+import com.s_hashtag.common.kakao.dto.external.Document;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
 import com.s_hashtag.kakaoapi.repository.KakaoRepository;
 import lombok.RequiredArgsConstructor;

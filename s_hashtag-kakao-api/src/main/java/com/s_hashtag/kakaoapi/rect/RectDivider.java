@@ -1,8 +1,9 @@
 package com.s_hashtag.kakaoapi.rect;
 
-import com.s_hashtag.kakaoapi.rect.location.Coordinate;
-import com.s_hashtag.kakaoapi.rect.location.Latitude;
-import com.s_hashtag.kakaoapi.rect.location.Longitude;
+import com.s_hashtag.common.kakao.dto.external.Coordinate;
+import com.s_hashtag.common.kakao.dto.external.Latitude;
+import com.s_hashtag.common.kakao.dto.external.Longitude;
+import com.s_hashtag.common.kakao.dto.external.Rect;
 
 import java.util.ArrayList;
 import java.util.List;

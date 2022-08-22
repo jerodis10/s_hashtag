@@ -1,5 +1,6 @@
 package com.s_hashtag.kakaoapi.dto.external;
 
+import com.s_hashtag.common.kakao.dto.external.Document;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

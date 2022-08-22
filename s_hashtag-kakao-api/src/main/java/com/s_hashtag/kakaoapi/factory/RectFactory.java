@@ -1,9 +1,9 @@
-package com.s_hashtag.kakaoapi.factory;//package com.s_hashtag.kakaoapi.domain.factory;
+package com.s_hashtag.kakaoapi.factory;
 
-import com.s_hashtag.kakaoapi.rect.Rect;
-import com.s_hashtag.kakaoapi.rect.location.Coordinate;
-import com.s_hashtag.kakaoapi.rect.location.Latitude;
-import com.s_hashtag.kakaoapi.rect.location.Longitude;
+import com.s_hashtag.common.kakao.dto.external.Coordinate;
+import com.s_hashtag.common.kakao.dto.external.Latitude;
+import com.s_hashtag.common.kakao.dto.external.Longitude;
+import com.s_hashtag.common.kakao.dto.external.Rect;
 
 import java.math.BigDecimal;
 

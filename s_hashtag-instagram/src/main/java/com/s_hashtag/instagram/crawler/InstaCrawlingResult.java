@@ -3,8 +3,8 @@ package com.s_hashtag.instagram.crawler;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.s_hashtag.instagram.dto.external.PostDto;
-import com.s_hashtag.instagram.dto.external.PostDtos;
+import com.s_hashtag.common.instagram.dto.external.PostDto;
+import com.s_hashtag.common.instagram.dto.external.PostDtos;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

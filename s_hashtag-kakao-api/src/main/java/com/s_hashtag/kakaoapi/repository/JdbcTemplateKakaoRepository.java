@@ -1,6 +1,6 @@
 package com.s_hashtag.kakaoapi.repository;
 
-import com.s_hashtag.kakaoapi.dto.external.Document;
+import com.s_hashtag.common.kakao.dto.external.Document;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 

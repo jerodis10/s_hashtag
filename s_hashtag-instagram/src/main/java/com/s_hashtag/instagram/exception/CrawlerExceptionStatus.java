@@ -1,6 +1,6 @@
 package com.s_hashtag.instagram.exception;
 
-import com.s_hashtag.instagram.dto.external.PostDtos;
+import com.s_hashtag.common.instagram.dto.external.PostDtos;
 import lombok.Getter;
 
 @Getter

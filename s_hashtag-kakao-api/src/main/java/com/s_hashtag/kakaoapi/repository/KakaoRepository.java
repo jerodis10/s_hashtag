@@ -1,7 +1,7 @@
 package com.s_hashtag.kakaoapi.repository;
 
 
-import com.s_hashtag.kakaoapi.dto.external.Document;
+import com.s_hashtag.common.kakao.dto.external.Document;
 
 //@Repository
 public interface KakaoRepository {

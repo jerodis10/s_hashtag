@@ -1,8 +1,7 @@
-package com.s_hashtag.common.dto;
+package com.s_hashtag.common.kakao.dto.external;
 
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 

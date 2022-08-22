@@ -5,7 +5,7 @@ import com.s_hashtag.batch.reader.KakaoBatchReader;
 import com.s_hashtag.batch.writer.InstagramBatchWriter;
 import com.s_hashtag.batch.writer.KakaoBatchWriter;
 import com.s_hashtag.common.place.domain.model.Place;
-import com.s_hashtag.instagram.dto.external.CrawlingDto;
+import com.s_hashtag.common.instagram.dto.external.CrawlingDto;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

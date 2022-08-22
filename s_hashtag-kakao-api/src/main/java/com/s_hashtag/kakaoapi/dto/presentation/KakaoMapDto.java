@@ -1,11 +1,13 @@
 package com.s_hashtag.kakaoapi.dto.presentation;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
-import com.s_hashtag.kakaoapi.rect.Rect;
-import com.s_hashtag.kakaoapi.rect.location.Coordinate;
-import com.s_hashtag.kakaoapi.rect.location.Latitude;
-import com.s_hashtag.kakaoapi.rect.location.Longitude;
-import lombok.*;
+import com.s_hashtag.common.kakao.dto.external.Coordinate;
+import com.s_hashtag.common.kakao.dto.external.Latitude;
+import com.s_hashtag.common.kakao.dto.external.Longitude;
+import com.s_hashtag.common.kakao.dto.external.Rect;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
