@@ -41,3 +41,5 @@ public class InstagramEntity {
         kakaoDocumentEntity.setInstagramEntity(this);
     }
 }
+
+
