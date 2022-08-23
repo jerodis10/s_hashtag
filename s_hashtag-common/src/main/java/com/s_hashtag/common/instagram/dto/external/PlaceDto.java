@@ -5,23 +5,26 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 //@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
 public class PlaceDto {
-    private String id;
-    private String kakaoId;
-    private String placeId;
+//    private String id;
+//    private String kakaoId;
+    private String kakaoDocumentId;
+    private String instagramDocumentId;
     private double MinLatitude;
     private double MaxLatitude;
     private double MinLongitude;
     private double MaxLongitude;
-    private double latitude;
-    private double longitude;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
     private String hashtagName;
-    private Long hashtagCount;
+    private BigDecimal hashtagCount;
     private String categoryGroupCode;
     private String categoryGroupName;
     private String placeName;

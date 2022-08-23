@@ -35,16 +35,16 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
         String sql_instagram_save =
                         "merge into instagram " +
                         "using dual " +
-                        "on (instagram_id = ?) " +
+                        "on (instagram_document_id = ?) " +
                         "when matched then " +
                         "update " +
                         "set " +
-                            "place_id = ?, " +
+                            "kakao_document_id = ?, " +
                             "hashtag_name = ?, " +
                             "hashtag_count = ? " +
                         "when not matched then " +
                         "insert (" +
-                            "instagram_id, place_id, hashtag_name, hashtag_count) " +
+                            "instagram_document_id, kakao_document_id, hashtag_name, hashtag_count) " +
                         "values (?, ?, ?, ?)";
         jdbcTemplate.update(sql_instagram_save,
                 crawlingDto.getInstagramId(),
@@ -58,22 +58,22 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
                         "merge into instagram_post " +
                         "using dual " +
                         "on (" +
-                            "instagram_post_id = ? and instagram_id = ?) " +
+                            "instagram_post_id = ? and instagram_document_id = ?) " +
                         "when matched then " +
                         "update " +
                         "set " +
-                            "instagram_id = ?, " +
+                            "instagram_document_id = ?, " +
                             "post_url = ?, " +
                             "image_url = ? " +
                         "when not matched then " +
                         "insert (" +
-                            "instagram_post_id, instagram_id, post_url, image_url) " +
+                            "instagram_post_id, instagram_document_id, post_url, image_url) " +
                         "values (" +
                             "?, ?, ?, ?)";
         jdbcTemplate.update(sql_instagram_post_save,
-                postDto.getInstagram_post_id(), postDto.getInstagram_id(),
-                postDto.getInstagram_id(), postDto.getPostUrl(), postDto.getImageUrl(),
-                postDto.getInstagram_post_id(), postDto.getInstagram_id(), postDto.getPostUrl(), postDto.getImageUrl());
+                postDto.getInstagram_post_id(), postDto.getInstagram_document_id(),
+                postDto.getInstagram_document_id(), postDto.getPostUrl(), postDto.getImageUrl(),
+                postDto.getInstagram_post_id(), postDto.getInstagram_document_id(), postDto.getPostUrl(), postDto.getImageUrl());
     }
 
     @Override
@@ -83,14 +83,14 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
 //        String sql_get_hashtag = "select * " +
 //                                 "from kakao_document kd " +
 //                                 "left outer join instagram it " +
-//                                 "on it.place_id = kd.kakao_id " +
+//                                 "on it.place_id = kd.kakao_document_id " +
 //                                 "where latitude between"
 
 //        String sql_get_hashtag =
 //                        "select * " +
 //                        "from kakao_document kd " +
 //                        "left outer join instagram it " +
-//                                     "on it.place_id = kd.kakao_id " +
+//                                     "on it.place_id = kd.kakao_document_id " +
 //                        "where latitude between ? and ? " +
 //                          "and longitude between ? and ? "
 //                ;
@@ -114,10 +114,10 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
                 "select * " +
                 "from ( " +
                     "select  " +
-                    "kd.kakao_id, kd.category_group_code, kd.latitude, kd.longitude, kd.place_name, it.instagram_id, it.hashtag_name, it.hashtag_count " +
+                    "kd.kakao_document_id, kd.category_group_code, kd.latitude, kd.longitude, kd.place_name, it.instagram_document_id, it.hashtag_name, it.hashtag_count " +
                     "from kakao_document kd " +
                     "inner join instagram it " +
-                    "on it.place_id = kd.kakao_id " +
+                    "on it.kakao_document_id = kd.kakao_document_id " +
                     "where kd.latitude between ? and ? " +
                     "and kd.longitude between ? and ? " +
                     "and it.hashtag_count > 0 " +
@@ -139,11 +139,11 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
                 "select * " +
                 "from instagram it " +
                 "left outer join kakao_document kd " +
-                "on it.place_id = kd.kakao_id " +
+                "on it.kakao_document_id = kd.kakao_document_id " +
                 "where 1 = 1 ";
 
         sql_get_hashtag_byKeyword += "and category_group_code = ? ";
-        sql_get_hashtag_byKeyword += "and place_id in (";
+        sql_get_hashtag_byKeyword += "and kakao_document_id in (";
         for (int i=0; i<keywordList.size(); i++) {
             if(i != 0) sql_get_hashtag_byKeyword += ",?";
             else sql_get_hashtag_byKeyword += "?";
@@ -168,7 +168,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
                 "select * " +
                 "from instagram it " +
                 "left outer join kakao_document kd " +
-                "on it.place_id = kd.kakao_id " +
+                "on it.kakao_document_id = kd.kakao_document_id " +
                 "where 1 = 1 "+
                 "and latitude between ? and ? " +
                 "and longitude between ? and ? ";
@@ -212,7 +212,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
 //                "select * " +
 //                "from instagram it " +
 //                "left outer join kakao_document kd " +
-//                "on it.place_id = kd.kakao_id " +
+//                "on it.place_id = kd.kakao_document_id " +
 //                "where 1 = 1 ";
 //
 //        sql_get_hashtag_byCount += "and category_group_code in ( ";
@@ -280,10 +280,10 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
             placeDto.setMinLongitude(rect.getMinLongitude().getValue());
             placeDto.setMaxLongitude(rect.getMaxLongitude().getValue());
             placeDto.setHashtagName(rs.getString("HASHTAG_NAME"));
-            placeDto.setHashtagCount(rs.getLong("HASHTAG_COUNT"));
-            placeDto.setLatitude(rs.getDouble("LATITUDE"));
-            placeDto.setLongitude(rs.getDouble("LONGITUDE"));
-            placeDto.setKakaoId(rs.getString("KAKAO_ID"));
+            placeDto.setHashtagCount(rs.getBigDecimal("HASHTAG_COUNT"));
+            placeDto.setLatitude(rs.getBigDecimal("LATITUDE"));
+            placeDto.setLongitude(rs.getBigDecimal("LONGITUDE"));
+            placeDto.setKakaoDocumentId(rs.getString("KAKAO_DOCUMENT_ID"));
             placeDto.setCategoryGroupCode(rs.getString("CATEGORY_GROUP_CODE"));
 
             return placeDto;
@@ -294,11 +294,11 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
         return (rs, rowNum) -> {
             PlaceDto placeDto = new PlaceDto();
             placeDto.setHashtagName(rs.getString("HASHTAG_NAME"));
-            placeDto.setHashtagCount(rs.getLong("HASHTAG_COUNT"));
-            placeDto.setLatitude(rs.getDouble("LATITUDE"));
-            placeDto.setLongitude(rs.getDouble("LONGITUDE"));
+            placeDto.setHashtagCount(rs.getBigDecimal("HASHTAG_COUNT"));
+            placeDto.setLatitude(rs.getBigDecimal("LATITUDE"));
+            placeDto.setLongitude(rs.getBigDecimal("LONGITUDE"));
             placeDto.setCategoryGroupCode(rs.getString("CATEGORY_GROUP_CODE"));
-            placeDto.setPlaceId(rs.getString("PLACE_ID"));
+            placeDto.setKakaoDocumentId(rs.getString("KAKAO_DOCUMENT_ID"));
 
             return placeDto;
         };

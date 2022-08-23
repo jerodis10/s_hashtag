@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 import static com.s_hashtag.common.instagram.model.entity.QInstagramEntity.instagramEntity;
+import static com.s_hashtag.common.kakao.model.entity.QKakaoDocumentEntity.kakaoDocumentEntity;
 
 @Primary
 @Repository
@@ -32,13 +33,16 @@ public class JpaInstagramRepository implements InstagramRepository {
     public List<PlaceDto> findAll(String category, Rect rect) {
         return queryFactory
                 .select(Projections.fields(PlaceDto.class,
-                        instagramEntity.placeId.as("id"),
-                        instagramEntity.placeId,
-                        instagramEntity.instagramId,
+                        instagramEntity.instagramDocumentId,
                         instagramEntity.hashtagCount,
-                        instagramEntity.hashtagName))
+                        instagramEntity.hashtagName,
+                        kakaoDocumentEntity.kakaoDocumentId.as("id"),
+                        kakaoDocumentEntity.kakaoDocumentId,
+                        kakaoDocumentEntity.latitude,
+                        kakaoDocumentEntity.longitude))
                 .from(instagramEntity)
-                .where()
+                .join(instagramEntity.kakaoDocumentEntity, kakaoDocumentEntity)
+//                .where()
                 .orderBy(instagramEntity.hashtagCount.desc())
                 .offset(1)
                 .limit(50)
@@ -47,14 +51,15 @@ public class JpaInstagramRepository implements InstagramRepository {
 
     @Override
     public List<PlaceDto> findByKeyword(String category, List<String> keywordList) {
-        return queryFactory
-                .select(Projections.fields(PlaceDto.class,
-                        instagramEntity.placeId.as("id")))
-                .from(instagramEntity)
-                .orderBy(instagramEntity.hashtagCount.desc())
-                .offset(1)
-                .limit(50)
-                .fetch();
+        return null;
+//        return queryFactory
+//                .select(Projections.fields(PlaceDto.class,
+//                        instagramEntity.placeId.as("id")))
+//                .from(instagramEntity)
+//                .orderBy(instagramEntity.hashtagCount.desc())
+//                .offset(1)
+//                .limit(50)
+//                .fetch();
     }
 
     @Override

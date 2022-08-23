@@ -27,7 +27,7 @@ public class JpaScheduleRepository implements ScheduleRepository{
     public Schedule findById(String id) {
         return queryFactory
                 .select(Projections.fields(Schedule.class,
-                        scheduleEntity.scheduleId,
+                        scheduleEntity.scheduleDocumentId,
                         scheduleEntity.scheduleName,
                         scheduleEntity.scheduleResult,
                         scheduleEntity.cronPeriod,
@@ -39,7 +39,7 @@ public class JpaScheduleRepository implements ScheduleRepository{
                         scheduleEntity.minLongitude,
                         scheduleEntity.maxLongitude))
                 .from(scheduleEntity)
-                .where(scheduleEntity.scheduleId.eq(id))
+                .where(scheduleEntity.scheduleDocumentId.eq(id))
                 .fetchOne();
     }
 
@@ -47,7 +47,7 @@ public class JpaScheduleRepository implements ScheduleRepository{
     public List<Schedule> findAll() {
         return queryFactory
                 .select(Projections.fields(Schedule.class,
-                        scheduleEntity.scheduleId,
+                        scheduleEntity.scheduleDocumentId,
                         scheduleEntity.scheduleName,
                         scheduleEntity.scheduleResult,
                         scheduleEntity.cronPeriod,
@@ -71,7 +71,7 @@ public class JpaScheduleRepository implements ScheduleRepository{
     public void scheduleSave(String scheduleId, String expression, String min_latitude, String max_latitude, String min_longitude, String max_longitude) {
         ScheduleEntity schedule = queryFactory
                 .selectFrom(scheduleEntity)
-                .where(scheduleEntity.scheduleId.eq(scheduleId))
+                .where(scheduleEntity.scheduleDocumentId.eq(scheduleId))
                 .fetchOne();
 
         schedule.setCronPeriod(expression);

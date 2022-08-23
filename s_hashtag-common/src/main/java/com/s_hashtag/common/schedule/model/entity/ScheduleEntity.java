@@ -11,12 +11,12 @@ import javax.persistence.*;
 @Entity
 public class ScheduleEntity {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
+    @Column(name = "SCHEDULE_ID")
     private Long id;
 
-    @Column(name = "SCHEDULE_ID")
-    private String scheduleId;
+    @Column(name = "SCHEDULE_DOCUMENT_ID")
+    private String scheduleDocumentId;
 
     @Column(name = "SCHEDULE_NAME")
     private String scheduleName;
