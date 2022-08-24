@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,10 +31,13 @@ public class InstagramEntity {
     @JoinColumn(name = "KAKAO_ID")
     private KakaoDocumentEntity kakaoDocumentEntity;
 
-    @Column(name = "HASHTAG_NAME")
+    @OneToMany(mappedBy = "instagramEntity")
+    private List<InstagramPostEntity> instagramPostEntitys = new ArrayList<>();
+
+//    @Column(name = "HASHTAG_NAME")
     private String hashtagName;
 
-    @Column(name = "HASHTAG_COUNT")
+//    @Column(name = "HASHTAG_COUNT")
     private BigDecimal hashtagCount;
 
     //==연관관계 메서드==//

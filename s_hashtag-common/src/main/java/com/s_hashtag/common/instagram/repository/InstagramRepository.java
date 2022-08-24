@@ -12,7 +12,7 @@ public interface InstagramRepository {
 
     List<PlaceDto> findAll(String category, Rect rect);
 
-    List<PlaceDto> findByKeyword(String category, List<String> keywordList);
+    List<PlaceDto> findByKeyword(String category, Rect rect, List<String> keywordList);
 
     List<PlaceDto> findByHashtagCount(Rect rect, String[] categoryList, String check);
 

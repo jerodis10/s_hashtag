@@ -114,7 +114,7 @@ public class MapApiController {
                     KeywordStringList.add(document.getId());
                 }
             }
-            placeList.addAll(instagramRepository.findByKeyword(category, KeywordStringList));
+            placeList.addAll(instagramRepository.findByKeyword(category, kakaoMapDto.CreateRect(), KeywordStringList));
         }
 
         return placeList;

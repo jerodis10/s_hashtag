@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 @Service
 //@RequiredArgsConstructor
@@ -29,7 +30,7 @@ private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/ex
 //        String robot = instaCrawlingResult.checkRobot();
         String instagramId = instaCrawlingResult.findInstagramId();
 //        if(instagramId == null) return null;
-        String hashTagCount = instaCrawlingResult.findHashTagCount();
+        BigDecimal hashTagCount = new BigDecimal(instaCrawlingResult.findHashTagCount());
 //        if(hashTagCount == null) hashTagCount = instaCrawlingResult.findPostCount();
 //        if(hashTagCount == null) return null;
         PostDtos postDtos = instaCrawlingResult.findPostDtos();
