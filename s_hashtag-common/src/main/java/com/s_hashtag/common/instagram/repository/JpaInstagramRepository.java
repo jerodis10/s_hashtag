@@ -7,6 +7,7 @@ import com.s_hashtag.common.instagram.dto.external.CrawlingDto;
 import com.s_hashtag.common.instagram.dto.external.PostDto;
 import com.s_hashtag.common.instagram.dto.external.PlaceDto;
 import com.s_hashtag.common.instagram.model.entity.InstagramEntity;
+import com.s_hashtag.common.instagram.model.entity.InstagramPostEntity;
 import com.s_hashtag.common.kakao.dto.external.Document;
 import com.s_hashtag.common.kakao.dto.external.Rect;
 import com.s_hashtag.common.kakao.model.entity.KakaoDocumentEntity;
@@ -19,6 +20,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static com.s_hashtag.common.instagram.model.entity.QInstagramEntity.instagramEntity;
+import static com.s_hashtag.common.instagram.model.entity.QInstagramPostEntity.instagramPostEntity;
 import static com.s_hashtag.common.kakao.model.entity.QKakaoDocumentEntity.kakaoDocumentEntity;
 import static com.s_hashtag.common.schedule.model.entity.QScheduleEntity.scheduleEntity;
 
@@ -119,7 +121,19 @@ public class JpaInstagramRepository implements InstagramRepository {
 
     @Override
     public void instagramPostSave(PostDto postDto) {
+        InstagramEntity instagram = queryFactory
+                .selectFrom(instagramEntity)
+                .where(instagramEntity.instagramDocumentId.eq(postDto.getInstagram_document_id()))
+                .fetchOne();
 
+        InstagramPostEntity instagramPost = queryFactory
+                .selectFrom(instagramPostEntity)
+                .where(instagramPostEntity.instagramEntity.instagramDocumentId.eq(postDto.getInstagram_document_id()))
+                .fetchOne();
+
+        instagramPost.setInstagramEntity(instagram);
+        instagramPost.setPostUrl(instagramPost.getPostUrl());
+        instagramPost.setImageUrl(instagramPost.getImageUrl());
     }
 
     private BooleanExpression latitudeBetween(Rect rect) {
@@ -143,7 +157,7 @@ public class JpaInstagramRepository implements InstagramRepository {
             case "check4"  :
                 return check != null ? instagramEntity.hashtagCount.between(1000, 9999) : null;
             case "check5"  :
-                return check != null ? instagramEntity.hashtagCount.gt(10000) : null;
+                return check != null ? instagramEntity.hashtagCount.goe(10000) : null;
 
             default:
                 return null;

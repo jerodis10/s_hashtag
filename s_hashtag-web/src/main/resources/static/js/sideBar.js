@@ -211,8 +211,6 @@ function getHashtagByKeyword(searchText, category) {
 //        data: {ha: 126.75578831035362, oa: 127.2251487382762, pa: 37.41847533960485, qa: 37.70625487247741, category_list: 'CE7'}, // 서울시 전체
         data: param,
        success:function(data){
-            console.log(data);
-
             if(data){
                 var overlay_CE7_temp = [];
                 var overlay_FD6_temp = [];
@@ -247,6 +245,22 @@ function getHashtagByKeyword(searchText, category) {
                     });
                 });
                 overlay_list = overlay_CE7_temp.concat(overlay_FD6_temp);
+            } else {
+                $.each(marker_object['CE7'], function(index, item){
+                    item.setMap(null);
+                });
+
+                $.each(marker_object['FD6'], function(index, item){
+                    item.setMap(null);
+                });
+
+                $.each(overlay_object['CE7'], function(index, item){
+                    item.setMap(null);
+                });
+
+                $.each(overlay_object['FD6'], function(index, item){
+                    item.setMap(null);
+                });
             }
        },
        error : function(e){

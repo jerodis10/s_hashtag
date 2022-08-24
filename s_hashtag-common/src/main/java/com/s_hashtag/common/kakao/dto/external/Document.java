@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
@@ -33,16 +34,16 @@ public class Document {
     private String addressName;
     private String roadAddressName;
     @JsonAlias("y")
-    private String latitude;
+    private BigDecimal latitude;
     @JsonAlias("x")
-    private String longitude;
+    private BigDecimal longitude;
     private String placeUrl;
     private String distance;
 
     @Generated
     @Builder
     public Document(String id, String placeName, String categoryGroupCode, String roadAddressName,
-                    String latitude, String longitude, String placeUrl) {
+                    BigDecimal latitude, BigDecimal longitude, String placeUrl) {
         this.id = id;
         this.placeName = placeName;
         this.categoryGroupCode = categoryGroupCode;
