@@ -36,8 +36,16 @@ public class JpaKakaoRepository implements KakaoRepository {
                 .where(kakaoDocument.instagram.kakaoDocument.eq(findKakaoDocument))
                 .fetchOne();
 
-        if(findKakaoDocument.getId() == null) {
-            em.persist(findKakaoDocument);
+        if(findKakaoDocument == null) {
+            KakaoDocument kakaoDocument = new KakaoDocument();
+            kakaoDocument.setKakaoDocumentId(document.getId());
+            kakaoDocument.setLatitude(document.getLatitude());
+            kakaoDocument.setLongitude(document.getLongitude());
+            kakaoDocument.setPlaceName(document.getPlaceName());
+            kakaoDocument.setPlaceUrl(document.getPlaceUrl());
+            kakaoDocument.setCategoryGroupCode(document.getCategoryGroupCode());
+            kakaoDocument.setRoadAddressName(document.getRoadAddressName());
+            em.persist(kakaoDocument);
         } else {
             findKakaoDocument.setInstagram(findInstagram);
             findKakaoDocument.setCategoryGroupCode(document.getCategoryGroupCode());

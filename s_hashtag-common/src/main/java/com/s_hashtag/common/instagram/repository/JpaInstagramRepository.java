@@ -109,11 +109,12 @@ public class JpaInstagramRepository implements InstagramRepository {
 
         KakaoDocument findKakaoDocument = queryFactory
                 .selectFrom(kakaoDocument)
-                .where(instagram.kakaoDocument.kakaoDocumentId.eq(document.getId()))
+                .where(kakaoDocument.kakaoDocumentId.eq(document.getId()))
                 .fetchOne();
 
         if(findInstagram == null) {
             Instagram instagram = new Instagram();
+            instagram.setInstagramDocumentId(crawlingDto.getInstagramId());
             instagram.setHashtagCount(crawlingDto.getHashtagCount());
             instagram.setHashtagName(crawlingDto.getHashtagName());
             instagram.setKakaoDocument(findKakaoDocument);
@@ -139,6 +140,10 @@ public class JpaInstagramRepository implements InstagramRepository {
                 .fetchOne();
 
         if(findInstagramPost.getId() == null) {
+            InstagramPost instagramPost = new InstagramPost();
+            instagramPost.setPostUrl(postDto.getPostUrl());
+            instagramPost.setImageUrl(postDto.getImageUrl());
+            instagramPost.setInstagram(findInstagram);
             em.persist(findInstagramPost);
         } else {
             findInstagramPost.setInstagram(findInstagram);
