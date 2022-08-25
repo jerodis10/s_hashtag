@@ -11,6 +11,8 @@ var overlay_list_FD6 = [];
 var be_level;
 var level = 3;
 
+var customOverlay_flag = true;
+
 var container = document.getElementById('map');
 var options = {
     center: new kakao.maps.LatLng(37.56667120440735, 126.97962007985399),
@@ -69,31 +71,33 @@ kakao.maps.event.addListener(map, 'zoom_changed', function() {
         }
     });
 
-    $.each(category_list, function(c_index, category){
-        var customOverlay_list = [];
-        $.each(overlay_list, function(index, overlay){
-            overlay.setMap(null);
-            var dir = (level - be_level) > 0 ? -1 : 0;
-            var latitude_adjust = 0.00018 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
-            var longitude_adjust = 0.000027 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
-            var position = new kakao.maps.LatLng(overlay.getPosition().Ma + (level - be_level) * latitude_adjust, overlay.getPosition().La - (level - be_level) * longitude_adjust);
-            var content = overlay.getContent();
-            var customOverlay = new kakao.maps.CustomOverlay({
-                map: map,
-                position: position,
-                content: content,
-                yAnchor: 1
+    if(customOverlay_flag) {
+        $.each(category_list, function(c_index, category){
+            var customOverlay_list = [];
+            $.each(overlay_list, function(index, overlay){
+                overlay.setMap(null);
+                var dir = (level - be_level) > 0 ? -1 : 0;
+                var latitude_adjust = 0.00018 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
+                var longitude_adjust = 0.000027 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
+                var position = new kakao.maps.LatLng(overlay.getPosition().Ma + (level - be_level) * latitude_adjust, overlay.getPosition().La - (level - be_level) * longitude_adjust);
+                var content = overlay.getContent();
+                var customOverlay = new kakao.maps.CustomOverlay({
+                    map: map,
+                    position: position,
+                    content: content,
+                    yAnchor: 1
+                });
+                customOverlay_list.push(customOverlay);
             });
-            customOverlay_list.push(customOverlay);
-        });
 
-        overlay_list = [];
-        $.each(customOverlay_list, function(index, overlay){
-            overlay_list.push(overlay);
-        });
+            overlay_list = [];
+            $.each(customOverlay_list, function(index, overlay){
+                overlay_list.push(overlay);
+            });
 
-        overlay_object[category] = overlay_list;
-    });
+            overlay_object[category] = overlay_list;
+        });
+    }
 });
 
 var rect_json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741};
