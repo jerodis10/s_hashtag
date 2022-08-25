@@ -1,4 +1,4 @@
-package com.s_hashtag.common.schedule.model.vo;
+package com.s_hashtag.common.schedule.dto.external;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 @Builder
-public class Schedule {
+public class ScheduleDto {
 
     private String scheduleId;
     private String scheduleName;

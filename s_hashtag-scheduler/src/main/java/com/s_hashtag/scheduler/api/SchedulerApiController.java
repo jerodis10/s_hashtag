@@ -1,7 +1,7 @@
 package com.s_hashtag.scheduler.api;
 
 import com.s_hashtag.common.response.CustomResponse;
-import com.s_hashtag.common.schedule.model.vo.Schedule;
+import com.s_hashtag.common.schedule.dto.external.ScheduleDto;
 import com.s_hashtag.common.schedule.repository.ScheduleRepository;
 import com.s_hashtag.scheduler.service.KakaoScheduleService;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +28,8 @@ public class SchedulerApiController {
 
     @GetMapping("/list")
     public String scheduleEditList(Model model) {
-        List<Schedule> scheduleList = scheduleRepository.findAll();
-        model.addAttribute("scheduleList", scheduleList);
+        List<ScheduleDto> scheduleDtoList = scheduleRepository.findAll();
+        model.addAttribute("scheduleList", scheduleDtoList);
         return "admin/scheduleEdit";
     }
 

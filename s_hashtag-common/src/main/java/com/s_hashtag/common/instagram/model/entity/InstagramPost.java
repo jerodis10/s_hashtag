@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "INSTAGRAM_POST")
 @Entity
-public class InstagramPostEntity {
+public class InstagramPost {
 
     @Id
     @GeneratedValue
@@ -20,18 +20,16 @@ public class InstagramPostEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "INSTAGRAM_ID")
-    private InstagramEntity instagramEntity;
+    private Instagram instagram;
 
-//    @Column(name = "POST_URL")
     private String postUrl;
 
-//    @Column(name = "IMAGE_URL")
     private String imageUrl;
 
     //==연관관계 메서드==//
-    public void setInstagram(InstagramEntity instagramEntity) {
-        this.instagramEntity = instagramEntity;
-        instagramEntity.getInstagramPostEntitys().add(this);
+    public void setInstagram(Instagram instagram) {
+        this.instagram = instagram;
+        instagram.getInstagramPosts().add(this);
     }
 
 }

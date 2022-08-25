@@ -1,6 +1,6 @@
 package com.s_hashtag.common.instagram.model.entity;
 
-import com.s_hashtag.common.kakao.model.entity.KakaoDocumentEntity;
+import com.s_hashtag.common.kakao.model.entity.KakaoDocument;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "INSTAGRAM")
 @Entity
-public class InstagramEntity {
+public class Instagram {
 
     @Id @GeneratedValue
     @Column(name = "INSTAGRAM_ID")
@@ -29,21 +29,19 @@ public class InstagramEntity {
 
     @OneToOne
     @JoinColumn(name = "KAKAO_ID")
-    private KakaoDocumentEntity kakaoDocumentEntity;
+    private KakaoDocument kakaoDocument;
 
-    @OneToMany(mappedBy = "instagramEntity")
-    private List<InstagramPostEntity> instagramPostEntitys = new ArrayList<>();
+    @OneToMany(mappedBy = "instagram")
+    private List<InstagramPost> instagramPosts = new ArrayList<>();
 
-//    @Column(name = "HASHTAG_NAME")
     private String hashtagName;
 
-//    @Column(name = "HASHTAG_COUNT")
     private BigDecimal hashtagCount;
 
     //==연관관계 메서드==//
-    public void setKakaoDocument(KakaoDocumentEntity kakaoDocumentEntity) {
-        this.kakaoDocumentEntity = kakaoDocumentEntity;
-        kakaoDocumentEntity.setInstagramEntity(this);
+    public void setKakaoDocument(KakaoDocument kakaoDocument) {
+        this.kakaoDocument = kakaoDocument;
+        kakaoDocument.setInstagram(this);
     }
 }
 

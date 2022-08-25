@@ -1,16 +1,16 @@
 package com.s_hashtag.common.kakao.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.s_hashtag.common.instagram.model.entity.InstagramEntity;
+import com.s_hashtag.common.instagram.model.entity.Instagram;
 import com.s_hashtag.common.kakao.dto.external.Document;
-import com.s_hashtag.common.kakao.model.entity.KakaoDocumentEntity;
+import com.s_hashtag.common.kakao.model.entity.KakaoDocument;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 
-import static com.s_hashtag.common.instagram.model.entity.QInstagramEntity.instagramEntity;
-import static com.s_hashtag.common.kakao.model.entity.QKakaoDocumentEntity.kakaoDocumentEntity;
+import static com.s_hashtag.common.instagram.model.entity.QInstagram.instagram;
+import static com.s_hashtag.common.kakao.model.entity.QKakaoDocument.kakaoDocument;
 
 @Primary
 @Repository
@@ -26,22 +26,22 @@ public class JpaKakaoRepository implements KakaoRepository {
 
     @Override
     public void kakao_document_save(Document document) {
-        KakaoDocumentEntity kakaoDocument = queryFactory
-                .selectFrom(kakaoDocumentEntity)
-                .where(kakaoDocumentEntity.kakaoDocumentId.eq(document.getId()))
+        KakaoDocument kakaoDocumentEntity = queryFactory
+                .selectFrom(kakaoDocument)
+                .where(kakaoDocument.kakaoDocumentId.eq(document.getId()))
                 .fetchOne();
 
-        InstagramEntity instagram = queryFactory
-                .selectFrom(instagramEntity)
-                .where(kakaoDocumentEntity.instagramEntity.kakaoDocumentEntity.eq(kakaoDocument))
+        Instagram instagramEntity = queryFactory
+                .selectFrom(instagram)
+                .where(kakaoDocument.instagram.kakaoDocument.eq(kakaoDocumentEntity))
                 .fetchOne();
 
-        kakaoDocument.setInstagramEntity(instagram);
-        kakaoDocument.setCategoryGroupCode(document.getCategoryGroupCode());
-        kakaoDocument.setLatitude(document.getLatitude());
-        kakaoDocument.setLongitude(document.getLongitude());
-        kakaoDocument.setPlaceName(document.getPlaceName());
-        kakaoDocument.setRoadAddressName(document.getRoadAddressName());
-        kakaoDocument.setPlaceUrl(document.getPlaceUrl());
+        kakaoDocumentEntity.setInstagram(instagramEntity);
+        kakaoDocumentEntity.setCategoryGroupCode(document.getCategoryGroupCode());
+        kakaoDocumentEntity.setLatitude(document.getLatitude());
+        kakaoDocumentEntity.setLongitude(document.getLongitude());
+        kakaoDocumentEntity.setPlaceName(document.getPlaceName());
+        kakaoDocumentEntity.setRoadAddressName(document.getRoadAddressName());
+        kakaoDocumentEntity.setPlaceUrl(document.getPlaceUrl());
     }
 }

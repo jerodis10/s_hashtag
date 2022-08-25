@@ -3,7 +3,7 @@ package com.s_hashtag.common.schedule.repository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.s_hashtag.common.schedule.model.entity.ScheduleEntity;
-import com.s_hashtag.common.schedule.model.vo.Schedule;
+import com.s_hashtag.common.schedule.dto.external.ScheduleDto;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
@@ -24,9 +24,9 @@ public class JpaScheduleRepository implements ScheduleRepository{
     }
 
     @Override
-    public Schedule findById(String id) {
+    public ScheduleDto findById(String id) {
         return queryFactory
-                .select(Projections.fields(Schedule.class,
+                .select(Projections.fields(ScheduleDto.class,
                         scheduleEntity.scheduleDocumentId,
                         scheduleEntity.scheduleName,
                         scheduleEntity.scheduleResult,
@@ -44,9 +44,9 @@ public class JpaScheduleRepository implements ScheduleRepository{
     }
 
     @Override
-    public List<Schedule> findAll() {
+    public List<ScheduleDto> findAll() {
         return queryFactory
-                .select(Projections.fields(Schedule.class,
+                .select(Projections.fields(ScheduleDto.class,
                         scheduleEntity.scheduleDocumentId,
                         scheduleEntity.scheduleName,
                         scheduleEntity.scheduleResult,

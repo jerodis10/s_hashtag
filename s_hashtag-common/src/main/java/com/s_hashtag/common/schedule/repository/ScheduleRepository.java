@@ -1,6 +1,6 @@
 package com.s_hashtag.common.schedule.repository;
 
-import com.s_hashtag.common.schedule.model.vo.Schedule;
+import com.s_hashtag.common.schedule.dto.external.ScheduleDto;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ public interface ScheduleRepository {
 
 //    Optional<Schedule> findById(String id);
 
-    Schedule findById(String id);
+    ScheduleDto findById(String id);
 
-    List<Schedule> findAll();
+    List<ScheduleDto> findAll();
 
     void scheduleCroneSave(String scheduleId, String expression);
 

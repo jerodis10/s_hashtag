@@ -1,6 +1,6 @@
 package com.s_hashtag.common.schedule.repository;
 
-import com.s_hashtag.common.schedule.model.vo.Schedule;
+import com.s_hashtag.common.schedule.dto.external.ScheduleDto;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -56,7 +56,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
     }
 
     @Override
-    public Schedule findById(String id) {
+    public ScheduleDto findById(String id) {
         return jdbcTemplate.queryForObject("select * from schedule where schedule_id = ?", scheduleRowMapper(), id);
 
 //        List<Schedule> result = jdbcTemplate.query("select * from schedule where schedule_id = ?", scheduleRowMapper(), id);
@@ -64,13 +64,13 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
     }
 
     @Override
-    public List<Schedule> findAll() {
+    public List<ScheduleDto> findAll() {
         return jdbcTemplate.query("select * from schedule", scheduleRowMapper());
     }
 
-    private RowMapper<Schedule> scheduleRowMapper() {
+    private RowMapper<ScheduleDto> scheduleRowMapper() {
         return (rs, rowNum) -> {
-            Schedule schedule = Schedule.builder()
+            ScheduleDto scheduleDto = ScheduleDto.builder()
                     .scheduleId(rs.getString("schedule_id"))
                     .scheduleName(rs.getString("schedule_name"))
                     .cronPeriod(rs.getString("cron_period"))
@@ -83,7 +83,7 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
                     .minLongitude(rs.getString("min_longitude"))
                     .maxLongitude(rs.getString("max_longitude"))
                     .build();
-            return schedule;
+            return scheduleDto;
         };
     }
 
