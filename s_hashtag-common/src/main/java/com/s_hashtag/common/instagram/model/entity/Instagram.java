@@ -39,7 +39,7 @@ public class Instagram {
     private BigDecimal hashtagCount;
 
     //==연관관계 메서드==//
-    public void setKakaoDocument(KakaoDocument kakaoDocument) {
+    public void settingKakaoDocument(KakaoDocument kakaoDocument) {
         this.kakaoDocument = kakaoDocument;
         kakaoDocument.setInstagram(this);
     }

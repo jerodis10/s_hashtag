@@ -102,37 +102,50 @@ public class JpaInstagramRepository implements InstagramRepository {
 
     @Override
     public void instagramSave(CrawlingDto crawlingDto, Document document) {
-        Instagram instagramEntity = queryFactory
+        Instagram findInstagram = queryFactory
                 .selectFrom(instagram)
                 .where(instagram.instagramDocumentId.eq(crawlingDto.getInstagramId()))
                 .fetchOne();
 
-        KakaoDocument kakaoDocumentEntity = queryFactory
+        KakaoDocument findKakaoDocument = queryFactory
                 .selectFrom(kakaoDocument)
                 .where(instagram.kakaoDocument.kakaoDocumentId.eq(document.getId()))
                 .fetchOne();
 
-        instagramEntity.setInstagramDocumentId(crawlingDto.getInstagramId());
-        instagramEntity.setKakaoDocument(kakaoDocumentEntity);
-        instagramEntity.setHashtagName(crawlingDto.getHashtagName());
-        instagramEntity.setHashtagCount(crawlingDto.getHashtagCount());
+        if(findInstagram == null) {
+            Instagram instagram = new Instagram();
+            instagram.setHashtagCount(crawlingDto.getHashtagCount());
+            instagram.setHashtagName(crawlingDto.getHashtagName());
+            instagram.setKakaoDocument(findKakaoDocument);
+            em.persist(instagram);
+        } else {
+            findInstagram.setInstagramDocumentId(crawlingDto.getInstagramId());
+            findInstagram.setKakaoDocument(findKakaoDocument);
+            findInstagram.setHashtagName(crawlingDto.getHashtagName());
+            findInstagram.setHashtagCount(crawlingDto.getHashtagCount());
+        }
     }
 
     @Override
     public void instagramPostSave(PostDto postDto) {
-        Instagram instagramEntity = queryFactory
+        Instagram findInstagram = queryFactory
                 .selectFrom(instagram)
                 .where(instagram.instagramDocumentId.eq(postDto.getInstagram_document_id()))
                 .fetchOne();
 
-        InstagramPost instagramPostEntity = queryFactory
+        InstagramPost findInstagramPost = queryFactory
                 .selectFrom(instagramPost)
                 .where(instagramPost.instagram.instagramDocumentId.eq(postDto.getInstagram_document_id()))
                 .fetchOne();
 
-        instagramPostEntity.setInstagram(instagramEntity);
-        instagramPostEntity.setPostUrl(instagramPostEntity.getPostUrl());
-        instagramPostEntity.setImageUrl(instagramPostEntity.getImageUrl());
+        if(findInstagramPost.getId() == null) {
+            em.persist(findInstagramPost);
+        } else {
+            findInstagramPost.setInstagram(findInstagram);
+            findInstagramPost.setPostUrl(postDto.getPostUrl());
+            findInstagramPost.setImageUrl(postDto.getImageUrl());
+        }
+
     }
 
     private BooleanExpression latitudeBetween(Rect rect) {

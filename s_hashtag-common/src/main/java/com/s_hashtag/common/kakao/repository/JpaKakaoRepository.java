@@ -26,22 +26,26 @@ public class JpaKakaoRepository implements KakaoRepository {
 
     @Override
     public void kakao_document_save(Document document) {
-        KakaoDocument kakaoDocumentEntity = queryFactory
+        KakaoDocument findKakaoDocument = queryFactory
                 .selectFrom(kakaoDocument)
                 .where(kakaoDocument.kakaoDocumentId.eq(document.getId()))
                 .fetchOne();
 
-        Instagram instagramEntity = queryFactory
+        Instagram findInstagram = queryFactory
                 .selectFrom(instagram)
-                .where(kakaoDocument.instagram.kakaoDocument.eq(kakaoDocumentEntity))
+                .where(kakaoDocument.instagram.kakaoDocument.eq(findKakaoDocument))
                 .fetchOne();
 
-        kakaoDocumentEntity.setInstagram(instagramEntity);
-        kakaoDocumentEntity.setCategoryGroupCode(document.getCategoryGroupCode());
-        kakaoDocumentEntity.setLatitude(document.getLatitude());
-        kakaoDocumentEntity.setLongitude(document.getLongitude());
-        kakaoDocumentEntity.setPlaceName(document.getPlaceName());
-        kakaoDocumentEntity.setRoadAddressName(document.getRoadAddressName());
-        kakaoDocumentEntity.setPlaceUrl(document.getPlaceUrl());
+        if(findKakaoDocument.getId() == null) {
+            em.persist(findKakaoDocument);
+        } else {
+            findKakaoDocument.setInstagram(findInstagram);
+            findKakaoDocument.setCategoryGroupCode(document.getCategoryGroupCode());
+            findKakaoDocument.setLatitude(document.getLatitude());
+            findKakaoDocument.setLongitude(document.getLongitude());
+            findKakaoDocument.setPlaceName(document.getPlaceName());
+            findKakaoDocument.setRoadAddressName(document.getRoadAddressName());
+            findKakaoDocument.setPlaceUrl(document.getPlaceUrl());
+        }
     }
 }
