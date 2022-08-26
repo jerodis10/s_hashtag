@@ -31,10 +31,10 @@ public class JpaKakaoRepository implements KakaoRepository {
                 .where(kakaoDocument.kakaoDocumentId.eq(document.getId()))
                 .fetchOne();
 
-        Instagram findInstagram = queryFactory
-                .selectFrom(instagram)
-                .where(kakaoDocument.instagram.kakaoDocument.eq(findKakaoDocument))
-                .fetchOne();
+//        Instagram findInstagram = queryFactory
+//                .selectFrom(instagram)
+//                .where(kakaoDocument.instagram.kakaoDocument.eq(findKakaoDocument))
+//                .fetchOne();
 
         if(findKakaoDocument == null) {
             KakaoDocument kakaoDocument = new KakaoDocument();
@@ -47,7 +47,7 @@ public class JpaKakaoRepository implements KakaoRepository {
             kakaoDocument.setRoadAddressName(document.getRoadAddressName());
             em.persist(kakaoDocument);
         } else {
-            findKakaoDocument.setInstagram(findInstagram);
+//            findKakaoDocument.setInstagram(findInstagram);
             findKakaoDocument.setCategoryGroupCode(document.getCategoryGroupCode());
             findKakaoDocument.setLatitude(document.getLatitude());
             findKakaoDocument.setLongitude(document.getLongitude());

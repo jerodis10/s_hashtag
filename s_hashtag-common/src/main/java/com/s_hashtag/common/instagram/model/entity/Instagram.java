@@ -21,11 +21,9 @@ public class Instagram {
     @Column(name = "INSTAGRAM_ID")
     private Long id;
 
-    @Column(name = "INSTAGRAM_DOCUMENT_ID")
     private String instagramDocumentId;
 
-//    @Column(name = "PLACE_ID")
-//    private String placeId;
+    private String kakaoDocumentId;
 
     @OneToOne
     @JoinColumn(name = "KAKAO_ID")

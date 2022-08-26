@@ -22,6 +22,10 @@ public class InstagramPost {
     @JoinColumn(name = "INSTAGRAM_ID")
     private Instagram instagram;
 
+    private String instagramDocumentId;
+
+    private String instagramPostDocumentId;
+
     private String postUrl;
 
     private String imageUrl;

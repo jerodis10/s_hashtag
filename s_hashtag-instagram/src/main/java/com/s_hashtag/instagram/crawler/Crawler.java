@@ -151,14 +151,14 @@ public class Crawler {
                     .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
                     .ignoreContentType(true)
                     .cookie("auth", "token")
-                    .timeout(10000)
+                    .timeout(100000)
                     .get();
             return doc.toString();
 
         } catch (HttpStatusException e) {
             if (e.getStatusCode() == NOT_FOUND) {
-                throw new CrawlerException(CrawlerExceptionStatus.NOT_FOUND_URL);
-//                return null;
+//                throw new CrawlerException(CrawlerExceptionStatus.NOT_FOUND_URL);
+                return null;
             } else if (e.getStatusCode() == TOO_MANY_REQUEST) {
                 throw new CrawlerException(CrawlerExceptionStatus.TOO_MANY_REQUEST);
             }
