@@ -1,5 +1,6 @@
 package com.s_hashtag.common.schedule.model.entity;
 
+import com.s_hashtag.common.model.entity.BaseEntity;
 import lombok.*;
 import javax.persistence.*;
 
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "SCHEDULE")
 @Entity
-public class ScheduleEntity {
+public class Schedule extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "SCHEDULE_ID")

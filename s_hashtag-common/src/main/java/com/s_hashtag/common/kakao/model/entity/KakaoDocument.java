@@ -1,6 +1,7 @@
 package com.s_hashtag.common.kakao.model.entity;
 
 import com.s_hashtag.common.instagram.model.entity.Instagram;
+import com.s_hashtag.common.model.entity.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Table(name = "KAKAO_DOCUMENT")
 @Entity
-public class KakaoDocument {
+public class KakaoDocument extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "KAKAO_ID")

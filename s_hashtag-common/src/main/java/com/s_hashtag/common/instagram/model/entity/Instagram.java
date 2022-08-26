@@ -1,6 +1,7 @@
 package com.s_hashtag.common.instagram.model.entity;
 
 import com.s_hashtag.common.kakao.model.entity.KakaoDocument;
+import com.s_hashtag.common.model.entity.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "INSTAGRAM")
 @Entity
-public class Instagram {
+public class Instagram extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "INSTAGRAM_ID")

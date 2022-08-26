@@ -1,5 +1,6 @@
 package com.s_hashtag.common.instagram.model.entity;
 
+import com.s_hashtag.common.model.entity.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "INSTAGRAM_POST")
 @Entity
-public class InstagramPost {
+public class InstagramPost extends BaseEntity {
 
     @Id
     @GeneratedValue

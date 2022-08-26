@@ -151,7 +151,7 @@ public class Crawler {
                     .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
                     .ignoreContentType(true)
                     .cookie("auth", "token")
-                    .timeout(100000)
+                    .proxy(System.getProperty("http.proxyHost"), Integer.parseInt(System.getProperty("http.proxyPort")))
                     .get();
             return doc.toString();
 

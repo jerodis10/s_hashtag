@@ -2,7 +2,7 @@ package com.s_hashtag.common.schedule.repository;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.s_hashtag.common.schedule.model.entity.ScheduleEntity;
+import com.s_hashtag.common.schedule.model.entity.Schedule;
 import com.s_hashtag.common.schedule.dto.external.ScheduleDto;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
@@ -69,7 +69,7 @@ public class JpaScheduleRepository implements ScheduleRepository{
 
     @Override
     public void scheduleSave(String scheduleId, String expression, String min_latitude, String max_latitude, String min_longitude, String max_longitude) {
-        ScheduleEntity schedule = queryFactory
+        Schedule schedule = queryFactory
                 .selectFrom(scheduleEntity)
                 .where(scheduleEntity.scheduleDocumentId.eq(scheduleId))
                 .fetchOne();
