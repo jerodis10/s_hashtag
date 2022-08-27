@@ -1,6 +1,6 @@
 package com.s_hashtag.kakaoapi.caller;
 
-import com.s_hashtag.common.kakao.dto.external.Rect;
+import com.s_hashtag.common.domain.kakao.dto.external.Rect;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;

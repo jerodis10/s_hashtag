@@ -1,9 +1,9 @@
 package com.s_hashtag.kakaoapi.service;
 
-import com.s_hashtag.common.kakao.dto.external.Coordinate;
-import com.s_hashtag.common.kakao.dto.external.Latitude;
-import com.s_hashtag.common.kakao.dto.external.Longitude;
-import com.s_hashtag.common.kakao.dto.external.Rect;
+import com.s_hashtag.common.domain.kakao.dto.external.Coordinate;
+import com.s_hashtag.common.domain.kakao.dto.external.Latitude;
+import com.s_hashtag.common.domain.kakao.dto.external.Longitude;
+import com.s_hashtag.common.domain.kakao.dto.external.Rect;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;

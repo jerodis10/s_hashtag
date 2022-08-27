@@ -1,7 +1,7 @@
 package com.s_hashtag.instagram.proxy;
 
 import com.s_hashtag.instagram.crawler.InstagramCrawler;
-import com.s_hashtag.common.instagram.dto.external.CrawlingDto;
+import com.s_hashtag.common.domain.instagram.dto.external.CrawlingDto;
 import com.s_hashtag.instagram.exception.CrawlerException;
 import com.s_hashtag.instagram.exception.CrawlerExceptionStatus;
 import lombok.extern.slf4j.Slf4j;

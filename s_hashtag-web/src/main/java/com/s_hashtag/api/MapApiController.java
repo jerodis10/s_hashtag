@@ -1,8 +1,8 @@
 package com.s_hashtag.api;
 
-import com.s_hashtag.common.instagram.dto.external.PlaceDto;
-import com.s_hashtag.common.instagram.repository.InstagramRepository;
-import com.s_hashtag.common.kakao.dto.external.Document;
+import com.s_hashtag.common.domain.instagram.dto.external.PlaceDto;
+import com.s_hashtag.common.domain.instagram.repository.InstagramRepository;
+import com.s_hashtag.common.domain.kakao.dto.external.Document;
 import com.s_hashtag.instagram.service.InstagramService;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
 import com.s_hashtag.kakaoapi.dto.presentation.KakaoMapDto;

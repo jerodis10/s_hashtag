@@ -11,15 +11,15 @@
     <div class="py-5 text-center">
         <h2>회원 목록</h2>
     </div>
-<!--    <form action="/api/admin/members/delete" th:object="${member}" method="post">-->
+<!--    <form action="/api/admin/memberDtos/delete" th:object="${memberDto}" method="post">-->
         <div class="row">
             <div class="col">
-                <div sec:authorize="hasAuthority('member:write')">
+                <div sec:authorize="hasAuthority('memberDto:write')">
                     <button id="btnMemberDelete" name="btnMemberDelete" class="btn btn-primary float-end" type="submit">회원 삭제</button>
 
                     <button class="btn btn-primary float-end"
                             onclick="location.href='addForm.html'"
-                            th:onclick="|location.href='@{/api/members/add}'|"
+                            th:onclick="|location.href='@{/api/memberDtos/add}'|"
                             type="button">회원 등록</button>
                 </div>
             </div>
@@ -29,7 +29,7 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <div sec:authorize="hasAuthority('member:write')">
+                    <div sec:authorize="hasAuthority('memberDto:write')">
                         <th></th>
                     </div>
                     <th>아이디</th>
@@ -39,13 +39,13 @@
                 </thead>
 
                 <tbody>
-                <tr th:each="member : ${members}">
-                    <div sec:authorize="hasAuthority('member:write')">
-                        <td><input th:value="${member.loginId}" type="checkbox" class="form-check-input" name="check"></td>
+                <tr th:each="memberDto : ${memberDtos}">
+                    <div sec:authorize="hasAuthority('memberDto:write')">
+                        <td><input th:value="${memberDto.loginId}" type="checkbox" class="form-check-input" name="check"></td>
                     </div>
-                    <td th:text="${member.loginId}" th:name="${member.loginId}"></td>
-                    <td th:text="${member.name}" th:name="${member.name}"></td>
-                    <td th:text="${member.role}" th:name="${member.role}"></td>
+                    <td th:text="${memberDto.loginId}" th:name="${memberDto.loginId}"></td>
+                    <td th:text="${memberDto.name}" th:name="${memberDto.name}"></td>
+                    <td th:text="${memberDto.role}" th:name="${memberDto.role}"></td>
                 </tr>
                 </tbody>
             </table>

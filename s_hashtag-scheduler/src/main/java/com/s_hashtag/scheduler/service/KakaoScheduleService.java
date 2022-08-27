@@ -1,6 +1,6 @@
 package com.s_hashtag.scheduler.service;
 
-import com.s_hashtag.common.schedule.repository.ScheduleRepository;
+import com.s_hashtag.common.domain.schedule.repository.ScheduleRepository;
 import com.s_hashtag.scheduler.model.vo.InstagramScheduler;
 import com.s_hashtag.scheduler.model.vo.KakaoScheduler;
 import lombok.RequiredArgsConstructor;

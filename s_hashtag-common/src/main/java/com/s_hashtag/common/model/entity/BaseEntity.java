@@ -17,9 +17,9 @@ public abstract class BaseEntity extends BaseTimeEntity{
 
     @CreatedBy
     @Column(updatable = false)
-    protected LocalDateTime createdBy;
+    protected String createdBy;
 
     @LastModifiedBy
-    protected LocalDateTime modifiedBy;
+    protected String modifiedBy;
 }
 

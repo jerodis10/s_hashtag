@@ -1,8 +1,8 @@
 package com.s_hashtag.scheduler.api;
 
 import com.s_hashtag.common.response.CustomResponse;
-import com.s_hashtag.common.schedule.dto.external.ScheduleDto;
-import com.s_hashtag.common.schedule.repository.ScheduleRepository;
+import com.s_hashtag.common.domain.schedule.dto.external.ScheduleDto;
+import com.s_hashtag.common.domain.schedule.repository.ScheduleRepository;
 import com.s_hashtag.scheduler.service.KakaoScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

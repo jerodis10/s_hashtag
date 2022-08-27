@@ -1,7 +1,7 @@
 package com.s_hashtag.api;
 
-import com.s_hashtag.dto.presentation.Member;
-import com.s_hashtag.repository.MemberRepository;
+import com.s_hashtag.common.domain.member.dto.presentation.MemberDto;
+import com.s_hashtag.common.domain.member.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ class MemberApiControllerTest {
     @DisplayName("모든 멤버 검색")
     @Test
     void test(){
-        List<Member> memberList = memberRepository.findAll();
+        List<MemberDto> memberList = memberRepository.findAll();
 
         assertThat(memberList.size()).isEqualTo(4);
     }

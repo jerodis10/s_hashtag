@@ -1,7 +1,7 @@
 package com.s_hashtag.admin.schedule.api;
 
-import com.s_hashtag.dto.presentation.Member;
-import com.s_hashtag.repository.MemberRepository;
+import com.s_hashtag.common.domain.member.dto.presentation.MemberDto;
+import com.s_hashtag.common.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +21,8 @@ public class AdminMemberApiController {
 
     @GetMapping("/list")
     public String adminMemberList(Model model) {
-        List<Member> members = memberRepository.findAll();
-        model.addAttribute("members", members);
+        List<MemberDto> memberDtos = memberRepository.findAll();
+        model.addAttribute("members", memberDtos);
 
         return "admin/memberList";
     }

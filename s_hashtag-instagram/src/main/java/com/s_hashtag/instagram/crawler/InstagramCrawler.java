@@ -1,7 +1,7 @@
 package com.s_hashtag.instagram.crawler;
 
-import com.s_hashtag.common.instagram.dto.external.CrawlingDto;
-import com.s_hashtag.common.instagram.dto.external.PostDtos;
+import com.s_hashtag.common.domain.instagram.dto.external.CrawlingDto;
+import com.s_hashtag.common.domain.instagram.dto.external.PostDtos;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

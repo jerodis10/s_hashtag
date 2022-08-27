@@ -1,7 +1,7 @@
 package com.s_hashtag.security.auth;
 
-import com.s_hashtag.dto.presentation.Member;
-import com.s_hashtag.repository.MemberRepository;
+import com.s_hashtag.common.domain.member.dto.presentation.MemberDto;
+import com.s_hashtag.common.domain.member.repository.MemberRepository;
 import com.s_hashtag.security.ApplicationMemberRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,7 +28,7 @@ public class ApplicationUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Member> member = Optional.ofNullable(memberRepository.findById(username)
+        Optional<MemberDto> member = Optional.ofNullable(memberRepository.findById(username)
                 .orElseThrow(() ->
                         new UsernameNotFoundException(String.format("member %s not found", username))));
 
