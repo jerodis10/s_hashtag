@@ -13,6 +13,7 @@ import org.springframework.batch.item.ItemReader;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 //@RequiredArgsConstructor
@@ -44,7 +45,9 @@ public class KakaoBatchReader implements ItemReader<KakaoPlaceDto> {
 
         Rect rect = new Rect(minLatitude, maxLatitude, maxLongitude, minLongitude);
 
-        KakaoPlaceDtoList = kakaoApiService.findPlaces("FD6", rect);
+//        KakaoPlaceDtoList = kakaoApiService.findPlaces("FD6", rect);
+        List<KakaoPlaceDto> result = new ArrayList<>();
+        KakaoPlaceDtoList = kakaoApiService.findPlaces("FD6", rect, result);
 //        studentData = Collections.unmodifiableList(Arrays.asList(tony, nick, ian));
         nextKakaoPlaceIndex = 0;
     }

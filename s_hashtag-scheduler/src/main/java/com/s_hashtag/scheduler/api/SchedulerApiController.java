@@ -5,6 +5,7 @@ import com.s_hashtag.common.domain.schedule.dto.external.ScheduleDto;
 import com.s_hashtag.common.domain.schedule.repository.ScheduleRepository;
 import com.s_hashtag.scheduler.service.KakaoScheduleService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 //@RestController
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/api/admin/schedule")
@@ -53,18 +55,29 @@ public class SchedulerApiController {
         return CustomResponse.empty();
     }
 
+    @ResponseBody
     @PostMapping("/change")
-//    @ResponseStatus(HttpStatus.OK)
-    public String changeSchedule(@RequestParam("checkedList[]") List<String> checkedList,
-                                 @RequestParam String expression,
-                                 @RequestParam String min_latitude,
-                                 @RequestParam String max_latitude,
-                                 @RequestParam String min_longitude,
-                                 @RequestParam String max_longitude
+    @ResponseStatus(HttpStatus.OK)
+    public String changeSchedule(@ModelAttribute ScheduleDto scheduleDto
+
+//                                 @RequestBody List<String> checkedList,
+//                                 @RequestBody String expression,
+//                                 @RequestBody String min_latitude,
+//                                 @RequestBody String max_latitude,
+//                                 @RequestBody String min_longitude,
+//                                 @RequestBody String max_longitude
+
+//                                 @RequestParam("checkedList[]") List<String> checkedList,
+//                                 @RequestParam String expression,
+//                                 @RequestParam String min_latitude,
+//                                 @RequestParam String max_latitude,
+//                                 @RequestParam String min_longitude,
+//                                 @RequestParam String max_longitude
     ) {
-        for(String scheduleId : checkedList) {
-            kakaoScheduleService.changeSchedule(scheduleId, expression, min_latitude, max_latitude, min_longitude, max_longitude);
-        }
+        log.info("scheduleDto : {}", scheduleDto);
+//        for(String scheduleId : checkedList) {
+//            kakaoScheduleService.changeSchedule(scheduleId, expression, min_latitude, max_latitude, min_longitude, max_longitude);
+//        }
 
 //        return "redirect:/";
         return "redirect:/api/admin/schedule/list";

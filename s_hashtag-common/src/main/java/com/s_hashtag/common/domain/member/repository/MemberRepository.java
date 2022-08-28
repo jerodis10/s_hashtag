@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository {
-    MemberDto save(MemberDto memberDto);
+
+    List<MemberDto> findAll();
 
     Optional<MemberDto> findById(String id);
 
     Optional<MemberDto> findByName(String name);
 
-    List<MemberDto> findAll();
+    void save(MemberDto memberDto);
 
     void delete(List<String> idList);
 }

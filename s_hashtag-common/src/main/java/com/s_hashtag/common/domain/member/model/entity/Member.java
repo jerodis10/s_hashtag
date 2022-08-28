@@ -1,17 +1,14 @@
 package com.s_hashtag.common.domain.member.model.entity;
 
 import com.s_hashtag.common.model.entity.BaseEntity;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
-@Setter
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@NoArgsConstructor
+//@Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@NoArgsConstructor
 @Table(name = "MEMBER")
 @Entity
 public class Member extends BaseEntity {
@@ -28,4 +25,12 @@ public class Member extends BaseEntity {
     private String password;
 
     private String role;
+
+    @Builder
+    public Member(String loginId, String name, String password, String role) {
+        this.loginId = loginId;
+        this.name = name;
+        this.password = password;
+        this.role = role;
+    }
 }

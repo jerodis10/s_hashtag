@@ -24,14 +24,14 @@ public class JdbcTemplatememberRepository implements MemberRepository{
     }
 
     @Override
-    public MemberDto save(MemberDto memberDto) {
+    public void save(MemberDto memberDto) {
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
 //        jdbcInsert.withTableName("member").usingGeneratedKeyColumns("id");
 //        jdbcInsert.withTableName("member").usingColumns("id", "password", "name");
         jdbcInsert.withTableName("member");
         Map<String, Object> parameters = new HashMap<>();
 //        parameters.put("id", member.getId());
-        parameters.put("id", memberDto.getLoginId());
+        parameters.put("login_id", memberDto.getLoginId());
         parameters.put("password", memberDto.getPassword());
         parameters.put("name", memberDto.getName());
         parameters.put("role", memberDto.getRole());
@@ -41,12 +41,12 @@ public class JdbcTemplatememberRepository implements MemberRepository{
 //        member.setLoginId(key.toString());
 //        member.setPassword(key.toString());
 //        member.setName(key.toString());
-        return memberDto;
+//        return memberDto;
     }
 
     @Override
     public Optional<MemberDto> findById(String id) {
-        List<MemberDto> result = jdbcTemplate.query("select * from member where id = ?", memberRowMapper(), id);
+        List<MemberDto> result = jdbcTemplate.query("select * from member where login_id = ?", memberRowMapper(), id);
         return result.stream().findAny();
     }
 
@@ -64,7 +64,7 @@ public class JdbcTemplatememberRepository implements MemberRepository{
     @Override
     public void delete(List<String> idList) {
         for(String id : idList){
-            jdbcTemplate.update("delete from member where id = ?", id);
+            jdbcTemplate.update("delete from member where login_id = ?", id);
         }
         return;
     }
@@ -73,7 +73,7 @@ public class JdbcTemplatememberRepository implements MemberRepository{
         return (rs, rowNum) -> {
             MemberDto memberDto = new MemberDto();
 //            member.setId(rs.getString("id"));
-            memberDto.setLoginId(rs.getString("id"));
+            memberDto.setLoginId(rs.getString("login_id"));
             memberDto.setPassword(rs.getString("password"));
             memberDto.setName(rs.getString("name"));
             memberDto.setRole(rs.getString("role"));

@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Getter
-@Setter
+//@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "SCHEDULE")
 @Entity
@@ -37,4 +37,14 @@ public class Schedule extends BaseEntity {
     private String minLongitude;
 
     private String maxLongitude;
+
+    @Builder
+    public Schedule(String scheduleDocumentId, String cronPeriod, String minLatitude, String maxLatitude, String minLongitude, String maxLongitude) {
+        this.scheduleDocumentId = scheduleDocumentId;
+        this.cronPeriod = cronPeriod;
+        this.minLatitude = minLatitude;
+        this.maxLatitude = maxLatitude;
+        this.minLongitude = minLongitude;
+        this.maxLongitude = maxLongitude;
+    }
 }

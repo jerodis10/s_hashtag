@@ -143,6 +143,12 @@ public class Crawler {
 //            UserAgentFactory userAgentFactory = new UserAgentFactory();
 //            String user_agent = userAgentFactory.getUserAgent(userAgentFactory.create());
 
+            String proxyHost = System.getProperty("http.proxyHost") != null ?
+                    System.getProperty("http.proxyHost") : "138.68.60.8";
+
+            int proxyPort = System.getProperty("http.proxyPort") != null ?
+                    Integer.parseInt(System.getProperty("http.proxyPort")) : 8080;
+
             Document doc= Jsoup.connect(url)
 //                    .userAgent(USER_AGENT)
                     .userAgent(user_agent)
@@ -151,7 +157,7 @@ public class Crawler {
                     .header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8")
                     .ignoreContentType(true)
                     .cookie("auth", "token")
-                    .proxy(System.getProperty("http.proxyHost"), Integer.parseInt(System.getProperty("http.proxyPort")))
+//                    .proxy(proxyHost, proxyPort)
                     .get();
             return doc.toString();
 

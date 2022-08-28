@@ -1,4 +1,4 @@
-package com.s_hashtag.admin.schedule.api;
+package com.s_hashtag.admin.member.api;
 
 import com.s_hashtag.common.domain.member.dto.presentation.MemberDto;
 import com.s_hashtag.common.domain.member.repository.MemberRepository;
@@ -21,8 +21,8 @@ public class AdminMemberApiController {
 
     @GetMapping("/list")
     public String adminMemberList(Model model) {
-        List<MemberDto> memberDtos = memberRepository.findAll();
-        model.addAttribute("members", memberDtos);
+        List<MemberDto> members = memberRepository.findAll();
+        model.addAttribute("members", members);
 
         return "admin/memberList";
     }
@@ -35,16 +35,5 @@ public class AdminMemberApiController {
         return "redirect:/api/admin/members/list";
 //        return "admin/memberList";
     }
-
-
-
-//    @PostMapping("/members/list")
-//    public String adminMemberList2(@Valid @ModelAttribute Member member, BindingResult bindingResult) {
-//        if (bindingResult.hasErrors()) {
-//            return "admin/memberList";
-//        }
-//
-//        return "redirect:/";
-//    }
 
 }

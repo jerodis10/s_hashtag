@@ -46,7 +46,7 @@
         </tr>
         <tr th:each="schedule : ${scheduleList}">
             <div sec:authorize="hasAuthority('batch:write')">
-                <td><input th:value="${schedule.scheduleId}" type="checkbox" class="form-check-input" name="check"></td>
+                <td><input th:value="${schedule.scheduleDocumentId}" type="checkbox" class="form-check-input" name="check"></td>
             </div>
             <td class="col-xs-1" th:text="${schedule.scheduleName}" th:name="${schedule.scheduleName}"></td>
             <td class="col-xs-1" th:text="${schedule.runtime}" th:name="${schedule.runtime}"></td>

@@ -6,6 +6,7 @@ import com.s_hashtag.security.ApplicationMemberRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,7 @@ public class MemberApiController {
         return "members/addMemberForm";
     }
 
+    @Transactional
     @PostMapping("/add")
     public String save(@Valid @ModelAttribute MemberDto member, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

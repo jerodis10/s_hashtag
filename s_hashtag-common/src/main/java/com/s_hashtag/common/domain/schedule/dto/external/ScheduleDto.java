@@ -1,18 +1,19 @@
 package com.s_hashtag.common.domain.schedule.dto.external;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.List;
 
 //@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Builder
 public class ScheduleDto {
 
     private String scheduleId;
+    private String scheduleDocumentId;
     private String scheduleName;
     private String cronPeriod;
     private String runtime;
@@ -23,4 +24,5 @@ public class ScheduleDto {
     private String maxLatitude;
     private String minLongitude;
     private String maxLongitude;
+    private List<String> checkedList;
 }

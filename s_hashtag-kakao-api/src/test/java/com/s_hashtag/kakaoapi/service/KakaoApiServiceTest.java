@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -47,7 +48,10 @@ class KakaoApiServiceTest {
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
 
         //when
-        List<KakaoPlaceDto> kakaoPlaceList =  kakaoApiService.findPlaces("FD6", rect);
+//        List<KakaoPlaceDto> kakaoPlaceList =  kakaoApiService.findPlaces("FD6", rect);
+
+       List<KakaoPlaceDto> result = new ArrayList<>();
+        List<KakaoPlaceDto> kakaoPlaceList =  kakaoApiService.findPlaces("FD6", rect, result);
 
         //then
         log.info("kakaoPlaceList: {}", kakaoPlaceList.size());

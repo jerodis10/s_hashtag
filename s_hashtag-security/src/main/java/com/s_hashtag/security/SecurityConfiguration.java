@@ -66,8 +66,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //                .failureHandler(failureHandler())
                 .failureHandler(customFailureHandler) // 로그인 실패 핸들러
 
-                .usernameParameter("loginId") // Form tag의 name 값, 기본적으로는 username이 사용
-                .passwordParameter("password") // Form tag의 password 값, 기본적으로는 password가 사용
+//                .usernameParameter("loginId") // Form tag의 name 값, 기본적으로는 username이 사용
+//                .passwordParameter("password") // Form tag의 password 값, 기본적으로는 password가 사용
 
 //                .successHandler(
 //                        new AuthenticationSuccessHandler() {
