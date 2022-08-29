@@ -32,7 +32,8 @@ public class AdminMemberApiController {
     public String adminMemberDelete(@RequestParam("checkedList[]") List<String> checkedList) {
         memberRepository.delete(checkedList);
 
-        return "redirect:/api/admin/members/list";
+//        return "redirect:api/admin/members/list";
+        return "redirect:admin/memberList";
 //        return "admin/memberList";
     }
 

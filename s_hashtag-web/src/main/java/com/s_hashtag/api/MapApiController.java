@@ -54,8 +54,6 @@ public class MapApiController {
         }
 
         instagramService.saveCrawlingResults(kakaoMapDto.CreateRect());
-
-        return;
     }
 
     @PostMapping("/getHashtag")

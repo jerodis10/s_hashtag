@@ -57,30 +57,30 @@ public class SchedulerApiController {
 
     @ResponseBody
     @PostMapping("/change")
-    @ResponseStatus(HttpStatus.OK)
-    public String changeSchedule(@ModelAttribute ScheduleDto scheduleDto
-
-//                                 @RequestBody List<String> checkedList,
-//                                 @RequestBody String expression,
-//                                 @RequestBody String min_latitude,
-//                                 @RequestBody String max_latitude,
-//                                 @RequestBody String min_longitude,
-//                                 @RequestBody String max_longitude
-
-//                                 @RequestParam("checkedList[]") List<String> checkedList,
-//                                 @RequestParam String expression,
-//                                 @RequestParam String min_latitude,
-//                                 @RequestParam String max_latitude,
-//                                 @RequestParam String min_longitude,
-//                                 @RequestParam String max_longitude
+//    @ResponseStatus(HttpStatus.OK)
+    public String changeSchedule(@RequestBody ScheduleDto scheduleDto
     ) {
         log.info("scheduleDto : {}", scheduleDto);
-//        for(String scheduleId : checkedList) {
-//            kakaoScheduleService.changeSchedule(scheduleId, expression, min_latitude, max_latitude, min_longitude, max_longitude);
-//        }
+        for(String scheduleId : scheduleDto.getCheckedList()) {
+            kakaoScheduleService.changeSchedule(
+                    scheduleId,
+                    scheduleDto.getCronPeriod(),
+                    scheduleDto.getMinLatitude(),
+                    scheduleDto.getMaxLatitude(),
+                    scheduleDto.getMinLongitude(),
+                    scheduleDto.getMaxLongitude());
+        }
+
+//        List<ScheduleDto> scheduleDtoList = scheduleRepository.findAll();
+//        model.addAttribute("scheduleList", scheduleDtoList);
+//        return "admin/scheduleEdit";
 
 //        return "redirect:/";
-        return "redirect:/api/admin/schedule/list";
+//        return "redirect:/api/admin/schedule/list";
+//        return "admin/scheduleEdit";
+//        return "members/addMemberForm";
+        return "12";
+//        return "redirect:api/admin/schedule/list";
     }
 
 //    @PostMapping("/period")

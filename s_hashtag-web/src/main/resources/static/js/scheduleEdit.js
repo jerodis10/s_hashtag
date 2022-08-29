@@ -46,7 +46,7 @@ $("button[id=btn_scheduleChange]").click(function(){
 
     var json = {
         "checkedList": checkedList,
-        "expression": document.getElementById("cron_period").value,
+        "cron_period": document.getElementById("cron_period").value,
         "min_latitude": document.getElementById("min_latitude").value,
         "max_latitude": document.getElementById("max_latitude").value,
         "min_longitude": document.getElementById("min_longitude").value,

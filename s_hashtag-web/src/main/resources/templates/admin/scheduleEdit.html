@@ -54,7 +54,7 @@
             <td class="col-xs-1" th:text="${schedule.jobName}" th:name="${schedule.jobName}"></td>
             <td class="col-xs-1" th:text="${schedule.jobResult}" th:name="${schedule.jobResult}"></td>
             <td class="col-xs-1">
-                <input type="text" style="width:100%;" id="cron_period"
+                <input type="text" style="width:100%;" id="'cron_period'+${schedule.scheduleDocumentId}"
                        th:value="${schedule.cronPeriod}" th:name="${schedule.cronPeriod}">
             </td>
             <td class="col-xs-1">
