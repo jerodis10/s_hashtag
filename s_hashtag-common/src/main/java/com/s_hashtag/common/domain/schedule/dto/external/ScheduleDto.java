@@ -15,6 +15,7 @@ public class ScheduleDto {
 
     private String scheduleId;
 
+    @JsonAlias("schedule_document_id")
     private String scheduleDocumentId;
 
     private String scheduleName;
@@ -43,4 +44,22 @@ public class ScheduleDto {
     private String maxLongitude;
 
     private List<String> checkedList;
+
+    @Override
+    public String toString() {
+        return "ScheduleDto{" +
+                "scheduleId='" + scheduleId + '\'' +
+                ", scheduleDocumentId='" + scheduleDocumentId + '\'' +
+                ", scheduleName='" + scheduleName + '\'' +
+                ", cronPeriod='" + cronPeriod + '\'' +
+                ", runtime='" + runtime + '\'' +
+                ", scheduleResult='" + scheduleResult + '\'' +
+                ", jobName='" + jobName + '\'' +
+                ", jobResult='" + jobResult + '\'' +
+                ", minLatitude='" + minLatitude + '\'' +
+                ", maxLatitude='" + maxLatitude + '\'' +
+                ", minLongitude='" + minLongitude + '\'' +
+                ", maxLongitude='" + maxLongitude + '\'' +
+                '}';
+    }
 }

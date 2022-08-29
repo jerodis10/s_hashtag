@@ -2,6 +2,7 @@ package com.s_hashtag.common.domain.kakao.model.entity;
 
 import com.s_hashtag.common.domain.instagram.model.entity.Instagram;
 import com.s_hashtag.common.model.entity.BaseEntity;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,4 +38,23 @@ public class KakaoDocument extends BaseEntity {
 
     private String placeUrl;
 
+    @Builder
+    public KakaoDocument(String kakaoDocumentId, String categoryGroupCode, BigDecimal latitude, BigDecimal longitude, String placeName, String roadAddressName, String placeUrl) {
+        this.kakaoDocumentId = kakaoDocumentId;
+        this.categoryGroupCode = categoryGroupCode;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.placeName = placeName;
+        this.roadAddressName = roadAddressName;
+        this.placeUrl = placeUrl;
+    }
+
+    public void changeKakaoDocument(String categoryGroupCode, BigDecimal latitude, BigDecimal longitude, String placeName, String roadAddressName, String placeUrl) {
+        this.categoryGroupCode = categoryGroupCode;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.placeName = placeName;
+        this.roadAddressName = roadAddressName;
+        this.placeUrl = placeUrl;
+    }
 }

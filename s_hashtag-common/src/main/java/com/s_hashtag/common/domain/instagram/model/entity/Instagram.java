@@ -2,6 +2,7 @@ package com.s_hashtag.common.domain.instagram.model.entity;
 
 import com.s_hashtag.common.domain.kakao.model.entity.KakaoDocument;
 import com.s_hashtag.common.model.entity.BaseEntity;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,6 +42,22 @@ public class Instagram extends BaseEntity {
     public void settingKakaoDocument(KakaoDocument kakaoDocument) {
         this.kakaoDocument = kakaoDocument;
         kakaoDocument.setInstagram(this);
+    }
+
+    @Builder
+    public Instagram(String instagramDocumentId, String kakaoDocumentId, KakaoDocument kakaoDocument, String hashtagName, BigDecimal hashtagCount) {
+        this.instagramDocumentId = instagramDocumentId;
+        this.kakaoDocumentId = kakaoDocumentId;
+        this.kakaoDocument = kakaoDocument;
+        this.hashtagName = hashtagName;
+        this.hashtagCount = hashtagCount;
+    }
+
+    public void changeInstagram(String instagramDocumentId, KakaoDocument kakaoDocument, String hashtagName, BigDecimal hashtagCount) {
+        this.instagramDocumentId = instagramDocumentId;
+        this.kakaoDocument = kakaoDocument;
+        this.hashtagName = hashtagName;
+        this.hashtagCount = hashtagCount;
     }
 }
 

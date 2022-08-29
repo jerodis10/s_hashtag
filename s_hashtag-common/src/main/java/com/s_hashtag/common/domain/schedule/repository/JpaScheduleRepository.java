@@ -71,7 +71,7 @@ public class JpaScheduleRepository implements ScheduleRepository{
     }
 
     @Override
-    public void scheduleSave(String scheduleId, String expression, String minLatitude, String maxLatitude, String minLongitude, String maxLongitude) {
+    public void scheduleSave(String scheduleId, String cronPeriod, String minLatitude, String maxLatitude, String minLongitude, String maxLongitude) {
         Schedule findSchedule = queryFactory
                 .selectFrom(schedule)
                 .where(schedule.scheduleDocumentId.eq(scheduleId))
@@ -80,7 +80,7 @@ public class JpaScheduleRepository implements ScheduleRepository{
         if(findSchedule == null) {
             Schedule schedule = Schedule.builder()
                     .scheduleDocumentId(scheduleId)
-                    .cronPeriod(expression)
+                    .cronPeriod(cronPeriod)
                     .minLatitude(minLatitude)
                     .maxLatitude(maxLatitude)
                     .minLongitude(minLongitude)
@@ -88,22 +88,7 @@ public class JpaScheduleRepository implements ScheduleRepository{
                     .build();
             em.persist(schedule);
         } else {
-            findSchedule = Schedule.builder()
-                    .scheduleDocumentId(scheduleId)
-                    .cronPeriod(expression)
-                    .minLatitude(minLatitude)
-                    .maxLatitude(maxLatitude)
-                    .minLongitude(minLongitude)
-                    .maxLongitude(maxLongitude)
-                    .build();
-
-            log.info("findSchedule : {}", findSchedule);
-
-//            findSchedule.setCronPeriod(expression);
-//            findSchedule.setMinLatitude(min_latitude);
-//            findSchedule.setMaxLatitude(max_latitude);
-//            findSchedule.setMinLongitude(min_longitude);
-//            findSchedule.setMaxLongitude(max_longitude);
+            findSchedule.changeSchedule(cronPeriod, minLatitude, maxLatitude, minLongitude, maxLongitude);
         }
     }
 }

@@ -38,6 +38,14 @@ public class Schedule extends BaseEntity {
 
     private String maxLongitude;
 
+    public void changeSchedule(String cronPeriod, String minLatitude, String maxLatitude, String minLongitude, String maxLongitude) {
+        this.cronPeriod = cronPeriod;
+        this.minLatitude = minLatitude;
+        this.maxLatitude = maxLatitude;
+        this.minLongitude = minLongitude;
+        this.maxLongitude = maxLongitude;
+    }
+
     @Builder
     public Schedule(String scheduleDocumentId, String cronPeriod, String minLatitude, String maxLatitude, String minLongitude, String maxLongitude) {
         this.scheduleDocumentId = scheduleDocumentId;

@@ -58,18 +58,28 @@ public class SchedulerApiController {
     @ResponseBody
     @PostMapping("/change")
 //    @ResponseStatus(HttpStatus.OK)
-    public String changeSchedule(@RequestBody ScheduleDto scheduleDto
+    public String changeSchedule(@RequestBody List<ScheduleDto> scheduleDtoList
     ) {
-        log.info("scheduleDto : {}", scheduleDto);
-        for(String scheduleId : scheduleDto.getCheckedList()) {
+        for(ScheduleDto scheduleDto : scheduleDtoList) {
             kakaoScheduleService.changeSchedule(
-                    scheduleId,
+                    scheduleDto.getScheduleDocumentId(),
                     scheduleDto.getCronPeriod(),
                     scheduleDto.getMinLatitude(),
                     scheduleDto.getMaxLatitude(),
                     scheduleDto.getMinLongitude(),
-                    scheduleDto.getMaxLongitude());
+                    scheduleDto.getMaxLongitude()
+            );
         }
+
+//        for(String scheduleId : scheduleDto.getCheckedList()) {
+//            kakaoScheduleService.changeSchedule(
+//                    scheduleId,
+//                    scheduleDto.getCronPeriod(),
+//                    scheduleDto.getMinLatitude(),
+//                    scheduleDto.getMaxLatitude(),
+//                    scheduleDto.getMinLongitude(),
+//                    scheduleDto.getMaxLongitude());
+//        }
 
 //        List<ScheduleDto> scheduleDtoList = scheduleRepository.findAll();
 //        model.addAttribute("scheduleList", scheduleDtoList);

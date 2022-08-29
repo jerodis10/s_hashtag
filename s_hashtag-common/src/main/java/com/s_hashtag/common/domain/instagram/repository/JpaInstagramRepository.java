@@ -112,18 +112,22 @@ public class JpaInstagramRepository implements InstagramRepository {
                 .fetchOne();
 
         if(findInstagram == null) {
-            Instagram instagram = new Instagram();
-            instagram.setInstagramDocumentId(crawlingDto.getInstagramId());
-            instagram.setKakaoDocumentId(crawlingDto.getPlaceId());
-            instagram.setHashtagCount(crawlingDto.getHashtagCount());
-            instagram.setHashtagName(crawlingDto.getHashtagName());
-            instagram.setKakaoDocument(findKakaoDocument);
+            Instagram instagram = Instagram.builder()
+                    .instagramDocumentId(crawlingDto.getInstagramId())
+                    .kakaoDocumentId(crawlingDto.getPlaceId())
+                    .hashtagCount(crawlingDto.getHashtagCount())
+                    .hashtagName(crawlingDto.getHashtagName())
+                    .kakaoDocument(findKakaoDocument)
+                    .build();
+
             em.persist(instagram);
         } else {
-            findInstagram.setInstagramDocumentId(crawlingDto.getInstagramId());
-            findInstagram.setKakaoDocument(findKakaoDocument);
-            findInstagram.setHashtagName(crawlingDto.getHashtagName());
-            findInstagram.setHashtagCount(crawlingDto.getHashtagCount());
+            findInstagram.changeInstagram(
+                    crawlingDto.getInstagramId(),
+                    findKakaoDocument,
+                    crawlingDto.getHashtagName(),
+                    crawlingDto.getHashtagCount()
+            );
         }
     }
 
@@ -141,19 +145,18 @@ public class JpaInstagramRepository implements InstagramRepository {
                 .fetchOne();
 
         if(findInstagramPost == null) {
-            InstagramPost instagramPost = new InstagramPost();
-            instagramPost.setInstagramPostDocumentId(postDto.getInstagram_post_id());
-            instagramPost.setInstagramDocumentId(postDto.getInstagram_document_id());
-            instagramPost.setPostUrl(postDto.getPostUrl());
-            instagramPost.setImageUrl(postDto.getImageUrl());
-            instagramPost.setInstagram(findInstagram);
+            InstagramPost instagramPost = InstagramPost.builder()
+                    .instagramPostDocumentId(postDto.getInstagram_post_id())
+                    .instagramDocumentId(postDto.getInstagram_document_id())
+                    .postUrl(postDto.getPostUrl())
+                    .imageUrl(postDto.getImageUrl())
+                    .instagram(findInstagram)
+                    .build();
+
             em.persist(instagramPost);
         } else {
-            findInstagramPost.setInstagram(findInstagram);
-            findInstagramPost.setPostUrl(postDto.getPostUrl());
-            findInstagramPost.setImageUrl(postDto.getImageUrl());
+            findInstagramPost.changeInstagramPost(findInstagram, postDto.getPostUrl(), postDto.getImageUrl());
         }
-
     }
 
     private BooleanExpression latitudeBetween(Rect rect) {

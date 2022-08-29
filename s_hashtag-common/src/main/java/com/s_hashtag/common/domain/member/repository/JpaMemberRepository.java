@@ -80,16 +80,7 @@ public class JpaMemberRepository implements MemberRepository{
 
             em.persist(member);
         } else {
-            findMember = Member.builder()
-                    .loginId(memberDto.getLoginId())
-                    .name(memberDto.getName())
-                    .role(memberDto.getRole())
-                    .password(memberDto.getPassword())
-                    .build();
-//            findMember.setLoginId(memberDto.getLoginId());
-//            findMember.setName(memberDto.getName());
-//            findMember.setRole(memberDto.getRole());
-//            findMember.setPassword(memberDto.getPassword());
+            findMember.chaneMember(memberDto.getName(), memberDto.getRole(), memberDto.getPassword());
         }
     }
 

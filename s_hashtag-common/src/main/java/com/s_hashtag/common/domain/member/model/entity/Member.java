@@ -26,6 +26,12 @@ public class Member extends BaseEntity {
 
     private String role;
 
+    public void chaneMember(String name, String password, String role) {
+        this.name = name;
+        this.password = password;
+        this.role = role;
+    }
+
     @Builder
     public Member(String loginId, String name, String password, String role) {
         this.loginId = loginId;

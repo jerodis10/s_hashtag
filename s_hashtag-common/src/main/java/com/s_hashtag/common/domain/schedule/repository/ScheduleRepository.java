@@ -12,13 +12,13 @@ public interface ScheduleRepository {
 
     List<ScheduleDto> findAll();
 
-    void scheduleCroneSave(String scheduleId, String expression);
+    void scheduleCroneSave(String scheduleId, String cronPeriod);
 
     void scheduleSave(String scheduleId,
-                      String expression,
-                      String min_latitude,
-                      String max_latitude,
-                      String min_longitude,
-                      String max_longitude);
+                      String cronPeriod,
+                      String minLatitude,
+                      String maxLatitude,
+                      String minLongitude,
+                      String maxLongitude);
 }
 

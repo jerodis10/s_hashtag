@@ -29,29 +29,27 @@ public class JpaKakaoRepository implements KakaoRepository {
                 .where(kakaoDocument.kakaoDocumentId.eq(document.getId()))
                 .fetchOne();
 
-//        Instagram findInstagram = queryFactory
-//                .selectFrom(instagram)
-//                .where(kakaoDocument.instagram.kakaoDocument.eq(findKakaoDocument))
-//                .fetchOne();
-
         if(findKakaoDocument == null) {
-            KakaoDocument kakaoDocument = new KakaoDocument();
-            kakaoDocument.setKakaoDocumentId(document.getId());
-            kakaoDocument.setLatitude(document.getLatitude());
-            kakaoDocument.setLongitude(document.getLongitude());
-            kakaoDocument.setPlaceName(document.getPlaceName());
-            kakaoDocument.setPlaceUrl(document.getPlaceUrl());
-            kakaoDocument.setCategoryGroupCode(document.getCategoryGroupCode());
-            kakaoDocument.setRoadAddressName(document.getRoadAddressName());
+            KakaoDocument kakaoDocument = KakaoDocument.builder()
+                    .kakaoDocumentId(document.getId())
+                    .latitude(document.getLatitude())
+                    .longitude(document.getLongitude())
+                    .placeName(document.getPlaceName())
+                    .placeUrl(document.getPlaceUrl())
+                    .categoryGroupCode(document.getCategoryGroupCode())
+                    .roadAddressName(document.getRoadAddressName())
+                    .build();
+
             em.persist(kakaoDocument);
         } else {
-//            findKakaoDocument.setInstagram(findInstagram);
-            findKakaoDocument.setCategoryGroupCode(document.getCategoryGroupCode());
-            findKakaoDocument.setLatitude(document.getLatitude());
-            findKakaoDocument.setLongitude(document.getLongitude());
-            findKakaoDocument.setPlaceName(document.getPlaceName());
-            findKakaoDocument.setRoadAddressName(document.getRoadAddressName());
-            findKakaoDocument.setPlaceUrl(document.getPlaceUrl());
+            findKakaoDocument.changeKakaoDocument(
+                    document.getCategoryGroupCode(),
+                    document.getLatitude(),
+                    document.getLongitude(),
+                    document.getPlaceName(),
+                    document.getRoadAddressName(),
+                    document.getPlaceUrl()
+            );
         }
     }
 }
