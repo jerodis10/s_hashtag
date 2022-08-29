@@ -99,6 +99,12 @@ project(':s_hashtag-web') {
 	}
 }
 
+project(':s_hashtag-common') {
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter-security'
+	}
+}
+
 project(':s_hashtag-instagram') {
 	dependencies {
 		implementation project(':s_hashtag-common')
