@@ -111,7 +111,9 @@ class CrawlerTest {
         String hashtagCount = RegexPattern.HASH_TAG_COUNT.extract(doc.toString());
         if(hashtagCount == null) hashtagCount = RegexPattern.POST_COUNT.extract(doc.toString());
 //        String likeCount = RegexPattern.LIKE_COUNT.extract(doc.toString());
-        assertThat(doc).isNotNull();
+
+        assertThat(hashtagCount).isGreaterThan("0");
+//        assertThat(doc).isNotNull();
     }
 
     @DisplayName("인스타그램 크롤링 봇탐지 테스트")
@@ -195,6 +197,8 @@ class CrawlerTest {
 //        assertThat(kakaoPlaceDto_FD6).isNotNull();
 //    }
 }
+
+
 
 
 
