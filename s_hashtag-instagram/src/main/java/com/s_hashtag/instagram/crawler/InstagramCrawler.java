@@ -22,7 +22,7 @@ private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/ex
         this.crawler = crawler;
     }
 
-    public CrawlingDto createCrawlingDto(String hashtagName, String body, String kakaoId) throws IOException {
+    public CrawlingDto createCrawlingDto(String hashtagName, String body, String kakaoId) {
 //        System.out.println(body);
 //        ClassPathResource resource = new ClassPathResource("test.txt");
 //        body = new String(Files.readAllBytes(Paths.get(resource.getURI())));
@@ -37,23 +37,27 @@ private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/ex
         return CrawlingDto.of(instagramId, kakaoId, hashtagName, hashTagCount, postDtos);
     }
 
-    public CrawlingDto crawler(String crawlingName, String kakaoId) throws IOException, InterruptedException {
-//        String parsedHashtagName = PlaceName  Parser.parsePlaceName(crawlingName);
-        String parsedHashtagName = crawlingName.replaceAll(" ", "");
-//        Thread.sleep(10000);
-        log.info("Proxy Host = {}, Port = {}", System.getProperty("http.proxyHost"), System.getProperty("http.proxyPort"));
+    public CrawlingDto crawler(String crawlingName, String kakaoId) {
+        try {
+            //        String parsedHashtagName = PlaceName  Parser.parsePlaceName(crawlingName);
+            String parsedHashtagName = crawlingName.replaceAll(" ", "");
+            Thread.sleep(10000);
+            log.info("Proxy Host = {}, Port = {}", System.getProperty("http.proxyHost"), System.getProperty("http.proxyPort"));
 
-        UserAgentFactory userAgentFactory = new UserAgentFactory();
-        String user_agent = userAgentFactory.getUserAgent(userAgentFactory.create());
+            UserAgentFactory userAgentFactory = new UserAgentFactory();
+            String user_agent = userAgentFactory.getUserAgent(userAgentFactory.create());
 
-        String body = crawler.crawl(String.format(INSTAGRAM_URL_FORMAT, parsedHashtagName), user_agent);
-        if(body != null){
-            log.info("before crawling HashtagName = {}", parsedHashtagName);
-            return createCrawlingDto(parsedHashtagName, body, kakaoId);
+            String body = crawler.crawl(String.format(INSTAGRAM_URL_FORMAT, parsedHashtagName), user_agent);
+            if (body != null) {
+                log.info("before crawling HashtagName = {}", parsedHashtagName);
+                return createCrawlingDto(parsedHashtagName, body, kakaoId);
+            }
+
+            return null;
+            //        return createCrawlingDto(parsedHashtagName, body);
+        } catch (InterruptedException e) {
+            return null;
         }
-
-        return null;
-//        return createCrawlingDto(parsedHashtagName, body);
     }
 }
 

@@ -23,7 +23,7 @@ public class CrawlerWithProxy {
         this.instagramCrawler = instagramCrawler;
     }
 
-    public CrawlingDto crawlInstagram(String hashtagNameToCrawl, String kakaoId) throws IOException {
+    public CrawlingDto crawlInstagram(String hashtagNameToCrawl, String kakaoId) {
         try {
 //            proxySetter.setProxy();
 //            return instagramCrawler.crawler(hashtagNameToCrawl);
@@ -36,7 +36,7 @@ public class CrawlerWithProxy {
 //                return Optional.empty();
 //            }
             throw e;
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

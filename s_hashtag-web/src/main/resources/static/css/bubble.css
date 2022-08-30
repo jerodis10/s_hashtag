@@ -9,6 +9,7 @@
     -moz-border-radius: 25px;
     border-radius: 25px;
     text-align: center;
+    cursor: pointer;
 }
 
 .bubble:after

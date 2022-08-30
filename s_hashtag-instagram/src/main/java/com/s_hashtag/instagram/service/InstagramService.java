@@ -37,7 +37,7 @@ public class InstagramService {
 
     @Transactional
     public void saveCrawlingResults(Rect rect) {
-        try {
+//        try {
             savePlace(rect, "FD6");
             savePlace(rect, "CE7");
 
@@ -138,16 +138,15 @@ public class InstagramService {
 //                    }
 //                }
 //            }
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        }
+//        } catch (Exception e) {
+//            throw new IllegalStateException(e);
+//        }
     }
 
-//    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @Transactional
     public void savePlace(Rect rect, String category) {
-        try {
-            int count = 0;
+//        try {
+//            int count = 0;
             List<KakaoPlaceDto> result = new ArrayList<>();
             List<Document> documentList = new ArrayList<>();
 
@@ -155,25 +154,39 @@ public class InstagramService {
 
             for (KakaoPlaceDto page : kakaoPlaceDto) {
                 for (Document document : page.getDocuments()) {
-                    documentList.add(document);
+                    savePlaceByProcess(document);
+//                    documentList.add(document);
                 }
             }
 
-            for (Document document : documentList) {
-                kakaoRepository.kakao_document_save(document);
-                log.info("crawling count : {}", count++);
-                CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
-                CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName(), document.getId());
-                if (crawlingDto != null) {
-                    instagramRepository.instagramSave(crawlingDto, document);
-                    for (PostDto postDto : crawlingDto.getPostDtoList()) {
-                        instagramRepository.instagramPostSave(postDto);
-                    }
-                }
-            }
+//            for (Document document : documentList) {
+//                kakaoRepository.kakao_document_save(document);
+//                CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
+//                CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName(), document.getId());
+//                if (crawlingDto != null) {
+//                    instagramRepository.instagramSave(crawlingDto, document);
+//                    log.info("crawling count : {}", count++);
+//                    for (PostDto postDto : crawlingDto.getPostDtoList()) {
+//                        instagramRepository.instagramPostSave(postDto);
+//                    }
+//                }
+//            }
 
-        } catch (Exception e) {
-            log.info(e.getMessage());
+//        } catch (Exception e) {
+//            log.info(e.getMessage());
+//        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void savePlaceByProcess(Document document) {
+        kakaoRepository.kakao_document_save(document);
+        CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
+        CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName(), document.getId());
+        if (crawlingDto != null) {
+            instagramRepository.instagramSave(crawlingDto, document);
+            for (PostDto postDto : crawlingDto.getPostDtoList()) {
+                instagramRepository.instagramPostSave(postDto);
+            }
         }
     }
 }
