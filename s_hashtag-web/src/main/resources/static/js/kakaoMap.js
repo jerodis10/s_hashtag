@@ -338,7 +338,7 @@ setTimeout(bubbleClick, 500);
 
 function bubbleClick() {
     $(".bubble").click(function(){
-
+        $('#myModal').modal("show");
     });
 
 }
