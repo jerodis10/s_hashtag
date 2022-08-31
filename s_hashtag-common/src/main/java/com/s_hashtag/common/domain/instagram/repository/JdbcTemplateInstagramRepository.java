@@ -204,6 +204,11 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
         return jdbcTemplate.query(sql_get_hashtag_byCount, PlaceRowMapper(rect), param.toArray());
     }
 
+    @Override
+    public List<PostDto> findByHashtagName(String[] categoryList, Rect rect, String hashtagName) {
+        return null;
+    }
+
 //    @Override
 //    public List<PlaceDto> getHashtagByCount2(String[] categoryList, Map<String, Object> hashtag_count_param) {
 //        List<Object> param = new ArrayList<>();

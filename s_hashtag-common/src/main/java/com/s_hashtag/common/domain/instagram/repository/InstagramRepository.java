@@ -16,6 +16,8 @@ public interface InstagramRepository {
 
     List<PlaceDto> findByHashtagCount(Rect rect, String[] categoryList, String check);
 
+    List<PostDto> findByHashtagName(String[] categoryList, Rect rect, String hashtagName);
+
     void instagramSave(CrawlingDto crawlingDto, Document document);
 
     void instagramPostSave(PostDto postDto);

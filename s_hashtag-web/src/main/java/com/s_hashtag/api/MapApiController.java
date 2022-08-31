@@ -1,6 +1,7 @@
 package com.s_hashtag.api;
 
 import com.s_hashtag.common.domain.instagram.dto.external.PlaceDto;
+import com.s_hashtag.common.domain.instagram.dto.external.PostDto;
 import com.s_hashtag.common.domain.instagram.repository.InstagramRepository;
 import com.s_hashtag.common.domain.kakao.dto.external.Document;
 import com.s_hashtag.instagram.service.InstagramService;
@@ -10,6 +11,7 @@ import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -125,6 +127,19 @@ public class MapApiController {
         String[] categoryList = temp.split(",");
 
         return instagramRepository.findByHashtagCount(kakaoMapDto.CreateRect(), categoryList, kakaoMapDto.getCheck());
+    }
+
+    @PostMapping("/findByHashtagName")
+//    @ResponseBody
+    public String findByHashtagName(@RequestBody @Valid KakaoMapDto kakaoMapDto, @RequestBody String hashtagName, Model model) {
+        String temp = kakaoMapDto.getCategory();
+        String[] categoryList = temp.split(",");
+
+
+        List<PostDto> postDtoList = instagramRepository.findByHashtagName(categoryList, kakaoMapDto.CreateRect(), hashtagName);
+        model.addAttribute("postDtoList", postDtoList);
+
+        return "modal/instagramPost";
     }
 
 //    @GetMapping("/getHashtagByCount2")

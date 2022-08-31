@@ -100,6 +100,22 @@ public class JpaInstagramRepository implements InstagramRepository {
     }
 
     @Override
+    public List<PostDto> findByHashtagName(String[] categoryList, Rect rect, String hashtagName) {
+        return queryFactory
+                .select(Projections.fields(PostDto.class,
+                        instagramPost.instagramPostDocumentId,
+                        instagramPost.imageUrl,
+                        instagramPost.postUrl))
+                .from(instagram)
+                .join(instagram.kakaoDocument, kakaoDocument)
+                .join(instagram.instagramPosts, instagramPost).fetchJoin()
+                .where(latitudeBetween(rect), longitudeBetween(rect),
+                        kakaoDocument.categoryGroupCode.in(categoryList),
+                        instagram.hashtagName.eq(hashtagName))
+                .fetch();
+    }
+
+    @Override
     public void instagramSave(CrawlingDto crawlingDto, Document document) {
         Instagram findInstagram = queryFactory
                 .selectFrom(instagram)
