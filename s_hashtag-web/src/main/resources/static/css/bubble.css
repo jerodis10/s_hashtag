@@ -26,3 +26,16 @@
     left: 60px;
 <!--    left: 50%;-->
 }
+
+.modal-dialog {
+  width: 80%;
+  height: 80%;
+  /*margin: 0;
+  padding: 0;*/
+}
+
+.modal-content {
+  height: auto;
+  min-height: 80%;
+  /*border-radius: 0;*/
+}

@@ -334,14 +334,8 @@ create_marker_test(map, 'FD6');
 //    console.log("11");
 //});
 
-setTimeout(bubbleClick, 500);
+setTimeout(bubbleClick, 1000);
 
-function bubbleClick() {
-    $(".bubble").click(function(){
-        $('#myModal').modal("show");
-    });
-
-}
 
 
 
