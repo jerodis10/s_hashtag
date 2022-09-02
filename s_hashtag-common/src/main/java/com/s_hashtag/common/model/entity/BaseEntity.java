@@ -23,3 +23,5 @@ public abstract class BaseEntity extends BaseTimeEntity{
     protected LocalDateTime modifiedBy;
 }
 
+
+
