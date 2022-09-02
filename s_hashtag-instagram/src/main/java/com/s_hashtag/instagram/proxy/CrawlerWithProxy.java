@@ -1,7 +1,7 @@
 package com.s_hashtag.instagram.proxy;
 
 import com.s_hashtag.instagram.crawler.InstagramCrawler;
-import com.s_hashtag.common.instagram.dto.external.CrawlingDto;
+import com.s_hashtag.common.domain.instagram.dto.external.CrawlingDto;
 import com.s_hashtag.instagram.exception.CrawlerException;
 import com.s_hashtag.instagram.exception.CrawlerExceptionStatus;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,7 @@ public class CrawlerWithProxy {
         this.instagramCrawler = instagramCrawler;
     }
 
-    public CrawlingDto crawlInstagram(String hashtagNameToCrawl, String kakaoId) throws IOException {
+    public CrawlingDto crawlInstagram(String hashtagNameToCrawl, String kakaoId) {
         try {
 //            proxySetter.setProxy();
 //            return instagramCrawler.crawler(hashtagNameToCrawl);
@@ -36,7 +36,7 @@ public class CrawlerWithProxy {
 //                return Optional.empty();
 //            }
             throw e;
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

@@ -1,9 +1,9 @@
 package com.s_hashtag.kakaoapi.service;
 
-import com.s_hashtag.common.kakao.dto.external.Coordinate;
-import com.s_hashtag.common.kakao.dto.external.Latitude;
-import com.s_hashtag.common.kakao.dto.external.Longitude;
-import com.s_hashtag.common.kakao.dto.external.Rect;
+import com.s_hashtag.common.domain.kakao.dto.external.Coordinate;
+import com.s_hashtag.common.domain.kakao.dto.external.Latitude;
+import com.s_hashtag.common.domain.kakao.dto.external.Longitude;
+import com.s_hashtag.common.domain.kakao.dto.external.Rect;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.DisplayName;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -47,7 +48,10 @@ class KakaoApiServiceTest {
         Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
 
         //when
-        List<KakaoPlaceDto> kakaoPlaceList =  kakaoApiService.findPlaces("FD6", rect);
+//        List<KakaoPlaceDto> kakaoPlaceList =  kakaoApiService.findPlaces("FD6", rect);
+
+       List<KakaoPlaceDto> result = new ArrayList<>();
+        List<KakaoPlaceDto> kakaoPlaceList =  kakaoApiService.findPlaces("FD6", rect, result);
 
         //then
         log.info("kakaoPlaceList: {}", kakaoPlaceList.size());

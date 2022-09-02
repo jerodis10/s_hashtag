@@ -1,6 +1,6 @@
 package com.s_hashtag.api;
 
-import com.s_hashtag.dto.presentation.LoginForm;
+import com.s_hashtag.common.domain.member.dto.presentation.MemberDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,12 +23,12 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginApiController {
 
     @GetMapping("/login")
-    public String loginForm(@ModelAttribute("loginForm") LoginForm form) {
+    public String loginForm(@ModelAttribute("loginForm") MemberDto member) {
         return "login/loginForm";
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute LoginForm form) {
+    public String login(@ModelAttribute MemberDto member) {
         return "home";
     }
 

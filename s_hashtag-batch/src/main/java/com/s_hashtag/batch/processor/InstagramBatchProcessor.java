@@ -2,7 +2,7 @@ package com.s_hashtag.batch.processor;
 
 import com.s_hashtag.common.place.domain.model.Place;
 import com.s_hashtag.instagram.crawler.InstagramCrawler;
-import com.s_hashtag.common.instagram.dto.external.CrawlingDto;
+import com.s_hashtag.common.domain.instagram.dto.external.CrawlingDto;
 import com.s_hashtag.instagram.proxy.CrawlerWithProxy;
 import com.s_hashtag.instagram.proxy.ProxiesFactory;
 import com.s_hashtag.instagram.proxy.ProxySetter;

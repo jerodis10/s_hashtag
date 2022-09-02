@@ -2,7 +2,7 @@ package com.s_hashtag.scheduler.config;
 
 import com.s_hashtag.scheduler.model.vo.InstagramScheduler;
 import com.s_hashtag.batch.config.JobConfiguration;
-import com.s_hashtag.common.schedule.repository.ScheduleRepository;
+import com.s_hashtag.common.domain.schedule.repository.ScheduleRepository;
 import com.s_hashtag.scheduler.model.vo.CronPeriod;
 import com.s_hashtag.scheduler.model.vo.KakaoScheduler;
 import lombok.RequiredArgsConstructor;

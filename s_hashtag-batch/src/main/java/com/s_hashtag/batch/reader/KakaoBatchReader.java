@@ -1,11 +1,11 @@
 package com.s_hashtag.batch.reader;
 
-import com.s_hashtag.common.kakao.dto.external.Coordinate;
-import com.s_hashtag.common.kakao.dto.external.Latitude;
-import com.s_hashtag.common.kakao.dto.external.Longitude;
-import com.s_hashtag.common.kakao.dto.external.Rect;
-import com.s_hashtag.common.schedule.dto.external.ScheduleDto;
-import com.s_hashtag.common.schedule.repository.ScheduleRepository;
+import com.s_hashtag.common.domain.kakao.dto.external.Coordinate;
+import com.s_hashtag.common.domain.kakao.dto.external.Latitude;
+import com.s_hashtag.common.domain.kakao.dto.external.Longitude;
+import com.s_hashtag.common.domain.kakao.dto.external.Rect;
+import com.s_hashtag.common.domain.schedule.dto.external.ScheduleDto;
+import com.s_hashtag.common.domain.schedule.repository.ScheduleRepository;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
 import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +13,7 @@ import org.springframework.batch.item.ItemReader;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 //@RequiredArgsConstructor
@@ -44,7 +45,9 @@ public class KakaoBatchReader implements ItemReader<KakaoPlaceDto> {
 
         Rect rect = new Rect(minLatitude, maxLatitude, maxLongitude, minLongitude);
 
-        KakaoPlaceDtoList = kakaoApiService.findPlaces("FD6", rect);
+//        KakaoPlaceDtoList = kakaoApiService.findPlaces("FD6", rect);
+        List<KakaoPlaceDto> result = new ArrayList<>();
+        KakaoPlaceDtoList = kakaoApiService.findPlaces("FD6", rect, result);
 //        studentData = Collections.unmodifiableList(Arrays.asList(tony, nick, ian));
         nextKakaoPlaceIndex = 0;
     }

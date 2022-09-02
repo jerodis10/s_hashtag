@@ -9,6 +9,7 @@
     -moz-border-radius: 25px;
     border-radius: 25px;
     text-align: center;
+    cursor: pointer;
 }
 
 .bubble:after
@@ -24,4 +25,17 @@
     bottom: -15px;
     left: 60px;
 <!--    left: 50%;-->
+}
+
+.modal-dialog {
+  width: 80%;
+  height: 80%;
+  /*margin: 0;
+  padding: 0;*/
+}
+
+.modal-content {
+  height: auto;
+  min-height: 80%;
+  /*border-radius: 0;*/
 }

@@ -46,7 +46,7 @@
         </tr>
         <tr th:each="schedule : ${scheduleList}">
             <div sec:authorize="hasAuthority('batch:write')">
-                <td><input th:value="${schedule.scheduleId}" type="checkbox" class="form-check-input" name="check"></td>
+                <td><input th:value="${schedule.scheduleDocumentId}" type="checkbox" class="form-check-input" name="check"></td>
             </div>
             <td class="col-xs-1" th:text="${schedule.scheduleName}" th:name="${schedule.scheduleName}"></td>
             <td class="col-xs-1" th:text="${schedule.runtime}" th:name="${schedule.runtime}"></td>
@@ -54,23 +54,23 @@
             <td class="col-xs-1" th:text="${schedule.jobName}" th:name="${schedule.jobName}"></td>
             <td class="col-xs-1" th:text="${schedule.jobResult}" th:name="${schedule.jobResult}"></td>
             <td class="col-xs-1">
-                <input type="text" style="width:100%;" id="cron_period"
+                <input type="text" style="width:100%;" th:id="'cron_period'+${schedule.scheduleDocumentId}"
                        th:value="${schedule.cronPeriod}" th:name="${schedule.cronPeriod}">
             </td>
             <td class="col-xs-1">
-                <input type="text" style="width:100%;" id="min_latitude"
+                <input type="text" style="width:100%;" th:id="'min_latitude'+${schedule.scheduleDocumentId}"
                        th:value="${schedule.minLatitude}" th:name="${schedule.minLatitude}">
             </td>
             <td class="col-xs-1">
-                <input type="text" style="width:100%;" id="max_latitude"
+                <input type="text" style="width:100%;" th:id="'max_latitude'+${schedule.scheduleDocumentId}"
                        th:value="${schedule.maxLatitude}" th:name="${schedule.maxLatitude}">
             </td>
             <td class="col-xs-1">
-                <input type="text" style="width:100%;" id="min_longitude"
+                <input type="text" style="width:100%;" th:id="'min_longitude'+${schedule.scheduleDocumentId}"
                        th:value="${schedule.minLongitude}" th:name="${schedule.minLongitude}">
             </td>
             <td class="col-xs-1">
-                <input type="text" style="width:100%;" id="max_longitude"
+                <input type="text" style="width:100%;" th:id="'max_longitude'+${schedule.scheduleDocumentId}"
                        th:value="${schedule.maxLongitude}" th:name="${schedule.maxLongitude}">
             </td>
 

@@ -13,9 +13,9 @@ import static com.s_hashtag.security.ApplicationUserPermission.*;
 @RequiredArgsConstructor
 public enum ApplicationMemberRole {
 
-    MEMBER(Sets.newHashSet()),
-    ADMINTRAINEE(Sets.newHashSet(MEMBER_READ, BATCH_READ)),
-    ADMIN(Sets.newHashSet(MEMBER_READ, MEMBER_WRITE, BATCH_READ, BATCH_WRITE));
+    MEMBER(Sets.newHashSet(USER)),
+    ADMINTRAINEE(Sets.newHashSet(MEMBER_READ, BATCH_READ, USER)),
+    ADMIN(Sets.newHashSet(MEMBER_READ, MEMBER_WRITE, BATCH_READ, BATCH_WRITE, USER));
 
     private final Set<ApplicationUserPermission> permissions;
 

@@ -16,13 +16,15 @@
 #batch:
 #  chunk: 2
 #---
+
 batch:
   chunk: 10
 
-spring:
-  batch:
-    jdbc:
-      initialize-schema: always
+#spring:
+#  batch:
+#    jdbc:
+#      initialize-schema: always
 
-    job:
-      enabled: false
+#    job:
+#      enabled: false
+#      enabled: true

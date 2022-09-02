@@ -101,7 +101,11 @@ kakao.maps.event.addListener(map, 'zoom_changed', function() {
 });
 
 //var rect_json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741};
-var rect_json = {"ha": 126.66578831035362, "oa": 126.6751487382762, "pa": 37.52847533960485, "qa": 37.53625487247741};
+//var rect_json = {"ha": 126.66578831035362, "oa": 126.6751487382762, "pa": 37.52847533960485, "qa": 37.53625487247741}; // 19개 - 인천
+//var rect_json = {"ha": 126.66578831035362, "oa": 126.6751487382762, "pa": 37.52847533960485, "qa": 37.53625487247741}; // 3개 - 인천
+//var rect_json = {"ha": 126.97895739177251, "oa": 126.97940437779806, "pa": 37.565536149395754, "qa": 37.566816079358794}; // 7개 - 서울시청
+var rect_json = {"ha": 126.97895739177251, "oa": 126.98090437779806, "pa": 37.565536149395754, "qa": 37.566816079358794}; // 25개 - 서울시청
+
 //var param = JSON.stringify(rect_json);
 
 function kakaoMap() {
@@ -283,7 +287,7 @@ function create_overlay(item, category){
     var hashtag_count = item.hashtagCount;
     var hashtag_name = item.hashtagName;
     var content =
-        '<div class="bubble">' +
+        '<div class="bubble" id="bubble" data-target="#myModal">' +
         '   <p>' + hashtag_name + '</p>' +
         '   <ion-icon name="heart" style="color: red;"></ion-icon>' +
         '   <span id="sp">' + hashtag_count + '</span>' +
@@ -313,10 +317,51 @@ function create_overlay(item, category){
 
 create_marker_test(map, 'FD6');
 
+//$("div[class=bubble]").click(function(){
+//    alert("1");
+//});
 
+//document.getElementsByClassName("bubble").onclick(function(){
+//    alert("1");
+//});
 
+//$(".bubble").click(function(){
+//    alert("1");
+//    console.log("log");
+//});
 
+//document.getElementsByClassName("bubble").addEventListener('click', function(){
+//    console.log("11");
+//});
 
+setTimeout(bubbleClick, 1000);
+
+function bubbleClick() {
+    $(".bubble").click(function(event){
+//        console.log($(this));
+
+        var $target = $(event.target);
+        var json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741,
+                            "category_list": 'FD6', "hashtagName": $target.children()[0].innerText};
+        var param = JSON.stringify(json);
+
+        $.ajax({
+           url:'/api/findByHashtagName',
+           type:'POST',
+           dataType: 'json',
+           contentType : "application/json; charset=utf-8",
+           data: param,
+           success:function(data){
+           },
+           error : function(e){
+                console.log(e);
+           }
+        });
+
+        $(".modal-title").text($target.children()[0].innerText);
+        $('#myModal').modal("show");
+    });
+}
 
 
 
