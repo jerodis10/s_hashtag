@@ -106,9 +106,9 @@ public class JpaInstagramRepository implements InstagramRepository {
                         instagramPost.instagramPostDocumentId,
                         instagramPost.imageUrl,
                         instagramPost.postUrl))
-                .from(instagram)
+                .from(instagramPost)
+                .join(instagramPost.instagram, instagram)
                 .join(instagram.kakaoDocument, kakaoDocument)
-                .join(instagram.instagramPosts, instagramPost).fetchJoin()
                 .where(latitudeBetween(rect), longitudeBetween(rect),
                         kakaoDocument.categoryGroupCode.in(categoryList),
                         instagram.hashtagName.eq(hashtagName))
@@ -151,19 +151,19 @@ public class JpaInstagramRepository implements InstagramRepository {
     public void instagramPostSave(PostDto postDto) {
         Instagram findInstagram = queryFactory
                 .selectFrom(instagram)
-                .where(instagram.instagramDocumentId.eq(postDto.getInstagram_document_id()))
+                .where(instagram.instagramDocumentId.eq(postDto.getInstagramDocumentId()))
                 .fetchOne();
 
         InstagramPost findInstagramPost = queryFactory
                 .selectFrom(instagramPost)
-                .where(instagramPost.instagram.instagramDocumentId.eq(postDto.getInstagram_document_id()),
-                        instagramPost.instagramPostDocumentId.eq(postDto.getInstagram_post_id()))
+                .where(instagramPost.instagram.instagramDocumentId.eq(postDto.getInstagramDocumentId()),
+                        instagramPost.instagramPostDocumentId.eq(postDto.getInstagramPostId()))
                 .fetchOne();
 
         if(findInstagramPost == null) {
             InstagramPost instagramPost = InstagramPost.builder()
-                    .instagramPostDocumentId(postDto.getInstagram_post_id())
-                    .instagramDocumentId(postDto.getInstagram_document_id())
+                    .instagramPostDocumentId(postDto.getInstagramPostId())
+                    .instagramDocumentId(postDto.getInstagramDocumentId())
                     .postUrl(postDto.getPostUrl())
                     .imageUrl(postDto.getImageUrl())
                     .instagram(findInstagram)

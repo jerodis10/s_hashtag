@@ -70,9 +70,9 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
                         "values (" +
                             "?, ?, ?, ?)";
         jdbcTemplate.update(sql_instagram_post_save,
-                postDto.getInstagram_post_id(), postDto.getInstagram_document_id(),
-                postDto.getInstagram_document_id(), postDto.getPostUrl(), postDto.getImageUrl(),
-                postDto.getInstagram_post_id(), postDto.getInstagram_document_id(), postDto.getPostUrl(), postDto.getImageUrl());
+                postDto.getInstagramPostId(), postDto.getInstagramDocumentId(),
+                postDto.getInstagramDocumentId(), postDto.getPostUrl(), postDto.getImageUrl(),
+                postDto.getInstagramPostId(), postDto.getInstagramDocumentId(), postDto.getPostUrl(), postDto.getImageUrl());
     }
 
     @Override

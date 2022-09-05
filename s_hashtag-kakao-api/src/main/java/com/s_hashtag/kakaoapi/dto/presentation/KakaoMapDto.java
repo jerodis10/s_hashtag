@@ -38,6 +38,9 @@ public class KakaoMapDto {
     @JsonAlias("category_list")
     private String category;
 
+    @JsonAlias("hashtag_name")
+    private String hashtagName;
+
     private String searchText;
 
     private String check;

@@ -48,7 +48,7 @@ public class InstaCrawlingResult {
                 String instagram_post_id = JsonExplorer.findByKey(source, POST_ID);
                 String postUrl = JsonExplorer.findByKey(source, POST_URL_KEY);
                 String displayUrl = JsonExplorer.findByKey(source, DISPLAY_URL_KEY);
-                postDtos.add(new PostDto(instagram_post_id, instagram_id, postUrl, displayUrl));
+                postDtos.add(new PostDto(instagram_post_id, instagram_id, instagram_post_id, postUrl, displayUrl));
             }
         }
 

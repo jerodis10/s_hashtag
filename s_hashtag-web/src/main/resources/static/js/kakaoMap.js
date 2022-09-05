@@ -103,8 +103,8 @@ kakao.maps.event.addListener(map, 'zoom_changed', function() {
 //var rect_json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741};
 //var rect_json = {"ha": 126.66578831035362, "oa": 126.6751487382762, "pa": 37.52847533960485, "qa": 37.53625487247741}; // 19개 - 인천
 //var rect_json = {"ha": 126.66578831035362, "oa": 126.6751487382762, "pa": 37.52847533960485, "qa": 37.53625487247741}; // 3개 - 인천
-//var rect_json = {"ha": 126.97895739177251, "oa": 126.97940437779806, "pa": 37.565536149395754, "qa": 37.566816079358794}; // 7개 - 서울시청
-var rect_json = {"ha": 126.97895739177251, "oa": 126.98090437779806, "pa": 37.565536149395754, "qa": 37.566816079358794}; // 25개 - 서울시청
+var rect_json = {"ha": 126.97895739177251, "oa": 126.97940437779806, "pa": 37.565536149395754, "qa": 37.566816079358794}; // 7개 - 서울시청
+//var rect_json = {"ha": 126.97895739177251, "oa": 126.98090437779806, "pa": 37.565536149395754, "qa": 37.566816079358794}; // 25개 - 서울시청
 
 //var param = JSON.stringify(rect_json);
 
@@ -334,7 +334,7 @@ create_marker_test(map, 'FD6');
 //    console.log("11");
 //});
 
-setTimeout(bubbleClick, 1000);
+setTimeout(bubbleClick, 1500);
 
 function bubbleClick() {
     $(".bubble").click(function(event){
@@ -342,7 +342,8 @@ function bubbleClick() {
 
         var $target = $(event.target);
         var json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741,
-                            "category_list": 'FD6', "hashtagName": $target.children()[0].innerText};
+                            "category_list": 'FD6', "hashtag_name": $target.children()[0].innerText
+                            };
         var param = JSON.stringify(json);
 
         $.ajax({

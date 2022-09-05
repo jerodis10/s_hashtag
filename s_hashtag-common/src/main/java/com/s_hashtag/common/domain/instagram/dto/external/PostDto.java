@@ -1,20 +1,28 @@
 package com.s_hashtag.common.domain.instagram.dto.external;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
+//@Setter
 public class PostDto {
     public static final String POST_URL_FORMAT = "https://www.instagram.com/p/%s";
 
-    private final String instagram_post_id;
-    private final String instagram_document_id;
-    private final String postUrl;
-    private final String imageUrl;
+    private String instagramPostId;
+    private String instagramDocumentId;
+    private String instagramPostDocumentId;
+    private String postUrl;
+    private String imageUrl;
 
-    public PostDto(String instagram_post_id, String instagram_document_id, String postUrlKey, String imageUrl) {
-        this.instagram_post_id = instagram_post_id;
-        this.instagram_document_id = instagram_document_id;
-        this.postUrl = String.format(POST_URL_FORMAT, postUrlKey);
-        this.imageUrl = imageUrl;
-    }
+//    public PostDto(String instagramPostId, String instagramDocumentId, String instagramPostDocumentId, String postUrlKey, String imageUrl) {
+//        this.instagramPostId = instagramPostId;
+//        this.instagramDocumentId = instagramDocumentId;
+//        this.instagramPostDocumentId = instagramPostDocumentId;
+//        this.postUrl = String.format(POST_URL_FORMAT, postUrlKey);
+//        this.imageUrl = imageUrl;
+//    }
 }

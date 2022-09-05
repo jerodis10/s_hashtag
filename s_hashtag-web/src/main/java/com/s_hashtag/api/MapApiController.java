@@ -130,16 +130,18 @@ public class MapApiController {
     }
 
     @PostMapping("/findByHashtagName")
-//    @ResponseBody
-    public String findByHashtagName(@RequestBody @Valid KakaoMapDto kakaoMapDto, @RequestBody String hashtagName, Model model) {
+    @ResponseBody
+    public List<PostDto> findByHashtagName(@RequestBody @Valid KakaoMapDto kakaoMapDto, Model model
+//            , @RequestBody String hashtagName
+    ) {
         String temp = kakaoMapDto.getCategory();
         String[] categoryList = temp.split(",");
 
-
-        List<PostDto> postDtoList = instagramRepository.findByHashtagName(categoryList, kakaoMapDto.CreateRect(), hashtagName);
+        List<PostDto> postDtoList = instagramRepository.findByHashtagName(categoryList, kakaoMapDto.CreateRect(), kakaoMapDto.getHashtagName());
         model.addAttribute("postDtoList", postDtoList);
 
-        return "modal/instagramPost";
+        return postDtoList;
+//        return "modal/instagramPost";
     }
 
 //    @GetMapping("/getHashtagByCount2")
