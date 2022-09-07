@@ -353,63 +353,58 @@ function bubbleClick() {
            contentType : "application/json; charset=utf-8",
            data: param,
            success:function(data){
-                console.log(data);
                 if(data) {
-                    /* apply image */
                     var image_id;
+                    var controlClass;
+
+                    /* remove slide-control */
+                    var parent_div = document.querySelector(".slide_control_wrap");
+                    var remove_div = document.querySelector(".slide-control");
+                    if(remove_div != null) parent_div.removeChild(remove_div); // 부모로부터 myDiv 객체 떼어내기
+
+                    /* create slide-control */
+                    var slide_control_wrap = document.querySelector(".slide_control_wrap");
+                    var new_slideDiv = document.createElement('div');
+                    new_slideDiv.setAttribute('class', "slide-control");
+                    slide_control_wrap.appendChild(new_slideDiv);
+
                     $.each(data, function(index, item){
+                        /* apply image */
                         image_id = "image" + String(index+1);
                         document.getElementById(image_id).src = data[index].imageUrl;
+
+                        /* create control */
+                        var slide_control = document.querySelector(".slide-control");
+                        var newDiv = document.createElement('div');
+                        controlClass = "control0";
+                        newDiv.setAttribute('class', controlClass + String(index+1));
+                        slide_control.appendChild(newDiv);
+
+                        /* create label_left */
+                        var control_div = document.querySelector("." + controlClass + String(index+1));
+                        var new_label_left = document.createElement('label');
+                        new_label_left.setAttribute('class', 'left');
+                        var label_for = "slide0";
+                        if(index == 0){
+                            label_for += String(data.length);
+                        } else {
+                            label_for += String(index);
+                        }
+                        new_label_left.setAttribute('for', label_for);
+                        control_div.appendChild(new_label_left);
+
+                        /* create label_right */
+                        var new_label_right = document.createElement('label');
+                        new_label_right.setAttribute('class', 'right');
+                        var label_for = "slide0";
+                        if(index == data.length-1){
+                            label_for += "1";
+                        } else {
+                            label_for += String(index+2);
+                        }
+                        new_label_right.setAttribute('for', label_for);
+                        control_div.appendChild(new_label_right);
                     });
-
-                    /* create slide_control */
-
-
-                    // document.getElementById("image1").src = data[0].imageUrl;
-                    // document.getElementById("image2").src = data[1].imageUrl;
-
-                    /* create radio */
-//                    var section = document.querySelector(".section");
-//                    var newInput = document.createElement('input');
-//                    newInput.setAttribute('type', 'radio');
-//                    newInput.setAttribute('name', 'slide');
-//                    newInput.setAttribute('id', 'slide04');
-//                    section.appendChild(newInput);
-
-//                    var section = document.getElementById('section');
-//                    var newInput = document.createElement('input');
-//                    newInput.setAttribute('type', 'radio');
-//                    newInput.setAttribute('name', 'slide');
-//                    newInput.setAttribute('id', 'slide04');
-//                    section.appendChild(newInput);
-
-                    /* create slidelist */
-//                    var slidelist = document.getElementById('slidelist');
-//                    var newLi = document.createElement('li');
-//                    newLi.setAttribute('id', 'li1');
-//                    slidelist.appendChild(newLi);
-//
-//                    var li = document.getElementById('li1');
-//                    var newA = document.createElement('a');
-//                    newA.setAttribute('id', 'a1');
-//                    li.appendChild(newA);
-//
-//                    var ai = document.getElementById('a1');
-//                    var newImg = document.createElement('img');
-//                    newImg.setAttribute('id', 'img1');
-//                    ai.appendChild(newImg);
-
-
-
-
-
-//                    let tagArea = document.getElementById('section');
-//                    let new_pTag = document.createElement('p');
-//
-//                    new_pTag.setAttribute('class', 'pTag');
-//                    new_pTag.innerHTML = "추가된 p태그";
-//
-//                    tagArea.appendChild(new_pTag);
                 }
            },
            error : function(e){
