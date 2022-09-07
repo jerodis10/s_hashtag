@@ -353,6 +353,64 @@ function bubbleClick() {
            contentType : "application/json; charset=utf-8",
            data: param,
            success:function(data){
+                console.log(data);
+                if(data) {
+                    /* apply image */
+                    var image_id;
+                    $.each(data, function(index, item){
+                        image_id = "image" + String(index+1);
+                        document.getElementById(image_id).src = data[index].imageUrl;
+                    });
+
+                    /* create slide_control */
+
+
+                    // document.getElementById("image1").src = data[0].imageUrl;
+                    // document.getElementById("image2").src = data[1].imageUrl;
+
+                    /* create radio */
+//                    var section = document.querySelector(".section");
+//                    var newInput = document.createElement('input');
+//                    newInput.setAttribute('type', 'radio');
+//                    newInput.setAttribute('name', 'slide');
+//                    newInput.setAttribute('id', 'slide04');
+//                    section.appendChild(newInput);
+
+//                    var section = document.getElementById('section');
+//                    var newInput = document.createElement('input');
+//                    newInput.setAttribute('type', 'radio');
+//                    newInput.setAttribute('name', 'slide');
+//                    newInput.setAttribute('id', 'slide04');
+//                    section.appendChild(newInput);
+
+                    /* create slidelist */
+//                    var slidelist = document.getElementById('slidelist');
+//                    var newLi = document.createElement('li');
+//                    newLi.setAttribute('id', 'li1');
+//                    slidelist.appendChild(newLi);
+//
+//                    var li = document.getElementById('li1');
+//                    var newA = document.createElement('a');
+//                    newA.setAttribute('id', 'a1');
+//                    li.appendChild(newA);
+//
+//                    var ai = document.getElementById('a1');
+//                    var newImg = document.createElement('img');
+//                    newImg.setAttribute('id', 'img1');
+//                    ai.appendChild(newImg);
+
+
+
+
+
+//                    let tagArea = document.getElementById('section');
+//                    let new_pTag = document.createElement('p');
+//
+//                    new_pTag.setAttribute('class', 'pTag');
+//                    new_pTag.innerHTML = "추가된 p태그";
+//
+//                    tagArea.appendChild(new_pTag);
+                }
            },
            error : function(e){
                 console.log(e);
