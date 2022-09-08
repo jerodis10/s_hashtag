@@ -102,8 +102,8 @@ kakao.maps.event.addListener(map, 'zoom_changed', function() {
 
 //var rect_json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741};
 //var rect_json = {"ha": 126.66578831035362, "oa": 126.6751487382762, "pa": 37.52847533960485, "qa": 37.53625487247741}; // 19개 - 인천
-//var rect_json = {"ha": 126.66578831035362, "oa": 126.6751487382762, "pa": 37.52847533960485, "qa": 37.53625487247741}; // 3개 - 인천
-var rect_json = {"ha": 126.97895739177251, "oa": 126.97940437779806, "pa": 37.565536149395754, "qa": 37.566816079358794}; // 7개 - 서울시청
+var rect_json = {"ha": 126.66578831035362, "oa": 126.6751487382762, "pa": 37.52847533960485, "qa": 37.53625487247741}; // 3개 - 인천
+//var rect_json = {"ha": 126.97895739177251, "oa": 126.97940437779806, "pa": 37.565536149395754, "qa": 37.566816079358794}; // 7개 - 서울시청
 //var rect_json = {"ha": 126.97895739177251, "oa": 126.98090437779806, "pa": 37.565536149395754, "qa": 37.566816079358794}; // 25개 - 서울시청
 
 //var param = JSON.stringify(rect_json);
@@ -317,10 +317,6 @@ function create_overlay(item, category){
 
 create_marker_test(map, 'FD6');
 
-//$("div[class=bubble]").click(function(){
-//    alert("1");
-//});
-
 //document.getElementsByClassName("bubble").onclick(function(){
 //    alert("1");
 //});
@@ -334,15 +330,95 @@ create_marker_test(map, 'FD6');
 //    console.log("11");
 //});
 
-setTimeout(bubbleClick, 1500);
+//setTimeout(bubbleClick(), 2000);
 
-function bubbleClick() {
+//setTimeout(
+//function bubbleClick() {
+//    $(".bubble").click(function(event){
+//        var $target = $(event.target);
+//        var json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741,
+//                            "category_list": 'FD6', "hashtag_name": $target.children()[0].innerText
+//                            };
+//        var param = JSON.stringify(json);
+//
+//        $.ajax({
+//           url:'/api/findByHashtagName',
+//           type:'POST',
+//           dataType: 'json',
+//           contentType : "application/json; charset=utf-8",
+//           data: param,
+//           success:function(data){
+//                if(data && data.length > 0) {
+//                    var image_id;
+//                    var controlClass;
+//
+//                    /* remove slide-control */
+//                    var parent_div = document.querySelector(".slide_control_wrap");
+//                    var remove_div = document.querySelector(".slide-control");
+//                    if(remove_div != null) parent_div.removeChild(remove_div); // 부모로부터 myDiv 객체 떼어내기
+//
+//                    /* create slide-control */
+//                    var slide_control_wrap = document.querySelector(".slide_control_wrap");
+//                    var new_slideDiv = document.createElement('div');
+//                    new_slideDiv.setAttribute('class', "slide-control");
+//                    slide_control_wrap.appendChild(new_slideDiv);
+//
+//                    $.each(data, function(index, item){
+//                        /* apply image */
+//                        image_id = "image" + String(index+1);
+//                        document.getElementById(image_id).src = data[index].imageUrl;
+//
+//                        /* create control */
+//                        var slide_control = document.querySelector(".slide-control");
+//                        var newDiv = document.createElement('div');
+//                        controlClass = "control0";
+//                        newDiv.setAttribute('class', controlClass + String(index+1));
+//                        slide_control.appendChild(newDiv);
+//
+//                        /* create label_left */
+//                        var control_div = document.querySelector("." + controlClass + String(index+1));
+//                        var new_label_left = document.createElement('label');
+//                        new_label_left.setAttribute('class', 'left');
+//                        var label_for = "slide0";
+//                        if(index == 0){
+//                            label_for += String(data.length);
+//                        } else {
+//                            label_for += String(index);
+//                        }
+//                        new_label_left.setAttribute('for', label_for);
+//                        control_div.appendChild(new_label_left);
+//
+//                        /* create label_right */
+//                        var new_label_right = document.createElement('label');
+//                        new_label_right.setAttribute('class', 'right');
+//                        var label_for = "slide0";
+//                        if(index == data.length-1){
+//                            label_for += "1";
+//                        } else {
+//                            label_for += String(index+2);
+//                        }
+//                        new_label_right.setAttribute('for', label_for);
+//                        control_div.appendChild(new_label_right);
+//                    });
+//                }
+//           },
+//           error : function(e){
+//                console.log(e);
+//           }
+//        });
+//
+//        $(".modal-title").text($target.children()[0].innerText);
+//        $('#myModal').modal("show");
+//    });
+//}
+//, 1500);
+
+setTimeout(function(){
     $(".bubble").click(function(event){
-//        console.log($(this));
-
         var $target = $(event.target);
+        var hashtag_name = $target.children().length === 3 ? $target.children()[0].innerText : event.target.innerText;
         var json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741,
-                            "category_list": 'FD6', "hashtag_name": $target.children()[0].innerText
+                            "category_list": 'CE7', "hashtag_name": hashtag_name
                             };
         var param = JSON.stringify(json);
 
@@ -353,7 +429,7 @@ function bubbleClick() {
            contentType : "application/json; charset=utf-8",
            data: param,
            success:function(data){
-                if(data) {
+                if(data && data.length > 0) {
                     var image_id;
                     var controlClass;
 
@@ -369,6 +445,7 @@ function bubbleClick() {
                     slide_control_wrap.appendChild(new_slideDiv);
 
                     $.each(data, function(index, item){
+                        if(index >= 9) return false;
                         /* apply image */
                         image_id = "image" + String(index+1);
                         document.getElementById(image_id).src = data[index].imageUrl;
@@ -412,10 +489,9 @@ function bubbleClick() {
            }
         });
 
-        $(".modal-title").text($target.children()[0].innerText);
+        $(".modal-title").text(hashtag_name);
         $('#myModal').modal("show");
     });
-}
-
+}, 1500);
 
 

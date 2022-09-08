@@ -21,10 +21,22 @@
 .section [id="slide01"]:checked ~ .slidewrap .slidelist > li {transform:translateX(0%);}
 .section [id="slide02"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-100%);}
 .section [id="slide03"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-200%);}
+.section [id="slide04"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-300%);}
+.section [id="slide05"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-400%);}
+.section [id="slide06"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-500%);}
+.section [id="slide07"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-600%);}
+.section [id="slide08"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-700%);}
+.section [id="slide09"]:checked ~ .slidewrap .slidelist > li {transform:translateX(-800%);}
 
 /*  INPUT이 체크되면 변화값이 좌우 슬라이드 버튼을 담고 있는 div 까지 전달되는 스타일 */
 .section [id="slide01"]:checked ~ .slidewrap .control01 {display:block;}
 .section [id="slide02"]:checked ~ .slidewrap .control02 {display:block;}
 .section [id="slide03"]:checked ~ .slidewrap .control03 {display:block;}
+.section [id="slide04"]:checked ~ .slidewrap .control04 {display:block;}
+.section [id="slide05"]:checked ~ .slidewrap .control05 {display:block;}
+.section [id="slide06"]:checked ~ .slidewrap .control06 {display:block;}
+.section [id="slide07"]:checked ~ .slidewrap .control07 {display:block;}
+.section [id="slide08"]:checked ~ .slidewrap .control08 {display:block;}
+.section [id="slide09"]:checked ~ .slidewrap .control09 {display:block;}
 
 .section .slidelist img { width:100%; height:500px; margin-bottom:900px; }
