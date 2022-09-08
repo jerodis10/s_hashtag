@@ -39,7 +39,7 @@ public class InstagramService {
     public void saveCrawlingResults(Rect rect) {
 //        try {
             savePlace(rect, "FD6");
-            savePlace(rect, "CE7");
+//            savePlace(rect, "CE7");
 
 ////            List<KakaoPlaceDto> kakaoPlaceDto_FD6 = kakaoApiService.findPlaces("FD6", rect);
 //
@@ -145,7 +145,7 @@ public class InstagramService {
 
     @Transactional
     public void savePlace(Rect rect, String category) {
-//        try {
+        try {
 //            int count = 0;
             List<KakaoPlaceDto> result = new ArrayList<>();
             List<Document> documentList = new ArrayList<>();
@@ -172,9 +172,9 @@ public class InstagramService {
 //                }
 //            }
 
-//        } catch (Exception e) {
-//            log.info(e.getMessage());
-//        }
+        } catch (Exception e) {
+            log.info(e.getMessage());
+        }
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

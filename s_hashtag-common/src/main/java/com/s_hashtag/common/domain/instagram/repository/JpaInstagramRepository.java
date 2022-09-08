@@ -51,7 +51,7 @@ public class JpaInstagramRepository implements InstagramRepository {
                         kakaoDocument.categoryGroupCode.eq(category))
                 .orderBy(instagram.hashtagCount.desc())
 //                .offset(1)
-//                .limit(50)
+//                .limit(15)
                 .fetch();
     }
 
@@ -73,7 +73,7 @@ public class JpaInstagramRepository implements InstagramRepository {
                         kakaoDocument.kakaoDocumentId.in(keywordList))
                 .orderBy(instagram.hashtagCount.desc())
 //                .offset(1)
-//                .limit(50)
+//                .limit(15)
                 .fetch();
     }
 

@@ -23,7 +23,7 @@ setTimeout(function(){
         var $target = $(event.target);
         var hashtag_name = $target.children().length === 3 ? $target.children()[0].innerText : event.target.innerText;
         var json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741,
-                            "category_list": 'CE7', "hashtag_name": hashtag_name
+                            "category_list": 'FD6', "hashtag_name": hashtag_name
                             };
         var param = JSON.stringify(json);
 
@@ -125,7 +125,7 @@ setTimeout(function(){
         var $target = $(event.target);
         var hashtag_name = $target.children().length === 3 ? $target.children()[0].innerText : event.target.innerText;
         var json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741,
-                            "category_list": 'CE7', "hashtag_name": hashtag_name
+                            "category_list": 'FD6', "hashtag_name": hashtag_name
                             };
         var param = JSON.stringify(json);
 
