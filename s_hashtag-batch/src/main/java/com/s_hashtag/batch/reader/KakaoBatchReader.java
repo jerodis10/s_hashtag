@@ -7,6 +7,7 @@ import com.s_hashtag.common.domain.kakao.dto.external.Rect;
 import com.s_hashtag.common.domain.schedule.dto.external.ScheduleDto;
 import com.s_hashtag.common.domain.schedule.repository.ScheduleRepository;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
+import com.s_hashtag.kakaoapi.factory.RectFactory;
 import com.s_hashtag.kakaoapi.service.KakaoApiService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemReader;
@@ -33,22 +34,12 @@ public class KakaoBatchReader implements ItemReader<KakaoPlaceDto> {
 
         ScheduleDto scheduleDto = scheduleRepository.findById("KakaoScheduler");
 
-//        Rect rect = rectFactory.CreateRect(schedule.getMinLatitude(),
-//                                           schedule.getMaxLatitude(),
-//                                           schedule.getMinLongitude(),
-//                                           schedule.getMaxLongitude());
+        Rect rect = RectFactory.CreateRect(scheduleDto.getMinLatitude(),
+                                           scheduleDto.getMaxLatitude(),
+                                           scheduleDto.getMinLongitude(),
+                                           scheduleDto.getMaxLongitude());
 
-        Coordinate minLatitude = new Latitude(new BigDecimal(scheduleDto.getMinLatitude()));
-        Coordinate maxLatitude = new Latitude(new BigDecimal(scheduleDto.getMaxLatitude()));
-        Coordinate minLongitude = new Longitude(new BigDecimal(scheduleDto.getMinLongitude()));
-        Coordinate maxLongitude = new Longitude(new BigDecimal(scheduleDto.getMaxLongitude()));
-
-        Rect rect = new Rect(minLatitude, maxLatitude, maxLongitude, minLongitude);
-
-//        KakaoPlaceDtoList = kakaoApiService.findPlaces("FD6", rect);
-        List<KakaoPlaceDto> result = new ArrayList<>();
-        KakaoPlaceDtoList = kakaoApiService.findPlaces("FD6", rect, result);
-//        studentData = Collections.unmodifiableList(Arrays.asList(tony, nick, ian));
+        KakaoPlaceDtoList = kakaoApiService.findPlaces("FD6", rect, new ArrayList<>());
         nextKakaoPlaceIndex = 0;
     }
 
@@ -70,6 +61,5 @@ public class KakaoBatchReader implements ItemReader<KakaoPlaceDto> {
         } else {
             return nextKakaoPlace;
         }
-//        return nextKakaoPlace;
     }
 }

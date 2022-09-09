@@ -19,7 +19,7 @@ public class KakaoBatchWriter implements ItemWriter<KakaoPlaceDto> {
 
     @Override
     public void write(List<? extends KakaoPlaceDto> items) {
-        log.info("write");
+        log.info("KakaoBatchWriter");
         saveKakaoResult((List<KakaoPlaceDto>) items);
     }
 
