@@ -221,8 +221,7 @@ function create_marker_test(map, category) {
                 if(10000 <= item.hashtagCount) background_color = 'style="background-color: brown;"';
                 var content =
                     '<div class="bubble">' +
-//                    '<div class="bubble" ' + background_color + '>'  +
-                    '   <p>' + hashtag_name + '</p>' +
+                    '   <div style="margin-top: 5px;">' + hashtag_name + '</div>' +
                     '   <ion-icon name="heart" style="color: red;"></ion-icon>' +
                     '   <span id="sp">' + hashtag_count + '</span>' +
                     '</div>'
@@ -292,7 +291,7 @@ function create_overlay(item, category){
     var hashtag_name = item.hashtagName;
     var content =
         '<div class="bubble" id="bubble" data-target="#myModal">' +
-        '   <p>' + hashtag_name + '</p>' +
+        '   <div>' + hashtag_name + '</div>' +
         '   <ion-icon name="heart" style="color: red;"></ion-icon>' +
         '   <span id="sp">' + hashtag_count + '</span>' +
         '</div>'

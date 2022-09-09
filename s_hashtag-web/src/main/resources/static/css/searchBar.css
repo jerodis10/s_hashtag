@@ -20,3 +20,8 @@
     background-color: #d8a0fa;
     color: #fff;
 }
+
+.bar_wrap {
+    display: flex;
+    float:left;
+}
