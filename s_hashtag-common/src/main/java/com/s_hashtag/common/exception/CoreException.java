@@ -6,3 +6,4 @@ public class CoreException extends HashtagMapException {
         super(coreExceptionStatus.getMessage(), coreExceptionStatus.getCode(), detailMessage);
     }
 }
+
