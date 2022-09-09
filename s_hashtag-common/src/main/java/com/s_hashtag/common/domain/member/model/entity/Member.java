@@ -6,9 +6,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Getter
-//@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//@NoArgsConstructor
 @Table(name = "MEMBER")
 @Entity
 public class Member extends BaseEntity {

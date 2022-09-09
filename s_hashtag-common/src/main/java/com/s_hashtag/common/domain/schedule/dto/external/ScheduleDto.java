@@ -5,11 +5,10 @@ import lombok.*;
 
 import java.util.List;
 
-//@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
+//@Setter
 @Builder
 public class ScheduleDto {
 

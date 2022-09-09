@@ -10,7 +10,6 @@ import java.util.List;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-@Setter
 public class CrawlingDto {
     private final String instagramId;
     private final String placeId;

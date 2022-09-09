@@ -21,11 +21,6 @@ public class InstagramCrawler {
 private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/explore/tags/%s/?__a=1&__d=dis";
 
     private final Crawler crawler;
-//    private final PlaceNameParser placeNameParser;
-
-//    public InstagramCrawler(Crawler crawler) {
-//        this.crawler = crawler;
-//    }
 
     public CrawlingDto createCrawlingDto(String hashtagName, String body, String kakaoId) {
         try {
@@ -35,13 +30,14 @@ private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/ex
             //        String robot = instaCrawlingResult.checkRobot();
             String instagramId = instaCrawlingResult.findInstagramId();
             BigDecimal hashTagCount = new BigDecimal(instaCrawlingResult.findHashTagCount());
-            if (hashTagCount.equals(BigDecimal.ZERO))
-                throw new CrawlerException(CrawlerExceptionStatus.NOT_ENOUGH_HASHTAG_COUNT);
+            if (hashTagCount.equals(BigDecimal.ZERO)) throw new CrawlerException(CrawlerExceptionStatus.NOT_ENOUGH_HASHTAG_COUNT);
             PostDtos postDtos = instaCrawlingResult.findPostDtos();
             return CrawlingDto.of(instagramId, kakaoId, hashtagName, hashTagCount, postDtos);
         } catch (CrawlerException crawlerException) {
             log.info(crawlerException.getMessage());
             throw crawlerException;
+        } catch (Exception e) {
+            throw e;
         }
     }
 
@@ -66,6 +62,8 @@ private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/ex
             //        return createCrawlingDto(parsedHashtagName, body);
         } catch (CrawlerException crawlerException) {
             throw crawlerException;
+        } catch (Exception e) {
+            throw e;
         }
     }
 }

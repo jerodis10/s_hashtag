@@ -26,22 +26,13 @@ public class JdbcTemplatememberRepository implements MemberRepository{
     @Override
     public void save(MemberDto memberDto) {
         SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
-//        jdbcInsert.withTableName("member").usingGeneratedKeyColumns("id");
-//        jdbcInsert.withTableName("member").usingColumns("id", "password", "name");
         jdbcInsert.withTableName("member");
         Map<String, Object> parameters = new HashMap<>();
-//        parameters.put("id", member.getId());
         parameters.put("login_id", memberDto.getLoginId());
         parameters.put("password", memberDto.getPassword());
         parameters.put("name", memberDto.getName());
         parameters.put("role", memberDto.getRole());
         jdbcInsert.execute(parameters);
-//        Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
-//        member.setId(key.longValue());
-//        member.setLoginId(key.toString());
-//        member.setPassword(key.toString());
-//        member.setName(key.toString());
-//        return memberDto;
     }
 
     @Override

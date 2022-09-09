@@ -26,7 +26,6 @@ public class Longitude extends Coordinate {
         }
         String detailMessage = String.format("잘못된 경도 범위(%s)입니다.", longitude);
         throw new KakaoApiException(KakaoApiExceptionStatus.INVALID_LONGITUDE, detailMessage);
-//        return new BigDecimal("0");
     }
 
     @Override

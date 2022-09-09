@@ -22,9 +22,6 @@ public interface InstagramRepository {
 
     void instagramPostSave(PostDto postDto);
 
-//    List<PlaceDto> getHashtagByCount2(String[] categoryList, Map<String, Object> hashtag_count_param);
-
-
 //    Optional<Member> findById(String id);
 //    Optional<Member> findByName(String name);
 //    List<Member> findAll();

@@ -58,9 +58,6 @@ public class JdbcTemplateScheduleRepository implements ScheduleRepository {
     @Override
     public ScheduleDto findById(String id) {
         return jdbcTemplate.queryForObject("select * from schedule where schedule_id = ?", scheduleRowMapper(), id);
-
-//        List<Schedule> result = jdbcTemplate.query("select * from schedule where schedule_id = ?", scheduleRowMapper(), id);
-//        return result.stream().findAny();
     }
 
     @Override

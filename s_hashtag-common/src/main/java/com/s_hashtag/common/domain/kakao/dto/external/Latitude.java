@@ -26,7 +26,6 @@ public class Latitude extends Coordinate {
         }
         String detailMessage = String.format("잘못된 위도 범위(%s)입니다.", latitude);
         throw new KakaoApiException(KakaoApiExceptionStatus.INVALID_LATITUDE, detailMessage);
-//        return new BigDecimal("0");
     }
 
     @Override

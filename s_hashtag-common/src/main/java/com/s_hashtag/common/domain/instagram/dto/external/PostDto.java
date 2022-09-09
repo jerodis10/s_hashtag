@@ -8,7 +8,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-//@Setter
 public class PostDto {
     public static final String POST_URL_FORMAT = "https://www.instagram.com/p/%s";
 

@@ -1,5 +1,7 @@
 package com.s_hashtag.common.domain.instagram.dto.external;
 
+import com.s_hashtag.common.domain.instagram.exception.CrawlerException;
+import com.s_hashtag.common.domain.instagram.exception.CrawlerExceptionStatus;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -12,9 +14,9 @@ public class PostDtos {
     private final List<PostDto> postDtos;
 
     public PostDtos(List<PostDto> postDtos) {
-//        if (postDtos.size() != POPULAR_POST_SIZE) {
-//            throw new CrawlerException(CrawlerExceptionStatus.NOT_ENOUGH_POPULAR_POST);
-//        }
+        if (postDtos.size() > POPULAR_POST_SIZE) {
+            throw new CrawlerException(CrawlerExceptionStatus.TOO_MANY_POPULAR_POST);
+        }
         this.postDtos = new ArrayList<>(postDtos);
     }
 
