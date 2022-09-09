@@ -1,17 +1,22 @@
 #searchBar {
     width: 300px;
     height: 230px;
-    background: white;
+    background: #fff;
     position: absolute;
     z-index:2;
     right:5px;
 }
 
 .category_wrap button {
-    background: #dcb8b8;
+    /*background: #dcb8b8;*/
     border-radius: 10px;
+    border-color: #d8a0fa;
+    outline: none;
+    color: #d8a0fa;
+    background-color: #fff;
+    font-size: 13px;
 }
 .category_wrap button.selected {
-    background-color: #e26262;
-    color:#fff;
+    background-color: #d8a0fa;
+    color: #fff;
 }

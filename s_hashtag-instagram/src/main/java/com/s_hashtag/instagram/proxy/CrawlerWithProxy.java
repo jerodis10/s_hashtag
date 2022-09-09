@@ -30,12 +30,12 @@ public class CrawlerWithProxy {
 //            Proxy proxy = new Proxy(System.getProperty("http.proxyHost"), System.getProperty("http.proxyPort"));
             if(isOnline()) return instagramCrawler.crawler(hashtagNameToCrawl, kakaoId);
             else return null;
-        } catch (CrawlerException e) {
-            log.debug("CrawlerException: {}", e.getMessage());
+        } catch (CrawlerException crawlerException) {
+            log.debug("CrawlerException: {}", crawlerException.getMessage());
 //            if (NOT_FOUND_EXCEPTION_CODE.equals(e.getErrorCode())) {
 //                return Optional.empty();
 //            }
-            throw e;
+            throw crawlerException;
         } catch (Exception e) {
             e.printStackTrace();
         }

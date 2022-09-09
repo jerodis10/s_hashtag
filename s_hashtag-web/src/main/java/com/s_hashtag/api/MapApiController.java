@@ -131,9 +131,7 @@ public class MapApiController {
 
     @PostMapping("/findByHashtagName")
     @ResponseBody
-    public List<PostDto> findByHashtagName(@RequestBody @Valid KakaoMapDto kakaoMapDto, Model model
-//            , @RequestBody String hashtagName
-    ) {
+    public List<PostDto> findByHashtagName(@RequestBody @Valid KakaoMapDto kakaoMapDto, Model model) {
         String temp = kakaoMapDto.getCategory();
         String[] categoryList = temp.split(",");
 

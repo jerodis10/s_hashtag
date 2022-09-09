@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.s_hashtag.instagram.exception.CrawlerException;
 import com.s_hashtag.instagram.exception.CrawlerExceptionStatus;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Connection;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
@@ -19,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 @Component
 public class Crawler {
     private static final String USER_AGENT =
@@ -162,6 +164,7 @@ public class Crawler {
             return doc.toString();
 
         } catch (HttpStatusException e) {
+            log.info("url = {}", url);
             if (e.getStatusCode() == NOT_FOUND) {
 //                throw new CrawlerException(CrawlerExceptionStatus.NOT_FOUND_URL);
                 return null;

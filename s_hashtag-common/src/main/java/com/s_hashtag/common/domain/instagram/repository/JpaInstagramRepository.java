@@ -50,8 +50,8 @@ public class JpaInstagramRepository implements InstagramRepository {
                 .where(latitudeBetween(rect), longitudeBetween(rect),
                         kakaoDocument.categoryGroupCode.eq(category))
                 .orderBy(instagram.hashtagCount.desc())
-//                .offset(1)
-//                .limit(15)
+                .offset(1)
+                .limit(15)
                 .fetch();
     }
 

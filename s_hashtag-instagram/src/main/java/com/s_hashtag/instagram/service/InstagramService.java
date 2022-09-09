@@ -5,6 +5,7 @@ import com.s_hashtag.instagram.crawler.InstagramCrawler;
 import com.s_hashtag.common.domain.instagram.dto.external.CrawlingDto;
 import com.s_hashtag.common.domain.instagram.dto.external.PlaceDto;
 import com.s_hashtag.common.domain.instagram.dto.external.PostDto;
+import com.s_hashtag.instagram.exception.CrawlerException;
 import com.s_hashtag.instagram.proxy.CrawlerWithProxy;
 import com.s_hashtag.instagram.proxy.ProxiesFactory;
 import com.s_hashtag.instagram.proxy.ProxySetter;
@@ -33,6 +34,7 @@ public class InstagramService {
     private final InstagramCrawler instagramCrawler;
     private final InstagramRepository instagramRepository;
     private final KakaoRepository kakaoRepository;
+    private final InstagramSavePlace instagramSavePlace;
 //    private final DocumentMapper documentMapper;
 
     @Transactional
@@ -146,7 +148,6 @@ public class InstagramService {
     @Transactional
     public void savePlace(Rect rect, String category) {
         try {
-//            int count = 0;
             List<KakaoPlaceDto> result = new ArrayList<>();
             List<Document> documentList = new ArrayList<>();
 
@@ -154,7 +155,7 @@ public class InstagramService {
 
             for (KakaoPlaceDto page : kakaoPlaceDto) {
                 for (Document document : page.getDocuments()) {
-                    savePlaceByProcess(document);
+                    instagramSavePlace.savePlaceByProcess(document);
 //                    documentList.add(document);
                 }
             }
@@ -172,21 +173,23 @@ public class InstagramService {
 //                }
 //            }
 
+        } catch (CrawlerException crawlerException) {
+            log.debug("CrawlerException: {}", crawlerException.getMessage());
         } catch (Exception e) {
-            log.info(e.getMessage());
+            e.printStackTrace();
         }
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void savePlaceByProcess(Document document) {
-        kakaoRepository.kakao_document_save(document);
-        CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
-        CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName(), document.getId());
-        if (crawlingDto != null) {
-            instagramRepository.instagramSave(crawlingDto, document);
-            for (PostDto postDto : crawlingDto.getPostDtoList()) {
-                instagramRepository.instagramPostSave(postDto);
-            }
-        }
-    }
+//    @Transactional(propagation = Propagation.REQUIRES_NEW)
+//    public void savePlaceByProcess(Document document) {
+//        kakaoRepository.kakao_document_save(document);
+//        CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
+//        CrawlingDto crawlingDto = crawlerWithProxy.crawlInstagram(document.getPlaceName(), document.getId());
+//        if (crawlingDto != null) {
+//            instagramRepository.instagramSave(crawlingDto, document);
+//            for (PostDto postDto : crawlingDto.getPostDtoList()) {
+//                instagramRepository.instagramPostSave(postDto);
+//            }
+//        }
+//    }
 }
