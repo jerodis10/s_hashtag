@@ -45,12 +45,4 @@ public class LoginApiController {
         }
         return "redirect:/";
     }
-
-    @GetMapping("/courses")
-    @ResponseBody
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public String getCourses() {
-        return "courses";
-    }
-
 }

@@ -71,16 +71,6 @@ public class SchedulerApiController {
             );
         }
 
-//        for(String scheduleId : scheduleDto.getCheckedList()) {
-//            kakaoScheduleService.changeSchedule(
-//                    scheduleId,
-//                    scheduleDto.getCronPeriod(),
-//                    scheduleDto.getMinLatitude(),
-//                    scheduleDto.getMaxLatitude(),
-//                    scheduleDto.getMinLongitude(),
-//                    scheduleDto.getMaxLongitude());
-//        }
-
 //        List<ScheduleDto> scheduleDtoList = scheduleRepository.findAll();
 //        model.addAttribute("scheduleList", scheduleDtoList);
 //        return "admin/scheduleEdit";
@@ -92,57 +82,5 @@ public class SchedulerApiController {
         return "12";
 //        return "redirect:api/admin/schedule/list";
     }
-
-//    @PostMapping("/period")
-////    @ResponseStatus(HttpStatus.OK)
-//    public String changeSchedulePeriod(@RequestParam("checkedList[]") List<String> checkedList,
-//                                                     @RequestParam String expression) {
-//        for(String scheduleId : checkedList) {
-//            kakaoScheduleService.changeSchedulePeriod(scheduleId, expression);
-//        }
-//
-////        return "redirect:/";
-//        return "redirect:/api/admin/schedule/list";
-//    }
-
-//    @ResponseBody
-//    @PostMapping("/period")
-//    @ResponseStatus(HttpStatus.OK)
-//    public CustomResponse<Void> changeSchedulePeriod(@RequestParam("checkedList[]") List<String> checkedList,
-//                                                     @RequestParam String expression) {
-//        for(String scheduleId : checkedList) {
-//            kakaoScheduleService.changeSchedulePeriod(scheduleId, expression);
-//        }
-//        return CustomResponse.empty();
-//    }
-
-
-
-//    @GetMapping("/start")
-//    @ResponseStatus(HttpStatus.OK)
-//    public CustomResponse<Void> startScheduler() {
-//        kakaoScheduleService.startSchedule("KakaoScheduler");
-//        return CustomResponse.empty();
-//    }
-
-//    @PostMapping("/stop")
-//    @ResponseStatus(HttpStatus.OK)
-//    public CustomResponse<Void> stopScheduler(@RequestParam String scheduleName) {
-//        kakaoScheduleService.stopSchedule(scheduleName);
-//        return CustomResponse.empty();
-//    }
-//
-//    @PutMapping("/period")
-//    @ResponseStatus(HttpStatus.OK)
-//    public CustomResponse<Void> changeSchedulePeriod(@RequestParam String scheduleName, @RequestParam String expression) {
-//        kakaoScheduleService.changeSchedulePeriod(scheduleName, expression);
-//        return CustomResponse.empty();
-//    }
-//
-//    @GetMapping
-//    @ResponseStatus(HttpStatus.OK)
-//    public CustomResponse<Boolean> getActiveStatus(@RequestParam String scheduleName) {
-//        return CustomResponse.of(kakaoScheduleService.getKakaoScheduleActiveStatus(scheduleName));
-//    }
 
 }

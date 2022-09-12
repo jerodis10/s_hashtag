@@ -13,9 +13,7 @@ public class KakaoScheduleService {
 
     private final KakaoScheduler kakaoScheduler;
     private final InstagramScheduler instagramScheduler;
-//    private final KakaoInstagramScheduler kakaoInstagramScheduler;
     private final ScheduleRepository scheduleRepository;
-//    private final KakaoSchedulerConfig kakaoSchedulerConfig;
 
     @Transactional
     public void changeSchedulePeriod(String scheduleId, String cronPeriod) {
@@ -39,11 +37,6 @@ public class KakaoScheduleService {
         } else if(scheduleName.equals(instagramScheduler.toString())) {
             return instagramScheduler.isActive();
         }
-//        else if(scheduleName.equals(instagramScheduler.toString())) {
-//            return instagramScheduler.isActive();
-//        } else if(scheduleName.equals(kakaoInstagramScheduler.toString())) {
-//            return kakaoInstagramScheduler.isActive();
-//        }
 
         return true;
     }
@@ -54,13 +47,6 @@ public class KakaoScheduleService {
         } else if(scheduleId.equals(instagramScheduler.toString())) {
             instagramScheduler.start();
         }
-//        else if(scheduleName.equals(instagramScheduler.toString())) {
-//            instagramScheduler.start();
-//        } else if(scheduleName.equals(kakaoInstagramScheduler.toString())) {
-//            kakaoInstagramScheduler.start();
-//        }
-
-//        kakaoSchedulerConfig.kakaoPlaceScheduler()
     }
 
     public void stopSchedule(String scheduleName) {
@@ -69,11 +55,6 @@ public class KakaoScheduleService {
         } else if(scheduleName.equals(instagramScheduler.toString())) {
             instagramScheduler.stop();
         }
-//        else if(scheduleName.equals(instagramScheduler.toString())) {
-//            instagramScheduler.stop();
-//        } else if(scheduleName.equals(kakaoInstagramScheduler.toString())) {
-//            kakaoInstagramScheduler.stop();
-//        }
-    }
 
+    }
 }
