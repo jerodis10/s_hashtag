@@ -31,22 +31,6 @@ public class MapApiController {
     private final KakaoApiService kakaoApiService;
     private final InstagramRepository instagramRepository;
     private final InstagramService instagramService;
-//    private final PlatformTransactionManager transactionManager;
-
-//    @PostMapping("/kakaoMap")
-//    @ResponseBody
-//    public List<KakaoPlaceDto> kakaoMap(@RequestParam Map<String, Object> param) {
-//        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
-//        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
-//        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
-//        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
-//
-//        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
-//
-//        instagramService.saveCrawlingResults(rect);
-//
-//        return new ArrayList<KakaoPlaceDto>();
-//    }
 
     @PostMapping("/kakaoMap")
     @ResponseBody
@@ -67,36 +51,6 @@ public class MapApiController {
 
         return instagramRepository.findAll(kakaoMapDto.getCategory(), kakaoMapDto.CreateRect());
     }
-
-//    @GetMapping("/getHashtagByKeyword")
-//    @ResponseBody
-//    public List<PlaceDto> getHashtagByKeyword(@RequestParam HashMap<String, Object> param) {
-//        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
-//        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
-//        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
-//        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
-//        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
-//
-//        List<PlaceDto> placeList = new ArrayList<>();
-//
-//        String temp = (String) param.get("category_list");
-//        String[] categoryList = temp.split(",");
-//
-//        for(String category : categoryList) {
-//            List<KakaoPlaceDto> kakaoPlaceByKeywordList = kakaoApiService.findPlacesByKeyword(category, rect, param.get("searchText").toString(), new ArrayList<>());
-//
-//            List<String> KeywordStringList = new ArrayList<>();
-//            for (KakaoPlaceDto kakaoPlaceDto : kakaoPlaceByKeywordList) {
-//                for (Document document : kakaoPlaceDto.getDocuments()) {
-//                    KeywordStringList.add(document.getId());
-//                }
-//            }
-//
-//            placeList.addAll(instagramRepository.getHashtagByKeyword(category, KeywordStringList));
-//        }
-//
-//        return placeList;
-//    }
 
     @PostMapping("/getHashtagByKeyword")
     @ResponseBody
@@ -142,27 +96,4 @@ public class MapApiController {
 //        return "modal/instagramPost";
     }
 
-//    @GetMapping("/getHashtagByCount2")
-//    @ResponseBody
-//    public List<PlaceDto> getHashtagByCount2(@RequestParam HashMap<String, Object> param) {
-//        Coordinate minLatitude = new Latitude(new BigDecimal(param.get("pa").toString()));
-//        Coordinate maxLatitude = new Latitude(new BigDecimal(param.get("qa").toString()));
-//        Coordinate minLongitude = new Longitude(new BigDecimal(param.get("oa").toString()));
-//        Coordinate maxLongitude = new Longitude(new BigDecimal(param.get("ha").toString()));
-//        Rect rect = new Rect(minLatitude, maxLatitude, minLongitude, maxLongitude);
-//
-//        String temp = (String) param.get("category_list");
-//        String[] categoryList = temp.split(",");
-//
-//        Map<String, Object> hashtag_count_param = new HashMap<>();
-//        hashtag_count_param.put("check1", param.get("check1"));
-//        hashtag_count_param.put("check2", param.get("check2"));
-//        hashtag_count_param.put("check3", param.get("check3"));
-//        hashtag_count_param.put("check4", param.get("check4"));
-//        hashtag_count_param.put("check5", param.get("check5"));
-//
-//        List<PlaceDto> placeList = instagramRepository.getHashtagByCount2(categoryList, hashtag_count_param);
-//
-//        return placeList;
-//    }
 }
