@@ -54,31 +54,13 @@ $("button[id=btn_scheduleChange]").click(function(){
         check_list.push(check_item);
     });
 
-//    var json = {
-//        "checkedList": checkedList,
-//        "cron_period": document.getElementById("cron_period").value,
-//        "min_latitude": document.getElementById("min_latitude").value,
-//        "max_latitude": document.getElementById("max_latitude").value,
-//        "min_longitude": document.getElementById("min_longitude").value,
-//        "max_longitude": document.getElementById("max_longitude").value
-//    }
-
     $.ajax({
        url:'/api/admin/schedule/change',
        type:'POST',
        dataType: 'json',
        contentType : "application/json; charset=utf-8",
        data:
-//            JSON.stringify(json),
             JSON.stringify(check_list),
-//       {
-//            checkedList: checkedList,
-//            expression: document.getElementById("cron_period").value,
-//            min_latitude: document.getElementById("min_latitude").value,
-//            max_latitude: document.getElementById("max_latitude").value,
-//            min_longitude: document.getElementById("min_longitude").value,
-//            max_longitude: document.getElementById("max_longitude").value
-//       },
        success:function(data){
             alert("스케줄 변경에 성공했습니다.");
        },

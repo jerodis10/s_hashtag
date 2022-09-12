@@ -16,6 +16,18 @@
 <div class="l-navbar" id="navbar">
     <nav class="nav">
         <div>
+
+            <div sec:authorize="isAuthenticated()">
+                <span>login</span>
+                <span sec:authentication="name"></span>님
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <span>권한</span>
+                <span sec:authorize="hasRole('ROLE_ADMIN')" style="margin-left: 10px;">마스터</span>
+                <span sec:authorize="hasRole('ROLE_ADMINTRAINEE')" style="margin-left: 10px;">관리자</span>
+                <span sec:authorize="hasRole('ROLE_MEMBER')" style="margin-left: 10px;">멤버</span>
+            </div>
+
             <div class="nav__brand">
                 <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
             </div>
@@ -84,12 +96,12 @@
 <p id="result2"></p>
 <p id="result3"></p>
 
-<div sec:authorize="isAuthenticated()">
-    <span sec:authentication="name"></span>님
-    <span sec:authorize="hasRole('ROLE_ADMIN')">(마스터 권한)</span>
-    <span sec:authorize="hasRole('ROLE_ADMINTRAINEE')">(관리자 권한)</span>
-    <span sec:authorize="hasRole('ROLE_MEMBER')">(멤버 권한)</span>
-</div>
+<!--<div sec:authorize="isAuthenticated()">-->
+<!--    <span sec:authentication="name"></span>님-->
+<!--    <span sec:authorize="hasRole('ROLE_ADMIN')">(마스터 권한)</span>-->
+<!--    <span sec:authorize="hasRole('ROLE_ADMINTRAINEE')">(관리자 권한)</span>-->
+<!--    <span sec:authorize="hasRole('ROLE_MEMBER')">(멤버 권한)</span>-->
+<!--</div>-->
 
 <div id="map" style="width: 99%; height: 600px; position: relative; z-index: 1;">
     <div id="searchBar">
