@@ -49,17 +49,15 @@ public class MapApiController {
             log.error("KakaoMapDto 바인딩 에러 : ", errors.getAllErrors());
         }
 
-        return instagramRepository.findAll(kakaoMapDto.getCategory(), kakaoMapDto.CreateRect());
+        return instagramRepository.findAll(kakaoMapDto.getCategoryList(), kakaoMapDto.CreateRect());
     }
 
     @PostMapping("/getHashtagByKeyword")
     @ResponseBody
     public List<PlaceDto> getHashtagByKeyword(@RequestBody @Valid KakaoMapDto kakaoMapDto, BindingResult errors) {
         List<PlaceDto> placeList = new ArrayList<>();
-        String temp = kakaoMapDto.getCategory();
-        String[] categoryList = temp.split(",");
 
-        for(String category : categoryList) {
+        for(String category : kakaoMapDto.getCategoryList()) {
             List<String> KeywordStringList = new ArrayList<>();
 
             List<KakaoPlaceDto> kakaoPlaceByKeywordList = kakaoApiService.findPlacesByKeyword(category, kakaoMapDto.CreateRect(), kakaoMapDto.getSearchText(), new ArrayList<>());
@@ -77,23 +75,16 @@ public class MapApiController {
     @PostMapping("/getHashtagByCount")
     @ResponseBody
     public List<PlaceDto> getHashtagByCount(@RequestBody @Valid KakaoMapDto kakaoMapDto, BindingResult errors) {
-        String temp = kakaoMapDto.getCategory();
-        String[] categoryList = temp.split(",");
-
-        return instagramRepository.findByHashtagCount(kakaoMapDto.CreateRect(), categoryList, kakaoMapDto.getCheck());
+        return instagramRepository.findByHashtagCount(kakaoMapDto.CreateRect(), kakaoMapDto.getCategoryList(), kakaoMapDto.getCheck());
     }
 
     @PostMapping("/findByHashtagName")
     @ResponseBody
     public List<PostDto> findByHashtagName(@RequestBody @Valid KakaoMapDto kakaoMapDto, Model model) {
-        String temp = kakaoMapDto.getCategory();
-        String[] categoryList = temp.split(",");
-
-        List<PostDto> postDtoList = instagramRepository.findByHashtagName(categoryList, kakaoMapDto.CreateRect(), kakaoMapDto.getHashtagName());
+        List<PostDto> postDtoList = instagramRepository.findByHashtagName(kakaoMapDto.getCategoryList(), kakaoMapDto.CreateRect(), kakaoMapDto.getHashtagName());
         model.addAttribute("postDtoList", postDtoList);
 
         return postDtoList;
-//        return "modal/instagramPost";
     }
 
 }

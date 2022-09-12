@@ -29,18 +29,15 @@ public class InstagramService {
 
     @Transactional
     public void saveCrawlingResults(Rect rect) {
-//        try {
-            savePlace(rect, "FD6");
-//            savePlace(rect, "CE7");
+        savePlace(rect, "FD6");
+//        savePlace(rect, "CE7");
 
     }
 
     @Transactional
     public void savePlace(Rect rect, String category) {
         try {
-            List<KakaoPlaceDto> result = new ArrayList<>();
-
-            List<KakaoPlaceDto> kakaoPlaceDto = kakaoApiService.findPlaces(category, rect, result);
+            List<KakaoPlaceDto> kakaoPlaceDto = kakaoApiService.findPlaces(category, rect, new ArrayList<>());
 
             for (KakaoPlaceDto page : kakaoPlaceDto) {
                 for (Document document : page.getDocuments()) {

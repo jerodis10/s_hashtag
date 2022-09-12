@@ -7,19 +7,27 @@ var marker_list_CE7 = [];
 var overlay_list_CE7 = [];
 var marker_list_FD6 = [];
 var overlay_list_FD6 = [];
+var category_list = [];
 
 var be_level;
 var level = 3;
 
 var customOverlay_flag = true;
 
+// 초기 지도 설정
 var container = document.getElementById('map');
 var options = {
     center: new kakao.maps.LatLng(37.56667120440735, 126.97962007985399),
     level: 3
 };
-
 var map = new kakao.maps.Map(container, options);
+
+// 카테고리 - 카페 (디폴트)
+$.each(document.querySelector('.category_wrap').children, function(index, item){
+    if(item.className === 'selected'){
+        category_list.push(item.value);
+    }
+});
 
 // 마우스 이동 이벤트
 kakao.maps.event.addListener(map, 'dragend', function() {
@@ -29,15 +37,12 @@ kakao.maps.event.addListener(map, 'dragend', function() {
 
     var message = '마우스 이동 이벤트: 변경된 지도 중심좌표는 ' + latlng.getLat() + ' 이고, ';
     message += '경도는 ' + latlng.getLng() + ' 입니다';
-
-    var resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = message;
+    console.log(message);
 
     // 현재 지도 영역 구하기
     var bounds = map.getBounds();
     message = '현재 지도 영역:  ' + bounds.toString() + ' 입니다';
-    var resultDiv = document.getElementById('result3');
-    resultDiv.innerHTML = message;
+    console.log(message);
 
     var rect = {ha: bounds.ha, oa: bounds.oa, pa: bounds.pa, qa: bounds.qa};
 
@@ -51,24 +56,14 @@ kakao.maps.event.addListener(map, 'zoom_changed', function() {
     level = map.getLevel();
 
     var message = '지도 확대 축소 이벤트: 현재 지도 레벨은 ' + level + ' 입니다';
-    var resultDiv = document.getElementById('result2');
-    resultDiv.innerHTML = message;
-
+    console.log(message);
 
     // 지도 현재 영역 구하기
     var bounds = map.getBounds();
     message = '지도 현재 영역:  ' + bounds.toString() + ' 입니다';
-    var resultDiv = document.getElementById('result3');
-    resultDiv.innerHTML = message;
+    console.log(message);
 
     var rect = {ha: bounds.ha, oa: bounds.oa, pa: bounds.pa, qa: bounds.qa};
-
-    var category_list = [];
-    $.each(document.querySelector('.category_wrap').children, function(index, item){
-        if(item.className === 'selected'){
-            category_list.push(item.value);
-        }
-    });
 
     if(customOverlay_flag) {
         $.each(category_list, function(c_index, category){
@@ -119,19 +114,6 @@ function kakaoMap() {
        dataType: 'json',
        contentType : "application/json; charset=utf-8",
        data: JSON.stringify(rect_json),
-//          data: {ha: 124, oa: 132, pa: 33, qa: 43},
-//        data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564},
-//           data: {ha: 126.960, oa: 126.970, pa: 37.560, qa: 37.563},
-//            data: {ha: 126.900, oa: 126.990, pa: 37.560, qa: 37.570},
-//            data : {ha: 126.75578831035362, oa: 126.7651487382762, pa: 37.41847533960485, qa: 37.42825487247741},
-//                data : {ha: 126.75578831035362, oa: 126.7771487382762, pa: 37.41847533960485, qa: 37.44625487247741}, // 1/16
-//                data : {ha: 126.75578831035362, oa: 126.7951487382762, pa: 37.41847533960485, qa: 37.45625487247741}, // 1/10
-//                data : {ha: 126.66578831035362, oa: 126.6851487382762, pa: 37.52847533960485, qa: 37.55625487247741},
-//                data : {ha: 126.66578831035362, oa: 126.6751487382762, pa: 37.52847533960485, qa: 37.53625487247741}, // total_count = 20
-//             data : {ha: 126.75578831035362, oa: 126.8051487382762, pa: 37.41847533960485, qa: 37.46625487247741}, // 1/8
-//             data : {ha: 126.75578831035362, oa: 126.8551487382762, pa: 37.41847533960485, qa: 37.51625487247741}, // 1/4
-//            data : {ha: 126.75578831035362, oa: 126.9551487382762, pa: 37.41847533960485, qa: 37.55625487247741}, // 1/2
-//            data : {ha: 126.75578831035362, oa: 127.2251487382762, pa: 37.41847533960485, qa: 37.70625487247741}, // 서울시 전체
 //       followRedirect: false,
        success:function(data){
                console.log(data);
@@ -143,46 +125,20 @@ function kakaoMap() {
 
 function create_marker_test(map, category) {
 
-//    var latlng = map.getCenter();
-//    var container = document.getElementById('map');
-//    var options = {
-////        center: new kakao.maps.LatLng(37.56667120440735, 126.97962007985399),
-//        center: new kakao.maps.LatLng(latlng.getLat(), latlng.getLng()),
-//        level: 3
-//    };
-//
-//    var new_map = new kakao.maps.Map(container, options);
-
-
-
-    var category_list = [];
-    var category_delete_list = [];
-    $.each(document.querySelector('.category_wrap').children, function(index, item){
-        if(item.className === 'selected'){
-            category_list.push(item.value);
-        }
-    });
-
-    var rect_json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741,
-                    "category_list": category};
-    var param = JSON.stringify(rect_json);
+//    var rect_json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741,
+//                    "category_list": category};
+//    var param = JSON.stringify(rect_json);
+    var json = map.getBounds();
+    json["category_list"] = category_list;
+    param = JSON.stringify(json);
 
     $.ajax({
        url:'/api/getHashtag',
-//        url:'/getHashtag',
-//           url:'/api/admin/members/getHashtag',
-//       type:'GET',
-        type:'POST',
+       type:'POST',
        dataType: 'json',
        contentType : "application/json; charset=utf-8",
-//       contentType : "application/x-www-form-urlencoded",
-//       data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category_list},
-//        data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: category},
-//        data: {ha: 125, oa: 128, pa: 36, qa: 38, category_list: category},
-        data: param,
-//        data: {"ha": "125", "oa": "128", "pa": "36", "qa": "38", "category_list": category},
+       data: param,
        success:function(data){
-//            console.log(data);
            marker_list = [];
            overlay_list = [];
            $.each(data, function(index, item){
@@ -213,12 +169,6 @@ function create_marker_test(map, category) {
                 // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
                 var hashtag_count = item.hashtagCount;
                 var hashtag_name = item.hashtagName;
-                var background_color;
-                if(item.hashtagCount < 10) background_color = 'style="background-color: blue;"';
-                if(10 <= item.hashtagCount && item.hashtagCount < 100) background_color = 'style="background-color: red;"';
-                if(100 <= item.hashtagCount && item.hashtagCount < 1000) background_color = 'style="background-color: darkorchid;"';
-                if(1000 <= item.hashtagCount && item.hashtagCount < 10000) background_color = 'style="background-color: aqua;"';
-                if(10000 <= item.hashtagCount) background_color = 'style="background-color: brown;"';
                 var content =
                     '<div class="bubble">' +
                     '   <div style="margin-top: 5px;">' + hashtag_name + '</div>' +
@@ -231,9 +181,6 @@ function create_marker_test(map, category) {
                 var latitude_adjust = 0.00018 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
                 var longitude_adjust = 0.000027 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
                 var position = new kakao.maps.LatLng(item.latitude + latitude_adjust, item.longitude - longitude_adjust);
-//                var latitude_adjust = 0.00018 * Math.pow(level-1, 2);
-//                var longitude_adjust = 0.000027 * Math.pow(level-1, 2);
-//                var position = new kakao.maps.LatLng(item.latitude + latitude_adjust, item.longitude - longitude_adjust);
 
                 // 커스텀 오버레이를 생성합니다
                 var customOverlay = new kakao.maps.CustomOverlay({
@@ -244,8 +191,6 @@ function create_marker_test(map, category) {
                 });
 
                 overlay_list.push(customOverlay);
-//                console.log('item.hashtagName : ', item.hashtagName ,' item.longitude : ', item.longitude ,' customOverlay La : ', customOverlay.getPosition().La.toFixed(13), ' 차이 : ', item.longitude - customOverlay.getPosition().La.toFixed(13));
-//                console.log('customOverlay Ma : ', customOverlay.getPosition().Ma.toFixed(13));
            });
 
            marker_object[category] = marker_list;
@@ -283,8 +228,6 @@ function create_overlay(item, category){
     marker.setMap(map);
     if(category === 'CE7') marker_list_CE7.push(marker);
     if(category === 'FD6') marker_list_FD6.push(marker);
-//    if(category === 'CE7') marker_CE7 = marker;
-//    if(category === 'FD6') marker_FD6 = marker;
 
     // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
     var hashtag_count = item.hashtagCount;
@@ -310,12 +253,6 @@ function create_overlay(item, category){
     overlay_list.push(customOverlay);
     if(category === 'CE7') overlay_list_CE7.push(customOverlay);
     if(category === 'FD6') overlay_list_FD6.push(customOverlay);
-
-//    if(category === 'CE7') overlay_CE7 = customOverlay;
-//    if(category === 'FD6') overlay_FD6 = customOverlay;
-
-//    marker_object[category] = marker_list;
-//    overlay_object[category] = overlay_list;
 }
 
 create_marker_test(map, 'FD6');
@@ -333,10 +270,14 @@ function bubbleClick() {
             hashtag_name = $target.parent().children()[0].innerText;
         }
 
-        var json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741,
-                            "category_list": 'FD6,CE7', "hashtag_name": hashtag_name
-                            };
-        var param = JSON.stringify(json);
+//        var json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741,
+//                            "category_list": 'FD6,CE7', "hashtag_name": hashtag_name
+//                            };
+//        var param = JSON.stringify(json);
+
+        var json = map.getBounds();
+        json["category_list"] = category;
+        param = JSON.stringify(json);
 
         $.ajax({
            url:'/api/findByHashtagName',

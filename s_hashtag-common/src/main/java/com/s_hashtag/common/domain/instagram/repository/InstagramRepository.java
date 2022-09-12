@@ -10,13 +10,13 @@ import java.util.List;
 
 public interface InstagramRepository {
 
-    List<PlaceDto> findAll(String category, Rect rect);
+    List<PlaceDto> findAll(List<String> category, Rect rect);
 
     List<PlaceDto> findByKeyword(String category, Rect rect, List<String> keywordList);
 
-    List<PlaceDto> findByHashtagCount(Rect rect, String[] categoryList, String check);
+    List<PlaceDto> findByHashtagCount(Rect rect, List<String> categoryList, String check);
 
-    List<PostDto> findByHashtagName(String[] categoryList, Rect rect, String hashtagName);
+    List<PostDto> findByHashtagName(List<String> categoryList, Rect rect, String hashtagName);
 
     void instagramSave(CrawlingDto crawlingDto, Document document);
 

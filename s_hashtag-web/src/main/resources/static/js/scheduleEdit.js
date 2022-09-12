@@ -43,7 +43,6 @@ $("button[id=btn_scheduleChange]").click(function(){
     var check_item = {};
     var check_list= [];
     $.each(document.querySelectorAll("input[name='check']:checked"), function(index, item) {
-//        checkedList.push(item.value);
         check_item['schedule_document_id'] = item.value;
         check_item['cron_period'] = document.getElementById("cron_period"+item.value).value;
         check_item['min_latitude'] = document.getElementById("min_latitude"+item.value).value;

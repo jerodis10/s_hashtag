@@ -11,11 +11,18 @@ document.getElementById("btn_cafe").addEventListener('click', function(e) {
         $.each(overlay_object[btn_cafe_value], function(index, item){
             item.setMap(null);
         });
+
+        var arr = category_list.filter(function(category){
+            return category !== btn_cafe_value;
+        });
+        category_list = arr;
     }
     else {
         e.target.classList.add('selected');
         flag_selected = false;
         create_marker_test(map, btn_cafe_value);
+
+        category_list.push(btn_cafe_value);
     }
 
     setTimeout(function(){ bubbleClick()}, 1500);
@@ -34,11 +41,18 @@ document.getElementById("btn_food").addEventListener('click', function(e) {
         $.each(overlay_object[btn_food_value], function(index, item){
             item.setMap(null);
         });
+
+        var arr = category_list.filter(function(category){
+            return category !== btn_food_value;
+        });
+        category_list = arr;
     }
     else {
         e.target.classList.add('selected');
         flag_selected = false;
         create_marker_test(map, btn_food_value);
+
+        category_list.push(btn_food_value);
     }
 
     setTimeout(function(){ bubbleClick()}, 1500);
@@ -105,26 +119,17 @@ document.getElementById("btn_check5").addEventListener('click', function(e){
 });
 
 function getHashtagByKeyword(searchText, category) {
-
-    var category_arr = [];
-    if(document.getElementById("btn_cafe").className === 'selected') category_arr.push(document.getElementById("btn_cafe").value);
-    if(document.getElementById("btn_food").className === 'selected') category_arr.push(document.getElementById("btn_food").value);
-    var category_param = category_arr.join(',')
-
-    var rect_json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741,
-                        "category_list": category_param, "searchText": searchText};
-    var param = JSON.stringify(rect_json);
+   var json = map.getBounds();
+   json["category_list"] = category_list;
+   json["searchText"] = searchText;
+   param = JSON.stringify(json);
 
     $.ajax({
        url:'/api/getHashtagByKeyword',
        type:'POST',
        dataType: 'json',
        contentType : "application/json; charset=utf-8",
-//       data: {ha: 126.960, oa: 126.970, pa: 37.563, qa: 37.564, category_list: 'CE7'},
-//       data: {ha: bounds.ha, oa: bounds.oa, pa: bounds.pa, qa: bounds.qa, category_list: 'CE7'},
-//        data: {ha: 126.96190764549995, oa: 126.99019733287525, pa: 37.56300112995975, qa: 37.5696007924915, category_list: category_param, searchText: searchText}, // 서울시청 주변
-//        data: {ha: 126.75578831035362, oa: 127.2251487382762, pa: 37.41847533960485, qa: 37.70625487247741, category_list: 'CE7'}, // 서울시 전체
-        data: param,
+       data: param,
        success:function(data){
             if(data != null && data.length > 0){
                 var overlay_CE7_temp = [];
@@ -188,14 +193,10 @@ function getHashtagByKeyword(searchText, category) {
 }
 
 function getHashtagByCount(check_type, check_flag) {
-    var category_arr = [];
-    if(document.getElementById("btn_cafe").className === 'selected') category_arr.push(document.getElementById("btn_cafe").value);
-    if(document.getElementById("btn_food").className === 'selected') category_arr.push(document.getElementById("btn_food").value);
-    var category_param = category_arr.join(',');
-
-    var rect_json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741,
-                    "category_list": category_param, "check": check_type};
-    var param = JSON.stringify(rect_json);
+    var json = map.getBounds();
+    json["category_list"] = category_list;
+    json["check"] = check_type;
+    param = JSON.stringify(json);
 
     $.ajax({
            url:'/api/getHashtagByCount',
@@ -203,8 +204,6 @@ function getHashtagByCount(check_type, check_flag) {
            dataType: 'json',
            contentType : "application/json; charset=utf-8",
            data: param,
-//           data: {ha: 126.96190764549995, oa: 126.99019733287525, pa: 37.56300112995975, qa: 37.5696007924915,   // 서울시청 주변
-//                  category_list: category_param, check: check_type},
            success:function(data){
                marker_list = [];
                overlay_list = [];
@@ -240,7 +239,6 @@ function getHashtagByCount(check_type, check_flag) {
                                 if(item.getPosition().La.toFixed(13) != marker.getPosition().La.toFixed(13) && item.getPosition().Ma.toFixed(13) != marker.getPosition().Ma.toFixed(13)){
                                     marker.setMap(map);
                                     marker_object['CE7'].push(marker);
-//                                    marker_list_CE7.push(marker);
                                 }
                             });
                          }
@@ -274,9 +272,6 @@ function getHashtagByCount(check_type, check_flag) {
                             content: content,
                             yAnchor: 1
                         });
-
-//                        overlay_object['CE7'].push(customOverlay);
-//                        overlay_object['FD6'].push(customOverlay);
 
                         if(overlay_object['CE7'] != undefined){
                             $.each(overlay_object['CE7'], function(index, item){

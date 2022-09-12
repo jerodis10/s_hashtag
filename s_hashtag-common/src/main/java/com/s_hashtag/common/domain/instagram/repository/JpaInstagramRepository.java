@@ -35,7 +35,7 @@ public class JpaInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public List<PlaceDto> findAll(String category, Rect rect) {
+    public List<PlaceDto> findAll(List<String> categoryList, Rect rect) {
         return queryFactory
                 .select(Projections.fields(PlaceDto.class,
                         instagram.instagramDocumentId,
@@ -48,7 +48,7 @@ public class JpaInstagramRepository implements InstagramRepository {
                 .from(instagram)
                 .join(instagram.kakaoDocument, kakaoDocument)
                 .where(latitudeBetween(rect), longitudeBetween(rect),
-                        kakaoDocument.categoryGroupCode.eq(category))
+                        kakaoDocument.categoryGroupCode.in(categoryList))
                 .orderBy(instagram.hashtagCount.desc())
                 .offset(1)
                 .limit(15)
@@ -78,7 +78,7 @@ public class JpaInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public List<PlaceDto> findByHashtagCount(Rect rect, String[] categoryList, String check) {
+    public List<PlaceDto> findByHashtagCount(Rect rect, List<String> categoryList, String check) {
         return queryFactory
                 .select(Projections.fields(PlaceDto.class,
                         instagram.instagramDocumentId,
@@ -100,7 +100,7 @@ public class JpaInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public List<PostDto> findByHashtagName(String[] categoryList, Rect rect, String hashtagName) {
+    public List<PostDto> findByHashtagName(List<String> categoryList, Rect rect, String hashtagName) {
         return queryFactory
                 .select(Projections.fields(PostDto.class,
                         instagramPost.instagramPostDocumentId,

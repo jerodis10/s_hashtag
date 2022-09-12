@@ -76,7 +76,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public List<PlaceDto> findAll(String category_list, Rect rect) {
+    public List<PlaceDto> findAll(List<String> categoryList, Rect rect) {
         List<Object> param_list = new ArrayList<>();
         param_list.add(rect.getMinLatitude().getValue());
         param_list.add(rect.getMaxLatitude().getValue());
@@ -85,7 +85,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
 
         String inSql = "";
         inSql += "and category_group_code = ? ";
-        param_list.add(category_list);
+        param_list.add(categoryList);
 
         String sql_get_hashtag =
                 "select * " +
@@ -136,7 +136,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public List<PlaceDto> findByHashtagCount(Rect rect, String[] categoryList, String check) {
+    public List<PlaceDto> findByHashtagCount(Rect rect, List<String> categoryList, String check) {
         List<Object> param = new ArrayList<>();
         String sql_get_hashtag_byCount =
                 "select * " +
@@ -153,10 +153,10 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
         param.add(rect.getMaxLongitude().getValue());
 
         sql_get_hashtag_byCount += "and category_group_code in ( ";
-        for (int i=0; i<categoryList.length; i++) {
+        for (int i=0; i<categoryList.size(); i++) {
             if(i != 0) sql_get_hashtag_byCount += ",?";
             else sql_get_hashtag_byCount += "?";
-            param.add(categoryList[i]);
+            param.add(categoryList.get(i));
         }
         sql_get_hashtag_byCount += ") ";
 
@@ -180,7 +180,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public List<PostDto> findByHashtagName(String[] categoryList, Rect rect, String hashtagName) {
+    public List<PostDto> findByHashtagName(List<String> categoryList, Rect rect, String hashtagName) {
         return null;
     }
 

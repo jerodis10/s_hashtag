@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
+import java.util.List;
 
 //@Builder
 @Getter
@@ -18,23 +19,23 @@ import java.math.BigDecimal;
 public class KakaoMapDto {
 
     @NotBlank
-    @JsonAlias("pa")
+    @JsonAlias("qa")
     private String minLatitude;
 
     @NotBlank
-    @JsonAlias("qa")
+    @JsonAlias("pa")
     private String maxLatitude;
 
     @NotBlank
-    @JsonAlias("oa")
+    @JsonAlias("ha")
     private String minLongitude;
 
     @NotBlank
-    @JsonAlias("ha")
+    @JsonAlias("oa")
     private String maxLongitude;
 
     @JsonAlias("category_list")
-    private String category;
+    private List<String> categoryList;
 
     @JsonAlias("hashtag_name")
     private String hashtagName;

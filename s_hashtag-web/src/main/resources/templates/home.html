@@ -92,19 +92,8 @@
     </nav>
 </div>
 
-<p id="result"></p>
-<p id="result2"></p>
-<p id="result3"></p>
-
-<!--<div sec:authorize="isAuthenticated()">-->
-<!--    <span sec:authentication="name"></span>님-->
-<!--    <span sec:authorize="hasRole('ROLE_ADMIN')">(마스터 권한)</span>-->
-<!--    <span sec:authorize="hasRole('ROLE_ADMINTRAINEE')">(관리자 권한)</span>-->
-<!--    <span sec:authorize="hasRole('ROLE_MEMBER')">(멤버 권한)</span>-->
-<!--</div>-->
-
-<div id="map" style="width: 99%; height: 600px; position: relative; z-index: 1;">
-    <div id="searchBar">
+<div id="map" style="width: 99%; height: 700px; position: relative; z-index: 1;">
+    <div id="searchBar" style="margin-top: 5px;">
         <div class="category_wrap">
             <button id="btn_cafe" value="CE7" style="width: 60px; height: 25px; left: 60px; top: 20px; position: relative;">카페</button>
             <button id="btn_food" class="selected" value="FD6" style="width: 60px; height: 25px; left: 110px; top: 20px; position: relative;">음식점</button>
@@ -142,12 +131,11 @@
 <link href="/css/sideBar.css" rel="stylesheet">
 <link href="/css/bubble.css" rel="stylesheet">
 <link href="/css/searchBar.css" rel="stylesheet">
-<link href="/css/kakaoMap.css" rel="stylesheet">
 
 <!-- JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+
 <!-- IONICONS -->
 <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 
@@ -155,7 +143,6 @@
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e3911e7fa46ab16ff0c8b85eb101877e&libraries=services"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e3911e7fa46ab16ff0c8b85eb101877e"></script>
 
-<script type="text/javascript" src="/js/main.js"></script>
 <script type="text/javascript" src="/js/kakaoMap.js"></script>
 <script type="text/javascript" src="/js/searchBar.js"></script>
 
