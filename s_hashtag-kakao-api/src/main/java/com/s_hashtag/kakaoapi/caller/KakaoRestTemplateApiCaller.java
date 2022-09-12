@@ -13,7 +13,6 @@ public class KakaoRestTemplateApiCaller {
     private static final String RECT = "rect";
     private static final String PAGE = "page";
 
-    //    private final String URL = "https://dapi.kakao.com/v3/search/book";
     private final String CATEGORY_URL = "https://dapi.kakao.com/v2/local/search/category";
     private final String KEYWORD_URL = "https://dapi.kakao.com/v2/local/search/keyword";
     private final String KEY = "af2408226e91805021d1adc7a9d31b36";
@@ -60,10 +59,9 @@ public class KakaoRestTemplateApiCaller {
 
     public Boolean isLessOrEqualTotalCount(KakaoPlaceDto kakaoPlaceDto) {
 //        int totalCount = kakaoPlaceDto.getTotalCount();
-        Integer ret = kakaoPlaceDto.getDocuments().size();
-        if(ret <= 14) return true;
-//        if(ret >= 1 && ret <= 14) return 1;
-        else if(ret >= 15) return false;
+        int totalCount = kakaoPlaceDto.getDocuments().size();
+        if(totalCount <= 14) return true;
+        else if(totalCount >= 15) return false;
         else  return false;
 //        return (kakaoProperties.getMaxDocumentCount() * kakaoProperties.getMaxPageableCount()) >= totalCount;
     }

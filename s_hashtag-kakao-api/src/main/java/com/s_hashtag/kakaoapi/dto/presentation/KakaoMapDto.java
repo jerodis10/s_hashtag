@@ -13,8 +13,6 @@ import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 //@Builder
-//@Setter
-//@AllArgsConstructor
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class KakaoMapDto {

@@ -27,7 +27,6 @@ public class UserAgentFactory {
         String body = crawler.crawl(USER_AGENT_LIST_URL, USER_AGENT);
         Pattern pattern = Pattern.compile(USER_AGENT_REGEX);
         Matcher matcher = pattern.matcher(body);
-//        List<String> userAgentList = new ArrayList<>();
         while (matcher.find()) {
             userAgentList.add(matcher.group(1));
         }

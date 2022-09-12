@@ -1,13 +1,10 @@
 package com.s_hashtag.common.place.domain.model;
 
-//import com.songpapeople.hashtagmap.exception.CoreException;
-//import com.songpapeople.hashtagmap.exception.CoreExceptionStatus;
-import com.s_hashtag.common.exception.CoreException;
-import com.s_hashtag.common.exception.CoreExceptionStatus;
+import com.s_hashtag.common.domain.kakao.exception.KakaoApiException;
+import com.s_hashtag.common.domain.kakao.exception.KakaoApiExceptionStatus;
 import lombok.*;
 import org.springframework.util.StringUtils;
 
-//import javax.persistence.Embeddable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -39,7 +36,7 @@ public class Point {
         BigDecimal convertedLatitude = BigDecimal.valueOf(Double.parseDouble(latitude));
         if (isNotBetween(MIN_LATITUDE, convertedLatitude, MAX_LATITUDE)) {
             String detailMessage = String.format("잘못된 위도 범위(%s)입니다.", convertedLatitude);
-            throw new CoreException(CoreExceptionStatus.INVALID_LATITUDE, detailMessage);
+            throw new KakaoApiException(KakaoApiExceptionStatus.INVALID_LATITUDE, detailMessage);
         }
     }
 
@@ -47,7 +44,7 @@ public class Point {
         BigDecimal convertedLongitude = BigDecimal.valueOf(Double.parseDouble(longitude));
         if (isNotBetween(MIN_LONGITUDE, convertedLongitude, MAX_LONGITUDE)) {
             String detailMessage = String.format("잘못된 경도 범위(%s)입니다.", convertedLongitude);
-            throw new CoreException(CoreExceptionStatus.INVALID_LONGITUDE, detailMessage);
+            throw new KakaoApiException(KakaoApiExceptionStatus.INVALID_LONGITUDE, detailMessage);
         }
     }
 

@@ -1,7 +1,7 @@
 package com.s_hashtag.instagram.crawler;
 
-import com.s_hashtag.instagram.exception.CrawlerException;
-import com.s_hashtag.instagram.exception.CrawlerExceptionStatus;
+import com.s_hashtag.common.domain.instagram.exception.CrawlerException;
+import com.s_hashtag.common.domain.instagram.exception.CrawlerExceptionStatus;
 import lombok.Getter;
 
 import java.util.regex.Matcher;
@@ -15,7 +15,6 @@ enum RegexPattern {
     ROBOT(Pattern.compile("(robots)")),
     LIKE_COUNT(Pattern.compile("(\"like_count\":\\{\"count\"):([0-9]+)")),
     POST_COUNT(Pattern.compile("meta content=\"게시물 ([0-9]+)(\\W)"));
-//    ROBOT(Pattern.compile("(\"name\"=\\{\"robots\")"));
 
     private final Pattern pattern;
 
@@ -26,17 +25,6 @@ enum RegexPattern {
     public String extract(String body) {
         Matcher matcher = this.pattern.matcher(body);
         if (matcher.find()) {
-//            if(matcher.group(2).equals("만")) {
-//                return Integer.toString(Integer.parseInt(matcher.group(1)) * 1000);
-//            } else {
-//                return matcher.group(1);
-//            }
-
-//            if(matcher.groupCount() == 1) throw new CrawlerException(CrawlerExceptionStatus.BOT_DETECTION);
-//            else return matcher.group(2);
-
-//            return matcher.group(2);
-
             if(matcher.group(2).equals("개") || matcher.group(2).equals(".")) return matcher.group(1);
             else return matcher.group(2);
         }

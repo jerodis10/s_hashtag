@@ -2,14 +2,13 @@ package com.s_hashtag.instagram.crawler;
 
 import com.s_hashtag.common.domain.instagram.dto.external.CrawlingDto;
 import com.s_hashtag.common.domain.instagram.dto.external.PostDtos;
-import com.s_hashtag.instagram.exception.CrawlerException;
-import com.s_hashtag.instagram.exception.CrawlerExceptionStatus;
+import com.s_hashtag.common.domain.instagram.exception.CrawlerException;
+import com.s_hashtag.common.domain.instagram.exception.CrawlerExceptionStatus;
 import com.s_hashtag.instagram.util.PlaceNameParser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 
 @Service
@@ -44,8 +43,6 @@ private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/ex
     public CrawlingDto crawler(String crawlingName, String kakaoId) {
         try {
               String parsedHashtagName = PlaceNameParser.parsePlaceName(crawlingName);
-//              String parsedHashtagName = placeNameParser.parsePlaceName(crawlingName);
-//            String parsedHashtagName = crawlingName.replaceAll(" ", "");
 //            Thread.sleep(10000);
             log.info("Proxy Host = {}, Port = {}", System.getProperty("http.proxyHost"), System.getProperty("http.proxyPort"));
 
@@ -58,8 +55,7 @@ private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/ex
                 return createCrawlingDto(parsedHashtagName, body, kakaoId);
             }
 
-            return null;
-            //        return createCrawlingDto(parsedHashtagName, body);
+            throw new CrawlerException(CrawlerExceptionStatus.BOT_DETECTION);
         } catch (CrawlerException crawlerException) {
             throw crawlerException;
         } catch (Exception e) {

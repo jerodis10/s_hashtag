@@ -1,24 +1,14 @@
 package com.s_hashtag.instagram.crawler;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.s_hashtag.instagram.exception.CrawlerException;
-import com.s_hashtag.instagram.exception.CrawlerExceptionStatus;
+import com.s_hashtag.common.domain.instagram.exception.CrawlerException;
+import com.s_hashtag.common.domain.instagram.exception.CrawlerExceptionStatus;
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.Connection;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Slf4j
 @Component
@@ -34,11 +24,6 @@ public class Crawler {
     private static final int HOLDING_TIME = 7000;
     private static final int NOT_FOUND = 404;
     private static final int TOO_MANY_REQUEST = 429;
-
-//    private Date time = new Timestamp(System.currentTimeMillis());
-
-//    Proxy proxy = new Proxy(Proxy.Type.HTTP,
-//            new InetSocketAddress("127.0.0.1", 1080));
 
     public String crawl(String url, String user_agent) {
         try {

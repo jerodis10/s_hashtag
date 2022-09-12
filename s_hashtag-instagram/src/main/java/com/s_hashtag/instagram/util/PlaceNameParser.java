@@ -1,11 +1,11 @@
 package com.s_hashtag.instagram.util;
 
+import lombok.NoArgsConstructor;
+
 import java.util.Optional;
 
+@NoArgsConstructor
 public class PlaceNameParser {
-
-    private PlaceNameParser() {
-    }
 
     public static String parsePlaceName(String placeName) {
         String parsedPlaceName = placeName.replaceAll(" ", "");

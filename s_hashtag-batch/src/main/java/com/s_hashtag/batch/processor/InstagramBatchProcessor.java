@@ -1,9 +1,9 @@
 package com.s_hashtag.batch.processor;
 
+import com.s_hashtag.common.domain.instagram.dto.external.CrawlingDto;
+import com.s_hashtag.common.domain.instagram.exception.CrawlerException;
 import com.s_hashtag.common.place.domain.model.Place;
 import com.s_hashtag.instagram.crawler.InstagramCrawler;
-import com.s_hashtag.common.domain.instagram.dto.external.CrawlingDto;
-import com.s_hashtag.instagram.exception.CrawlerException;
 import com.s_hashtag.instagram.proxy.CrawlerWithProxy;
 import com.s_hashtag.instagram.proxy.ProxiesFactory;
 import com.s_hashtag.instagram.proxy.ProxySetter;
@@ -11,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 
 @Slf4j
 @RequiredArgsConstructor

@@ -2,6 +2,8 @@ package com.s_hashtag.common.domain.kakao.dto.external;
 
 import com.s_hashtag.common.domain.kakao.exception.KakaoApiException;
 import com.s_hashtag.common.domain.kakao.exception.KakaoApiExceptionStatus;
+import com.s_hashtag.common.exception.CommonExceptionStatus;
+import com.s_hashtag.common.exception.HashtagMapException;
 
 import java.math.BigDecimal;
 

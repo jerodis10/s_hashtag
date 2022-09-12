@@ -1,12 +1,11 @@
 package com.s_hashtag.instagram.crawler;
 
 import com.google.gson.JsonElement;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 class JsonExplorer {
     public static final String PARENT_KEY = "node";
-
-    private JsonExplorer() {
-    }
 
     public static String findByKey(JsonElement edge, String key) {
         return edge.getAsJsonObject()

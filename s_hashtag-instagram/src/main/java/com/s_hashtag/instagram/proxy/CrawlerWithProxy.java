@@ -1,9 +1,9 @@
 package com.s_hashtag.instagram.proxy;
 
-import com.s_hashtag.instagram.crawler.InstagramCrawler;
 import com.s_hashtag.common.domain.instagram.dto.external.CrawlingDto;
-import com.s_hashtag.instagram.exception.CrawlerException;
-import com.s_hashtag.instagram.exception.CrawlerExceptionStatus;
+import com.s_hashtag.common.domain.instagram.exception.CrawlerException;
+import com.s_hashtag.common.domain.instagram.exception.CrawlerExceptionStatus;
+import com.s_hashtag.instagram.crawler.InstagramCrawler;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -25,9 +25,6 @@ public class CrawlerWithProxy {
 
     public CrawlingDto crawlInstagram(String hashtagNameToCrawl, String kakaoId) {
         try {
-//            proxySetter.setProxy();
-//            return instagramCrawler.crawler(hashtagNameToCrawl);
-//            Proxy proxy = new Proxy(System.getProperty("http.proxyHost"), System.getProperty("http.proxyPort"));
             if(isOnline()) return instagramCrawler.crawler(hashtagNameToCrawl, kakaoId);
             else return null;
         } catch (CrawlerException crawlerException) {
@@ -57,9 +54,9 @@ public class CrawlerWithProxy {
 //            return isOnline;
             return true;
         } catch (MalformedURLException e) {
-            log.info("CrawlerException: {}", e.getMessage());
+            log.info("MalformedURLException: {}", e.getMessage());
         } catch (IOException e) {
-            log.info("CrawlerException: {}", e.getMessage());
+            log.info("IOException: {}", e.getMessage());
         }
         return true;
     }
