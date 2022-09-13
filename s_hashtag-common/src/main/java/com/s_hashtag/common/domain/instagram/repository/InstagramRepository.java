@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface InstagramRepository {
 
-    List<PlaceDto> findAll(List<String> category, Rect rect);
+    List<PlaceDto> findAll(List<String> categoryList, Rect rect);
 
-    List<PlaceDto> findByKeyword(String category, Rect rect, List<String> keywordList);
+    List<PlaceDto> findByKeyword(List<String> categoryList, Rect rect, List<String> keywordList);
 
     List<PlaceDto> findByHashtagCount(Rect rect, List<String> categoryList, String check);
 

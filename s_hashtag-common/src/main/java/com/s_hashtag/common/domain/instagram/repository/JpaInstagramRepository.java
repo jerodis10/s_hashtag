@@ -48,7 +48,7 @@ public class JpaInstagramRepository implements InstagramRepository {
                 .from(instagram)
                 .join(instagram.kakaoDocument, kakaoDocument)
                 .where(latitudeBetween(rect), longitudeBetween(rect),
-                        kakaoDocument.categoryGroupCode.in(categoryList))
+                        categoryGroupCodeIn(categoryList))
                 .orderBy(instagram.hashtagCount.desc())
                 .offset(1)
                 .limit(15)
@@ -56,7 +56,7 @@ public class JpaInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public List<PlaceDto> findByKeyword(String category, Rect rect, List<String> keywordList) {
+    public List<PlaceDto> findByKeyword(List<String> categoryList, Rect rect, List<String> keywordList) {
         return queryFactory
                 .select(Projections.fields(PlaceDto.class,
                         instagram.instagramDocumentId,
@@ -69,7 +69,7 @@ public class JpaInstagramRepository implements InstagramRepository {
                 .from(instagram)
                 .join(instagram.kakaoDocument, kakaoDocument)
                 .where(latitudeBetween(rect), longitudeBetween(rect),
-                        kakaoDocument.categoryGroupCode.eq(category),
+                        categoryGroupCodeIn(categoryList),
                         kakaoDocument.kakaoDocumentId.in(keywordList))
                 .orderBy(instagram.hashtagCount.desc())
 //                .offset(1)
@@ -91,7 +91,7 @@ public class JpaInstagramRepository implements InstagramRepository {
                 .from(instagram)
                 .join(instagram.kakaoDocument, kakaoDocument)
                 .where(latitudeBetween(rect), longitudeBetween(rect),
-                        kakaoDocument.categoryGroupCode.in(categoryList),
+                        categoryGroupCodeIn(categoryList),
                         hashtagCountBetween(check))
                 .orderBy(instagram.hashtagCount.desc())
 //                .offset(1)
@@ -111,7 +111,7 @@ public class JpaInstagramRepository implements InstagramRepository {
                 .join(instagram.kakaoDocument, kakaoDocument)
                 .where(latitudeBetween(rect), longitudeBetween(rect),
                         kakaoDocument.categoryGroupCode.in(categoryList),
-                        instagram.hashtagName.eq(hashtagName))
+                        hashtagNameEq(hashtagName))
                 .fetch();
     }
 
@@ -201,5 +201,13 @@ public class JpaInstagramRepository implements InstagramRepository {
             default:
                 return null;
         }
+    }
+
+    private BooleanExpression hashtagNameEq(String hashtagName) {
+        return hashtagName != null ? instagram.hashtagName.eq(hashtagName) : null;
+    }
+
+    private BooleanExpression categoryGroupCodeIn(List<String> categoryList) {
+        return categoryList != null ? kakaoDocument.categoryGroupCode.in(categoryList) : null;
     }
 }

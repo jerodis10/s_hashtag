@@ -1,15 +1,15 @@
 package com.s_hashtag.kakaoapi.caller;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.stereotype.Component;
 
 //@Getter
 //@RequiredArgsConstructor
-//@ConstructorBinding
+//@AllArgsConstructor
+//@NoArgsConstructor
+@ConstructorBinding
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "kakao")

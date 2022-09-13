@@ -5,6 +5,7 @@ import com.s_hashtag.common.domain.instagram.dto.external.PostDto;
 import com.s_hashtag.common.domain.instagram.repository.InstagramRepository;
 import com.s_hashtag.common.domain.kakao.dto.external.Document;
 import com.s_hashtag.instagram.service.InstagramService;
+import com.s_hashtag.kakaoapi.caller.KakaoProperties;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
 import com.s_hashtag.kakaoapi.dto.presentation.KakaoMapDto;
 import com.s_hashtag.kakaoapi.service.KakaoApiService;
@@ -66,7 +67,7 @@ public class MapApiController {
                     KeywordStringList.add(document.getId());
                 }
             }
-            placeList.addAll(instagramRepository.findByKeyword(category, kakaoMapDto.CreateRect(), KeywordStringList));
+            placeList.addAll(instagramRepository.findByKeyword(kakaoMapDto.getCategoryList(), kakaoMapDto.CreateRect(), KeywordStringList));
         }
 
         return placeList;

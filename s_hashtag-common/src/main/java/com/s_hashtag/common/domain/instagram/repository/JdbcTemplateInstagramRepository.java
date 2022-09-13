@@ -108,7 +108,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
     }
 
     @Override
-    public List<PlaceDto> findByKeyword(String category_list, Rect rect, List<String> keywordList) {
+    public List<PlaceDto> findByKeyword(List<String> categoryList, Rect rect, List<String> keywordList) {
         String sql_get_hashtag_byKeyword =
                 "select * " +
                 "from instagram it " +
@@ -126,7 +126,7 @@ public class JdbcTemplateInstagramRepository implements InstagramRepository {
 
 
         List<Object> param = new ArrayList<>();
-        param.add(category_list);
+        param.add(categoryList);
 
         for(String keyword : keywordList){
             param.add(keyword);
