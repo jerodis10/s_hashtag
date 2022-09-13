@@ -192,6 +192,7 @@ function getHashtagByKeyword(searchText, category) {
 //                    item.setMap(null);
 //                });
 //            }
+            }
        },
        error : function(e){
        }
@@ -214,7 +215,9 @@ function getHashtagByCount(check_type, check_flag) {
            data: param,
            success:function(data){
                 removeAll_marker();
-                create_marker(data);
+                $.each(category_list, function(index, category){
+                    create_marker(data, category);
+                });
 
 //               marker_list = [];
 //               overlay_list = [];

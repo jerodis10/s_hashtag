@@ -140,7 +140,7 @@ function getHashtagByCategory(map, category) {
        data: param,
        success:function(data){
 
-            create_marker(data);
+            create_marker(data, category);
 
 //           marker_list = [];
 //           overlay_list = [];
@@ -209,7 +209,7 @@ getHashtagByCategory(map, 'FD6');
 
 setTimeout(function(){ bubbleClick()}, 1500);
 
-function create_marker(data) {
+function create_marker(data, category) {
     marker_list = [];
     overlay_list = [];
     $.each(data, function(index, item){

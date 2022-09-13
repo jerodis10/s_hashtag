@@ -39,7 +39,7 @@ public class KakaoRestTemplateApiCaller {
 
     public KakaoPlaceDto findPlaceByCategory(String category, Rect rect, int page) {
         UriComponents uri = UriComponentsBuilder.newInstance()
-                .fromHttpUrl(kakaoProperties.getCategoryUrl())
+                .fromHttpUrl(kakaoProperties.getBaseUrl() + kakaoProperties.getCategoryUrl())
                 .queryParam(kakaoProperties.getCategoryGroupCode(), category)
                 .queryParam(kakaoProperties.getRect(), rect.toKakaoUriFormat())
                 .build();
@@ -47,12 +47,12 @@ public class KakaoRestTemplateApiCaller {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.set("Authorization", "KakaoAK "+ kakaoProperties.getKey());
         HttpEntity<String> entity = new HttpEntity<>(httpHeaders);
-    return restTemplate.exchange(uri.toUriString(), HttpMethod.GET, entity, KakaoPlaceDto.class).getBody();
+        return restTemplate.exchange(uri.toUriString(), HttpMethod.GET, entity, KakaoPlaceDto.class).getBody();
     }
 
     public KakaoPlaceDto findPlaceByKeyword(String category, Rect rect, String query) {
         UriComponents uri = UriComponentsBuilder.newInstance()
-                .fromHttpUrl(kakaoProperties.getKeywordUrl())
+                .fromHttpUrl(kakaoProperties.getBaseUrl() + kakaoProperties.getKeywordUrl())
                 .queryParam(kakaoProperties.getQuery(), query)
                 .queryParam(kakaoProperties.getCategoryGroupCode(), category)
                 .queryParam(kakaoProperties.getRect(), rect.toKakaoUriFormat())
