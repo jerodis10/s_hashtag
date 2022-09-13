@@ -9,7 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Getter
-@Setter
+//@Setter
 @NoArgsConstructor
 @Table(name = "INSTAGRAM_POST")
 @Entity

@@ -21,7 +21,7 @@ import java.util.Objects;
  */
 
 @Getter
-@Setter
+//@Setter
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class Document {

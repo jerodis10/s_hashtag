@@ -4,8 +4,8 @@ import com.s_hashtag.batch.processor.InstagramBatchProcessor;
 import com.s_hashtag.batch.reader.KakaoBatchReader;
 import com.s_hashtag.batch.writer.InstagramBatchWriter;
 import com.s_hashtag.batch.writer.KakaoBatchWriter;
-import com.s_hashtag.common.place.domain.model.Place;
 import com.s_hashtag.common.domain.instagram.dto.external.CrawlingDto;
+import com.s_hashtag.common.domain.instagram.dto.external.PlaceDto;
 import com.s_hashtag.kakaoapi.dto.external.KakaoPlaceDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -76,7 +76,7 @@ public class JobConfiguration {
 //    @StepScope
     public Step crawlingStep() {
         return stepBuilderFactory.get("crawlingStep")
-                .<Place, CrawlingDto>chunk(batchConfiguration.getChunk())
+                .<PlaceDto, CrawlingDto>chunk(batchConfiguration.getChunk())
                 .reader(InstagramBatchReader())
                 .processor(instagramBatchProcessor)
                 .writer(instagramBatchWriter)
@@ -97,12 +97,12 @@ public class JobConfiguration {
     }
 
     @Bean
-    public JdbcCursorItemReader<Place> InstagramBatchReader() {
-        return new JdbcCursorItemReaderBuilder<Place>()
+    public JdbcCursorItemReader<PlaceDto> InstagramBatchReader() {
+        return new JdbcCursorItemReaderBuilder<PlaceDto>()
             .name("jdbcCursorInstagramItemReader")
             .fetchSize(batchConfiguration.getChunk())
             .dataSource(dataSource)
-            .rowMapper(new BeanPropertyRowMapper<>(Place.class))
+            .rowMapper(new BeanPropertyRowMapper<>(PlaceDto.class))
             .sql("select KAKAO_ID, PLACE_NAME from KAKAO_DOCUMENT")
             .build();
     }

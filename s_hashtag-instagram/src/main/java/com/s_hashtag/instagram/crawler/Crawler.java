@@ -151,20 +151,13 @@ public class Crawler {
         } catch (HttpStatusException e) {
             log.info("url = {}", url);
             if (e.getStatusCode() == NOT_FOUND) {
-//                throw new CrawlerException(CrawlerExceptionStatus.NOT_FOUND_URL);
-                return null;
+                throw new CrawlerException(CrawlerExceptionStatus.NOT_FOUND_URL);
             } else if (e.getStatusCode() == TOO_MANY_REQUEST) {
                 throw new CrawlerException(CrawlerExceptionStatus.TOO_MANY_REQUEST);
             }
             throw new CrawlerException(CrawlerExceptionStatus.URL_NOT_CONNECT);
         } catch (IOException e) {
             throw new CrawlerException(CrawlerExceptionStatus.URL_NOT_CONNECT);
-        } finally {
-
         }
-
-//        } catch (IOException e) {
-//            throw new RuntimeException();
-//        }
     }
 }

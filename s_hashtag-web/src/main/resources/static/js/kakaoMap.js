@@ -276,7 +276,8 @@ function bubbleClick() {
 //        var param = JSON.stringify(json);
 
         var json = map.getBounds();
-        json["category_list"] = category;
+        json["category_list"] = category_list;
+        json["hashtag_name"] = hashtag_name;
         param = JSON.stringify(json);
 
         $.ajax({

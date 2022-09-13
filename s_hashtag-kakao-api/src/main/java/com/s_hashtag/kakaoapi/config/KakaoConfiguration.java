@@ -3,28 +3,25 @@ package com.s_hashtag.kakaoapi.config;
 import com.s_hashtag.kakaoapi.caller.KakaoProperties;
 import com.s_hashtag.kakaoapi.caller.KakaoRestTemplateApiCaller;
 import com.s_hashtag.kakaoapi.caller.KakaoRestTemplateBuilder;
+import com.s_hashtag.kakaoapi.caller.KakaoSecurityProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-//@EnableConfigurationProperties(KakaoProperties.class)
-public class KakaoConfiguration implements ApplicationRunner{
+public class KakaoConfiguration {
+
+    @Autowired
+    KakaoProperties kakaoProperties;
+
 //    private final KakaoProperties kakaoProperties;
 //
 //    public KakaoConfiguration(KakaoProperties kakaoProperties) {
+////        this.kakaoSecurityProperties = kakaoSecurityProperties;
 //        this.kakaoProperties = kakaoProperties;
 //    }
-
-    @Autowired
-    private KakaoProperties kakaoProperties;
-
-    public KakaoConfiguration(KakaoProperties kakaoProperties) {
-        this.kakaoProperties = kakaoProperties;
-    }
 
     @Bean
     public KakaoRestTemplateApiCaller kakaoRestTemplateApiCaller() {
@@ -32,15 +29,4 @@ public class KakaoConfiguration implements ApplicationRunner{
                 .build();
         return new KakaoRestTemplateApiCaller(restTemplate, kakaoProperties);
     }
-
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-        // 바인딩이 제대로 되었는지 콘솔 출력
-//        System.out.println("=================================");
-//        System.out.println("kakaoProperties : " + kakaoProperties);
-//        System.out.println("getCategoryGroupCode : " + kakaoProperties.getCategoryGroupCode());
-//        System.out.println("getKey : " + kakaoProperties.getKey());
-//        System.out.println("=================================");
-    }
-
 }

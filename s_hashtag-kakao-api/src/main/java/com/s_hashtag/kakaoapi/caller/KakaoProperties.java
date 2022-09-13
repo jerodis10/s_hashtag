@@ -12,21 +12,17 @@ import org.springframework.stereotype.Component;
 //@ConstructorBinding
 @Getter
 @Setter
+@ConfigurationProperties(prefix = "kakao")
 @Component
-@ConfigurationProperties("kakao")
 public class KakaoProperties {
     private String key;
     private String baseUrl;
     private String categoryUrl;
+    private String keywordUrl;
     private String categoryGroupCode;
+    private String rect;
+    private String query;
     private int maxDocumentCount;
     private int maxPageableCount;
-
-//    private final String key;
-//    private final String baseUrl;
-//    private final String categoryUrl;
-//    private final String categoryGroupCode;
-//    private final int maxDocumentCount;
-//    private final int maxPageableCount;
 
 }

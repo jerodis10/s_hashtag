@@ -1,4 +1,4 @@
-package com.s_hashtag.instagram.crawler;
+package com.s_hashtag.instagram.util;
 
 import com.s_hashtag.instagram.crawler.Crawler;
 import com.s_hashtag.instagram.proxy.Proxies;

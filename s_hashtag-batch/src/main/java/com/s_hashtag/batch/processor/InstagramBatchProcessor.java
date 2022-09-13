@@ -1,8 +1,8 @@
 package com.s_hashtag.batch.processor;
 
 import com.s_hashtag.common.domain.instagram.dto.external.CrawlingDto;
+import com.s_hashtag.common.domain.instagram.dto.external.PlaceDto;
 import com.s_hashtag.common.domain.instagram.exception.CrawlerException;
-import com.s_hashtag.common.place.domain.model.Place;
 import com.s_hashtag.instagram.crawler.InstagramCrawler;
 import com.s_hashtag.instagram.proxy.CrawlerWithProxy;
 import com.s_hashtag.instagram.proxy.ProxiesFactory;
@@ -15,15 +15,15 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class InstagramBatchProcessor implements ItemProcessor<Place, CrawlingDto> {
+public class InstagramBatchProcessor implements ItemProcessor<PlaceDto, CrawlingDto> {
 
     private final InstagramCrawler instagramCrawler;
 
     @Override
-    public CrawlingDto process(Place place) {
+    public CrawlingDto process(PlaceDto place) {
         try {
             CrawlerWithProxy crawlerWithProxy = new CrawlerWithProxy(new ProxySetter(ProxiesFactory.create()), instagramCrawler);
-            return crawlerWithProxy.crawlInstagram(place.getPlaceName(), place.getKakaoId());
+            return crawlerWithProxy.crawlInstagram(place.getPlaceName(), place.getKakaoDocumentId());
         } catch (CrawlerException crawlerException) {
             log.debug("CrawlerException: {}", crawlerException.getMessage());
             throw crawlerException;

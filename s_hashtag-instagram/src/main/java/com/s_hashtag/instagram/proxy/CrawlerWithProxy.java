@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Optional;
 
 @Slf4j
 public class CrawlerWithProxy {
@@ -26,17 +27,18 @@ public class CrawlerWithProxy {
     public CrawlingDto crawlInstagram(String hashtagNameToCrawl, String kakaoId) {
         try {
             if(isOnline()) return instagramCrawler.crawler(hashtagNameToCrawl, kakaoId);
-            else return null;
+//            else return Optional.empty();
+
+            return null;
         } catch (CrawlerException crawlerException) {
             log.debug("CrawlerException: {}", crawlerException.getMessage());
-//            if (NOT_FOUND_EXCEPTION_CODE.equals(e.getErrorCode())) {
+//            if (NOT_FOUND_EXCEPTION_CODE.equals(crawlerException.getErrorCode())) {
 //                return Optional.empty();
 //            }
             throw crawlerException;
         } catch (Exception e) {
-            e.printStackTrace();
+            throw e;
         }
-        return null;
     }
 
     public boolean isOnline() {

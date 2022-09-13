@@ -9,12 +9,9 @@ import java.math.BigDecimal;
 
 @Getter
 @Setter
-//@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
 public class PlaceDto {
-//    private String id;
-//    private String kakaoId;
     private String kakaoDocumentId;
     private String instagramDocumentId;
     private double MinLatitude;

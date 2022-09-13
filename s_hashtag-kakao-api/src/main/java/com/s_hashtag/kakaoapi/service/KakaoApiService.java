@@ -49,60 +49,11 @@ public class KakaoApiService {
 //                List<Rect> dividedRects = RectDivider.divide(initialRect);
                 List<Rect> dividedRects = RectFactory.divide(initialRect);
                 for (Rect rect : dividedRects) {
-                    List<KakaoPlaceDto> nextPages = findPlacesByKeyword(category, rect, query, pageList);
+                    findPlacesByKeyword(category, rect, query, pageList);
                 }
             }
         }
 
         return pageList;
     }
-
-//    public List<KakaoPlaceDto> findPlaces(String category, Rect initialRect, List<KakaoPlaceDto> pageList) {
-////        List<KakaoPlaceDto> result = new ArrayList<>();
-//
-//        KakaoPlaceDto page = kakaoRestTemplateApiCaller.findPlaceByCategory(category, initialRect, FIRST_PAGE);
-////        if (kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page) == 1) {
-//////        if (kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page)) {
-////            pageList.add(page);
-////        } else if(kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(page) == 2) {
-////            List<Rect> dividedRects = RectDivider.divide(initialRect);
-////            for (Rect rect : dividedRects) {
-////                List<KakaoPlaceDto> nextPages = findPlaces(category, rect, pageList);
-////            }
-////        }
-//        pageList.add(page);
-//        return pageList;
-//    }
-
-
-//    public List<KakaoPlaceDto> findPlaces(String category, Rect rect) {
-//        return findPlaces(category, rect, DEFAULT_OFFSET);
-//    }
-
-//    private List<KakaoPlaceDto> findPlaces(String category, Rect initialRect, BigDecimal offset) {
-//        List<Rect> dividedRects = RectDivider.divide(initialRect, offset);
-//        List<KakaoPlaceDto> result = new ArrayList<>();
-
-//        for (Rect rect : dividedRects) {
-//            KakaoPlaceDto firstPage = kakaoRestTemplateApiCaller.findPlaceByCategory(category, rect, FIRST_PAGE);
-//            if (kakaoRestTemplateApiCaller.isLessOrEqualTotalCount(firstPage)) {
-//                result.add(firstPage);
-//                result.addAll(findSecondToEndPage(category, rect, firstPage.getPageableCount()));
-//                continue;
-//            }
-//            result.addAll(findPlaces(category, rect, offset.divide(HALF)));
-//        }
-
-//        return result;
-//    }
-
-//    private List<KakaoPlaceDto> findSecondToEndPage(String category, Rect rect, int pageableCount) {
-//        List<KakaoPlaceDto> result = new ArrayList<>();
-//
-//        for (int pageCount = SECOND_PAGE; pageCount <= pageableCount; pageCount++) {
-//            KakaoPlaceDto placeByCategory = kakaoRestTemplateApiCaller.findPlaceByCategory(category, rect, pageCount);
-//            result.add(placeByCategory);
-//        }
-//        return result;
-//    }
 }

@@ -4,6 +4,7 @@ import com.s_hashtag.common.domain.instagram.exception.CrawlerException;
 import com.s_hashtag.common.domain.instagram.exception.CrawlerExceptionStatus;
 import lombok.Getter;
 
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,19 +26,20 @@ enum RegexPattern {
     public String extract(String body) {
         Matcher matcher = this.pattern.matcher(body);
         if (matcher.find()) {
-            if(matcher.group(2).equals("개") || matcher.group(2).equals(".")) return matcher.group(1);
-            else return matcher.group(2);
+            if(matcher.group(2).equals("개") || matcher.group(2).equals("."))
+                return matcher.group(1);
+            else
+                return matcher.group(2);
         }
 
         throw new CrawlerException(CrawlerExceptionStatus.NOT_FOUND_MATCH_REGEX);
-//        return null;
     }
 
-//    public String roBotExtract(String body) {
-//        Matcher matcher = this.pattern.matcher(body);
-//        if (matcher.find()) {
-//            return matcher.group();
-//        }
-//        throw new CrawlerException(CrawlerExceptionStatus.BOT_DETECTION);
-//    }
+    public String roBotExtract(String body) {
+        Matcher matcher = this.pattern.matcher(body);
+        if (matcher.find()) {
+            return matcher.group();
+        }
+        throw new CrawlerException(CrawlerExceptionStatus.BOT_DETECTION);
+    }
 }

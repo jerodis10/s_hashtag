@@ -33,4 +33,3 @@ application:
     secretKey: secure_secure_secure_secure_secure_secure_secure_secure_secure_secure_secure_secure_secure_key
     tokenPrefix: Bearer
     tokenExpirationAfterDays: 14
-
