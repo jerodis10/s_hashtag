@@ -61,12 +61,15 @@ public class MapApiController {
         for(String category : kakaoMapDto.getCategoryList()) {
             List<String> KeywordStringList = new ArrayList<>();
 
-            List<KakaoPlaceDto> kakaoPlaceByKeywordList = kakaoApiService.findPlacesByKeyword(category, kakaoMapDto.CreateRect(), kakaoMapDto.getSearchText(), new ArrayList<>());
-            for (KakaoPlaceDto kakaoPlaceDto : kakaoPlaceByKeywordList) {
-                for (Document document : kakaoPlaceDto.getDocuments()) {
-                    KeywordStringList.add(document.getId());
+            if(!kakaoMapDto.getSearchText().isEmpty()) {
+                List<KakaoPlaceDto> kakaoPlaceByKeywordList = kakaoApiService.findPlacesByKeyword(category, kakaoMapDto.CreateRect(), kakaoMapDto.getSearchText(), new ArrayList<>());
+                for (KakaoPlaceDto kakaoPlaceDto : kakaoPlaceByKeywordList) {
+                    for (Document document : kakaoPlaceDto.getDocuments()) {
+                        KeywordStringList.add(document.getId());
+                    }
                 }
             }
+
             placeList.addAll(instagramRepository.findByKeyword(kakaoMapDto.getCategoryList(), kakaoMapDto.CreateRect(), KeywordStringList));
         }
 

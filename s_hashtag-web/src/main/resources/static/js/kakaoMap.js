@@ -23,11 +23,15 @@ var options = {
 var map = new kakao.maps.Map(container, options);
 
 // 카테고리 - 카페 (디폴트)
-$.each(document.querySelector('.category_wrap').children, function(index, item){
+$.each(document.querySelector('.btn_category_wrap').children, function(index, item){
     if(item.className === 'selected'){
         category_list.push(item.value);
     }
 });
+
+getHashtagByCategory(map, 'FD6');
+
+setTimeout(function(){ bubbleClick()}, 1500);
 
 // 마우스 이동 이벤트
 kakao.maps.event.addListener(map, 'dragend', function() {
@@ -132,82 +136,20 @@ function getHashtagByCategory(map, category) {
     json["category_list"] = category_list;
     param = JSON.stringify(json);
 
-    $.ajax({
-       url:'/api/getHashtag',
-       type:'POST',
-       dataType: 'json',
-       contentType : "application/json; charset=utf-8",
-       data: param,
-       success:function(data){
-
+   $.ajax({
+        url:'/api/getHashtag',
+        type:'POST',
+        dataType: 'json',
+        contentType : "application/json; charset=utf-8",
+        data: param,
+        success:function(data){
             create_marker(data, category);
-
-//           marker_list = [];
-//           overlay_list = [];
-//           $.each(data, function(index, item){
-//                var img_src = "";
-//                if(item.hashtagCount < 10) img_src = '../img/markers/mapMarker1.png';
-//                if(10 <= item.hashtagCount && item.hashtagCount < 100) img_src = '../img/markers/mapMarker2.png';
-//                if(100 <= item.hashtagCount && item.hashtagCount < 1000) img_src = '../img/markers/mapMarker3.png';
-//                if(1000 <= item.hashtagCount && item.hashtagCount < 10000) img_src = '../img/markers/mapMarker4.png';
-//                if(10000 <= item.hashtagCount) img_src = '../img/markers/mapMarker5.png';
-//
-//                var imageSrc = img_src,
-//                    imageSize = new kakao.maps.Size(34, 39), // 마커이미지의 크기입니다
-//                    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-//
-//                var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-//                    markerPosition = new kakao.maps.LatLng(item.latitude, item.longitude); // 마커가 표시될 위치입니다
-//
-//                // 마커를 생성합니다
-//                var marker = new kakao.maps.Marker({
-//                  position: markerPosition,
-//                  image: markerImage // 마커이미지 설정
-//                });
-//
-//                // 마커가 지도 위에 표시되도록 설정합니다
-//                marker.setMap(map);
-//                marker_list.push(marker);
-//
-//                // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-//                var hashtag_count = item.hashtagCount;
-//                var hashtag_name = item.hashtagName;
-//                var content =
-//                    '<div class="bubble">' +
-//                    '   <div style="margin-top: 5px;">' + hashtag_name + '</div>' +
-//                    '   <ion-icon name="heart" style="color: red;"></ion-icon>' +
-//                    '   <span id="sp">' + hashtag_count + '</span>' +
-//                    '</div>'
-//
-//                // 커스텀 오버레이가 표시될 위치입니다
-//                var dir = (level - be_level) > 0 ? -1 : 0;
-//                var latitude_adjust = 0.00018 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
-//                var longitude_adjust = 0.000027 * (level > 1 ? Math.pow(2, level - 1 + dir) : 1);
-//                var position = new kakao.maps.LatLng(item.latitude + latitude_adjust, item.longitude - longitude_adjust);
-//
-//                // 커스텀 오버레이를 생성합니다
-//                var customOverlay = new kakao.maps.CustomOverlay({
-//                    map: map,
-//                    position: position,
-//                    content: content,
-//                    yAnchor: 1
-//                });
-//
-//                overlay_list.push(customOverlay);
-//           });
-//
-//           marker_object[category] = marker_list;
-//           overlay_object[category] = overlay_list;
-       },
-       error : function(e){
-        console.log(e);
-       }
-    });
+        },
+        error : function(e){
+            console.log(e);
+        }
+   });
 }
-
-getHashtagByCategory(map, 'FD6');
-
-setTimeout(function(){ bubbleClick()}, 1500);
 
 function create_marker(data, category) {
     marker_list = [];

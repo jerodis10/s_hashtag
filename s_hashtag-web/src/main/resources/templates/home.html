@@ -94,7 +94,7 @@
 
 <div id="map" style="width: 99%; height: 700px; position: relative; z-index: 1;">
     <div id="searchBar" style="margin-top: 5px;">
-        <div class="category_wrap">
+        <div class="btn_category_wrap" id="category_wrap">
             <button id="btn_cafe" value="CE7" style="width: 60px; height: 25px; left: 60px; top: 20px; position: relative;">카페</button>
             <button id="btn_food" class="selected" value="FD6" style="width: 60px; height: 25px; left: 110px; top: 20px; position: relative;">음식점</button>
         </div>
@@ -102,12 +102,13 @@
             <input type="text" id="searchBox" name="searchBox" class="form-control" placeholder="지역을 입력하세요"
                    style="left: 30px; top: 40px; width: 240px; height: 35px; position: relative; ">
         </div>
-        <button id="btn_check1" class="bi-check-lg" style="background-color: #d8a0fa; outline: none; color: #fff; width: 40px; height: 25px; left: 30px; top: 50px; font-size: 13px; position: relative; border: 0;"></button>
-        <button id="btn_check2" class="bi-check-lg" style="background-color: #b970f3; outline: none; color: #fff; width: 40px; height: 25px; left: 30px; top: 50px; font-size: 13px; position: relative; border: 0;"></button>
-        <button id="btn_check3" class="bi-check-lg" style="background-color: #9e4ced; outline: none; color: #fff; width: 40px; height: 25px; left: 30px; top: 50px; font-size: 13px; position: relative; border: 0;"></button>
-        <button id="btn_check4" class="bi-check-lg" style="background-color: #7416e3; outline: none; color: #fff; width: 40px; height: 25px; left: 30px; top: 50px; font-size: 13px; position: relative; border: 0;"></button>
-        <button id="btn_check5" class="bi-check-lg" style="background-color: #410ca2; outline: none; color: #fff; width: 40px; height: 25px; left: 30px; top: 50px; font-size: 13px; position: relative; border: 0;"></button>
-
+        <div class="btn_check_wrap">
+            <button id="btn_check1" value="check1" class="bi-check-lg" style="background-color: #d8a0fa; outline: none; color: #fff; width: 40px; height: 25px; left: 30px; top: 50px; font-size: 13px; position: relative; border: 0;"></button>
+            <button id="btn_check2" value="check2" class="bi-check-lg" style="background-color: #b970f3; outline: none; color: #fff; width: 40px; height: 25px; left: 30px; top: 50px; font-size: 13px; position: relative; border: 0;"></button>
+            <button id="btn_check3" value="check3" class="bi-check-lg" style="background-color: #9e4ced; outline: none; color: #fff; width: 40px; height: 25px; left: 30px; top: 50px; font-size: 13px; position: relative; border: 0;"></button>
+            <button id="btn_check4" value="check4" class="bi-check-lg" style="background-color: #7416e3; outline: none; color: #fff; width: 40px; height: 25px; left: 30px; top: 50px; font-size: 13px; position: relative; border: 0;"></button>
+            <button id="btn_check5" value="check5" class="bi-check-lg" style="background-color: #410ca2; outline: none; color: #fff; width: 40px; height: 25px; left: 30px; top: 50px; font-size: 13px; position: relative; border: 0;"></button>
+        </div>
         <h6 class="mb-3" style="left: 30px; top: 70px; position: relative; font-size: 13px">구간별 해시태그 개수</h6>
 
         <div style="float:left; width: 45px; left: 30px; top: 70px; position: relative; background: transparent; border-top: solid #d8a0fa 5px; border-left:none; border-bottom:none; border-right:none;"></div>
