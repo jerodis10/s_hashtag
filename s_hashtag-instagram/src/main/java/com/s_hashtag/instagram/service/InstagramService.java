@@ -38,10 +38,11 @@ public class InstagramService {
     public void savePlace(Rect rect, String category) {
         try {
             List<KakaoPlaceDto> kakaoPlaceDto = kakaoApiService.findPlaces(category, rect, new ArrayList<>());
-
+            int count = 0;
             for (KakaoPlaceDto page : kakaoPlaceDto) {
                 for (Document document : page.getDocuments()) {
                     instagramSavePlace.savePlaceByProcess(document);
+                    log.info("savePlaceByProcess Count : {}", ++count);
                 }
             }
         } catch (CrawlerException crawlerException) {

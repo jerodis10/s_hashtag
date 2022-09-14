@@ -102,8 +102,8 @@ kakao.maps.event.addListener(map, 'zoom_changed', function() {
 
 //var rect_json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741};
 //var rect_json = {"ha": 126.66578831035362, "oa": 126.6751487382762, "pa": 37.52847533960485, "qa": 37.53625487247741}; // 19개 - 인천
-//var rect_json = {"ha": 126.66578831035362, "oa": 126.6751487382762, "pa": 37.52847533960485, "qa": 37.53625487247741}; // 3개 - 인천
-var rect_json = {"ha": 126.97895739177251, "oa": 126.97940437779806, "pa": 37.565536149395754, "qa": 37.566816079358794}; // 7개 - 서울시청 FD6
+var rect_json = {"ha": 126.66578831035362, "oa": 126.6751487382762, "pa": 37.52847533960485, "qa": 37.53625487247741}; // 3개 - 인천
+//var rect_json = {"ha": 126.97895739177251, "oa": 126.97940437779806, "pa": 37.565536149395754, "qa": 37.566816079358794}; // 7개 - 서울시청 FD6
 //var rect_json = {"ha": 126.97895739177251, "oa": 126.98090437779806, "pa": 37.565536149395754, "qa": 37.566816079358794}; // 25개 - 서울시청 FD6
 //var rect_json = {"ha": 126.97143175074082, "oa": 126.97603175074082, "pa": 37.56407463819326, "qa": 37.56907463819326}; // 27개 - 서울시청 FD6
 //var rect_json = {"ha": 126.97603175074082, "oa": 126.98103175074082, "pa": 37.565536149395754, "qa": 37.567216079358794}; // 64개 - 서울시청 FD6
@@ -301,99 +301,5 @@ function bubbleClick() {
 
         $(".modal-title").text(hashtag_name);
         $('#myModal').modal("show");
-    });
-}
-
-
-//function create_overlay(item, category){
-//    var img_src = "";
-//
-//    if(item.hashtagCount < 10) img_src = '../img/markers/mapMarker1.png';
-//    if(10 <= item.hashtagCount && item.hashtagCount < 100) img_src = '../img/markers/mapMarker2.png';
-//    if(100 <= item.hashtagCount && item.hashtagCount < 1000) img_src = '../img/markers/mapMarker3.png';
-//    if(1000 <= item.hashtagCount && item.hashtagCount < 10000) img_src = '../img/markers/mapMarker4.png';
-//    if(10000 <= item.hashtagCount) img_src = '../img/markers/mapMarker5.png';
-//
-//    var imageSrc = img_src,
-//    imageSize = new kakao.maps.Size(34, 39), // 마커이미지의 크기입니다
-//    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-//
-//    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-//        markerPosition = new kakao.maps.LatLng(item.latitude, item.longitude); // 마커가 표시될 위치입니다
-//
-//    // 마커를 생성합니다
-//    var marker = new kakao.maps.Marker({
-//      position: markerPosition,
-//      image: markerImage // 마커이미지 설정
-//    });
-//
-//    // 마커가 지도 위에 표시되도록 설정합니다
-//    marker.setMap(map);
-//    if(category === 'CE7') marker_list_CE7.push(marker);
-//    if(category === 'FD6') marker_list_FD6.push(marker);
-//
-//    // 커스텀 오버레이에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-//    var hashtag_count = item.hashtagCount;
-//    var hashtag_name = item.hashtagName;
-//    var content =
-//        '<div class="bubble" id="bubble" data-target="#myModal">' +
-//        '   <div>' + hashtag_name + '</div>' +
-//        '   <ion-icon name="heart" style="color: red;"></ion-icon>' +
-//        '   <span id="sp">' + hashtag_count + '</span>' +
-//        '</div>'
-//
-//    // 커스텀 오버레이가 표시될 위치입니다
-//    var position = new kakao.maps.LatLng(item.latitude+0.001, item.longitude);
-//
-//    // 커스텀 오버레이를 생성합니다
-//    var customOverlay = new kakao.maps.CustomOverlay({
-//        map: map,
-//        position: position,
-//        content: content,
-//        yAnchor: 1
-//    });
-//
-//    overlay_list.push(customOverlay);
-//    if(category === 'CE7') overlay_list_CE7.push(customOverlay);
-//    if(category === 'FD6') overlay_list_FD6.push(customOverlay);
-//}
-
-
-/* EXPANDER MENU */
-const showMenu = (toggleId, navbarId, bodyId) => {
-    const toggle = document.getElementById(toggleId),
-    navbar = document.getElementById(navbarId),
-    bodypadding = document.getElementById(bodyId)
-
-    if( toggle && navbar ) {
-        toggle.addEventListener('click', ()=>{
-            navbar.classList.toggle('expander');
-
-            bodypadding.classList.toggle('body-pd')
-        })
-    }
-}
-
-showMenu('nav-toggle', 'navbar', 'body-pd')
-
-/* LINK ACTIVE */
-const linkColor = document.querySelectorAll('.nav__link')
-function colorLink() {
-    linkColor.forEach(l=> l.classList.remove('active'))
-    this.classList.add('active')
-}
-linkColor.forEach(l=> l.addEventListener('click', colorLink))
-
-/* COLLAPSE MENU */
-const linkCollapse = document.getElementsByClassName('collapse__link')
-var i
-
-for(i=0;i<linkCollapse.length;i++) {
-    linkCollapse[i].addEventListener('click', function(){
-        const collapseMenu = this.nextElementSibling
-        collapseMenu.classList.toggle('showCollapse')
-
-        const rotate = collapseMenu.previousElementSibling
-        rotate.classList.toggle('rotate')
     });
 }
