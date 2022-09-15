@@ -46,7 +46,7 @@ private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/ex
     public CrawlingDto crawler(String crawlingName, String kakaoId) {
         try {
             String parsedHashtagName = PlaceNameParser.parsePlaceName(crawlingName);
-            Thread.sleep(10000);
+            Thread.sleep(5000);
             log.info("Proxy Host = {}, Port = {}", System.getProperty("http.proxyHost"), System.getProperty("http.proxyPort"));
 
             UserAgentFactory userAgentFactory = new UserAgentFactory();
@@ -61,9 +61,11 @@ private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/ex
             return null;
 
 //            throw new CrawlerException(CrawlerExceptionStatus.BOT_DETECTION);
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e) {
             return null;
-        } catch (CrawlerException crawlerException) {
+        }
+        catch (CrawlerException crawlerException) {
             throw crawlerException;
         } catch (Exception e) {
             throw e;
