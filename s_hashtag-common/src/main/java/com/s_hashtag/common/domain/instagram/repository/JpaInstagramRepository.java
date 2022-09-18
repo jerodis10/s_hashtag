@@ -105,7 +105,8 @@ public class JpaInstagramRepository implements InstagramRepository {
                 .select(Projections.fields(PostDto.class,
                         instagramPost.instagramPostDocumentId,
                         instagramPost.imageUrl,
-                        instagramPost.postUrl))
+                        instagramPost.postUrl,
+                        kakaoDocument.placeUrl))
                 .from(instagramPost)
                 .join(instagramPost.instagram, instagram)
                 .join(instagram.kakaoDocument, kakaoDocument)

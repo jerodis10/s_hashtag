@@ -40,3 +40,5 @@
 .section [id="slide09"]:checked ~ .slidewrap .control09 {display:block;}
 
 .section .slidelist img { width:100%; height:500px; margin-bottom:900px; }
+
+.btn_wrap {display:flex;justify-content:end;}

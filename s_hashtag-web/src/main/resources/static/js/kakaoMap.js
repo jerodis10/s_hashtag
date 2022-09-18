@@ -291,6 +291,12 @@ function bubbleClick() {
                         }
                         new_label_right.setAttribute('for', label_for);
                         control_div.appendChild(new_label_right);
+
+                        /* apply postUrl */
+                        document.getElementById('btn_instagram').name = data[index].postUrl;
+
+                        /* apply placeUrl */
+                        document.getElementById('btn_kakaoMap').name = data[index].placeUrl;
                     });
                 }
            },
