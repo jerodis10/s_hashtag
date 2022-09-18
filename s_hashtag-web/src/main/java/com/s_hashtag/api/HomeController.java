@@ -9,10 +9,10 @@ import java.net.http.HttpRequest;
 @Controller
 public class HomeController {
 
-//    @GetMapping("/")
-//    public String homeLogin() {
-//        return "home";
-//    }
+    @GetMapping("/")
+    public String homeLogin() {
+        return "home";
+    }
 
 //    @CrossOrigin
     @GetMapping("/instagramPost")

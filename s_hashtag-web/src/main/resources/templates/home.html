@@ -6,30 +6,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>s_tag</title>
+    <title>HashtagMap</title>
+
 </head>
 
 <body id="body-pd">
 
+<!-- 모달창 (인스타그램 포스트)-->
 <div th:replace="~{modal/instagramPost :: instagram_post}"></div>
 
 <div class="l-navbar" id="navbar">
     <nav class="nav">
         <div>
-
-            <div sec:authorize="isAuthenticated()">
-                <span>login</span>
-                <span sec:authentication="name"></span>님
-            </div>
-            <div sec:authorize="isAuthenticated()">
-                <span>권한</span>
-                <span sec:authorize="hasRole('ROLE_ADMIN')" style="margin-left: 10px;">마스터</span>
-                <span sec:authorize="hasRole('ROLE_ADMINTRAINEE')" style="margin-left: 10px;">관리자</span>
-                <span sec:authorize="hasRole('ROLE_MEMBER')" style="margin-left: 10px;">멤버</span>
-            </div>
+<!--            <div sec:authorize="isAuthenticated()">-->
+<!--                <i class="fa-solid fa-user-large" style="margin-left: 10px;"></i>-->
+<!--                <span sec:authentication="name" style="margin-left: 25px;"></span>님-->
+<!--            </div>-->
+<!--            <div sec:authorize="isAuthenticated()">-->
+<!--                <span>권한</span>-->
+<!--                <span sec:authorize="hasRole('ROLE_ADMIN')" style="margin-left: 45px;">마스터</span>-->
+<!--                <span sec:authorize="hasRole('ROLE_ADMINTRAINEE')" style="margin-left: 45px;">관리자</span>-->
+<!--                <span sec:authorize="hasRole('ROLE_MEMBER')" style="margin-left: 45px;">멤버</span>-->
+<!--            </div>-->
 
             <div class="nav__brand">
                 <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+            </div>
+            <div sec:authorize="isAuthenticated()" style="margin-bottom: 40px;">
+                <i class="fa-solid fa-user-large" style="margin-left: 13px;"></i>
+                <span sec:authentication="name" style="margin-left: 25px;"></span>님
             </div>
             <div class="nav__list">
                 <a href="/" class="nav__link active">
@@ -91,8 +96,12 @@
         </div>
     </nav>
 </div>
-
-<div id="map" style="width: 1800px; height: 1040px; position: relative; z-index: 1;">
+<div class="title" style="margin-bottom: 10px; margin-left: 10px;">
+    <img src="../img/icons/themiso-icon-192x192.png" crossorigin="anonymous" height="30" width="30">
+    <span style="font-weight: 1000; font-size: 20px;">슬기로운 맛집 투어, HashtagMap</span>
+</div>
+<!--<div id="map" style="width: 1800px; height: 1040px; position: relative; z-index: 1;">-->
+<div id="map" style="height: 700px; position: relative; z-index: 1;">
     <div id="searchBar" style="margin-top: 5px;">
         <div class="btn_category_wrap" id="category_wrap">
             <button id="btn_cafe" value="CE7" style="width: 60px; height: 25px; left: 60px; top: 20px; position: relative;">카페</button>
@@ -136,6 +145,7 @@
 <!-- JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/f2a6f35e38.js" crossorigin="anonymous"></script>
 
 <!-- IONICONS -->
 <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
