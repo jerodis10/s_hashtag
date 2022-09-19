@@ -16,12 +16,13 @@ public class PostDto {
     private String instagramPostDocumentId;
     private String postUrl;
     private String imageUrl;
+    private String placeUrl;
 
-//    public PostDto(String instagramPostId, String instagramDocumentId, String instagramPostDocumentId, String postUrlKey, String imageUrl) {
-//        this.instagramPostId = instagramPostId;
-//        this.instagramDocumentId = instagramDocumentId;
-//        this.instagramPostDocumentId = instagramPostDocumentId;
-//        this.postUrl = String.format(POST_URL_FORMAT, postUrlKey);
-//        this.imageUrl = imageUrl;
-//    }
+    public PostDto(String instagramPostId, String instagramDocumentId, String instagramPostDocumentId, String postUrlKey, String imageUrl) {
+        this.instagramPostId = instagramPostId;
+        this.instagramDocumentId = instagramDocumentId;
+        this.instagramPostDocumentId = instagramPostDocumentId;
+        this.postUrl = String.format(POST_URL_FORMAT, postUrlKey);
+        this.imageUrl = imageUrl;
+    }
 }

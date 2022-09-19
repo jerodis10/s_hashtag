@@ -1,5 +1,6 @@
 package com.s_hashtag.instagram.crawler;
 
+import com.s_hashtag.common.domain.instagram.dto.external.PostDtos;
 import com.s_hashtag.instagram.proxy.Proxies;
 import com.s_hashtag.instagram.proxy.Proxy;
 import com.s_hashtag.instagram.util.UserAgentFactory;
@@ -104,6 +105,8 @@ class CrawlerTest {
                 .get();
         String instagramId = RegexPattern.INSTAGRAM_ID.extract(doc.toString());
         String hashtagCount = RegexPattern.HASH_TAG_COUNT.extract(doc.toString());
+        InstaCrawlingResult instaCrawlingResult = new InstaCrawlingResult(doc.toString());
+        PostDtos postDtos = instaCrawlingResult.findPostDtos();
         if(hashtagCount == null) hashtagCount = RegexPattern.POST_COUNT.extract(doc.toString());
 //        String likeCount = RegexPattern.LIKE_COUNT.extract(doc.toString());
 
