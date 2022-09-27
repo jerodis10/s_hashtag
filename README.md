@@ -6,4 +6,4 @@
 
 인스타그램 해시태그 개수 기준 맛집 리스트 제공
 
-<img src="https://user-images.githubusercontent.com/39546083/94138332-ecd8a700-fea2-11ea-9666-926c514ddb8a.gif">
+
