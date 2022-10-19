@@ -16,7 +16,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.io.IOException;
 
 @Slf4j
-//@RequiredArgsConstructor
 public class KakaoRestTemplateApiCaller {
 
     private final RestTemplate restTemplate;
@@ -26,16 +25,6 @@ public class KakaoRestTemplateApiCaller {
         this.restTemplate = restTemplate;
         this.kakaoProperties = kakaoProperties;
     }
-
-//    private final String CATEGORY_URL = "https://dapi.kakao.com/v2/local/search/category";
-//    private final String KEYWORD_URL = "https://dapi.kakao.com/v2/local/search/keyword";
-//    private final String KEY = "af2408226e91805021d1adc7a9d31b36";
-
-//
-//    public KakaoRestTemplateApiCaller(RestTemplate restTemplate, KakaoProperties kakaoProperties) {
-//        this.restTemplate = restTemplate;
-//        this.kakaoProperties = kakaoProperties;
-//    }
 
     public KakaoPlaceDto findPlaceByCategory(String category, Rect rect, int page) {
         UriComponents uri = UriComponentsBuilder.newInstance()
@@ -65,12 +54,10 @@ public class KakaoRestTemplateApiCaller {
     }
 
     public Boolean isLessOrEqualTotalCount(KakaoPlaceDto kakaoPlaceDto) {
-//        int totalCount = kakaoPlaceDto.getTotalCount();
         int totalCount = kakaoPlaceDto.getDocuments().size();
 
         if(totalCount < kakaoProperties.getMaxDocumentCount()) return true;
         else if(totalCount >= kakaoProperties.getMaxDocumentCount()) return false;
         return false;
-//        return (kakaoProperties.getMaxDocumentCount() * kakaoProperties.getMaxPageableCount()) >= totalCount;
     }
 }

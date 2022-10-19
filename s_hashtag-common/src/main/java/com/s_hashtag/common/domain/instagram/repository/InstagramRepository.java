@@ -22,7 +22,4 @@ public interface InstagramRepository {
 
     void instagramPostSave(PostDto postDto);
 
-//    Optional<Member> findById(String id);
-//    Optional<Member> findByName(String name);
-//    List<Member> findAll();
 }

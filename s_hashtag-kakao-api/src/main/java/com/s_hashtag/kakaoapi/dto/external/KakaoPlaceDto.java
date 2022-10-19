@@ -13,20 +13,14 @@ import java.util.List;
  */
 
 @Getter
-//@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
 public class KakaoPlaceDto {
     private Meta meta;
-//    private Document documents;
     private List<Document> documents;
-//    private Integer totalCount;
 
     public int getTotalCount() {
         return this.meta.getTotalCount();
     }
 
-//    public int getPageableCount() {
-//        return this.meta.getPageableCount();
-//    }
 }

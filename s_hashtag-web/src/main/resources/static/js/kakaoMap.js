@@ -100,16 +100,7 @@ kakao.maps.event.addListener(map, 'zoom_changed', function() {
     setTimeout(function(){ bubbleClick() }, 1500);
 });
 
-//var rect_json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741};
-//var rect_json = {"ha": 126.66578831035362, "oa": 126.6751487382762, "pa": 37.52847533960485, "qa": 37.53625487247741}; // 19개 - 인천
-//var rect_json = {"ha": 126.66578831035362, "oa": 126.6751487382762, "pa": 37.52847533960485, "qa": 37.53625487247741}; // 20개 - 인천 FD6
-//var rect_json = {"ha": 126.97895739177251, "oa": 126.97940437779806, "pa": 37.565536149395754, "qa": 37.566816079358794}; // 7개 - 서울시청 FD6
-//var rect_json = {"ha": 126.97895739177251, "oa": 126.98090437779806, "pa": 37.565536149395754, "qa": 37.566816079358794}; // 25개 - 서울시청 FD6
-//var rect_json = {"ha": 126.97143175074082, "oa": 126.97603175074082, "pa": 37.56407463819326, "qa": 37.56907463819326}; // 27개 - 서울시청 FD6
-//var rect_json = {"ha": 126.97603175074082, "oa": 126.98103175074082, "pa": 37.565536149395754, "qa": 37.567216079358794}; // 64개 - 서울시청 FD6
 var rect_json = {"ha": 126.97043548971624, "oa": 126.98724287412578, "pa": 37.56463301059637, "qa": 37.57004199797056}; // 1098개 - 서울시청 FD6
-
-//var param = JSON.stringify(rect_json);
 
 function kakaoMap() {
     $.ajax({
@@ -118,7 +109,6 @@ function kakaoMap() {
        dataType: 'json',
        contentType : "application/json; charset=utf-8",
        data: JSON.stringify(rect_json),
-//       followRedirect: false,
        success:function(data){
                console.log(data);
        },
@@ -128,10 +118,6 @@ function kakaoMap() {
 }
 
 function getHashtagByCategory(map, category) {
-
-//    var rect_json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741,
-//                    "category_list": category};
-//    var param = JSON.stringify(rect_json);
     var json = map.getBounds();
     json["category_list"] = category_list;
     param = JSON.stringify(json);
@@ -220,11 +206,6 @@ function bubbleClick() {
         } else {
             hashtag_name = $target.parent().children()[0].innerText;
         }
-
-//        var json = {"ha": 126.66578831035362, "oa": 126.9951487382762, "pa": 37.40847533960485, "qa": 37.59625487247741,
-//                            "category_list": 'FD6,CE7', "hashtag_name": hashtag_name
-//                            };
-//        var param = JSON.stringify(json);
 
         var json = map.getBounds();
         json["category_list"] = category_list;

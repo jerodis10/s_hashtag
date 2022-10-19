@@ -23,9 +23,6 @@ public class InstagramService {
 
     private final KakaoApiService kakaoApiService;
     private final InstagramSavePlace instagramSavePlace;
-//    private final InstagramCrawler instagramCrawler;
-//    private final InstagramRepository instagramRepository;
-//    private final KakaoRepository kakaoRepository;
 
     @Transactional
     public void saveCrawlingResults(Rect rect) {

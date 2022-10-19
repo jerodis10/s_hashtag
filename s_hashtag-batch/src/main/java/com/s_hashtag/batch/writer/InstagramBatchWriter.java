@@ -28,38 +28,4 @@ public class InstagramBatchWriter implements ItemWriter<CrawlingDto> {
             instagramRepository.instagramSave(crawlingDto, document);
         }
     }
-
-
-//    private final InstagramRepository instagramRepository;
-//    private final InstagramBatchQueryRepository instagramBatchQueryRepository;
-//    private final InstagramPostRepository instagramPostRepository;
-//
-//    @Override
-//    public void write(List<? extends CrawlingResult> items) {
-//        saveCrawlingResult((List<CrawlingResult>) items);
-//    }
-//
-//    public void saveCrawlingResult(List<CrawlingResult> crawlingResults) {
-//        List<InstagramBatchDto> instagramBatchDtos = instagramBatchQueryRepository.findAll();
-//        for (CrawlingResult crawlingResult : crawlingResults) {
-//            Place crawlingPlace = crawlingResult.getPlace();
-//            deleteDuplicateInstagram(instagramBatchDtos, crawlingPlace);
-//
-//            Instagram instagram = instagramRepository.save(crawlingResult.createInstagram());
-//            List<InstagramPost> instagramPosts = crawlingResult.toInstagramPosts(instagram);
-//            instagramPostRepository.saveAll(instagramPosts);
-//        }
-//    }
-//
-//    private void deleteDuplicateInstagram(List<InstagramBatchDto> instagramBatchDtos, Place place) {
-//        instagramBatchDtos.stream()
-//                .filter(instagramBatchDto -> Objects.equals(instagramBatchDto.getPlaceId(), place.getId()))
-//                .findFirst()
-//                .ifPresent(instagramBatchDto -> deleteInstagramAndInstagramPost(instagramBatchDto));
-//    }
-//
-//    private void deleteInstagramAndInstagramPost(InstagramBatchDto instagramBatchDto) {
-//        instagramPostRepository.deleteByInstagramId(instagramBatchDto.getInstagramId());
-//        instagramRepository.deleteById(instagramBatchDto.getInstagramId());
-//    }
 }

@@ -14,7 +14,6 @@ public class HomeController {
         return "home";
     }
 
-//    @CrossOrigin
     @GetMapping("/instagramPost")
     public String instagramPost() {
         return "modal/instagramPost";

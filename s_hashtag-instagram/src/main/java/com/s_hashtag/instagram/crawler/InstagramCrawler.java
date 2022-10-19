@@ -16,17 +16,12 @@ import java.math.BigDecimal;
 @RequiredArgsConstructor
 @Slf4j
 public class InstagramCrawler {
-//    private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/explore/tags/%s/?hl=ko";
-//    private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/explore/tags/%s/?__a=1";
 private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/explore/tags/%s/?__a=1&__d=dis";
 
     private final Crawler crawler;
 
     public CrawlingDto createCrawlingDto(String hashtagName, String body, String kakaoId) {
         try {
-            //        ClassPathResource resource = new ClassPathResource("test.txt");
-            //        body = new String(Files.readAllBytes(Paths.get(resource.getURI())));
-
             InstaCrawlingResult instaCrawlingResult = new InstaCrawlingResult(body);
             String instagramId = instaCrawlingResult.findInstagramId();
             BigDecimal hashTagCount = new BigDecimal(instaCrawlingResult.findHashTagCount());
@@ -59,8 +54,6 @@ private static final String INSTAGRAM_URL_FORMAT = "https://www.instagram.com/ex
             }
 
             return null;
-
-//            throw new CrawlerException(CrawlerExceptionStatus.BOT_DETECTION);
         }
         catch (InterruptedException e) {
             return null;

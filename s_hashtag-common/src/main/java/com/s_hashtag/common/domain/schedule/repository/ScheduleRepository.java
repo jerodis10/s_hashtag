@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface ScheduleRepository {
 
-//    Optional<Schedule> findById(String id);
-
     ScheduleDto findById(String id);
 
     List<ScheduleDto> findAll();

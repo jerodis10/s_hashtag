@@ -19,13 +19,6 @@ public class ApplicationUserService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
 
-//    private final ApplicationUserDao applicationUserDao;
-//
-//    @Autowired
-//    public ApplicationUserService(@Qualifier("fake") ApplicationUserDao applicationUserDao) {
-//        this.applicationUserDao = applicationUserDao;
-//    }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<MemberDto> member = Optional.ofNullable(memberRepository.findById(username)
@@ -39,30 +32,12 @@ public class ApplicationUserService implements UserDetailsService {
 
         return new ApplicationUser(
                 member.get().getLoginId(),
-//                passwordEncoder.encode(member.get().getPassword()),
                 member.get().getPassword(),
                 authority,
-//                (member.get().getRole().equals("ROLE_" + MEMBER.name()) ?
-//                        MEMBER.grantedAuthorities() : ADMIN.grantedAuthorities()),
                 true,
                 true,
                 true,
                 true
         );
-
-//        return ApplicationUser.builder()
-//                .username(member.get().getLoginId())
-//                .password(member.get().getPassword())
-//                .grantedAuthorities(MEMBER.grantedAuthorities())
-//                .isAccountNonExpired(true)
-//                .isAccountNonLocked(true)
-//                .isCredentialsNonExpired(true)
-//                .isEnabled(true)
-//                .build();
-
-
-//        return applicationUserDao.selectApplicationUserByUsername(username)
-//                .orElseThrow(() ->
-//                        new UsernameNotFoundException(String.format("Username %s not found", username)));
     }
 }

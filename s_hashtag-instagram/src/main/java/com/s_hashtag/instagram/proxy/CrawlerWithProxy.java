@@ -27,14 +27,9 @@ public class CrawlerWithProxy {
     public CrawlingDto crawlInstagram(String hashtagNameToCrawl, String kakaoId) {
         try {
             if(isOnline()) return instagramCrawler.crawler(hashtagNameToCrawl, kakaoId);
-//            else return Optional.empty();
-
             return null;
         } catch (CrawlerException crawlerException) {
             log.debug("CrawlerException: {}", crawlerException.getMessage());
-//            if (NOT_FOUND_EXCEPTION_CODE.equals(crawlerException.getErrorCode())) {
-//                return Optional.empty();
-//            }
             throw crawlerException;
         } catch (Exception e) {
             throw e;
@@ -42,7 +37,6 @@ public class CrawlerWithProxy {
     }
 
     public boolean isOnline() {
-//        proxy.setHostAndPort();
         HttpURLConnection httpURLConnection = null;
         try {
             proxySetter.setProxy();
@@ -50,10 +44,7 @@ public class CrawlerWithProxy {
             httpURLConnection.setConnectTimeout(5000);
             httpURLConnection.setReadTimeout(5000);
             httpURLConnection.connect();
-//            boolean isOnline = httpURLConnection.usingProxy();
             httpURLConnection.disconnect();
-//            proxy.clearProperty();
-//            return isOnline;
             return true;
         } catch (MalformedURLException e) {
             log.info("MalformedURLException: {}", e.getMessage());

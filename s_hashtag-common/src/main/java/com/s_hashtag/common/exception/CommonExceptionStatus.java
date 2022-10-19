@@ -9,8 +9,8 @@ public enum CommonExceptionStatus {
     WRONG_ARGUMENT("COMMON_1000", "전달받은 매개변수가 올바르지 않습니다."),
     ALREADY_PERSIST("COMMON_2000", "이미 등록되었습니다."),
     NOT_PERSIST("COMMON_2100", "등록되어있지 않습니다."),
-//    INVALID_LATITUDE("COMMON_3000", "부정확한 위도 값입니다."),
-//    INVALID_LONGITUDE("COMMON_3100", "부정확한 경도 값입니다."),
+    INVALID_LATITUDE("COMMON_3000", "부정확한 위도 값입니다."),
+    INVALID_LONGITUDE("COMMON_3100", "부정확한 경도 값입니다."),
     INVALID_TAG_LEVEL("COMMON_4000", "해시 태그 값이 잘못되었습니다.");
 
     private final String code;

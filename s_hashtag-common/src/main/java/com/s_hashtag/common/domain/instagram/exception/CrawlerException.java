@@ -8,9 +8,3 @@ public class CrawlerException extends HashtagMapException {
         super(crawlerExceptionStatus.getMessage(), crawlerExceptionStatus.getStatusCode());
     }
 }
-//@Getter
-//public class CrawlerException extends RuntimeException {
-//    public CrawlerException(CrawlerExceptionStatus crawlerExceptionStatus) {
-//        super(crawlerExceptionStatus.getMessage());
-//    }
-//}
